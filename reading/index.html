@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
+<title>Reading Comprehension · فهم المقروء</title>
+<meta name="theme-color" content="#fbf8f1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:6px 0 22px}
+.step{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:14px;text-align:center;font-weight:700;font-size:1rem}
+.step span{display:block;font-size:1.8rem}
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:14px 16px;margin-bottom:12px}
+.row .ic{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,var(--b1),var(--b2));display:grid;place-items:center;font-size:2rem}
+.row .ti{font-family:var(--text-ar);font-size:1.5rem;font-weight:700;color:var(--sc);line-height:1.5}
+.row .te{color:var(--muted);font-family:var(--ui-en);font-size:.98rem}
+.row .st{font-size:1.1rem;letter-spacing:2px}
+.row .acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.row .btn{min-height:44px;padding:8px 16px;font-size:.95rem}
+@media (max-width:620px){.row{grid-template-columns:auto 1fr}.row .acts{grid-column:1/-1;justify-content:stretch}.row .acts .btn{flex:1}.steps{gap:8px}.step{font-size:.9rem;padding:10px 6px}}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <div class="ic" aria-hidden="true">🧠</div>
+    <h1><span class="t-en">Reading Comprehension</span><span class="t-ar">فهم المقروء</span></h1>
+    <p><span class="t-en">Read a story, then answer questions about it and put its events in order.</span><span class="t-ar">اقرأ القصة، ثم أجب عن أسئلتها، ورتّب أحداثها.</span></p>
+  </div>
+  <div class="steps reveal">
+    <div class="step"><span aria-hidden="true">📖</span><span class="t-en">1 · Read</span><span class="t-ar">١ · اقرأ</span></div>
+    <div class="step"><span aria-hidden="true">❓</span><span class="t-en">2 · Answer</span><span class="t-ar">٢ · أجب</span></div>
+    <div class="step"><span aria-hidden="true">🔢</span><span class="t-en">3 · Order events</span><span class="t-ar">٣ · رتّب الأحداث</span></div>
+  </div>
+  <div id="list"></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">← Home</span><span class="t-ar">الرئيسية ←</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/site.js"></script>
+<script src="../assets/stories.js"></script>
+<script>
+(function(){
+  var S = Site;
+  document.getElementById('list').innerHTML = STORIES.map(function(s){
+    var n = S.getStars('read-' + s.id);
+    return '<div class="row reveal" style="--sc:' + s.c + ';--b1:' + s.bg[0] + ';--b2:' + s.bg[1] + '">' +
+      '<span class="ic" aria-hidden="true">' + s.cover + '</span>' +
+      '<div><div class="ti">' + s.ar + '</div><div class="te">' + s.en + ' · ' + (s.quiz.length + 1) + ' ' + S.bi('questions', 'أسئلة') + '</div>' +
+      '<div class="st" aria-label="' + n + ' stars">' + '⭐'.repeat(n) + '<span style="opacity:.22">' + '⭐'.repeat(3 - n) + '</span></div></div>' +
+      '<div class="acts"><a class="btn soft" style="color:var(--sc);background:color-mix(in srgb,var(--sc) 10%,white)" href="../stories/read.html?s=' + s.id + '">📖 ' + S.bi('Read', 'اقرأ') + '</a>' +
+      '<a class="btn" style="background:var(--sc)" href="quiz.html?s=' + s.id + '">✅ ' + S.bi('Questions', 'الأسئلة') + '</a></div></div>';
+  }).join('');
+  S.reveal();
+})();
+</script>
+</body>
+</html>
