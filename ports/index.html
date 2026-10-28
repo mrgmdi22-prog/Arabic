@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
+<title>The Harbours Voyage · رحلة المرافئ · مرافئ العربية</title>
+<meta name="theme-color" content="#fbf8f1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.seahead{display:flex;align-items:center;gap:12px;margin:28px 0 12px}
+.seahead .b{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;background:var(--st)}
+.seahead h2{margin:0;font-family:var(--text-ar);font-size:1.6rem;color:var(--sc);line-height:1.4}
+.seahead small{color:var(--muted);font-family:var(--ui-en);font-weight:600}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.pc{display:flex;align-items:center;gap:12px;text-decoration:none;background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:12px 14px;transition:transform .18s var(--ease),border-color .18s}
+.pc:hover{transform:translateY(-3px);border-color:var(--sc)}
+.pc .i{width:50px;height:50px;border-radius:15px;background:var(--st);display:grid;place-items:center;font-size:1.6rem;flex:none}
+.pc .n{font-family:var(--text-ar);font-size:1.3rem;font-weight:700;color:var(--sc);line-height:1.5}
+.pc .e{font-family:var(--ui-en);color:var(--muted);font-size:.92rem}
+.pc .s{margin-inline-start:auto;font-size:.85rem;white-space:nowrap}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <div class="ic" aria-hidden="true">⚓</div>
+    <h1><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></h1>
+    <p><span class="t-en">Sail with the old Arab sailors from harbour to harbour. Each harbour is a short reading lesson with questions.</span><span class="t-ar">أبحر مع البحّارة العرب القدماء من مرفأ إلى مرفأ. كل مرفأ درس قراءة قصير مع أسئلة.</span></p>
+  </div>
+  <div class="mapbox"><div class="mapscroll" id="mapS"><div id="map"></div></div>
+    <div class="maplegend"><span><i style="border-color:#4f9fb3"></i><span class="t-en">Sea lanes</span><span class="t-ar">طرق البحر</span></span><span><i style="border-color:#c0883a"></i><span class="t-en">Incense Road</span><span class="t-ar">درب البخور</span></span></div></div>
+  <p class="maphint"><span class="t-en">Tap a harbour on the map. On a phone, slide the map sideways.</span><span class="t-ar">المس أي مرفأ على الخريطة. على الجوال اسحب الخريطة جانباً.</span></p>
+  <div id="list"></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">← Home</span><span class="t-ar">الرئيسية ←</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/site.js"></script>
+<script src="../assets/ports.js"></script>
+<script src="../assets/land.js"></script>
+<script src="../assets/seamap.js"></script>
+<script>
+(function(){
+  var S = Site;
+  SeaMap.draw(document.getElementById('map'), { root: '../' });
+  var ms = document.getElementById('mapS'); requestAnimationFrame(function(){ ms.scrollLeft = (ms.scrollWidth - ms.clientWidth) * .3; });
+  var order = ['red', 'rum', 'arab', 'gulf', 'ocean', 'legend'];
+  document.getElementById('list').innerHTML = order.map(function(k){
+    var sea = SEAS[k], ps = PORTS.filter(function(p){ return p.sea === k; });
+    return '<section style="--sc:' + sea.c + ';--st:' + sea.t + '"><div class="seahead"><span class="b" aria-hidden="true">' + (k === 'legend' ? '✨' : '🌊') + '</span><div><h2>' + sea.ar + '</h2><small>' + sea.en + '</small></div></div>' +
+      '<div class="pgrid">' + ps.map(function(p){
+        var n = S.getStars('port-' + p.id);
+        return '<a class="pc" href="port.html?p=' + p.id + '"><span class="i" aria-hidden="true">' + p.icon + '</span><span><span class="n">' + S.strip(p.ar) + '</span><br><span class="e">' + S.esc(p.en) + '</span></span>' +
+          '<span class="s">' + (n ? '⭐'.repeat(n) : '') + '</span></a>';
+      }).join('') + '</div></section>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

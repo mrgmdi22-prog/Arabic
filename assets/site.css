@@ -98,3 +98,28 @@ footer.site a{color:var(--indigo);font-weight:700}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{animation:none!important}}
 @media (max-width:430px){.brand .nm{display:none}}
 @media (max-width:560px){body{font-size:19px}.brand .nm{font-size:.95rem}.q-text{font-size:1.45rem}.opt{font-size:1.3rem}}
+
+/* ---------- sea map (مرافئ العربية) ---------- */
+.mapbox{position:relative;border-radius:26px;overflow:hidden;border:1.5px solid #cfe5ec;background:#dcEff5;box-shadow:0 18px 34px -28px rgba(31,111,153,.6)}
+.mapscroll{direction:ltr;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.seamap{display:block;width:100%;min-width:680px;height:auto;font-family:var(--ui-ar);direction:ltr}
+.seamap .land{fill:#f6ecd4}
+.seamap .land-sh{fill:#e2cfa6;transform:translate(2px,3px)}
+.seamap .lane{fill:none;stroke:#4f9fb3;stroke-width:2.4;stroke-dasharray:1 9;stroke-linecap:round;opacity:.9}
+.seamap .incense{fill:none;stroke:#c0883a;stroke-width:3;stroke-dasharray:10 7;stroke-linecap:round;opacity:.85}
+.seamap .inc-l text{fill:#a2650c;font-size:20px;font-weight:800;font-family:var(--text-ar);paint-order:stroke;stroke:#f6ecd4;stroke-width:5px}
+.seamap .sea-l text{fill:#6aa6b8;font-size:22px;font-weight:700;font-family:var(--text-ar)}
+.seamap .sea-l text.en{font-family:var(--ui-en);font-size:14px;font-weight:500;letter-spacing:1px}
+.seamap .china{fill:#4f9fb3;font-size:19px;font-weight:800}
+.seamap .port{cursor:pointer}
+.seamap .port .hit{fill:transparent}
+.seamap .port .ring{fill:#fff;stroke-width:3;transition:r .2s}
+.seamap .port text{font-size:21px;font-weight:800;paint-order:stroke;stroke:#fffaf0;stroke-width:6px;stroke-linejoin:round}
+.seamap .port:hover .ring,.seamap .port:focus .ring{r:15}
+.seamap .port.on .ring{animation:pulse 1.6s ease-in-out infinite}
+.seamap .port.legend .mist{fill:#efe6fb;stroke:#b79be0;stroke-width:2;stroke-dasharray:5 6;opacity:.9}
+.seamap .ship{pointer-events:none}
+@keyframes pulse{0%,100%{stroke-width:3}50%{stroke-width:8}}
+.maplegend{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;padding:10px 14px;background:#fff;border-top:1px solid #d6eaf0;font-size:.92rem;color:var(--muted)}
+.maplegend i{display:inline-block;width:26px;height:0;border-top:3px dashed;vertical-align:middle;margin-inline-end:6px}
+.maphint{font-size:.9rem;color:var(--muted);text-align:center;margin:8px 0 0}

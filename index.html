@@ -12,13 +12,13 @@
 <link rel="stylesheet" href="assets/site.css">
 <style>
 /* Home: a light hero with a slowly turning eight-point star pattern, then four paths and a story of the day. */
-.hero{position:relative;overflow:hidden;border-radius:34px;margin-top:16px;padding:46px 20px 40px;text-align:center;
-  background:linear-gradient(135deg,#e2f4f1 0%,#fbf8f1 50%,#fdf1da 100%);border:1.5px solid #e6e0cf}
-.hero svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero{position:relative;overflow:hidden;border-radius:34px;margin-top:16px;padding:34px 14px 26px;text-align:center;
+  background:linear-gradient(180deg,#e3f3fb 0%,#fbf8f1 70%);border:1.5px solid #d6eaf0}
+.hero > svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .hero .pat{animation:turn 120s linear infinite;transform-origin:50% 50%;transform-box:view-box}
 @keyframes turn{to{transform:rotate(360deg)}}
 .hero > *:not(svg){position:relative}
-.dad{font-family:var(--text-ar);font-size:5rem;line-height:1;color:var(--teal);font-weight:700;display:inline-grid;place-items:center;width:120px;height:120px;border-radius:36px;background:rgba(255,255,255,.85);border:2px solid #bfe3dd;box-shadow:0 18px 30px -22px rgba(15,127,116,.6)}
+.dad{font-family:var(--text-ar);font-size:3.6rem;line-height:1;color:#1f6f99;font-weight:700;display:inline-grid;place-items:center;width:120px;height:120px;border-radius:36px;background:rgba(255,255,255,.85);border:2px solid #bfe3dd;box-shadow:0 18px 30px -22px rgba(15,127,116,.6)}
 .hero h1{margin:16px 0 4px;line-height:1.25;font-weight:800}
 .hero h1 .a{display:block;font-family:var(--text-ar);font-size:clamp(2.4rem,9vw,3.6rem);direction:rtl}
 .hero h1 .e{display:block;font-family:var(--ui-en);font-weight:600;font-size:clamp(1rem,3.5vw,1.3rem);letter-spacing:3px;color:var(--teal);text-transform:uppercase;margin-top:6px}
@@ -26,7 +26,10 @@
 .strip{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:6px 20px;margin-top:18px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:999px;padding:7px 22px;font-size:1rem;color:var(--muted)}
 .strip b{color:var(--ink)}
 
-.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:26px}
+.hero-map{margin:20px auto 0;text-align:initial;max-width:940px}
+.harb-h{text-align:center;font-size:1.5rem;margin:30px 0 0}
+.path.wide{grid-column:1/-1;background:linear-gradient(120deg,#e3f3fb,#fff 70%)}
+.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:14px}
 @media (max-width:640px){.paths{grid-template-columns:1fr}}
 .path{--c:var(--teal);--t:var(--teal-soft);display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:center;text-decoration:none;background:#fff;border:1.5px solid var(--line);border-radius:26px;padding:20px;position:relative;transition:transform .2s var(--ease),border-color .2s,box-shadow .2s}
 .path:hover{transform:translateY(-4px);border-color:var(--c);box-shadow:0 18px 30px -22px rgba(40,50,80,.55)}
@@ -56,41 +59,40 @@
 <header id="topbar"></header>
 <main class="wrap">
   <section class="hero reveal">
-    <svg viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <defs>
-        <pattern id="star" width="90" height="90" patternUnits="userSpaceOnUse">
-          <path d="M45 8 L56 34 L82 45 L56 56 L45 82 L34 56 L8 45 L34 34 Z" fill="none" stroke="rgba(15,127,116,.14)" stroke-width="2"/>
-          <rect x="29" y="29" width="32" height="32" transform="rotate(45 45 45)" fill="none" stroke="rgba(154,100,16,.12)" stroke-width="2"/>
-        </pattern>
-      </defs>
-      <rect class="pat" x="-300" y="-300" width="1600" height="1060" fill="url(#star)"/>
-    </svg>
-    <span class="dad" aria-hidden="true">ض</span>
+    <span class="dad" aria-hidden="true">⚓</span>
     <h1><span class="a">مَرَافِئُ العَرَبِيَّةِ</span><span class="e">Arabic Harbours</span></h1>
-    <p><span class="t-en">Arabic for non-native speakers: classic stories, reading, spelling and grammar, step by step.</span><span class="t-ar">العربية للناطقين بغيرها: قصص تراثية، وقراءة، وإملاء، ونحو، خطوةً خطوةً.</span></p>
-    <div class="strip"><span>📖 <b id="nRead">0</b> <span class="t-en">stories read</span><span class="t-ar">قصص مقروءة</span></span><span>⭐ <b id="nStars">0</b> <span class="t-en">stars</span><span class="t-ar">نجمة</span></span></div>
+    <p><span class="t-en">Arabic travelled the seas with Arab sailors, from harbour to harbour. Sail with them and learn Arabic: stories, reading, spelling and grammar.</span><span class="t-ar">أبحرت العربية مع البحّارة العرب من مرفأ إلى مرفأ. أبحر معهم وتعلّم العربية: حكايات، وقراءة، وإملاء، ونحو.</span></p>
+    <div class="mapbox hero-map"><div class="mapscroll" id="mapS"><div id="map"></div></div>
+      <div class="maplegend"><span><i style="border-color:#4f9fb3"></i><span class="t-en">Sea lanes</span><span class="t-ar">طرق البحر</span></span><span><i style="border-color:#c0883a"></i><span class="t-en">Incense Road</span><span class="t-ar">درب البخور</span></span><span>📍 <span class="t-en">Tap a harbour to visit it</span><span class="t-ar">المس المرفأ لتزوره</span></span></div></div>
+    <div class="strip"><span>⚓ <b id="nPorts">0</b>/<span id="tPorts">0</span> <span class="t-en">harbours</span><span class="t-ar">مرفأ</span></span><span>📖 <b id="nRead">0</b> <span class="t-en">stories read</span><span class="t-ar">قصص مقروءة</span></span><span>⭐ <b id="nStars">0</b> <span class="t-en">stars</span><span class="t-ar">نجمة</span></span></div>
   </section>
 
+  <h2 class="harb-h reveal"><span class="t-en">Learning harbours</span><span class="t-ar">مرافئ التعلّم</span></h2>
   <div class="paths">
+    <a class="path wide reveal" href="ports/index.html" style="--c:#1f6f99;--t:#e3f3fb">
+      <span class="ic" aria-hidden="true">⛵</span>
+      <b><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></b>
+      <p><span class="t-en">21 harbours from Aden to Serendib, Zanzibar and Dina Arobi — each a short reading lesson.</span><span class="t-ar">٢١ مرفأً من عدن إلى سرنديب وزنجبار ودينا عروبي، وكل مرفأ درس قراءة قصير.</span></p>
+    </a>
     <a class="path reveal" href="stories/index.html" style="--c:#a2650c;--t:#fdf1da">
       <span class="ic" aria-hidden="true">📖</span>
-      <b><span class="t-en">Kalila wa Dimna</span><span class="t-ar ar">كليلة ودمنة</span></b>
-      <p><span class="t-en">Six illustrated fables with tappable words, audio and translation.</span><span class="t-ar">ست حكايات مصوّرة: المس الكلمة لمعناها، واستمع، واعرض الترجمة.</span></p>
+      <b><span class="t-en">Harbour of Tales</span><span class="t-ar">مرفأ الحكايات</span></b>
+      <p><span class="t-en">Six Kalila wa Dimna fables with tappable words, audio and translation.</span><span class="t-ar">ست حكايات من كليلة ودمنة: المس الكلمة لمعناها، واستمع، واعرض الترجمة.</span></p>
     </a>
     <a class="path reveal" href="reading/index.html" style="--c:#0f7f74;--t:#e2f4f1">
       <span class="ic" aria-hidden="true">🧠</span>
-      <b><span class="t-en">Reading comprehension</span><span class="t-ar">فهم المقروء</span></b>
-      <p><span class="t-en">Questions, true or false, and putting events in order.</span><span class="t-ar">أسئلة اختيار، وصواب وخطأ، وترتيب الأحداث.</span></p>
+      <b><span class="t-en">Harbour of Understanding</span><span class="t-ar">مرفأ الفهم</span></b>
+      <p><span class="t-en">Reading comprehension: questions, true or false, and events in order.</span><span class="t-ar">فهم المقروء: أسئلة اختيار، وصواب وخطأ، وترتيب الأحداث.</span></p>
     </a>
     <a class="path reveal" href="dictation/index.html" style="--c:#b03a66;--t:#fdecf2">
       <span class="ic" aria-hidden="true">✍️</span>
-      <b><span class="t-en">Dictation</span><span class="t-ar">الإملاء</span></b>
+      <b><span class="t-en">Harbour of Spelling</span><span class="t-ar">مرفأ الإملاء</span></b>
       <p><span class="t-en">Taa, hamza, final alif, sun &amp; moon letters, tanween, and sentence dictation.</span><span class="t-ar">التاء، والهمزة، والألف اللينة، واللام الشمسية والقمرية، والتنوين، وإملاء الجمل.</span></p>
     </a>
     <a class="path reveal" href="irab/index.html" style="--c:#4552c9;--t:#ebedfd">
       <span class="ic" aria-hidden="true">🔬</span>
-      <b><span class="t-en">I‘rab Lab</span><span class="t-ar">مختبر الإعراب</span></b>
-      <p><span class="t-en">Parse a sentence word by word, with a simple grammar tree.</span><span class="t-ar">أعرب الجملة كلمةً كلمةً، مع شجرة نحوية مبسّطة.</span></p>
+      <b><span class="t-en">Harbour of I‘rab</span><span class="t-ar">مرفأ الإعراب</span></b>
+      <p><span class="t-en">The I‘rab Lab: parse a sentence word by word, with a grammar tree.</span><span class="t-ar">مختبر الإعراب: أعرب الجملة كلمةً كلمةً، مع شجرة نحوية.</span></p>
     </a>
   </div>
 
@@ -108,6 +110,9 @@
 <script src="assets/site.js"></script>
 <script src="assets/stories.js"></script>
 <script src="assets/dictation.js"></script>
+<script src="assets/ports.js"></script>
+<script src="assets/land.js"></script>
+<script src="assets/seamap.js"></script>
 <script>
 (function(){
   var S = Site;
@@ -115,6 +120,10 @@
   var read = 0, stars = 0;
   STORIES.forEach(function(s){ try { if (localStorage.getItem('ar-read-' + s.id)) read++; } catch(e) {} stars += S.getStars('read-' + s.id); });
   DICTATION.forEach(function(u){ ['choose', 'gap', 'listen'].forEach(function(m){ stars += S.getStars('dict-' + u.id + '-' + m); }); });
+  var visited = 0; PORTS.forEach(function(p){ stars += S.getStars('port-' + p.id); try { if (localStorage.getItem('ar-port-' + p.id)) visited++; } catch(e) {} });
+  document.getElementById('nPorts').textContent = visited; document.getElementById('tPorts').textContent = PORTS.length;
+  SeaMap.draw(document.getElementById('map'), { root: '' });
+  var ms = document.getElementById('mapS'); requestAnimationFrame(function(){ ms.scrollLeft = (ms.scrollWidth - ms.clientWidth) * .3; });
   document.getElementById('nRead').textContent = read;
   document.getElementById('nStars').textContent = stars;
 
