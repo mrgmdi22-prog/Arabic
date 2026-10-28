@@ -22,11 +22,12 @@
   var plain = function (s) { return String(s).replace(/[ً-ْٰ]/g, '').replace(/\s*\(.*\)/, ''); };
   var VIEWS = {
     all: null,
+    med: [18.6, 41.2, 36.8, 29.2],
     red: [31.5, 31.2, 46.5, 11.0],
     gulf: [44.8, 31.2, 60.5, 21.5],
     africa: [36.0, 0.5, 61.0, -23.0]
   };
-  var VIEW_NAMES = [['all', 'Whole map', 'الخريطة كاملة'], ['red', 'Red Sea', 'البحر الأحمر'], ['gulf', 'Arabian Gulf', 'الخليج العربي'], ['africa', 'East Africa', 'شرق أفريقيا']];
+  var VIEW_NAMES = [['all', 'Whole map', 'الخريطة كاملة'], ['med', 'Mediterranean', 'بحر الروم'], ['red', 'Red Sea', 'البحر الأحمر'], ['gulf', 'Arabian Gulf', 'الخليج العربي'], ['africa', 'East Africa', 'شرق أفريقيا']];
 
   function ship(lane, dur, begin, u) {
     return '<g class="ship"><g transform="scale(' + f(u) + ') translate(-15 -22)"><path d="M2 21h27l-4 6H6z"/><path d="M15 21V3"/><path class="sail" d="M15 4c6 4 10 9 11 15H15z"/><path class="sail" d="M15 8l-7 11h7z"/></g>' +
@@ -47,7 +48,7 @@
     var lanes = window.ROUTES.map(function (r, i) { return '<path id="lane' + i + '" class="lane" d="' + smooth(r) + '"/>'; }).join('');
     var seaLbl = [
       ['البحر الأحمر', 'Red Sea', 38.25, 21.7, 60, 'big'], ['بحر العرب', 'Arabian Sea', 63, 16, 0, 'big'], ['الخليج العربي', 'Arabian Gulf', 51.75, 26.9, 20, 'gulf'],
-      ['المحيط الهندي', 'Indian Ocean', 70, -8, 0, 'big'], ['بحر الروم', 'Mediterranean', 26, 34.3, 0, 'big']
+      ['المحيط الهندي', 'Indian Ocean', 70, -8, 0, 'big'], ['بحر الروم', 'Mediterranean', 31.6, 33.5, 0, 'big']
     ].filter(function (s) { return !(hl && s[5] === 'gulf'); }).map(function (s) {
       var p = xy(s[2], s[3]);
       return '<g class="sea-l ' + s[5] + '" transform="translate(' + f(p[0]) + ' ' + f(p[1]) + ') rotate(' + s[4] + ')"><text text-anchor="middle" dominant-baseline="central">' + s[0] + '</text>' +
@@ -64,7 +65,7 @@
         '<circle class="dot" cx="' + f(q[0]) + '" cy="' + f(q[1]) + '" r="' + f((on ? 7.5 : 5.5) * u) + '" style="fill:' + c + '"/>' +
         '<text x="' + f(q[0] + tx) + '" y="' + f(q[1] + 6.5 * u + dy) + '" text-anchor="' + anchor + '" style="fill:' + c + '">' + plain(p.ar) + '</text></a>';
     }).join('');
-    var incLbl = xy(46.6, 17.6), china = xy(90.5, 7.6);
+    var incLbl = xy(46.6, 17.6), china = xy(90.5, 7.6), greece = xy(23.2, 38.35), rome = xy(19.4, 35.25);
     el.innerHTML =
       '<svg class="seamap' + (v ? ' zoomed' : '') + '" viewBox="' + vb.map(f).join(' ') + '" style="--u:' + u.toFixed(3) + (v ? ';height:' + Math.round(Math.min(boxH, vb[3] / u)) + 'px' : '') + '" role="img" aria-label="خريطة مرافئ العربية">' +
       '<defs><linearGradient id="seaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDEFF7"/><stop offset="1" stop-color="#C6E1EE"/></linearGradient>' +
@@ -75,7 +76,9 @@
       '<path class="incense" d="' + smooth(window.INCENSE) + '"/>' +
       '<g class="inc-l" transform="translate(' + f(incLbl[0]) + ' ' + f(incLbl[1]) + ') rotate(-38)"><text text-anchor="middle">دَرْبُ البَخُورِ</text></g>' +
       '<text class="china" x="' + f(china[0] - 6 * u) + '" y="' + f(china[1]) + '" text-anchor="end">← إلى الصين</text>' +
-      ship('lane4', 40, 0, u) + ship('lane5', 48, -14, u) +
+      '<text class="china" x="' + f(greece[0]) + '" y="' + f(greece[1]) + '" text-anchor="middle">إلى اليونان</text>' +
+      '<text class="china" x="' + f(rome[0]) + '" y="' + f(rome[1]) + '" text-anchor="start">← إلى روما</text>' +
+      ship('lane4', 40, 0, u) + ship('lane5', 48, -14, u) + ship('lane6', 26, -5, u) + ship('lane7', 30, -19, u) +
       ports + '</svg>';
   }
 
