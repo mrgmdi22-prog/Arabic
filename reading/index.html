@@ -17,6 +17,8 @@
 .row .art{width:62px;height:70px;border-radius:31px 31px 6px 6px;background:linear-gradient(180deg,var(--b1),var(--b2));display:grid;place-items:center;font-size:1.9rem;border:1.5px solid var(--line)}
 .row .ti{font-family:var(--text-ar);font-size:1.6rem;font-weight:700;color:var(--sc);line-height:1.5}
 .row .te{color:var(--muted);font-family:var(--en-serif);font-style:italic;font-size:1rem}
+.colh{font-size:1.4rem;margin:26px 0 10px}
+.row .art .ic-svg{width:34px;height:34px}
 .row .acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .row .btn{min-height:46px;padding:8px 16px;font-size:.98rem}
 @media (max-width:620px){.row{grid-template-columns:auto 1fr}.row .acts{grid-column:1/-1}.row .acts .btn{flex:1}}
@@ -40,10 +42,12 @@
 <script>
 (function(){
   var S = Site;
+  var lastCol = '';
   document.getElementById('list').innerHTML = STORIES.map(function(s){
+    var h = s.col !== lastCol ? '<h2 class="colh"><span class="t-en">' + COLLECTIONS[s.col].en + '</span><span class="t-ar">' + S.strip(COLLECTIONS[s.col].ar) + '</span></h2>' : ''; lastCol = s.col;
     var n = S.getStars('read-' + s.id);
-    return '<div class="row" style="--sc:' + s.c + ';--b1:' + s.bg[0] + ';--b2:' + s.bg[1] + '">' +
-      '<span class="art" aria-hidden="true">' + s.cover + '</span>' +
+    return h + '<div class="row" style="--sc:' + s.c + ';--b1:' + s.bg[0] + ';--b2:' + s.bg[1] + '">' +
+      '<span class="art" aria-hidden="true" style="color:' + s.c + '">' + (s.icon ? S.icon(s.icon) : s.cover) + '</span>' +
       '<div><div class="ti">' + s.ar + '</div><div class="te">' + s.en + '</div>' + (n ? S.stars(n) : '') + '</div>' +
       '<div class="acts"><a class="btn ghost" href="../stories/read.html?s=' + s.id + '">' + S.icon('book') + S.bi('Read', 'اقرأ') + '</a>' +
       '<a class="btn" style="background:var(--sc)" href="quiz.html?s=' + s.id + '">' + S.icon('lamp') + S.bi('Questions', 'الأسئلة') + '</a></div></div>';

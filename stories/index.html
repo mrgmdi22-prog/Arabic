@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
-<title>Kalila wa Dimna · حكايات كليلة ودمنة · مرافئ العربية</title>
+<title>Harbour of Tales · مرفأ الحكايات · مرافئ العربية</title>
 <meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
@@ -18,7 +18,11 @@
 .cover .spine{height:12px;background:var(--sadu) repeat-x;background-size:28px 12px}
 .cover .art{margin:12px 12px 0;height:140px;background:linear-gradient(180deg,var(--b1),var(--b2));display:grid;place-items:center;position:relative;outline:1.5px solid var(--line)}
 .cover .art::before{content:"";position:absolute;inset:6px;border:2px solid rgba(255,255,255,.85)}
-.cover .art span{font-size:3.3rem;letter-spacing:8px}
+.cover .art span{font-size:3.3rem;letter-spacing:8px;color:var(--sc)}
+.cover .art .ic-svg{width:76px;height:76px;stroke-width:1.4}
+.colhead{display:flex;align-items:center;gap:14px;margin:34px 0 14px}
+.colhead h2{margin:0;font-size:1.55rem}
+.colhead .sadu{flex:1;height:10px;background-size:23px 10px;opacity:.8}
 .cover .lv{position:absolute;top:10px;inset-inline-start:12px;background:var(--card);color:var(--sc);font-family:var(--kufi);font-size:.85rem;border-radius:4px;padding:0 10px}
 .cover .info{padding:12px 16px 16px}
 .cover .ti{font-family:var(--text-ar);font-size:1.8rem;font-weight:700;color:var(--sc);direction:rtl;line-height:1.55}
@@ -31,7 +35,7 @@
 <main class="wrap">
   <div class="phead">
     <i data-ic="book"></i>
-    <h1><span class="t-en">Kalila wa Dimna</span><span class="t-ar">حكايات كليلة ودمنة</span></h1>
+    <h1><span class="t-en">Harbour of Tales</span><span class="t-ar">مرفأ الحكايات</span></h1>
     <p><span class="t-en">Classic animal fables retold in simple Arabic. Tap a coloured word to see its meaning.</span><span class="t-ar">حكايات الحيوان الشهيرة بعربية مبسّطة. المس الكلمة الملوّنة لترى معناها.</span></p>
   </div>
   <p class="intro"><span class="t-en"><b>Kalila wa Dimna</b> is a famous book of fables. Ibn al-Muqaffa’ brought it into Arabic about 1,250 years ago. In it, the wise Bidpai tells King Dabshalim stories in which animals speak and teach lessons about life.</span><span class="t-ar"><b>كليلة ودمنة</b> كتاب حكايات مشهور، نقله ابن المقفع إلى العربية قبل نحو ألف ومئتين وخمسين سنة. يروي فيه الحكيم بيدبا للملك دبشليم قصصاً تتكلم فيها الحيوانات وتعلّمنا دروساً في الحياة.</span></p>
@@ -44,13 +48,17 @@
 <script>
 (function(){
   var S = Site;
-  document.getElementById('shelf').innerHTML = STORIES.map(function(s){
-    var n = S.getStars('read-' + s.id), read = false; try { read = !!localStorage.getItem('ar-read-' + s.id); } catch(e) {}
-    return '<a class="cover" href="read.html?s=' + s.id + '" style="--sc:' + s.c + ';--b1:' + s.bg[0] + ';--b2:' + s.bg[1] + '">' +
-      '<div class="spine" aria-hidden="true"></div>' +
-      '<div class="art"><span aria-hidden="true">' + s.cover + s.partner + '</span><b class="lv">' + S.bi('Level ' + s.level, 'المستوى ' + s.level) + '</b></div>' +
-      '<div class="info"><div class="ti">' + s.ar + '</div><div class="te">' + s.en + '</div>' +
-      '<div class="mo"><span>' + S.esc(s.moral.en) + '</span>' + (n ? S.stars(n) : read ? S.icon('check') : '') + '</div></div></a>';
+  document.getElementById('shelf').outerHTML = Object.keys(COLLECTIONS).map(function(k){
+    var c = COLLECTIONS[k];
+    return '<div class="colhead"><h2><span class="t-en">' + c.en + '</span><span class="t-ar">' + S.strip(c.ar) + '</span></h2><span class="sadu" aria-hidden="true"></span></div><div class="shelf">' +
+      STORIES.filter(function(s){ return s.col === k; }).map(function(s){
+        var n = S.getStars('read-' + s.id), read = false; try { read = !!localStorage.getItem('ar-read-' + s.id); } catch(e) {}
+        return '<a class="cover" href="read.html?s=' + s.id + '" style="--sc:' + s.c + ';--b1:' + s.bg[0] + ';--b2:' + s.bg[1] + '">' +
+          '<div class="spine" aria-hidden="true"></div>' +
+          '<div class="art"><span aria-hidden="true">' + (s.icon ? S.icon(s.icon) : s.cover + s.partner) + '</span><b class="lv">' + S.bi('Level ' + s.level, 'المستوى ' + s.level) + '</b></div>' +
+          '<div class="info"><div class="ti">' + s.ar + '</div><div class="te">' + s.en + '</div>' +
+          '<div class="mo"><span>' + S.esc(s.moral.en) + '</span>' + (n ? S.stars(n) : read ? S.icon('check') : '') + '</div></div></a>';
+      }).join('') + '</div>';
   }).join('');
 })();
 </script>

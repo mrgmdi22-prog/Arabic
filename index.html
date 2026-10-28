@@ -42,6 +42,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
 .leaf{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;margin-top:16px;text-decoration:none;background:var(--card);
   border:1.5px solid var(--line);border-radius:6px;padding:18px 20px;outline:1.5px solid var(--line);outline-offset:-8px}
 .leaf .art{font-size:2.6rem;letter-spacing:4px}
+.leaf .art .ic-svg{width:56px;height:56px;stroke-width:1.5}
 .leaf small{display:block;color:var(--sand);font-family:var(--kufi);font-weight:600;font-size:.95rem}
 .leaf .ti{font-family:var(--text-ar);font-size:1.75rem;font-weight:700;line-height:1.5}
 .leaf .te{color:var(--muted);font-family:var(--en-serif);font-style:italic}
@@ -86,7 +87,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
     <a class="house" href="stories/index.html" style="--c:#A26F1C;--t:#FBEFD8">
       <span class="niche"><i data-ic="book"></i></span>
       <b><span class="t-en">Harbour of Tales</span><span class="t-ar">مرفأ الحكايات</span></b>
-      <p><span class="t-en">Six fables from Kalila wa Dimna, with word meanings and translation.</span><span class="t-ar">ست حكايات من كليلة ودمنة، مع معاني الكلمات والترجمة.</span></p>
+      <p><span class="t-en">Kalila wa Dimna, One Thousand and One Nights, and world stories, with word meanings and translation.</span><span class="t-ar">كليلة ودمنة، وألف ليلة وليلة، وقصص من الأدب العالمي، مع معاني الكلمات والترجمة.</span></p>
     </a>
     <a class="house" href="reading/index.html" style="--c:#2C7A6E;--t:#E2F0EB">
       <span class="niche"><i data-ic="lamp"></i></span>
@@ -137,7 +138,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
   var d = new Date(), st = STORIES[(d.getFullYear() * 400 + d.getMonth() * 31 + d.getDate()) % STORIES.length];
   var t = document.getElementById('today');
   t.href = 'stories/read.html?s=' + st.id;
-  t.innerHTML = '<span class="art" aria-hidden="true">' + st.cover + st.partner + '</span>' +
+  t.innerHTML = '<span class="art" aria-hidden="true" style="color:' + st.c + '">' + (st.icon ? S.icon(st.icon) : st.cover + st.partner) + '</span>' +
     '<span><small>' + S.bi('Story of the day', 'حكاية اليوم') + '</small><span class="ti">' + st.ar + '</span><br><span class="te">' + st.en + '</span></span>' +
     '<span class="btn">' + S.bi('Read it', 'اقرأها') + '</span>';
 })();

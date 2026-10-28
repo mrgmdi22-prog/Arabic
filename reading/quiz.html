@@ -61,7 +61,7 @@ html[data-lang="ar"] .qen{display:none}
   }
 
   function head(){
-    return '<div class="qhead"><span class="ic" aria-hidden="true">' + st.cover + '</span><div><h1>' + st.ar + '</h1>' +
+    return '<div class="qhead"><span class="ic" aria-hidden="true" style="color:var(--sc)">' + (st.icon ? S.icon(st.icon) : st.cover) + '</span><div><h1>' + st.ar + '</h1>' +
       '<p>' + S.bi('Reading comprehension · ' + st.en, 'فهم المقروء') + '</p></div></div>';
   }
   function peek(){

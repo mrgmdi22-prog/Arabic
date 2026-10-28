@@ -22,7 +22,8 @@
 .mini-art{position:relative;height:180px;display:grid;place-items:center;border-radius:3px;border:none;
   background:linear-gradient(180deg,var(--b1),var(--b2));outline:1.5px solid var(--line)}
 .mini-art::before{content:"";position:absolute;inset:0;border:2px solid rgba(255,255,255,.8);margin:6px;pointer-events:none}
-.mini-art .scene{font-size:4rem;letter-spacing:10px;line-height:1;direction:ltr}
+.mini-art .scene{font-size:4rem;letter-spacing:10px;line-height:1;direction:ltr;color:var(--sc)}
+.mini-art .big-ic{width:104px;height:104px;stroke-width:1.3}
 .pg-no{position:absolute;top:10px;inset-inline-start:12px;background:var(--card);border-radius:4px;padding:0 10px;font-family:var(--kufi);font-size:.95rem;color:var(--sc)}
 .sadu-edge{height:12px;background:var(--sadu) repeat-x;background-size:28px 12px;margin:0 0 6px}
 .text{padding:18px 14px 6px}
@@ -84,7 +85,7 @@
     var sc = document.getElementById('scene');
     if (page < N) {
       var p = st.pages[page];
-      sc.textContent = p.e;
+      sc.innerHTML = p.e ? S.esc(p.e) : S.icon(st.icon, 'big-ic');
       document.getElementById('pgNo').innerHTML = '<bdi dir="ltr">' + (page + 1) + ' / ' + N + '</bdi>';
       body.innerHTML =
         '<div class="text"><p class="para">' + render(p.ar) + '</p>' +
@@ -102,7 +103,7 @@
       document.getElementById('bPrev').onclick = function(){ if (page > 0) { page--; showPage(); } };
       document.getElementById('bNext').onclick = function(){ page++; showPage(); };
     } else {
-      sc.textContent = st.cover + ' ' + st.partner;
+      sc.innerHTML = (st.icon ? S.icon(st.icon, 'big-ic') : S.esc(st.cover + st.partner));
       document.getElementById('pgNo').textContent = S.t('The end', 'تمّت');
       body.innerHTML =
         '<div class="end">' +
@@ -113,7 +114,7 @@
             '<a class="btn" style="background:var(--sc)" href="../reading/quiz.html?s=' + st.id + '">' + S.icon('lamp') + S.bi('Check your understanding', 'اختبر فهمك') + '</a>' +
             '<button class="btn ghost" type="button" id="bAgain">' + S.icon('redo') + S.bi('Read again', 'اقرأ مرة أخرى') + '</button>' +
           '</div>' +
-          '<p class="notice">' + S.bi('Retold in simple Arabic from Kalila wa Dimna (Ibn al-Muqaffa’).', 'بتصرّف مبسّط عن كتاب كليلة ودمنة لابن المقفع.') + '</p>' +
+          '<p class="notice">' + S.bi(COLLECTIONS[st.col].note.en, COLLECTIONS[st.col].note.ar) + '</p>' +
         '</div>';
       document.getElementById('bAgain').onclick = function(){ page = 0; showPage(); };
       try { localStorage.setItem('ar-read-' + st.id, '1'); } catch(e) {}
