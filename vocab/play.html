@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
+<title>مرفأ المفردات · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* Vocabulary games: flashcards, choose the meaning, memory match, build the word. */
+.vhead{display:flex;align-items:center;gap:14px;margin-top:22px}
+.vhead .niche{--c:var(--uc);--t:var(--ut)}
+.vhead h1{margin:0;font-family:var(--text-ar);font-size:1.9rem;line-height:1.4;color:var(--uc);direction:rtl}
+.vhead p{margin:0;color:var(--muted);font-family:var(--en-serif);font-style:italic}
+html[data-lang="en"] .vhead h1{display:block}
+.games{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.games a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;border:1.5px solid var(--line);background:var(--card);border-radius:6px;padding:6px 12px;font-family:var(--kufi);font-size:.95rem}
+.games a.on{background:var(--uc);border-color:var(--uc);color:#fff}
+.panel{--c:var(--uc)}
+/* flashcard */
+.flip{perspective:1200px;margin:6px auto 0;max-width:460px}
+.flip .inner{position:relative;height:250px;transition:transform .5s var(--ease);transform-style:preserve-3d;cursor:pointer}
+.flip.on .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:8px;border:2px solid color-mix(in srgb,var(--uc) 35%,white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px;text-align:center;background:var(--card)}
+.face::before{content:"";position:absolute;inset:6px;border:1.5px dashed color-mix(in srgb,var(--uc) 30%,white);border-radius:5px;pointer-events:none}
+.face.back{transform:rotateY(180deg);background:var(--ut)}
+.face .w{font-family:var(--text-ar);font-size:clamp(2.6rem,10vw,3.4rem);line-height:1.5;color:var(--uc);direction:rtl}
+.face .tr{font-family:var(--en-serif);font-style:italic;color:var(--muted);font-size:1.15rem}
+.face .m{font-family:var(--en-serif);font-size:1.7rem;color:var(--ink)}
+.face small{font-family:var(--kufi);color:var(--muted);font-size:.85rem}
+/* memory */
+.mem{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.mem{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.mc{min-height:92px;border:2px solid var(--line);border-radius:8px;background:repeating-linear-gradient(45deg,var(--ut) 0 10px,#fff 10px 20px);cursor:pointer;display:grid;place-items:center;padding:6px;font-size:1rem}
+.mc span{visibility:hidden}
+.mc.up{background:var(--card);border-color:var(--uc)}
+.mc.up span{visibility:visible}
+.mc.done{background:var(--green-soft);border-color:var(--green);cursor:default}
+.mc .ar{font-family:var(--text-ar);font-size:1.5rem;line-height:1.5}
+.mc .en{font-family:var(--en-serif);font-size:1.02rem}
+/* letters */
+.slots{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;direction:rtl;margin:12px 0;min-height:64px}
+.slot{width:54px;height:62px;border-bottom:3px solid var(--uc);display:grid;place-items:center;font-family:var(--text-ar);font-size:2rem;cursor:pointer}
+.tiles{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;direction:rtl}
+.tile{width:56px;height:60px;border:2px solid var(--line);border-radius:8px;background:#FFFDF9;font-family:var(--text-ar);font-size:1.9rem;cursor:pointer}
+.tile:disabled{opacity:.25;cursor:default}
+.mean{text-align:center;font-family:var(--en-serif);font-size:1.4rem;font-style:italic;direction:ltr}
+.mean small{display:block;font-size:1rem;color:var(--muted)}
+.dirsw{display:flex;justify-content:center;gap:8px;margin-bottom:10px}
+.opt.en-opt{text-align:center;font-family:var(--en-serif);direction:ltr;font-size:1.3rem}
+.opts.ar-opts .opt{text-align:center}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap" id="app"></main>
+<div class="wrap" style="padding-bottom:30px"><footer id="sitefoot"></footer></div>
+<script src="../assets/site.js"></script>
+<script src="../assets/vocab.js"></script>
+<script>
+(function(){
+  var S = Site, P = new URLSearchParams(location.search);
+  var T = THEMES.filter(function(t){ return t.id === P.get('t'); })[0] || THEMES[0];
+  var G = P.get('g') || 'cards'; if (['cards', 'choose', 'memory', 'letters'].indexOf(G) < 0) G = 'cards';
+  var app = document.getElementById('app');
+  app.style.setProperty('--uc', T.c); app.style.setProperty('--ut', T.t);
+  var GAMES = { cards: ['Flashcards', 'البطاقات', 'cards'], choose: ['Choose the meaning', 'اختر المعنى', 'eye'], memory: ['Memory match', 'لعبة الذاكرة', 'puzzle'], letters: ['Build the word', 'رتّب الحروف', 'qalam'] };
+  document.title = S.strip(T.ar) + ' · ' + GAMES[G][1] + ' · مرافئ العربية';
+
+  function head(){
+    return '<div class="vhead"><span class="niche">' + S.icon(T.icon) + '</span><div><h1>' + T.ar + '</h1><p>' + S.esc(T.en) + ' · ' + T.words.length + ' ' + S.bi('words', 'كلمة') + '</p></div></div>' +
+      '<div class="games">' + Object.keys(GAMES).map(function(g){ return '<a href="play.html?t=' + T.id + '&g=' + g + '" class="' + (g === G ? 'on' : '') + '">' + S.icon(GAMES[g][2]) + S.bi(GAMES[g][0], GAMES[g][1]) + '</a>'; }).join('') + '</div>';
+  }
+  function back(){ return '<div style="text-align:center"><a class="crumb" href="index.html">' + S.icon('book') + S.bi('All word themes', 'كل موضوعات المفردات') + '</a></div>'; }
+  function endPanel(score, total, again){
+    var st = S.starsFor(score, total); S.saveStars('voc-' + T.id + '-' + G, st);
+    app.innerHTML = head() + '<div class="panel score">' + S.stars(st) + '<div class="big" style="color:var(--uc)">' + score + ' / ' + total + '</div>' +
+      '<div class="btn-row"><button class="btn" style="background:var(--uc)" type="button" id="bAgain">' + S.icon('redo') + S.bi('Play again', 'العب مرة أخرى') + '</button>' +
+      '<a class="btn ghost" href="dictionary.html?t=' + T.id + '">' + S.icon('search') + S.bi('Open the dictionary', 'افتح المعجم') + '</a></div></div>' + back();
+    document.getElementById('bAgain').onclick = again;
+  }
+
+  // ---------- flashcards ----------
+  function cards(){
+    var deck = S.shuffle(T.words), i = 0, known = 0, again = [];
+    function draw(){
+      if (i >= deck.length) {
+        if (again.length) { deck = S.shuffle(again); again = []; i = 0; }
+        else return endPanel(known, T.words.length, cards);
+      }
+      var w = deck[i];
+      app.innerHTML = head() + '<div class="panel"><div class="q-meta"><span>' + (i + 1) + ' / ' + deck.length + '</span><span>' + S.icon('check') + ' ' + known + '</span></div>' +
+        '<div class="q-progress"><i style="width:' + (i / deck.length * 100) + '%"></i></div>' +
+        '<div class="flip" id="flip"><div class="inner">' +
+          '<div class="face"><div class="w">' + w.a + '</div><div class="tr">' + S.esc(w.t) + '</div><small>' + S.bi('Tap to see the meaning', 'المس البطاقة لترى المعنى') + '</small></div>' +
+          '<div class="face back"><div class="w">' + w.a + '</div><div class="m">' + S.esc(w.e) + '</div></div>' +
+        '</div></div>' +
+        '<div class="btn-row"><button class="btn ghost" type="button" id="bAgainW">' + S.icon('redo') + S.bi('Review again', 'أراجعها') + '</button>' +
+        '<button class="btn" style="background:var(--uc)" type="button" id="bKnow">' + S.icon('check') + S.bi('I know it', 'أعرفها') + '</button></div></div>' + back();
+      var f = document.getElementById('flip'); f.onclick = function(){ f.classList.toggle('on'); };
+      document.getElementById('bKnow').onclick = function(){ known++; i++; draw(); };
+      document.getElementById('bAgainW').onclick = function(){ again.push(w); i++; draw(); };
+    }
+    draw();
+  }
+
+  // ---------- choose the meaning ----------
+  function choose(){
+    var dir = 'ar', qs = S.shuffle(T.words).slice(0, 10), i = 0, score = 0;
+    function draw(){
+      if (i >= qs.length) return endPanel(score, qs.length, choose);
+      var w = qs[i], others = S.shuffle(T.words.filter(function(x){ return x !== w; })).slice(0, 3), opts = S.shuffle([w].concat(others));
+      var q = dir === 'ar' ? '<p class="q-text" style="text-align:center;font-size:2.4rem">' + w.a + '</p><p class="mean"><small>' + S.esc(w.t) + '</small></p>'
+                           : '<p class="mean" style="font-size:1.8rem">“' + S.esc(w.e) + '”</p>';
+      app.innerHTML = head() + '<div class="panel"><div class="dirsw"><button class="tool" type="button" id="dAr" aria-pressed="' + (dir === 'ar') + '">' + S.bi('Arabic → English', 'من العربية') + '</button><button class="tool" type="button" id="dEn" aria-pressed="' + (dir === 'en') + '">' + S.bi('English → Arabic', 'إلى العربية') + '</button></div>' +
+        '<div class="q-meta"><span>' + (i + 1) + ' / ' + qs.length + '</span><span>' + S.icon('check') + ' ' + score + '</span></div><div class="q-progress"><i style="width:' + (i / qs.length * 100) + '%"></i></div>' + q +
+        '<div class="opts' + (dir === 'en' ? ' ar-opts' : '') + '">' + opts.map(function(o){ return '<button class="opt' + (dir === 'ar' ? ' en-opt' : '') + '" type="button" data-ok="' + (o === w ? 1 : 0) + '">' + (dir === 'ar' ? S.esc(o.e) : o.a) + '</button>'; }).join('') + '</div>' +
+        '<div class="feedback" id="fb"></div><div class="btn-row" id="nx" style="display:none"><button class="btn" style="background:var(--uc)" type="button" id="bNext">' + S.bi('Next', 'التالي') + S.icon('next') + '</button></div></div>' + back();
+      document.getElementById('dAr').onclick = function(){ dir = 'ar'; draw(); };
+      document.getElementById('dEn').onclick = function(){ dir = 'en'; draw(); };
+      var bs = app.querySelectorAll('.opt');
+      bs.forEach(function(b){ b.onclick = function(){
+        var ok = b.dataset.ok === '1';
+        bs.forEach(function(x){ x.disabled = true; if (x.dataset.ok === '1') x.classList.add('ok'); });
+        if (!ok) b.classList.add('no'); else score++;
+        var fb = document.getElementById('fb'); fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
+        fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ') + ' <span class="ar">' + w.a + '</span> = ' + S.esc(w.e);
+        document.getElementById('nx').style.display = ''; document.getElementById('bNext').onclick = function(){ i++; draw(); };
+      }; });
+    }
+    draw();
+  }
+
+  // ---------- memory match ----------
+  function memory(){
+    var pick = S.shuffle(T.words).slice(0, 6), cardsArr = [], moves = 0, found = 0, open = [];
+    pick.forEach(function(w, k){ cardsArr.push({ k: k, html: '<span class="ar">' + w.a + '</span>' }); cardsArr.push({ k: k, html: '<span class="en">' + S.esc(w.e) + '</span>' }); });
+    cardsArr = S.shuffle(cardsArr);
+    app.innerHTML = head() + '<div class="panel"><p class="q-hint" style="text-align:center">' + S.bi('Turn two cards: find each Arabic word and its meaning.', 'اقلب بطاقتين: طابق كل كلمة عربية مع معناها.') + '</p>' +
+      '<div class="q-meta"><span id="mv">' + S.bi('Moves', 'المحاولات') + ': 0</span><span id="fd">0 / 6</span></div>' +
+      '<div class="mem">' + cardsArr.map(function(c, i){ return '<button class="mc" type="button" data-i="' + i + '">' + c.html + '</button>'; }).join('') + '</div></div>' + back();
+    var els = app.querySelectorAll('.mc');
+    els.forEach(function(b){ b.onclick = function(){
+      if (b.classList.contains('up') || b.classList.contains('done') || open.length === 2) return;
+      b.classList.add('up'); open.push(b);
+      if (open.length === 2) {
+        moves++; document.getElementById('mv').innerHTML = S.bi('Moves', 'المحاولات') + ': ' + moves;
+        var a = cardsArr[+open[0].dataset.i], c = cardsArr[+open[1].dataset.i];
+        if (a.k === c.k) { open.forEach(function(x){ x.classList.add('done'); }); open = []; found++; document.getElementById('fd').textContent = found + ' / 6';
+          if (found === 6) setTimeout(function(){ endPanel(Math.max(0, 12 - moves), 6, memory); }, 700); }
+        else setTimeout(function(){ open.forEach(function(x){ x.classList.remove('up'); }); open = []; }, 900);
+      }
+    }; });
+  }
+
+  // ---------- build the word ----------
+  function letters(){
+    var pool = T.words.filter(function(w){ var p = S.strip(w.a); return p.indexOf(' ') < 0 && p.replace(/[؟?]/g, '').length >= 2 && p.length <= 9; });
+    var qs = S.shuffle(pool).slice(0, 8), i = 0, score = 0;
+    function draw(){
+      if (i >= qs.length) return endPanel(score, qs.length, letters);
+      var w = qs[i], target = Array.from(S.strip(w.a).replace(/[؟?]/g, '')), tiles = S.shuffle(target.map(function(ch, k){ return { ch: ch, k: k }; })), built = [];
+      app.innerHTML = head() + '<div class="panel"><div class="q-meta"><span>' + (i + 1) + ' / ' + qs.length + '</span><span>' + S.icon('check') + ' ' + score + '</span></div><div class="q-progress"><i style="width:' + (i / qs.length * 100) + '%"></i></div>' +
+        '<p class="mean">“' + S.esc(w.e) + '”<small>' + S.esc(w.t) + '</small></p>' +
+        '<div class="slots" id="slots">' + target.map(function(){ return '<span class="slot"></span>'; }).join('') + '</div>' +
+        '<div class="tiles">' + tiles.map(function(t, j){ return '<button class="tile" type="button" data-j="' + j + '">' + t.ch + '</button>'; }).join('') + '</div>' +
+        '<p class="q-hint" style="text-align:center;margin-top:10px">' + S.bi('Tap the letters in order. Tap a placed letter to remove it.', 'المس الحروف بالترتيب، والمس الحرف الموضوع لتحذفه.') + '</p>' +
+        '<div class="feedback" id="fb"></div><div class="btn-row" id="nx" style="display:none"><button class="btn" style="background:var(--uc)" type="button" id="bNext">' + S.bi('Next', 'التالي') + S.icon('next') + '</button></div></div>' + back();
+      var slots = app.querySelectorAll('.slot'), tb = app.querySelectorAll('.tile');
+      function paint(){ slots.forEach(function(s, k){ s.textContent = built[k] ? built[k].ch : ''; }); }
+      tb.forEach(function(b){ b.onclick = function(){
+        built.push({ ch: tiles[+b.dataset.j].ch, b: b }); b.disabled = true; paint();
+        if (built.length === target.length) {
+          var ok = built.map(function(x){ return x.ch; }).join('') === target.join('');
+          if (ok) score++;
+          tb.forEach(function(x){ x.disabled = true; }); slots.forEach(function(s){ s.onclick = null; });
+          var fb = document.getElementById('fb'); fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
+          fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ' + S.bi('The word is:', 'الكلمة هي:')) + ' <span class="ar">' + w.a + '</span>';
+          document.getElementById('nx').style.display = ''; document.getElementById('bNext').onclick = function(){ i++; draw(); };
+        }
+      }; });
+      slots.forEach(function(s, k){ s.onclick = function(){ if (k < built.length && built.length < target.length) { built.splice(k, 1).forEach(function(x){ x.b.disabled = false; }); paint(); } }; });
+    }
+    draw();
+  }
+
+  ({ cards: cards, choose: choose, memory: memory, letters: letters })[G]();
+})();
+</script>
+</body>
+</html>

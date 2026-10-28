@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
+<title>Learner’s Guide · دليل المتعلّم · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* The learner's guide reads like an unrolled scroll: numbered chapters because they are a reading order. */
+.toc{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0 10px}
+.toc a{font-family:var(--kufi);font-size:.95rem;text-decoration:none;border:1.5px solid var(--line);background:var(--card);border-radius:6px;padding:4px 12px}
+.toc a:hover{border-color:var(--teal)}
+.ch{background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:24px 20px 18px;margin-top:18px;position:relative;overflow:hidden;scroll-margin-top:90px}
+.ch::before{content:"";position:absolute;inset:0 0 auto 0;height:10px;background:var(--qatt)}
+.ch h2{margin:0 0 10px;font-size:1.5rem;display:flex;align-items:center;gap:10px}
+.ch h2 .ic-svg{color:var(--c)}
+.ch p{margin:6px 0;line-height:1.8}
+.path4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:10px}
+@media (max-width:700px){.path4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.step{border:1.5px solid var(--line);border-radius:6px;padding:12px;background:#FFFDF9}
+.step b{display:block;font-family:var(--kufi);color:var(--c);font-size:1.05rem}
+.step ul{margin:6px 0 0;padding-inline-start:1.1em;font-size:.98rem;line-height:1.7}
+.step a{color:var(--indigo)}
+.skills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px;text-align:center}
+@media (max-width:560px){.skills{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.skills div{border:1.5px solid var(--line);border-radius:6px;padding:10px 6px;font-family:var(--kufi)}
+.skills div small{display:block;color:var(--muted);font-family:var(--ui-en);font-size:.85rem}
+.root{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;direction:rtl;margin:10px 0}
+.root span{font-family:var(--text-ar);font-size:1.45rem;border:1.5px solid var(--line);border-radius:6px;padding:0 12px;background:#FFFDF9}
+.root .r{background:var(--rose-soft);border-color:#E7C3B6;color:var(--rose);font-weight:700}
+.strat{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px}
+.strat div{border:1.5px solid var(--line);border-radius:6px;padding:12px;background:#FFFDF9}
+.strat b{font-family:var(--kufi);color:var(--teal)}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:1.05rem}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:start}
+th{font-family:var(--kufi);color:var(--muted);font-weight:600}
+td.a{font-family:var(--text-ar);font-size:1.3rem;direction:rtl}
+.months{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.months{grid-template-columns:1fr}}
+.prov{display:grid;gap:10px;margin-top:10px}
+.prov div{border-inline-start:4px solid var(--sand);background:#FFFDF9;padding:8px 14px}
+.prov .a{font-family:var(--text-ar);font-size:1.5rem;line-height:1.9;direction:rtl}
+.prov .e{font-family:var(--en-serif);font-style:italic;color:var(--muted)}
+.res ul{margin:6px 0;padding-inline-start:1.2em;line-height:1.9}
+html[data-lang="en"] .ch h2{flex-direction:row;flex-wrap:wrap;gap:4px 10px}
+html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
+.credit{margin-top:22px;text-align:center;color:var(--muted);font-size:.98rem}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="compass"></i>
+    <h1><span class="t-en">Learner’s Guide</span><span class="t-ar">دليل المتعلّم</span></h1>
+    <p><span class="t-en">How to learn Arabic step by step, and where to find each step on this site.</span><span class="t-ar">كيف تتعلّم العربية خطوةً خطوةً، وأين تجد كل خطوة في هذا الموقع.</span></p>
+  </div>
+  <nav class="toc">
+    <a href="#levels"><span class="t-en">Levels</span><span class="t-ar">المستويات</span></a>
+    <a href="#skills"><span class="t-en">The four skills</span><span class="t-ar">المهارات الأربع</span></a>
+    <a href="#dict"><span class="t-en">Using a dictionary</span><span class="t-ar">استعمال المعجم</span></a>
+    <a href="#ways"><span class="t-en">Ways to learn</span><span class="t-ar">طرق التعلّم</span></a>
+    <a href="#months"><span class="t-en">Days and months</span><span class="t-ar">الأيام والشهور</span></a>
+    <a href="#proverbs"><span class="t-en">Proverbs</span><span class="t-ar">الأمثال</span></a>
+    <a href="#resources"><span class="t-en">Resources</span><span class="t-ar">مصادر</span></a>
+  </nav>
+
+  <section class="ch" id="levels" style="--c:var(--rose)">
+    <h2><i data-ic="anchor"></i><span class="t-en">1. Your path: four levels</span><span class="t-ar">١. طريقك: أربعة مستويات</span></h2>
+    <p><span class="t-en">Language programmes usually move through an introductory stage, then beginner, intermediate and advanced levels, each split into shorter stages. Words grow from a few hundred at the start to about two thousand at the advanced level. Here is how this site follows the same road.</span><span class="t-ar">تسير برامج تعليم العربية عادةً من مرحلة تمهيدية، ثم مستوى مبتدئ فمتوسط فمتقدم، وكل مستوى مقسّم إلى مراحل أقصر. وتزداد الكلمات من بضع مئات في البداية إلى نحو ألفي كلمة في المستوى المتقدم. وهكذا يسير هذا الموقع على الطريق نفسه:</span></p>
+    <div class="path4">
+      <div class="step"><b><span class="t-en">Introductory</span><span class="t-ar">التمهيدي</span></b><ul>
+        <li><a href="../vocab/play.html?t=greet"><span class="t-en">Greetings</span><span class="t-ar">التحية والتعارف</span></a></li>
+        <li><a href="../vocab/play.html?t=numbers"><span class="t-en">Numbers</span><span class="t-ar">الأعداد</span></a>، <a href="../vocab/play.html?t=colors"><span class="t-en">colours</span><span class="t-ar">الألوان</span></a></li>
+        <li><a href="../vocab/play.html?t=time"><span class="t-en">Days and time</span><span class="t-ar">الأيام والوقت</span></a></li></ul></div>
+      <div class="step"><b><span class="t-en">Beginner</span><span class="t-ar">المبتدئ</span></b><ul>
+        <li><a href="../vocab/index.html"><span class="t-en">Word themes and games</span><span class="t-ar">موضوعات المفردات وألعابها</span></a></li>
+        <li><a href="../stories/index.html"><span class="t-en">Kalila wa Dimna, level 1</span><span class="t-ar">كليلة ودمنة (المستوى ١)</span></a></li>
+        <li><a href="../dictation/index.html#taa"><span class="t-en">Spelling: taa, final alif, al-</span><span class="t-ar">الإملاء: التاء والألف اللينة واللام</span></a></li></ul></div>
+      <div class="step"><b><span class="t-en">Intermediate</span><span class="t-ar">المتوسط</span></b><ul>
+        <li><a href="../ports/index.html"><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></a></li>
+        <li><a href="../stories/index.html"><span class="t-en">Thousand and One Nights; Kalila, level 2</span><span class="t-ar">ألف ليلة وليلة، وكليلة (المستوى ٢)</span></a></li>
+        <li><a href="../dictation/index.html#hamza"><span class="t-en">Spelling: hamza, tanween</span><span class="t-ar">الإملاء: الهمزة والتنوين</span></a></li></ul></div>
+      <div class="step"><b><span class="t-en">Advanced</span><span class="t-ar">المتقدم</span></b><ul>
+        <li><a href="../stories/index.html"><span class="t-en">World stories (Maupassant)</span><span class="t-ar">قصص موباسان</span></a></li>
+        <li><a href="../irab/index.html"><span class="t-en">The I‘rab Lab</span><span class="t-ar">مختبر الإعراب</span></a></li>
+        <li><a href="../dictation/practice.html?u=jumal"><span class="t-en">Writing whole sentences</span><span class="t-ar">كتابة الجمل</span></a></li></ul></div>
+    </div>
+  </section>
+
+  <section class="ch" id="skills" style="--c:var(--teal)">
+    <h2><i data-ic="lamp"></i><span class="t-en">2. The four skills, in order</span><span class="t-ar">٢. المهارات الأربع بترتيبها</span></h2>
+    <div class="skills">
+      <div>الاستماع<small>Listening</small></div><div>الكلام<small>Speaking</small></div><div>القراءة<small>Reading</small></div><div>الكتابة<small>Writing</small></div>
+    </div>
+    <p><span class="t-en">Start with your ears. Hearing Arabic sounds again and again makes pronouncing and writing them easier. Learn whole expressions from real situations, such as greeting someone, before taking them apart into words and sounds. The aim is to talk with people, not only to know rules. Reading and writing grow stronger at the higher levels. Recorded readings of this site’s texts will be added soon.</span><span class="t-ar">ابدأ بأذنك؛ فسماع أصوات العربية مرةً بعد مرة يسهّل نطقها وكتابتها. تعلّم العبارات كاملة من مواقف حقيقية، كالتحية والتعارف، قبل أن تقسمها إلى كلمات وأصوات. فالغاية أن تتحدث مع الناس، لا أن تحفظ القواعد وحدها. ثم تقوى القراءة والكتابة في المستويات العليا. وستُضاف قريباً تسجيلات بصوت بشري لنصوص الموقع.</span></p>
+  </section>
+
+  <section class="ch" id="dict" style="--c:var(--indigo)">
+    <h2><i data-ic="search"></i><span class="t-en">3. How to use an Arabic dictionary</span><span class="t-ar">٣. كيف تبحث في المعجم العربي</span></h2>
+    <p><span class="t-en">Most Arabic words grow from a root of three letters. Many classic dictionaries are arranged by root, so first find the root, then the word under it:</span><span class="t-ar">تعود أكثر الكلمات العربية إلى جذر من ثلاثة أحرف، وكثير من المعاجم مرتّب على الجذور؛ فابحث أولاً عن الجذر، ثم عن الكلمة تحته:</span></p>
+    <div class="root"><span class="r">ك ت ب</span><span>كَتَبَ</span><span>كِتَابٌ</span><span>كَاتِبٌ</span><span>مَكْتَبٌ</span><span>مَكْتَبَةٌ</span></div>
+    <p><span class="t-en">Other dictionaries are alphabetical by the whole word; bilingual dictionaries give the meaning in your language; picture dictionaries show the meaning with images. This site’s</span><span class="t-ar">ومعاجم أخرى ترتّب الكلمة كما تُكتب على الحروف، والمعاجم الثنائية تعطيك المعنى بلغتك، والمعاجم المصوّرة تعرضه بالصور. أما</span> <a href="../vocab/dictionary.html" style="color:var(--indigo)"><span class="t-en">dictionary</span><span class="t-ar">معجم هذا الموقع</span></a> <span class="t-en">is bilingual and alphabetical, ignoring “al-”.</span><span class="t-ar">فثنائي اللغة، مرتّب على الحروف بعد «ال».</span></p>
+  </section>
+
+  <section class="ch" id="ways" style="--c:var(--sand)">
+    <h2><i data-ic="qalam"></i><span class="t-en">4. Ways to learn a new word</span><span class="t-ar">٤. طرق تعلّم الكلمة الجديدة</span></h2>
+    <div class="strat">
+      <div><b><span class="t-en">From context</span><span class="t-ar">من السياق</span></b><p><span class="t-en">Guess the meaning from the sentence around it, then check.</span><span class="t-ar">خمّن المعنى من الجملة حولها، ثم تحقّق.</span></p></div>
+      <div><b><span class="t-en">From the dictionary</span><span class="t-ar">من المعجم</span></b><p><span class="t-en">Find its root and its family of words.</span><span class="t-ar">ابحث عن جذرها وأسرة كلماتها.</span></p></div>
+      <div><b><span class="t-en">Ask</span><span class="t-ar">اسأل</span></b><p><span class="t-en">Ask your teacher or an Arabic speaker how it is used.</span><span class="t-ar">اسأل معلّمك أو أحد أهل العربية عن استعمالها.</span></p></div>
+      <div><b><span class="t-en">Draw it</span><span class="t-ar">ارسمها</span></b><p><span class="t-en">A quick sketch beside the word helps memory.</span><span class="t-ar">رسم سريع بجانب الكلمة يقوّي الذاكرة.</span></p></div>
+      <div><b><span class="t-en">Translate, then let go</span><span class="t-ar">ترجم ثم استغنِ</span></b><p><span class="t-en">Use translation at first, then try to think in Arabic.</span><span class="t-ar">استعن بالترجمة أولاً، ثم حاول أن تفكّر بالعربية.</span></p></div>
+    </div>
+  </section>
+
+  <section class="ch" id="months" style="--c:var(--sea)">
+    <h2><i data-ic="crescent"></i><span class="t-en">5. Days and months</span><span class="t-ar">٥. الأيام والشهور</span></h2>
+    <p><span class="t-en">The week begins on Sunday in most Arab countries; Friday is the weekly holiday. Two calendars are used: the Hijri (lunar) calendar and the Gregorian calendar, whose months have two sets of names.</span><span class="t-ar">يبدأ الأسبوع بيوم الأحد في أكثر البلاد العربية، والجمعة عطلة الأسبوع. ويُستعمل تقويمان: التقويم الهجري القمري، والتقويم الميلادي الذي لشهوره مجموعتان من الأسماء.</span></p>
+    <table><tr><th><span class="t-en">Days</span><span class="t-ar">الأيام</span></th></tr><tr><td class="a">الأحد · الاثنين · الثلاثاء · الأربعاء · الخميس · الجمعة · السبت</td></tr></table>
+    <div class="months">
+      <table><tr><th>#</th><th><span class="t-en">Hijri months</span><span class="t-ar">الشهور الهجرية</span></th></tr>
+        <tr><td>1</td><td class="a">مُحَرَّم</td></tr><tr><td>2</td><td class="a">صَفَر</td></tr><tr><td>3</td><td class="a">رَبِيع الأوَّل</td></tr><tr><td>4</td><td class="a">رَبِيع الآخِر</td></tr>
+        <tr><td>5</td><td class="a">جُمَادَى الأُولَى</td></tr><tr><td>6</td><td class="a">جُمَادَى الآخِرَة</td></tr><tr><td>7</td><td class="a">رَجَب</td></tr><tr><td>8</td><td class="a">شَعْبَان</td></tr>
+        <tr><td>9</td><td class="a">رَمَضَان</td></tr><tr><td>10</td><td class="a">شَوَّال</td></tr><tr><td>11</td><td class="a">ذُو القَعْدَة</td></tr><tr><td>12</td><td class="a">ذُو الحِجَّة</td></tr></table>
+      <table><tr><th>#</th><th><span class="t-en">Gregorian months (two names)</span><span class="t-ar">الشهور الميلادية (اسمان)</span></th></tr>
+        <tr><td>1</td><td class="a">يناير / كانون الثاني</td></tr><tr><td>2</td><td class="a">فبراير / شُبَاط</td></tr><tr><td>3</td><td class="a">مارس / آذار</td></tr><tr><td>4</td><td class="a">أبريل / نَيْسَان</td></tr>
+        <tr><td>5</td><td class="a">مايو / أيَّار</td></tr><tr><td>6</td><td class="a">يونيو / حَزِيرَان</td></tr><tr><td>7</td><td class="a">يوليو / تَمُّوز</td></tr><tr><td>8</td><td class="a">أغسطس / آب</td></tr>
+        <tr><td>9</td><td class="a">سبتمبر / أَيْلُول</td></tr><tr><td>10</td><td class="a">أكتوبر / تِشْرِين الأوَّل</td></tr><tr><td>11</td><td class="a">نوفمبر / تِشْرِين الثَّاني</td></tr><tr><td>12</td><td class="a">ديسمبر / كانون الأوَّل</td></tr></table>
+    </div>
+  </section>
+
+  <section class="ch" id="proverbs" style="--c:var(--rose)">
+    <h2><i data-ic="scroll"></i><span class="t-en">6. Arabic proverbs</span><span class="t-ar">٦. أمثال عربية</span></h2>
+    <div class="prov">
+      <div><div class="a">فِي التَّأَنِّي السَّلَامَةُ، وَفِي العَجَلَةِ النَّدَامَةُ.</div><div class="e">Patience brings safety; haste brings regret.</div></div>
+      <div><div class="a">الصَّدِيقُ وَقْتَ الضِّيقِ.</div><div class="e">A friend is the one who stands by you in hard times.</div></div>
+      <div><div class="a">مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ.</div><div class="e">Whoever works hard finds; whoever sows reaps.</div></div>
+      <div><div class="a">العِلْمُ فِي الصِّغَرِ كَالنَّقْشِ عَلَى الحَجَرِ.</div><div class="e">Learning when young is like carving in stone.</div></div>
+      <div><div class="a">الوَقْتُ كَالسَّيْفِ، إِنْ لَمْ تَقْطَعْهُ قَطَعَكَ.</div><div class="e">Time is like a sword: if you don’t cut it, it cuts you.</div></div>
+      <div><div class="a">خَيْرُ الكَلَامِ مَا قَلَّ وَدَلَّ.</div><div class="e">The best speech is short and to the point.</div></div>
+      <div><div class="a">الجَارُ قَبْلَ الدَّارِ.</div><div class="e">Choose the neighbour before the house.</div></div>
+      <div><div class="a">القَنَاعَةُ كَنْزٌ لَا يَفْنَى.</div><div class="e">Contentment is a treasure that never runs out.</div></div>
+      <div><div class="a">رُبَّ أَخٍ لَكَ لَمْ تَلِدْهُ أُمُّكَ.</div><div class="e">Some brothers were not born of your mother (true friends).</div></div>
+      <div><div class="a">لِكُلِّ جَوَادٍ كَبْوَةٌ.</div><div class="e">Every fine horse stumbles sometimes.</div></div>
+    </div>
+  </section>
+
+  <section class="ch res" id="resources" style="--c:var(--indigo)">
+    <h2><i data-ic="book"></i><span class="t-en">7. Where to learn more</span><span class="t-ar">٧. أين تتعلّم أكثر</span></h2>
+    <p><span class="t-en">Institutes in Saudi Arabia that teach Arabic to non-native speakers include:</span><span class="t-ar">من معاهد تعليم العربية للناطقين بغيرها في المملكة العربية السعودية:</span></p>
+    <ul>
+      <li><span class="t-en">Arabic Linguistics Institute, King Saud University, Riyadh</span><span class="t-ar">معهد اللغويات العربية، جامعة الملك سعود، الرياض</span></li>
+      <li><span class="t-en">Arabic Language Teaching Institute, Imam Mohammad Ibn Saud Islamic University, Riyadh</span><span class="t-ar">معهد تعليم اللغة العربية، جامعة الإمام محمد بن سعود الإسلامية، الرياض</span></li>
+      <li><span class="t-en">Institute for Teaching Arabic to Non-native Speakers, Umm Al-Qura University, Makkah</span><span class="t-ar">معهد تعليم اللغة العربية لغير الناطقين بها، جامعة أم القرى، مكة المكرمة</span></li>
+      <li><span class="t-en">Arabic Language Institute for Non-native Speakers, Islamic University, Madinah</span><span class="t-ar">معهد تعليم اللغة العربية لغير الناطقين بها، الجامعة الإسلامية، المدينة المنورة</span></li>
+    </ul>
+    <p><span class="t-en">Listen every day to programmes in Modern Standard Arabic, such as news and documentaries, and read an Arabic newspaper headline or two.</span><span class="t-ar">استمع كل يوم إلى برامج بالفصحى كنشرات الأخبار والأفلام الوثائقية، واقرأ عنواناً أو اثنين من صحيفة عربية.</span></p>
+    <p><a href="https://ksaa.gov.sa" style="color:var(--indigo)"><span class="t-en">King Salman Global Academy for Arabic Language</span><span class="t-ar">مجمع الملك سلمان العالمي للغة العربية</span></a></p>
+  </section>
+
+  <p class="credit"><span class="t-en">The order of this guide was inspired by “A Guide for Non-native Learners of Arabic” by Dr Mahmoud Ali Sharaby (King Salman Global Academy for Arabic Language, 2023).</span><span class="t-ar">استُلهم ترتيب هذا الدليل من كتاب «دليل لمتعلّمي العربية من غير الناطقين بها» للدكتور محمود علي شرابي (مجمع الملك سلمان العالمي للغة العربية، ٢٠٢٣م).</span></p>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/site.js"></script>
+</body>
+</html>

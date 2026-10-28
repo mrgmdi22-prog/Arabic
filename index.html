@@ -25,6 +25,15 @@
 .harb-h h2{margin:0;font-size:1.6rem;white-space:nowrap}
 .harb-h .sadu{flex:1;height:10px;background-size:23px 10px;opacity:.8}
 
+.route{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;position:relative}
+.route::before{content:"";position:absolute;top:34px;inset-inline:12%;border-top:3px dashed #C9A97C}
+.route li{text-align:center;position:relative}
+.route a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;padding:0 4px}
+.route .ic-svg{width:68px;height:68px;padding:14px;border-radius:50%;background:var(--card);border:2px solid var(--line);color:var(--rose);stroke-width:1.6}
+.route b{font-family:var(--kufi);font-weight:600;font-size:1.05rem;margin-top:4px}
+html[data-lang="en"] .route b .t-ar{display:block!important;font-family:var(--kufi)}
+.route small{color:var(--muted);font-size:.88rem;line-height:1.4}
+@media (max-width:560px){.route{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 0}.route::before{display:none}}
 /* learning harbours: stone house fronts with a painted qatt lintel */
 .houses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:640px){.houses{grid-template-columns:1fr}}
@@ -77,12 +86,25 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
     <span><i data-ic="star"></i> <b id="nStars">0</b> <span class="t-en">stars</span><span class="t-ar">نجمة</span></span>
   </div>
 
+  <div class="harb-h"><h2><span class="t-en">Your path in Arabic</span><span class="t-ar">طريقك في العربية</span></h2><span class="sadu" aria-hidden="true"></span></div>
+  <ol class="route">
+    <li><a href="guide/index.html#levels"><i data-ic="tent"></i><b><span class="t-en">Introductory</span><span class="t-ar">التمهيدي</span></b><small><span class="t-en">greetings, numbers, colours, days</span><span class="t-ar">التحية، الأعداد، الألوان، الأيام</span></small></a></li>
+    <li><a href="guide/index.html#levels"><i data-ic="camel"></i><b><span class="t-en">Beginner</span><span class="t-ar">المبتدئ</span></b><small><span class="t-en">word themes, first fables, spelling</span><span class="t-ar">المفردات، الحكايات الأولى، الإملاء</span></small></a></li>
+    <li><a href="guide/index.html#levels"><i data-ic="dhow"></i><b><span class="t-en">Intermediate</span><span class="t-ar">المتوسط</span></b><small><span class="t-en">the harbours, the Nights, hamza</span><span class="t-ar">المرافئ، ألف ليلة، الهمزة</span></small></a></li>
+    <li><a href="guide/index.html#levels"><i data-ic="facade"></i><b><span class="t-en">Advanced</span><span class="t-ar">المتقدم</span></b><small><span class="t-en">world stories, i‘rab, sentences</span><span class="t-ar">الأدب العالمي، الإعراب، الجمل</span></small></a></li>
+  </ol>
+
   <div class="harb-h"><h2><span class="t-en">Learning harbours</span><span class="t-ar">مرافئ التعلّم</span></h2><span class="sadu" aria-hidden="true"></span></div>
   <div class="houses">
     <a class="house voyage" href="ports/index.html" style="--c:#2D6F92;--t:#E1EFF5">
       <span class="niche"><i data-ic="dhow"></i></span>
       <b><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></b>
       <p><span class="t-en">27 harbours from Alexandria to Serendib and Dina Arobi. Each one is a short reading lesson.</span><span class="t-ar">٢٧ مرفأً من الإسكندرية إلى سرنديب ودينا عروبي، وكل مرفأ درس قراءة قصير.</span></p>
+    </a>
+    <a class="house" href="vocab/index.html" style="--c:#3B7A39;--t:#E7F3E3">
+      <span class="niche"><i data-ic="cards"></i></span>
+      <b><span class="t-en">Harbour of Words</span><span class="t-ar">مرفأ المفردات</span></b>
+      <p><span class="t-en">Everyday words by theme, with flashcards, games and a dictionary.</span><span class="t-ar">كلمات الحياة اليومية بالموضوعات، مع البطاقات والألعاب والمعجم.</span></p>
     </a>
     <a class="house" href="stories/index.html" style="--c:#A26F1C;--t:#FBEFD8">
       <span class="niche"><i data-ic="book"></i></span>
@@ -104,6 +126,11 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
       <b><span class="t-en">Harbour of I‘rab</span><span class="t-ar">مرفأ الإعراب</span></b>
       <p><span class="t-en">The I‘rab Lab: each word’s role, with a grammar tree.</span><span class="t-ar">مختبر الإعراب: موقع كل كلمة، مع شجرة نحوية.</span></p>
     </a>
+    <a class="house" href="guide/index.html" style="--c:#A23E2E;--t:#F8E5DD">
+      <span class="niche"><i data-ic="compass"></i></span>
+      <b><span class="t-en">Learner’s Guide</span><span class="t-ar">دليل المتعلّم</span></b>
+      <p><span class="t-en">Levels, skills, using a dictionary, days and months, proverbs.</span><span class="t-ar">المستويات، والمهارات، واستعمال المعجم، والأيام والشهور، والأمثال.</span></p>
+    </a>
   </div>
 
   <a class="leaf" id="today" href="#"></a>
@@ -119,6 +146,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
 <script src="assets/site.js"></script>
 <script src="assets/stories.js"></script>
 <script src="assets/dictation.js"></script>
+<script src="assets/vocab.js"></script>
 <script src="assets/ports.js"></script>
 <script src="assets/land.js"></script>
 <script src="assets/seamap.js"></script>
@@ -127,6 +155,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
   var S = Site, read = 0, stars = 0, visited = 0;
   STORIES.forEach(function(s){ try { if (localStorage.getItem('ar-read-' + s.id)) read++; } catch(e) {} stars += S.getStars('read-' + s.id); });
   DICTATION.forEach(function(u){ ['choose', 'gap', 'look'].forEach(function(m){ stars += S.getStars('dict-' + u.id + '-' + m); }); });
+  THEMES.forEach(function(t){ ['cards', 'choose', 'memory', 'letters'].forEach(function(g){ stars += S.getStars('voc-' + t.id + '-' + g); }); });
   PORTS.forEach(function(p){ stars += S.getStars('port-' + p.id); try { if (localStorage.getItem('ar-port-' + p.id)) visited++; } catch(e) {} });
   document.getElementById('nPorts').textContent = visited; document.getElementById('tPorts').textContent = PORTS.length;
   document.getElementById('nRead').textContent = read; document.getElementById('nStars').textContent = stars;

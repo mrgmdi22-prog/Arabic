@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
+<title>The Dictionary · المعجم · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* A bilingual word list: every themed word plus the glossary words of the stories and harbours, sorted by Arabic letter. */
+.sbox{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--line);border-radius:8px;padding:6px 14px;margin-top:10px}
+.sbox:focus-within{border-color:var(--indigo)}
+.sbox .ic-svg{color:var(--indigo)}
+.sbox input{flex:1;border:none;background:none;font:inherit;font-size:1.3rem;padding:8px 0;color:var(--ink);outline:none;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+.chips button{border:1.5px solid var(--line);background:var(--card);border-radius:6px;padding:3px 12px;font-family:var(--kufi);font-size:.92rem;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.alpha{display:flex;flex-wrap:wrap;gap:4px;direction:rtl;margin:10px 0}
+.alpha a{width:36px;height:38px;display:grid;place-items:center;border:1.5px solid var(--line);border-radius:4px;text-decoration:none;font-family:var(--text-ar);font-size:1.25rem;background:var(--card)}
+.alpha a:hover{border-color:var(--indigo)}
+.letter{font-family:var(--kufi);font-size:1.7rem;color:var(--rose);margin:22px 0 6px;scroll-margin-top:90px;border-bottom:2px solid var(--line)}
+.entry{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:4px 14px;align-items:baseline;padding:8px 4px;border-bottom:1px dashed var(--line)}
+.entry .a{font-family:var(--text-ar);font-size:1.55rem;direction:rtl;text-align:right;color:var(--ink);line-height:1.5}
+.entry .r{direction:ltr;text-align:left}
+.entry .m{font-family:var(--en-serif);font-size:1.1rem}
+.entry .tr{font-family:var(--en-serif);font-style:italic;color:var(--muted);font-size:.98rem}
+.entry .src{font-family:var(--kufi);font-size:.8rem;color:var(--muted)}
+.count{color:var(--muted);font-family:var(--kufi);font-size:.95rem;text-align:center;margin-top:8px}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="search"></i>
+    <h1><span class="t-en">The Dictionary</span><span class="t-ar">المعجم</span></h1>
+    <p><span class="t-en">Arabic–English, ordered by the first letter after “al-”. Type with or without vowel marks.</span><span class="t-ar">معجم عربي إنجليزي، مرتّب على الحرف الأول بعد «ال». اكتب بالتشكيل أو بدونه.</span></p>
+  </div>
+  <label class="sbox"><i data-ic="search"></i><input id="q" type="search" placeholder="ابحث / Search" autocomplete="off"></label>
+  <div class="chips" id="chips"></div>
+  <div class="alpha" id="alpha"></div>
+  <div class="count" id="count"></div>
+  <div id="list"></div>
+  <div style="text-align:center"><a class="crumb" href="index.html"><span class="t-en">Harbour of Words</span><span class="t-ar">مرفأ المفردات</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/site.js"></script>
+<script src="../assets/vocab.js"></script>
+<script src="../assets/stories.js"></script>
+<script src="../assets/ports.js"></script>
+<script>
+(function(){
+  var S = Site;
+  // gather: themed words + glossary words from stories and harbours ([word|meaning])
+  var all = [];
+  THEMES.forEach(function(t){ t.words.forEach(function(w){ all.push({ a: w.a, e: w.e, t: w.t, src: t.id, srcAr: S.strip(t.ar), srcEn: t.en }); }); });
+  function glean(text, id, ar, en){ String(text).replace(/\[([^\]|]+)\|([^\]]+)\]/g, function(_, w, m){ all.push({ a: w, e: m, t: '', src: id, srcAr: ar, srcEn: en }); }); }
+  STORIES.forEach(function(s){ s.pages.forEach(function(p){ glean(p.ar, 'stories', 'الحكايات', 'Stories'); }); glean(s.moral.ar, 'stories', 'الحكايات', 'Stories'); });
+  PORTS.forEach(function(p){ p.text.forEach(function(x){ glean(x.ar, 'ports', 'المرافئ', 'Harbours'); }); });
+  // de-duplicate by bare form + meaning
+  var seen = {}; all = all.filter(function(w){ var k = S.strip(w.a) + '|' + w.e.toLowerCase(); if (seen[k]) return false; seen[k] = 1; return true; });
+  var bare = function(s){ return S.strip(s).replace(/[أإآ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/[؟?!.،]/g, '').trim(); };
+  var key = function(w){ return bare(w.a).replace(/^ال(?=..)/, ''); };
+  all.forEach(function(w){ w.k = key(w); });
+  var ORDER = 'ابتثجحخدذرزسشصضطظعغفقكلمنهوي';
+  all.sort(function(x, y){
+    for (var i = 0; i < Math.min(x.k.length, y.k.length); i++) { var d = ORDER.indexOf(x.k[i]) - ORDER.indexOf(y.k[i]); if (d) return d; }
+    return x.k.length - y.k.length;
+  });
+  var filter = new URLSearchParams(location.search).get('t') || 'all';
+  var srcs = [['all', 'All', 'الكل']].concat(THEMES.map(function(t){ return [t.id, t.en, S.strip(t.ar)]; })).concat([['stories', 'Stories', 'الحكايات'], ['ports', 'Harbours', 'المرافئ']]);
+  var chips = document.getElementById('chips');
+  chips.innerHTML = srcs.map(function(s){ return '<button type="button" data-s="' + s[0] + '" aria-pressed="' + (s[0] === filter) + '">' + S.bi(s[1], s[2]) + '</button>'; }).join('');
+  chips.onclick = function(e){ var b = e.target.closest('button'); if (!b) return; filter = b.dataset.s; chips.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b); }); draw(); };
+  var q = document.getElementById('q'); q.addEventListener('input', draw);
+
+  function draw(){
+    var term = q.value.trim(), tb = bare(term), te = term.toLowerCase();
+    var list = all.filter(function(w){
+      if (filter !== 'all' && w.src !== filter) return false;
+      if (!term) return true;
+      return bare(w.a).indexOf(tb) >= 0 && tb !== '' || w.e.toLowerCase().indexOf(te) >= 0 || (w.t && w.t.toLowerCase().indexOf(te) >= 0);
+    });
+    var html = '', cur = '', letters = [];
+    list.forEach(function(w){
+      var L = w.k.charAt(0);
+      if (L !== cur) { cur = L; letters.push(L); html += '<h2 class="letter" id="L' + ORDER.indexOf(L) + '">' + L + '</h2>'; }
+      html += '<div class="entry"><span class="a">' + w.a + '</span><span class="r"><span class="m">' + S.esc(w.e) + '</span>' + (w.t ? ' <span class="tr">· ' + S.esc(w.t) + '</span>' : '') +
+        '<br><span class="src">' + S.bi(w.srcEn, w.srcAr) + '</span></span></div>';
+    });
+    document.getElementById('list').innerHTML = html || '<p class="count">' + S.bi('No words found. Try fewer letters.', 'لم نجد كلمات. جرّب حروفاً أقل.') + '</p>';
+    document.getElementById('alpha').innerHTML = letters.map(function(L){ return '<a href="#L' + ORDER.indexOf(L) + '">' + L + '</a>'; }).join('');
+    document.getElementById('count').innerHTML = list.length + ' ' + S.bi('words', 'كلمة');
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

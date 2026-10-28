@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
+<title>Harbour of Words · مرفأ المفردات · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* Word themes as bales in a souk, grouped by level; each bale opens four games. */
+.dictbar{display:flex;align-items:center;gap:14px;margin:8px 0 6px;text-decoration:none;background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:14px 18px}
+.dictbar:hover{border-color:var(--indigo)}
+.dictbar .niche{--c:var(--indigo);--t:var(--indigo-soft)}
+.dictbar b{font-family:var(--kufi);font-size:1.25rem;color:var(--indigo)}
+.dictbar p{margin:0;color:var(--muted);font-size:1rem}
+.lvl{display:flex;align-items:center;gap:14px;margin:30px 0 12px}
+.lvl h2{margin:0;font-size:1.45rem}
+.lvl .sadu{flex:1;height:10px;background-size:23px 10px;opacity:.8}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.theme{--c:var(--uc);--t:var(--ut);background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:22px 16px 14px;position:relative;overflow:hidden}
+.theme::before{content:"";position:absolute;inset:0 0 auto 0;height:10px;background:var(--qatt)}
+.theme .top{display:flex;align-items:center;gap:12px}
+.theme .niche{width:54px;height:62px;border-radius:27px 27px 5px 5px}
+.theme .niche .ic-svg{width:30px;height:30px}
+.theme .n{font-family:var(--text-ar);font-size:1.5rem;font-weight:700;color:var(--uc);line-height:1.4}
+.theme .e{font-family:var(--en-serif);font-style:italic;color:var(--muted)}
+.theme .sample{font-family:var(--text-ar);direction:rtl;color:var(--muted);font-size:1.15rem;margin:8px 0 10px;line-height:1.7}
+.gbtns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.gbtns a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;border:1.5px solid var(--line);border-radius:6px;padding:8px 2px;font-family:var(--kufi);font-size:.8rem;text-align:center;background:#FFFDF9;line-height:1.3}
+.gbtns a:hover{border-color:var(--uc)}
+.gbtns a .ic-svg{width:24px;height:24px;color:var(--uc)}
+.gbtns .stars-row{font-size:.7rem}
+html[data-lang="en"] .gbtns a .t-ar{display:none!important}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="cards"></i>
+    <h1><span class="t-en">Harbour of Words</span><span class="t-ar">مرفأ المفردات</span></h1>
+    <p><span class="t-en">Everyday Arabic words by theme. Learn them with flashcards, then play three games.</span><span class="t-ar">كلمات الحياة اليومية مرتّبة بالموضوعات. تعلّمها بالبطاقات، ثم العب بها ثلاث ألعاب.</span></p>
+  </div>
+  <a class="dictbar" href="dictionary.html"><span class="niche"><i data-ic="search"></i></span><span><b><span class="t-en">The dictionary</span><span class="t-ar">المعجم</span></b><p><span class="t-en">Search every word on the site in Arabic or English.</span><span class="t-ar">ابحث عن أي كلمة في الموقع بالعربية أو بالإنجليزية.</span></p></span></a>
+  <div id="themes"></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/site.js"></script>
+<script src="../assets/vocab.js"></script>
+<script>
+(function(){
+  var S = Site;
+  var G = [['cards', 'cards', 'Cards', 'البطاقات'], ['choose', 'eye', 'Meaning', 'المعنى'], ['memory', 'puzzle', 'Memory', 'الذاكرة'], ['letters', 'qalam', 'Letters', 'الحروف']];
+  document.getElementById('themes').innerHTML = [0, 1, 2].map(function(l){
+    var ts = THEMES.filter(function(t){ return t.lvl === l; });
+    return '<div class="lvl"><h2><span class="t-en">' + LEVELS[l].en + '</span><span class="t-ar">' + S.strip(LEVELS[l].ar) + '</span></h2><span class="sadu" aria-hidden="true"></span></div><div class="tgrid">' +
+      ts.map(function(t){
+        return '<section class="theme" style="--uc:' + t.c + ';--ut:' + t.t + '"><div class="top"><span class="niche">' + S.icon(t.icon) + '</span><div><div class="n">' + t.ar + '</div><div class="e">' + S.esc(t.en) + ' · ' + t.words.length + '</div></div></div>' +
+          '<div class="sample">' + t.words.slice(0, 4).map(function(w){ return w.a; }).join('، ') + '…</div>' +
+          '<div class="gbtns">' + G.map(function(g){ var n = S.getStars('voc-' + t.id + '-' + g[0]);
+            return '<a href="play.html?t=' + t.id + '&g=' + g[0] + '">' + S.icon(g[1]) + S.bi(g[2], g[3]) + (n ? S.stars(n) : '') + '</a>'; }).join('') + '</div></section>';
+      }).join('') + '</div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
