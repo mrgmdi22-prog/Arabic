@@ -1,6 +1,6 @@
 /* مرافئ العربية · Arabic Harbours — "stone, wool and sea"
    Sandstone of Hegra and Dhi Ain, the woven Sadu band of the tents, the painted windows of Rijal Alma',
-   and the sea of the old harbours. Light ground, large type, Kufic for headings, Amiri for reading. */
+   and the sea of the old harbours. Light ground, large type, clear Noto Sans Arabic for headings and labels, textbook Noto Naskh for reading. */
 :root{
   color-scheme:light;
   --paper:#F6EDE1;          /* Hegra sandstone, washed light */
@@ -16,9 +16,9 @@
   --sea:#2D6F92;    --sea-soft:#E1EFF5;
   --green:#3B7A39;  --green-soft:#E7F3E3;
   --red:#B03A2B;    --red-soft:#FBE7E2;
-  --kufi:"Reem Kufi","Tajawal",sans-serif;
-  --ui-ar:"Amiri","Noto Naskh Arabic",serif;
-  --text-ar:"Amiri","Noto Naskh Arabic",serif;
+  --kufi:"Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;   /* clear sans for headings, labels and buttons */
+  --ui-ar:"Noto Naskh Arabic","Segoe UI",serif;
+  --text-ar:"Noto Naskh Arabic","Segoe UI",serif;      /* textbook naskh: clear letters and vowel marks */
   --ui-en:"Alegreya Sans","Segoe UI",sans-serif;
   --en-serif:"Alegreya",Georgia,serif;
   --ease:cubic-bezier(.2,.7,.2,1);
