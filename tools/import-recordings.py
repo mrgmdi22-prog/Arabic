@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Import recordings exported from studio/ (a ZIP of files named like s__lion__1.webm).
 
+If the ZIP holds edits.json (texts the teacher corrected in the studio), each edit is written into
+the site's data file first (stories.js, ports.js, vocab.js or dictation.js), in place of the old text.
+
 For each file: trim the silence at both ends, even out the loudness, convert to mono MP3,
 and save it as audio/<key>.mp3 (key = s/lion/1). Then rewrite assets/audio.js so the site
 shows a listen button wherever a recording exists.
@@ -21,6 +24,41 @@ def convert(src, dst):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', FILTER, '-ac', '1', '-ar', '44100',
                     '-c:a', 'libmp3lame', '-b:a', '64k', dst], check=True)
 
+# where each kind of text lives: data file, field for the Arabic, field for the English
+FILES = {'s': ('stories.js', 'ar', 'en'), 'p': ('ports.js', 'ar', 'en'),
+         'w': ('vocab.js', 'a', 'e'), 'd': ('dictation.js', 'w', 'en')}
+
+def js(t):
+    return t.replace('\\', '\\\\').replace("'", "\\'")
+
+def apply_edits(edits):
+    """Replace each old text with the edited one, searching only inside its own story / harbour / theme / unit."""
+    ok, bad, texts = 0, [], {}
+    for key, e in sorted(edits.items()):
+        g, set_id, _ = key.split('/')
+        name, far, fen = FILES[g]
+        path = os.path.join(ROOT, 'assets', name)
+        src = texts.get(path) or io.open(path, encoding='utf-8').read()
+        start = src.find("id: '" + set_id + "'")
+        nxt = src.find("id: '", start + 5) if start >= 0 else -1
+        end = nxt if nxt > 0 else len(src)
+        block = src[start:end] if start >= 0 else ''
+        changed = False
+        for field, old, new in ((far, e.get('oldAr'), e.get('ar')), (fen, e.get('oldEn'), e.get('en'))):
+            if old is None or new is None or old == new: continue
+            needle = field + ": '" + js(old) + "'"
+            if needle in block:
+                block = block.replace(needle, field + ": '" + js(new) + "'", 1); changed = True
+            elif old:
+                bad.append(key + ' (' + field + ')')
+        if changed:
+            src = src[:start] + block + src[end:]; ok += 1
+            if g == 'd': print('note: dictation word changed in', key, '- check its gap (g) and wrong spellings (x)')
+        texts[path] = src
+    for path, src in texts.items():
+        with io.open(path, 'w', encoding='utf-8') as fh: fh.write(src)
+    return ok, bad
+
 def manifest():
     entries = {}
     for dirpath, _, files in os.walk(AUDIO):
@@ -35,11 +73,13 @@ def manifest():
     return len(entries)
 
 def main(zips):
-    done, skipped = 0, []
+    done, skipped, edits = 0, [], {}
     with tempfile.TemporaryDirectory() as tmp:
         for zp in zips:
             with zipfile.ZipFile(zp) as z:
                 for info in z.infolist():
+                    if os.path.basename(info.filename) == 'edits.json':
+                        edits.update(json.loads(z.read(info).decode('utf-8'))); continue
                     stem, _ = os.path.splitext(os.path.basename(info.filename))
                     m = KEY.match(stem)
                     if not m:
@@ -48,6 +88,10 @@ def main(zips):
                     with open(src, 'wb') as out: out.write(z.read(info))
                     convert(src, os.path.join(AUDIO, m.group(1), m.group(2), m.group(3) + '.mp3'))
                     done += 1
+    if edits:
+        ok, bad = apply_edits(edits)
+        print(f'applied {ok} text edits')
+        if bad: print('could not find the old text for:', ', '.join(bad))
     total = manifest()
     print(f'imported {done} recordings; {total} on the site in all')
     if skipped: print('skipped (unknown names):', ', '.join(skipped))

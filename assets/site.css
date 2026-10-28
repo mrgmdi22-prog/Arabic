@@ -137,6 +137,7 @@ footer.site a{color:var(--indigo)}
 html[data-lang="en"] .mapzoom{direction:ltr}
 .mapzoom button{border:1.5px solid var(--line);background:#FFFDF9;border-radius:6px;padding:4px 12px;font-family:var(--kufi);font-size:.95rem;cursor:pointer;color:var(--sea)}
 .mapzoom button[aria-selected="true"]{background:var(--sea);border-color:var(--sea);color:#fff}
+@media (max-width:560px){.mapzoom{display:grid;grid-template-columns:1fr 1fr}.mapzoom button{padding:5px 6px;font-size:.92rem;line-height:1.4}html[data-lang="en"] .mapzoom button span.t-ar{display:block!important;margin:0}}
 html[data-lang="en"] .mapzoom button .t-ar{display:inline!important;margin-inline-start:.4em;font-size:.9em;opacity:.85}
 .seamap{display:block;width:100%;min-width:820px;height:auto;font-family:var(--kufi);direction:ltr;--u:1}
 .seamap.zoomed{min-width:0}
