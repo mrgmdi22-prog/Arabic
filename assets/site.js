@@ -100,6 +100,8 @@
       '<div><a href="' + ENGLISH_CLUB + '"><span class="t-en">Visit the English Club site</span><span class="t-ar">زر موقع نادي اللغة الإنجليزية</span></a></div>';
   }
   hydrate();
+  // gentle sounds (assets/sfx.js), loaded after the top bar exists
+  try { var me = document.currentScript && document.currentScript.src; if (me) { var sx = document.createElement('script'); sx.src = new URL('sfx.js', me).href; document.body.appendChild(sx); } } catch (e) {}
 
   // ---------- Arabic text helpers ----------
   var HARAKAT = /[ً-ْٰـ]/g;   // tashkeel, dagger alif, tatweel
