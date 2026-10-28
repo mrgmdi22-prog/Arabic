@@ -99,7 +99,8 @@
     foot.className = 'site';
     foot.innerHTML = '<div class="sadu" aria-hidden="true"></div>' +
       '<div class="sig"><span class="t-en">Prepared by <b>Mr. Ahmed Al-Salim</b></span><span class="t-ar">إعداد: <b>أ. أحمد آل سالم</b></span></div>' +
-      '<div><a href="' + ENGLISH_CLUB + '"><span class="t-en">Visit the English Club site</span><span class="t-ar">زر موقع نادي اللغة الإنجليزية</span></a></div>';
+      '<div><a href="' + ENGLISH_CLUB + '"><span class="t-en">Visit the English Club site</span><span class="t-ar">زر موقع نادي اللغة الإنجليزية</span></a>' +
+      ' · <a href="https://dictionary.ksaa.gov.sa/" target="_blank" rel="noopener"><span class="t-en">Riyadh Dictionary</span> <span>معجم الرياض</span></a></div>';
   }
   hydrate();
   // gentle sounds (assets/sfx.js), loaded after the top bar exists
