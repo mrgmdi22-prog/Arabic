@@ -76,7 +76,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
       <path class="cut" d="M40 78h920M40 92h920M90 58h40M130 46h40M170 34h40M210 22h40M660 22h40M700 34h40M740 46h40M780 58h40"/>
     </svg>
     <div class="body"><div class="door">
-      <div class="mapbox"><div class="mapscroll" id="mapS"><div id="map"></div></div></div>
+      <div class="mapbox" id="map"></div>
       <div class="maplegend"><span><i style="border-color:#4C8FA8"></i><span class="t-en">Sea lanes</span><span class="t-ar">طرق البحر</span></span><span><i style="border-color:#B9822F"></i><span class="t-en">Incense Road</span><span class="t-ar">درب البخور</span></span><span><span class="t-en">Tap a harbour to visit it</span><span class="t-ar">المس المرفأ لتزوره</span></span></div>
     </div></div>
   </section>
@@ -160,8 +160,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
   document.getElementById('nPorts').textContent = visited; document.getElementById('tPorts').textContent = PORTS.length;
   document.getElementById('nRead').textContent = read; document.getElementById('nStars').textContent = stars;
 
-  SeaMap.draw(document.getElementById('map'), { root: '' });
-  var ms = document.getElementById('mapS'); requestAnimationFrame(function(){ ms.scrollLeft = (ms.scrollWidth - ms.clientWidth) * .28; });
+  SeaMap.mount(document.getElementById('map'), { root: '' });
 
   // story of the day: changes daily, same for everyone
   var d = new Date(), st = STORIES[(d.getFullYear() * 400 + d.getMonth() * 31 + d.getDate()) % STORIES.length];

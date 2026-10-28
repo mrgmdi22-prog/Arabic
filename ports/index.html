@@ -34,9 +34,9 @@
     <h1><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></h1>
     <p><span class="t-en">Sail with the old Arab sailors from harbour to harbour. Each harbour is a short reading lesson with questions.</span><span class="t-ar">أبحر مع البحّارة العرب القدماء من مرفأ إلى مرفأ. كل مرفأ درس قراءة قصير مع أسئلة.</span></p>
   </div>
-  <div class="frame"><div class="mapbox"><div class="mapscroll" id="mapS"><div id="map"></div></div></div>
+  <div class="frame"><div class="mapbox" id="map"></div>
     <div class="maplegend"><span><i style="border-color:#4C8FA8"></i><span class="t-en">Sea lanes</span><span class="t-ar">طرق البحر</span></span><span><i style="border-color:#B9822F"></i><span class="t-en">Incense Road</span><span class="t-ar">درب البخور</span></span></div></div>
-  <p class="maphint"><span class="t-en">Tap a harbour on the map. On a phone, slide the map sideways.</span><span class="t-ar">المس أي مرفأ على الخريطة. على الجوال اسحب الخريطة جانباً.</span></p>
+  <p class="maphint"><span class="t-en">Tap a harbour on the map. Use the buttons above the map to zoom into the Red Sea, the Gulf or East Africa.</span><span class="t-ar">المس أي مرفأ على الخريطة، واستعمل الأزرار فوقها لتكبير البحر الأحمر أو الخليج العربي أو شرق أفريقيا.</span></p>
   <div id="list"></div>
   <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
   <footer id="sitefoot"></footer>
@@ -48,8 +48,7 @@
 <script>
 (function(){
   var S = Site;
-  SeaMap.draw(document.getElementById('map'), { root: '../' });
-  var ms = document.getElementById('mapS'); requestAnimationFrame(function(){ ms.scrollLeft = (ms.scrollWidth - ms.clientWidth) * .28; });
+  SeaMap.mount(document.getElementById('map'), { root: '../' });
   var order = ['rum', 'red', 'arab', 'gulf', 'ocean', 'legend'];
   document.getElementById('list').innerHTML = order.map(function(k){
     var sea = SEAS[k], ps = PORTS.filter(function(p){ return p.sea === k; });

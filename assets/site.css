@@ -129,29 +129,37 @@ footer.site a{color:var(--indigo)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:560px){body{font-size:20px}html[data-lang="ar"] body{font-size:21px}.q-text{font-size:1.55rem}.opt{font-size:1.4rem}}
 
-/* ---------- sea map ---------- */
+/* ---------- sea map ----------
+   Sizes are multiplied by --u (map units per screen pixel) so text and dots stay the same size at every zoom. */
 .mapbox{position:relative;overflow:hidden;background:var(--sea-soft)}
 .mapscroll{direction:ltr;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
-.seamap{display:block;width:100%;min-width:820px;height:auto;font-family:var(--kufi);direction:ltr}
+.mapzoom{display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:var(--card);border-bottom:1.5px solid var(--line);direction:rtl}
+html[data-lang="en"] .mapzoom{direction:ltr}
+.mapzoom button{border:1.5px solid var(--line);background:#FFFDF9;border-radius:6px;padding:4px 12px;font-family:var(--kufi);font-size:.95rem;cursor:pointer;color:var(--sea)}
+.mapzoom button[aria-selected="true"]{background:var(--sea);border-color:var(--sea);color:#fff}
+html[data-lang="en"] .mapzoom button .t-ar{display:inline!important;margin-inline-start:.4em;font-size:.9em;opacity:.85}
+.seamap{display:block;width:100%;min-width:820px;height:auto;font-family:var(--kufi);direction:ltr;--u:1}
+.seamap.zoomed{min-width:0}
 .seamap .land{fill:#F3E6CF}
-.seamap .land-sh{fill:#DFC9A4;transform:translate(2px,3px)}
-.seamap .lane{fill:none;stroke:#4C8FA8;stroke-width:2.4;stroke-dasharray:1 9;stroke-linecap:round}
-.seamap .incense{fill:none;stroke:#B9822F;stroke-width:3;stroke-dasharray:10 7;stroke-linecap:round;opacity:.9}
-.seamap .inc-l text{fill:#9A6418;font-size:20px;font-weight:700;font-family:var(--text-ar);paint-order:stroke;stroke:#F3E6CF;stroke-width:5px}
-.seamap .sea-l text{fill:#6E9EB2;font-size:23px;font-family:var(--text-ar);font-weight:700}
-.seamap .sea-l text.en{font-family:var(--en-serif);font-style:italic;font-size:15px;font-weight:400}
-.seamap .china{fill:#4C8FA8;font-size:19px;font-family:var(--text-ar);font-weight:700}
+.seamap .coast{fill:none;stroke:#B99B6E;stroke-width:calc(var(--u)*2.2px);stroke-linejoin:round}
+.seamap .lane{fill:none;stroke:#3F86A0;stroke-width:calc(var(--u)*2.4px);stroke-dasharray:calc(var(--u)*1px) calc(var(--u)*9px);stroke-linecap:round}
+.seamap .incense{fill:none;stroke:#B9822F;stroke-width:calc(var(--u)*3px);stroke-dasharray:calc(var(--u)*10px) calc(var(--u)*7px);stroke-linecap:round;opacity:.9}
+.seamap .inc-l text{fill:#9A6418;font-size:calc(var(--u)*19px);font-weight:600;font-family:var(--kufi);paint-order:stroke;stroke:#F3E6CF;stroke-width:calc(var(--u)*5px)}
+.seamap .sea-l text{fill:#2F6E88;font-size:calc(var(--u)*22px);font-family:var(--kufi);font-weight:600;paint-order:stroke;stroke:#D9EDF5;stroke-width:calc(var(--u)*4px)}
+.seamap .sea-l.gulf text{font-size:calc(var(--u)*18px)}
+.seamap .sea-l text.en{font-family:var(--en-serif);font-style:italic;font-size:calc(var(--u)*14px);font-weight:400}
+.seamap .china{fill:#3F86A0;font-size:calc(var(--u)*18px);font-family:var(--kufi);font-weight:600}
 .seamap .port{cursor:pointer}
 .seamap .port .hit{fill:transparent}
-.seamap .port .ring{fill:#FFFBF5;stroke-width:3}
-.seamap .port text{font-size:21px;font-weight:600;paint-order:stroke;stroke:#FFF9EE;stroke-width:6px;stroke-linejoin:round}
-.seamap .port:hover .ring,.seamap .port:focus .ring{stroke-width:5}
+.seamap .port .ring{fill:#FFFBF5;stroke-width:calc(var(--u)*3px)}
+.seamap .port text{font-size:calc(var(--u)*19px);font-weight:600;paint-order:stroke;stroke:#FFF9EE;stroke-width:calc(var(--u)*5.5px);stroke-linejoin:round}
+.seamap .port:hover .ring,.seamap .port:focus .ring{stroke-width:calc(var(--u)*5px)}
 .seamap .port.on .ring{animation:pulse 1.6s ease-in-out infinite}
-.seamap .port.legend .mist{fill:#EFE6F7;stroke:#A98BD1;stroke-width:2;stroke-dasharray:5 6}
+.seamap .port.legend .mist{fill:#EFE6F7;stroke:#A98BD1;stroke-width:calc(var(--u)*2px);stroke-dasharray:calc(var(--u)*5px) calc(var(--u)*6px)}
 .seamap .ship{pointer-events:none}
 .seamap .ship path{fill:none;stroke:#7A4A26;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .seamap .ship .sail{fill:#FFF8EA}
-@keyframes pulse{0%,100%{stroke-width:3}50%{stroke-width:8}}
+@keyframes pulse{0%,100%{stroke-width:calc(var(--u)*3px)}50%{stroke-width:calc(var(--u)*8px)}}
 .maplegend{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;padding:10px 14px;background:var(--card);border-top:1.5px solid var(--line);font-size:.98rem;color:var(--muted)}
 .maplegend i{display:inline-block;width:26px;height:0;border-top:3px dashed;vertical-align:middle;margin-inline-end:6px}
 .maphint{font-size:.95rem;color:var(--muted);text-align:center;margin:8px 0 0}

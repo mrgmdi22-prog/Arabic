@@ -22,7 +22,7 @@
 .gatehead .meta span{border:1.5px solid color-mix(in srgb,var(--sc) 35%,white);color:var(--sc);background:#fff;border-radius:6px;padding:2px 12px}
 .legend-note{margin:12px auto 0;max-width:30em;background:#F1EAF8;color:#5D3B8C;border-radius:6px;padding:8px 14px;font-family:var(--kufi);font-size:.98rem}
 .mini{margin-top:16px;border:1.5px solid var(--line);border-radius:6px}
-.mini .mapscroll{max-height:320px;overflow:auto}
+.mini .seamap.zoomed{max-height:340px}
 .lesson{background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:22px 20px 10px;margin-top:16px}
 .para{font-family:var(--text-ar);direction:rtl;text-align:right;font-size:clamp(1.55rem,4.6vw,1.9rem);line-height:2.15;margin:0 0 6px}
 .trans{direction:ltr;text-align:left;font-family:var(--en-serif);color:var(--muted);font-size:1.12rem;line-height:1.7;background:#FAF4EA;border-inline-start:4px solid var(--stone);padding:8px 14px;margin:0 0 14px;display:none}
@@ -88,7 +88,7 @@ html[data-lang="ar"] .q .qen{display:none}
         '<div class="meta"><span>' + S.bi(SEA.en, S.strip(SEA.ar)) + '</span><span>' + S.bi('Harbour ' + (idx + 1) + ' of ' + PORTS.length, 'المرفأ ' + (idx + 1) + ' من ' + PORTS.length) + '</span></div>' +
         (P.legend ? '<div class="legend-note">' + S.bi('A legend from the old sailors’ tales, not a real place.', 'أسطورة من حكايات البحّارة القدماء، وليست مكاناً حقيقياً.') + '</div>' : '') +
       '</div></section>' +
-      '<div class="mapbox mini"><div class="mapscroll" id="mapS"><div id="map"></div></div></div>' +
+      '<div class="mapbox mini" id="map"></div>' +
       '<section class="lesson">' + P.text.map(function(t){ return '<p class="para">' + render(t.ar) + '</p><p class="trans' + (showTr ? ' on' : '') + '">' + S.esc(t.en) + '</p>'; }).join('') +
         '<div class="tools">' + S.audioBtn(P.text.map(function(_, i){ return 'p/' + P.id + '/' + (i + 1); }), S.t('Listen', 'استمع')) + '<button class="tool" type="button" id="bTr" aria-pressed="' + showTr + '">' + S.icon('translate') + S.bi('English translation', 'الترجمة الإنجليزية') + '</button>' +
         '<button class="tool" type="button" id="bHk" aria-pressed="' + showHk + '">' + S.icon('marks') + S.bi('Vowel marks', 'التشكيل') + '</button></div></section>' +
@@ -105,9 +105,7 @@ html[data-lang="ar"] .q .qen{display:none}
         '<a class="nx" href="port.html?p=' + next.id + '"><small>' + S.bi('Next harbour', 'المرفأ التالي') + '</small><b>' + S.strip(next.ar) + '</b></a></nav>' +
       '<div style="text-align:center"><a class="crumb" href="index.html">' + S.icon('anchor') + S.bi('All harbours', 'كل المرافئ') + '</a></div>';
 
-    SeaMap.draw(document.getElementById('map'), { root: '../', highlight: P.id });
-    var ms = document.getElementById('mapS'), sv = ms.querySelector('svg');
-    requestAnimationFrame(function(){ var k = sv.getBoundingClientRect().width / LAND.w, q = SeaMap.xy(P.lon, P.lat); ms.scrollLeft = Math.max(0, q[0] * k - ms.clientWidth / 2); ms.scrollTop = Math.max(0, q[1] * k - ms.clientHeight / 2); });
+    SeaMap.draw(document.getElementById('map'), { root: '../', highlight: P.id, view: SeaMap.around(P, P.legend ? 12 : 7), height: 320 });
 
     document.getElementById('bTr').onclick = function(){ showTr = !showTr; savePref(); this.setAttribute('aria-pressed', showTr); app.querySelectorAll('.trans').forEach(function(t){ t.classList.toggle('on', showTr); }); };
     document.getElementById('bHk').onclick = function(){ showHk = !showHk; savePref(); draw(); };
