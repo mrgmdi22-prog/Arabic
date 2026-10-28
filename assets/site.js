@@ -1,4 +1,4 @@
-// Learn Arabic · shared helpers: top bar + footer, interface language (EN/AR), Arabic speech, text helpers, progress.
+// مرافئ العربية · Arabic Harbours — shared helpers: top bar + footer, interface language (EN/AR), Arabic speech, text helpers, progress.
 (function () {
   var ENGLISH_CLUB = 'https://mrgmdi22-prog.github.io/English/';
   var root = document.body.getAttribute('data-root') || '';
@@ -21,7 +21,7 @@
     top.innerHTML =
       '<div class="in">' +
         '<a class="brand" href="' + root + 'index.html"><span class="mark" aria-hidden="true">ض</span>' +
-          '<span class="nm"><span class="t-en">Learn Arabic</span><span class="t-ar">تعلّم العربية</span></span></a>' +
+          '<span class="nm"><span class="t-en">Arabic Harbours</span><span class="t-ar">مرافئ العربية</span></span></a>' +
         '<a class="pill eng" href="' + ENGLISH_CLUB + '"><span aria-hidden="true">🇬🇧</span><span class="t-en">English Club</span><span class="t-ar">نادي الإنجليزية</span></a>' +
         '<button class="pill lang" id="langBtn" type="button"><span aria-hidden="true">🌐</span><span class="t-en">العربية</span><span class="t-ar">English</span></button>' +
       '</div>';

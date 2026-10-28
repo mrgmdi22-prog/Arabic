@@ -4,38 +4,489 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
-<title>I‘rab Lab · مختبر الإعراب</title>
+<title>مختبر الإعراب · I‘rab Lab · مرافئ العربية</title>
 <meta name="theme-color" content="#fbf8f1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Reem+Kufi:wght@600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
-.soon{text-align:center;background:linear-gradient(135deg,#ebedfd,#fff 60%,#e2f4f1);border:1.5px solid #d9dcf8;border-radius:30px;padding:36px 20px;margin-top:10px}
-.soon .tree{font-family:var(--text-ar);direction:rtl;display:inline-grid;gap:10px;margin:8px 0 14px}
-.soon .tree .n{background:#fff;border:2px solid #cfd3f7;border-radius:14px;padding:4px 16px;font-size:1.35rem}
-.soon .tree .row{display:flex;gap:14px;justify-content:center}
-.soon p{max-width:30em;margin:6px auto 0;font-size:1.08rem}
+/* مختبر الإعراب — من تصميم أ. أحمد آل سالم ومراجعة أ. سعد بن فارس؛ نسخة الموقع بالألوان الفاتحة فقط. */
+/* Layout: one right-to-left study column; the tree gets a full-width scrollable panel, the إعراب table and notes sit below. */
+:root{
+  --bg:#F5F7F4; --panel:#FFFFFF; --ink:#1E2A24; --muted:#56655D; --line:#D7E0DA;
+  --accent:#1F7A5C; --accent-ink:#FFFFFF;
+  --phrase-fill:#FBF1DD; --phrase-stroke:#C99A3E; --phrase-ink:#5E400B;
+  --leaf-fill:#E2F4EC; --leaf-stroke:#3F9B78; --leaf-ink:#14523B; --hid-fill:#EAF0FF; --hid-stroke:#5B7BD6; --hid-ink:#2B3F8F;
+  --edge:#9FAEA5; --sel:#3A5BD0; --warn-bg:#FFF4DE; --warn-ink:#7A4B00;
+  --display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
+  --ui:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
+  --naskh:"Noto Naskh Arabic","Traditional Arabic",serif;
+}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,50px);line-height:1.3;margin:0}
+h2{font-family:var(--display);font-weight:600;font-size:24px;margin:0 0 10px}
+.lede{color:var(--muted);margin:4px 0 0;max-width:60ch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+label.big{font-weight:600;display:block;margin-bottom:8px}
+textarea{width:100%;box-sizing:border-box;font-family:var(--naskh);font-size:26px;line-height:1.9;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;resize:vertical;min-height:92px}
+textarea:focus-visible,button:focus-visible{outline:3px solid var(--sel);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+button{font:inherit;font-size:19px;border-radius:10px;cursor:pointer;padding:8px 18px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+button:disabled{opacity:.55;cursor:default}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+.chips span{color:var(--muted);font-size:17px}
+.chip{font-family:var(--naskh);font-size:19px;padding:4px 14px;border-radius:999px}
+.status{font-size:18px;color:var(--muted);min-height:1.6em}
+.status.err{color:var(--warn-ink);background:var(--warn-bg);padding:6px 12px;border-radius:8px}
+.treebox{overflow-x:auto;padding-bottom:6px}
+.treebox svg{display:block;margin:0 auto}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--muted);font-size:18px;margin-bottom:10px}
+.meta b{color:var(--ink);font-family:var(--naskh);font-size:21px}
+table{width:100%;border-collapse:collapse;font-size:19px}
+th{text-align:right;font-size:16px;color:var(--muted);font-weight:600;padding:6px 10px;border-bottom:1.5px solid var(--line)}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.w{font-family:var(--naskh);font-weight:700;font-size:23px;white-space:nowrap}
+td.full{font-family:var(--naskh);font-size:20px;line-height:1.9}
+.tag.hid{background:var(--hid-fill);color:var(--hid-ink);border:1px dashed var(--hid-stroke)}
+.tag{display:inline-block;font-weight:600;font-size:17px;padding:0 10px;border-radius:6px;background:var(--leaf-fill);color:var(--leaf-ink);border:1px solid var(--leaf-stroke);white-space:nowrap}
+ul.notes{margin:0;padding-right:1.2em;padding-left:0;display:flex;flex-direction:column;gap:8px}
+.explain{margin-top:16px;padding:12px 16px;border-radius:10px;background:var(--phrase-fill);color:var(--phrase-ink);font-size:18px}
+.explain b{font-family:var(--display);font-size:21px;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:16px;color:var(--muted);margin-top:8px}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-left:6px}
+.tableScroll{overflow-x:auto}
+ol.irab{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ol.irab li{border:1.5px solid var(--line);border-radius:12px;padding:12px 16px;background:var(--bg)}
+ol.irab li.hidrow{border-style:dashed;border-color:var(--hid-stroke)}
+.ihead{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-bottom:4px}
+.iw{font-family:var(--naskh);font-weight:700;font-size:28px;line-height:1.5}
+.itext{margin:0;font-family:var(--naskh);font-size:21px;line-height:1.9}
+@media (max-width:480px){.panel{padding:16px}.iw{font-size:26px}.itext{font-size:20px}}
+.otree{overflow-x:auto;padding:4px 2px 8px}
+.otree ul{list-style:none;margin:0;padding:0 30px 0 0;position:relative}
+.otree>ul{padding-right:0}
+.otree li{position:relative;padding:6px 0;white-space:nowrap}
+.otree ul ul>li::before{content:"";position:absolute;right:-20px;top:0;bottom:0;border-right:2px solid var(--edge)}
+.otree ul ul>li:last-child::before{bottom:auto;height:27px}
+.otree ul ul>li::after{content:"";position:absolute;right:-20px;top:27px;width:16px;border-top:2px solid var(--edge)}
+.otree .row{display:inline-flex;align-items:center;gap:12px;margin:0}
+.otree .chip2{display:inline-flex;align-items:center;height:40px;box-sizing:border-box;padding:0 14px;border-radius:8px;font-weight:600;font-size:19px;border:1.5px solid}
+.otree .ph{background:var(--phrase-fill);border-color:var(--phrase-stroke);color:var(--phrase-ink)}
+.otree .lf{background:var(--leaf-fill);border-color:var(--leaf-stroke);color:var(--leaf-ink)}
+.otree .hd{background:var(--hid-fill);border-color:var(--hid-stroke);border-style:dashed;color:var(--hid-ink)}
+.otree .wd{font-family:var(--naskh);font-size:27px;font-weight:700;line-height:1.4}
+.otree .wd.hd2{color:var(--hid-ink)}
+.modes{display:flex;gap:0;margin-bottom:14px;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;width:max-content;max-width:100%}
+.modes input{position:absolute;opacity:0;pointer-events:none}
+.modes label{padding:8px 20px;cursor:pointer;font-weight:600;color:var(--muted);background:var(--panel)}
+.modes input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.modes input:focus-visible+label{outline:3px solid var(--sel);outline-offset:-3px}
+.ref{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.ref label{font-size:17px;color:var(--muted)}
+.ref select{font:inherit;font-size:18px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:4px 10px;flex:1 1 180px;min-width:0}
+.ref input{font:inherit;font-size:18px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:4px 12px;min-width:0;flex:1 1 220px}
+.ref input:focus-visible{outline:3px solid var(--sel);outline-offset:2px}
+.qintro{margin:0 0 12px;font-size:18px;color:var(--muted)}
+.refcard{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.refcard h3{margin:0;font-family:var(--naskh);font-size:24px;line-height:1.6}
+.refcard .by{color:var(--muted);font-size:17px}
+.refcard .pg{font-size:20px}
+.refcard .pg b{font-size:26px;color:var(--accent)}
+.refcard a{color:var(--accent);font-weight:600}
+.qhead{font-family:var(--naskh);font-size:26px;font-weight:700;margin-bottom:12px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.notice{margin-top:14px;padding:12px 16px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:17px;line-height:1.8}
+.notice a{color:inherit;font-weight:600}
+svg .node{cursor:pointer}
+svg .node:focus{outline:none}
+svg .node:focus rect,svg .node.sel rect{stroke:var(--sel);stroke-width:3}
+
+.labpage{padding-top:22px}
+.claudebox{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#ebedfd;border-radius:12px;padding:10px 14px;font-size:17px;color:#2b3f8f}
+.claudebox a{background:#4552c9;color:#fff;text-decoration:none;font-weight:700;border-radius:999px;padding:6px 16px}
+.lede.t-en{direction:ltr;text-align:left}
 </style>
 </head>
 <body data-root="../">
 <header id="topbar"></header>
-<main class="wrap">
-  <div class="phead">
-    <div class="ic" aria-hidden="true">🔬</div>
-    <h1><span class="t-en">I‘rab Lab</span><span class="t-ar">مختبر الإعراب</span></h1>
-    <p><span class="t-en">Analyse Arabic sentences word by word, with a simple grammar tree.</span><span class="t-ar">أعرب الجمل العربية كلمةً كلمةً، مع شجرة نحوية مبسّطة.</span></p>
-  </div>
-  <div class="soon reveal">
-    <div class="tree" aria-hidden="true">
-      <div class="row"><span class="n">الجُمْلَةُ</span></div>
-      <div class="row"><span class="n" style="color:var(--teal)">فِعْلٌ</span><span class="n" style="color:var(--indigo)">فَاعِلٌ</span><span class="n" style="color:var(--rose)">مَفْعُولٌ بِهِ</span></div>
+<div class="wrap labpage" dir="rtl" lang="ar">
+  <header>
+    <h1>مختبر الإعراب</h1>
+    <p class="lede t-ar">اكتب جملة عربية لترى شجرتها وإعرابها.</p>
+    <p class="lede t-en">Type an Arabic sentence to see its grammar tree and word-by-word i‘rab (explained in Arabic).</p>
+  </header>
+
+  <section class="panel" aria-label="الإدخال">
+    <div class="modes" role="radiogroup" aria-label="نوع النص">
+      <input type="radio" name="mode" id="modeS" value="s" checked><label for="modeS">جملة عربية</label>
+      <input type="radio" name="mode" id="modeQ" value="q"><label for="modeQ">آية قرآنية</label>
     </div>
-    <h2 style="margin:0;font-size:1.5rem"><span class="t-en">Coming soon</span><span class="t-ar">قريباً</span></h2>
-    <p><span class="t-en">The lab is being added to the site. Check back shortly.</span><span class="t-ar">يجري إضافة المختبر إلى الموقع، فعُد إلينا قريباً.</span></p>
-  </div>
-  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">← Home</span><span class="t-ar">الرئيسية ←</span></a></div>
-  <footer id="sitefoot"></footer>
-</main>
+    <div id="sBox">
+      <label class="big" id="inLabel" for="sentence">جملتك</label>
+      <textarea id="sentence" maxlength="400" dir="rtl" lang="ar">يقرأُ المعلمُ الكتابَ في المكتبةِ.</textarea>
+      <div class="row">
+        <button class="primary" id="go">أعرب الجملة</button>
+        <button id="stop" hidden>إيقاف</button>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+      </div>
+      <div class="chips" id="examples"><span>جرّب مثالاً:</span></div>
+      <div class="claudebox"><span>لإعراب جملك الخاصة افتح المختبر في Claude:</span><a href="https://claude.ai/artifact/TqPx7th1FhqBAiKF9P6igp" target="_blank" rel="noopener">افتح المختبر في Claude ←</a></div>
+    </div>
+    <div id="qBox" hidden>
+      <p class="qintro">إعراب القرآن الكريم يؤخذ من كتب أهل الاختصاص، ولا يعرب هذا البرنامج الآيات من عنده. اختر السورة ورقم الآية، ليرشدك إلى موضع إعرابها في المراجع المعتمدة.</p>
+      <div class="ref">
+        <label for="surah">السورة</label>
+        <select id="surah"></select>
+        <label for="ayah">رقم الآية</label>
+        <input id="ayah" type="number" min="1" inputmode="numeric" style="flex:0 1 110px">
+        <button class="primary" id="findRef">اعرض المراجع</button>
+      </div>
+      <div class="status" id="qStatus" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="qPanel" hidden aria-labelledby="qH">
+    <h2 id="qH">موضع الإعراب في المراجع</h2>
+    <div id="qOut"></div>
+  </section>
+
+  <section class="panel res" aria-labelledby="treeH">
+    <h2 id="treeH">شجرة الجملة</h2>
+    <div class="meta" id="meta"></div>
+    <div class="modes" role="radiogroup" aria-label="شكل الشجرة">
+      <input type="radio" name="view" id="viewH" value="h" checked><label for="viewH">جانبية</label>
+      <input type="radio" name="view" id="viewV" value="v"><label for="viewV">عمودية</label>
+    </div>
+    <div class="otree" id="tree" role="tree" aria-label="شجرة الجملة"></div>
+    <div class="treebox" id="treeVBox" dir="ltr" hidden><svg id="treeV" role="img" aria-label="شجرة الجملة"></svg></div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--phrase-fill);border:1.5px solid var(--phrase-stroke)"></i>جملة أو تركيب</span>
+      <span><i class="sw" style="background:var(--leaf-fill);border:1.5px solid var(--leaf-stroke)"></i>موقع الكلمة</span>
+      <span><i class="sw" style="background:var(--hid-fill);border:1.5px dashed var(--hid-stroke)"></i>ضمير مستتر</span>
+    </div>
+  </section>
+
+  <section class="panel res" aria-labelledby="irabH">
+    <h2 id="irabH">الإعراب التفصيلي</h2>
+    <ol class="irab" id="words"></ol>
+  </section>
+
+</div>
+
+<div class="wrap" style="max-width:1040px"><footer id="sitefoot"></footer></div>
 <script src="../assets/site.js"></script>
+<script>
+const GLOSS=[
+  ["جملة اسمية منسوخة","جملة اسمية دخل عليها ناسخ مثل (كان وأخواتها) أو (إنّ وأخواتها)، فغيّر إعراب المبتدأ أو الخبر."],
+  ["جملة اسمية","جملة تبدأ باسم، وركناها المبتدأ والخبر."],
+  ["جملة فعلية","جملة تبدأ بفعل، وركناها الفعل والفاعل، وقد يأتي بعدهما مفعول به."],
+  ["شبه جملة","الجار والمجرور، أو الظرف مع المضاف إليه. تتعلق بفعل أو ما يشبهه."],
+  ["مركب إضافي","اسمان، الأول مضاف والثاني مضاف إليه مجرور دائماً، مثل: كتابُ الطالبِ."],
+  ["مركب وصفي","اسم وصفته (النعت)، والنعت يتبع المنعوت في إعرابه."],
+  ["مركب موصولي","الاسم الموصول مع جملة صلته. للموصول نفسه موقع إعرابي بحسب مكانه، أما جملة الصلة فلا محل لها من الإعراب."],
+  ["مركب عطفي","اسمان أو أكثر بينهما حرف عطف، والمعطوف يتبع المعطوف عليه في إعرابه."],
+  ["جملة","تركيب مفيد له موقع إعرابي داخل الجملة الكبرى، أو لا محل له من الإعراب."],
+  ["فعل ناسخ","فعل يدخل على الجملة الاسمية فيغير إعرابها، مثل: كان وأخواتها. يرفع المبتدأ وينصب الخبر."],
+  ["حرف ناسخ","حرف يدخل على الجملة الاسمية فيغير إعرابها، مثل: إنّ وأخواتها. ينصب المبتدأ ويرفع الخبر."],
+  ["نائب فاعل","اسم مرفوع يأتي بعد الفعل المبني للمجهول، ويحل محل الفاعل المحذوف."],
+  ["مفعول به","اسم منصوب وقع عليه فعل الفاعل."],
+  ["مفعول مطلق","مصدر منصوب من لفظ الفعل، يؤكده أو يبين نوعه أو عدده."],
+  ["مفعول لأجله","مصدر منصوب يبين سبب وقوع الفعل."],
+  ["مفعول فيه","ظرف زمان أو مكان منصوب يبين وقت الفعل أو مكانه."],
+  ["مضاف إليه","اسم مجرور دائماً، يأتي بعد اسم آخر ليعرّفه أو يخصصه."],
+  ["اسم مجرور","اسم يأتي بعد حرف الجر، وهو مجرور دائماً."],
+  ["حرف جر","حرف يجر الاسم الذي بعده، مثل: من، إلى، عن، على، في، الباء، اللام."],
+  ["حرف عطف","حرف يربط بين كلمتين أو جملتين، مثل: الواو، الفاء، ثم، أو."],
+  ["حرف نصب","حرف ينصب الفعل المضارع، مثل: أنْ، لنْ، كي."],
+  ["حرف جزم","حرف يجزم الفعل المضارع، مثل: لمْ، لا الناهية، لام الأمر."],
+  ["اسم كان","اسم مرفوع يأتي بعد (كان) أو إحدى أخواتها، وأصله مبتدأ."],
+  ["خبر كان","اسم منصوب، وأصله خبر المبتدأ قبل دخول (كان)."],
+  ["اسم إنّ","اسم منصوب يأتي بعد (إنّ) أو إحدى أخواتها، وأصله مبتدأ."],
+  ["اسم إن","اسم منصوب يأتي بعد (إنّ) أو إحدى أخواتها، وأصله مبتدأ."],
+  ["خبر إنّ","اسم مرفوع، وأصله خبر المبتدأ قبل دخول (إنّ)."],
+  ["خبر إن","اسم مرفوع، وأصله خبر المبتدأ قبل دخول (إنّ)."],
+  ["مبتدأ","اسم مرفوع تبدأ به الجملة الاسمية، ونخبر عنه."],
+  ["خبر","الجزء الذي يتم معنى المبتدأ، ويكون مرفوعاً إن كان مفرداً."],
+  ["فاعل","اسم مرفوع يدل على من قام بالفعل."],
+  ["فعل","كلمة تدل على حدث مرتبط بزمن: ماضٍ أو مضارع أو أمر."],
+  ["نعت","صفة تتبع الاسم الموصوف في إعرابه وتعريفه وتنكيره وعدده."],
+  ["معطوف","اسم يأتي بعد حرف العطف، ويتبع ما قبله في الإعراب."],
+  ["حال","اسم منصوب يبين هيئة صاحبه وقت وقوع الفعل."],
+  ["تمييز","اسم نكرة منصوب يزيل الإبهام عما قبله."],
+  ["ظرف","اسم منصوب يدل على زمان الفعل أو مكانه."],
+  ["بدل","اسم تابع يأتي بعد اسم آخر ليوضحه، ويأخذ إعرابه."],
+  ["توكيد","تابع يقوي المعنى ويؤكده، مثل: نفسه، كله."],
+  ["جار ومجرور","حرف جر واسم مجرور متصلان في كلمة واحدة، مثل: بسم، بالقلم. ويتعلقان بفعل أو بمحذوف."],
+  ["لفظ الجلالة","يقال «لفظ الجلالة» عند إعراب اسم الله تعالى تعظيماً، ثم يُذكر موقعه، مثل: مضاف إليه."],
+  ["أداة","كلمة تؤدي وظيفة في الجملة كالاستفهام أو النفي أو الشرط."],
+  ["ضمير","اسم يدل على متكلم أو مخاطب أو غائب، مثل: هو، أنتَ، نحن."]
+];
+function gloss(label){for(const [k,v] of GLOSS)if(label.includes(k))return[k,v];return null}
+
+const W=(label,word)=>({label,word});
+const N=(label,children,role)=>role?{label,role,children}:{label,children};
+const EXAMPLES=[
+ {sentence:"إنّ الذي رفعَ السماءَ بنى لنا بيتاً.",type:"جملة اسمية منسوخة",
+  groups:[{type:"الموصول وصلته",mahall:"اسم إنّ",from:1,to:4},{type:"جملة الصلة",mahall:"",from:2,to:4},{type:"جملة فعلية",mahall:"خبر إنّ",from:5,to:8},{type:"شبه جملة جار ومجرور",mahall:"",from:7,to:7}],
+  words:[["إنّ","حرف ناسخ","حرف توكيد ونصب مبني على الفتح لا محل له من الإعراب."],["الذي","اسم موصول","اسم موصول مبني على السكون في محل نصب اسم إنّ."],["رفعَ","فعل","فعل ماضٍ مبني على الفتح."],["(هو)","فاعل","ضمير مستتر جوازاً تقديره هو في محل رفع فاعل.","مستتر"],["السماءَ","مفعول به","مفعول به منصوب وعلامة نصبه الفتحة الظاهرة على آخره."],["بنى","فعل","فعل ماضٍ مبني على الفتح المقدر على الألف للتعذر، والجملة الفعلية (بنى لنا بيتاً) في محل رفع خبر إنّ."],["(هو)","فاعل","ضمير مستتر جوازاً تقديره هو في محل رفع فاعل.","مستتر"],["لنا","جار ومجرور","اللام حرف جر مبني على الفتح، و(نا) ضمير متصل مبني على السكون في محل جر بحرف الجر، والجار والمجرور متعلقان بالفعل (بنى)."],["بيتاً","مفعول به","مفعول به منصوب وعلامة نصبه الفتحة الظاهرة على آخره."]],notes:[]},
+ {sentence:"الكتابُ على الطاولةِ.",type:"جملة اسمية",
+  groups:[{type:"شبه جملة جار ومجرور",mahall:"خبر",from:1,to:2}],
+  words:[["الكتابُ","مبتدأ","مبتدأ مرفوع وعلامة رفعه الضمة الظاهرة على آخره."],["على","حرف جر","حرف جر مبني على السكون لا محل له من الإعراب."],["الطاولةِ","اسم مجرور","اسم مجرور بـ(على) وعلامة جره الكسرة الظاهرة على آخره، وشبه الجملة من الجار والمجرور في محل رفع خبر."]],notes:[]},
+ {sentence:"اجتهدْ في دروسِك.",type:"جملة فعلية",
+  words:[["اجتهدْ","فعل","فعل أمر مبني على السكون.",""],["(أنت)","فاعل","ضمير مستتر وجوباً تقديره أنت في محل رفع فاعل.","مستتر"],["في","حرف جر","حرف جر مبني على السكون لا محل له من الإعراب.",""],["دروسِك","اسم مجرور","اسم مجرور بـ(في) وعلامة جره الكسرة الظاهرة على آخره، وهو مضاف، والكاف ضمير متصل مبني على الفتح في محل جر مضاف إليه.",""]],notes:[]},
+ {sentence:"العلمُ نورٌ.",type:"جملة اسمية",
+  tree:N("جملة اسمية",[W("مبتدأ","العلمُ"),W("خبر","نورٌ")]),
+  words:[["العلمُ","مبتدأ","مبتدأ مرفوع وعلامة رفعه الضمة الظاهرة على آخره."],["نورٌ","خبر","خبر مرفوع وعلامة رفعه الضمة الظاهرة على آخره."]],
+  notes:["الجملة الاسمية تبدأ باسم، وتتكون من مبتدأ وخبر.","المبتدأ والخبر كلاهما مرفوع، وعلامة الرفع الأصلية الضمة."]},
+ {sentence:"يقرأُ المعلمُ الكتابَ في المكتبةِ.",type:"جملة فعلية",
+  tree:N("جملة فعلية",[W("فعل","يقرأُ"),W("فاعل","المعلمُ"),W("مفعول به","الكتابَ"),N("شبه جملة",[W("حرف جر","في"),W("اسم مجرور","المكتبةِ")],"متعلقة بالفعل")]),
+  words:[["يقرأُ","فعل","فعل مضارع مرفوع وعلامة رفعه الضمة الظاهرة على آخره."],["المعلمُ","فاعل","فاعل مرفوع وعلامة رفعه الضمة الظاهرة على آخره."],["الكتابَ","مفعول به","مفعول به منصوب وعلامة نصبه الفتحة الظاهرة على آخره."],["في","حرف جر","حرف جر مبني على السكون لا محل له من الإعراب."],["المكتبةِ","اسم مجرور","اسم مجرور بـ(في) وعلامة جره الكسرة الظاهرة على آخره، وشبه الجملة متعلقة بالفعل (يقرأ)."]],
+  groups:[{type:"شبه جملة جار ومجرور",mahall:"",from:3,to:4}],
+  notes:["الجملة الفعلية تبدأ بفعل، ويأتي بعده الفاعل ثم المفعول به.","الفعل المضارع يكون مرفوعاً ما لم يسبقه ناصب أو جازم.","الجار والمجرور معاً يسميان شبه جملة."]},
+ {sentence:"الطلابُ المجتهدونَ ناجحونَ.",type:"جملة اسمية",
+  tree:N("جملة اسمية",[N("مركب وصفي",[W("مبتدأ","الطلابُ"),W("نعت","المجتهدونَ")],"المبتدأ ونعته"),W("خبر","ناجحونَ")]),
+  words:[["الطلابُ","مبتدأ","مبتدأ مرفوع وعلامة رفعه الضمة الظاهرة على آخره."],["المجتهدونَ","نعت","نعت مرفوع وعلامة رفعه الواو لأنه جمع مذكر سالم."],["ناجحونَ","خبر","خبر مرفوع وعلامة رفعه الواو لأنه جمع مذكر سالم."]],
+  notes:["النعت يتبع المنعوت في الإعراب، فلما كان (الطلاب) مرفوعاً جاء نعته مرفوعاً.","جمع المذكر السالم يُرفع بالواو، ويُنصب ويُجر بالياء."]},
+ {sentence:"كانَ الجوُّ جميلاً.",type:"جملة اسمية منسوخة",
+  tree:N("جملة اسمية منسوخة",[W("فعل ناسخ","كانَ"),W("اسم كان","الجوُّ"),W("خبر كان","جميلاً")]),
+  words:[["كانَ","فعل ناسخ","فعل ماضٍ ناقص مبني على الفتح."],["الجوُّ","اسم كان","اسم كان مرفوع وعلامة رفعه الضمة الظاهرة على آخره."],["جميلاً","خبر كان","خبر كان منصوب وعلامة نصبه الفتحة الظاهرة على آخره."]],
+  notes:["(كان) تدخل على الجملة الاسمية، فترفع المبتدأ ويسمى اسمها، وتنصب الخبر ويسمى خبرها.","أصل الجملة قبل دخول (كان): الجوُّ جميلٌ."]}
+];
+
+const SURAHS=[["الفاتحة", 19], ["البقرة", 21], ["آل عمران", 234], ["النساء", 357], ["المائدة", 481], ["الأنعام", 571], ["الأعراف", 672], ["الأنفال", 792], ["التوبة", 835], ["يونس", 919], ["هود", 981], ["يوسف", 1045], ["الرعد", 1103], ["إبراهيم", 1127], ["الحجر", 1153], ["النحل", 1179], ["الإسراء", 1235], ["الكهف", 1283], ["مريم", 1333], ["طه", 1366], ["الأنبياء", 1414], ["الحج", 1456], ["المؤمنون", 1493], ["النور", 1531], ["الفرقان", 1569], ["الشعراء", 1599], ["النمل", 1647], ["القصص", 1684], ["العنكبوت", 1728], ["الروم", 1760], ["لقمان", 1787], ["السجدة", 1804], ["الأحزاب", 1817], ["سبأ", 1858], ["فاطر", 1888], ["يس", 1914], ["الصافات", 1943], ["ص", 1983], ["الزمر", 2011], ["غافر", 2049], ["فصلت", 2088], ["الشورى", 2114], ["الزخرف", 2140], ["الدخان", 2169], ["الجاثية", 2183], ["الأحقاف", 2199], ["محمد", 2219], ["الفتح", 2237], ["الحجرات", 2254], ["ق", 2265], ["الذاريات", 2278], ["الطور", 2293], ["النجم", 2306], ["القمر", 2322], ["الرحمن", 2335], ["الواقعة", 2349], ["الحديد", 2367], ["المجادلة", 2385], ["الحشر", 2400], ["الممتحنة", 2414], ["الصف", 2426], ["الجمعة", 2433], ["المنافقون", 2439], ["التغابن", 2446], ["الطلاق", 2455], ["التحريم", 2465], ["الملك", 2473], ["القلم", 2485], ["الحاقة", 2499], ["المعارج", 2511], ["نوح", 2521], ["الجن", 2530], ["المزمل", 2541], ["المدثر", 2549], ["القيامة", 2561], ["الإنسان", 2570], ["المرسلات", 2580], ["النبأ", 2589], ["النازعات", 2598], ["عبس", 2608], ["التكوير", 2616], ["الانفطار", 2622], ["المطففين", 2626], ["الانشقاق", 2634], ["البروج", 2640], ["الطارق", 2645], ["الأعلى", 2649], ["الغاشية", 2653], ["الفجر", 2658], ["البلد", 2665], ["الشمس", 2669], ["الليل", 2672], ["الضحى", 2677], ["الشرح", 2679], ["التين", 2681], ["العلق", 2683], ["القدر", 2687], ["البينة", 2688], ["الزلزلة", 2691], ["العاديات", 2693], ["القارعة", 2696], ["التكاثر", 2698], ["العصر", 2700], ["الهمزة", 2700], ["الفيل", 2702], ["قريش", 2704], ["الماعون", 2705], ["الكوثر", 2706], ["الكافرون", 2707], ["النصر", 2709], ["المسد", 2710], ["الإخلاص", 2711], ["الفلق", 2712], ["الناس", 2713]];
+const MUYASSAR=[1, 2, 50, 77, 106, 128, 151, 177, 187, 208, 221, 235, 249, 255, 262, 267, 282, 293, 305, 312, 322, 332, 342, 350, 359, 367, 377, 385, 396, 404, 411, 415, 418, 428, 434, 440, 446, 453, 458, 467, 477, 483, 489, 496, 499, 502, 507, 511, 515, 518, 520, 523, 526, 528, 531, 534, 537, 542, 545, 549, 551, 553, 554, 556, 558, 560, 562, 564, 566, 568, 570, 572, 574, 575, 577, 578, 580, 582, 583, 585, 586, 587, 587, 589, 590, 591, 591, 592, 593, 594, 595, 595, 596, 596, 597, 597, 598, 598, 599, 599, 600, 600, 601, 601, 601, 602, 602, 602, 603, 603, 603, 604, 604, 604];
+const AYAT=[7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 123, 111, 43, 52, 99, 128, 111, 110, 98, 135, 112, 78, 118, 64, 77, 227, 93, 88, 69, 60, 34, 30, 73, 54, 45, 83, 182, 88, 75, 85, 54, 53, 89, 59, 37, 35, 38, 29, 18, 45, 60, 49, 62, 55, 78, 96, 29, 22, 24, 13, 14, 11, 11, 18, 12, 12, 30, 52, 52, 44, 28, 28, 20, 56, 40, 31, 50, 40, 46, 42, 29, 19, 36, 25, 22, 17, 19, 26, 30, 20, 15, 21, 11, 8, 8, 19, 5, 8, 8, 11, 11, 8, 3, 9, 5, 4, 7, 3, 6, 3, 5, 4, 5, 6];
+const $=id=>document.getElementById(id);
+let mode="s";
+const svgNS="http://www.w3.org/2000/svg";
+let current=null,selected=null;
+function el(tag,attrs,parent){const e=document.createElementNS(svgNS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+const ctx=document.createElement("canvas").getContext("2d");
+function textW(t,size,font){ctx.font=`700 ${size}px ${font}`;ctx.direction="rtl";return ctx.measureText(t).width}
+const NASKH="'Noto Naskh Arabic', 'Traditional Arabic', serif", UI="'IBM Plex Sans Arabic', Tahoma, sans-serif";
+
+function normalize(n){
+  if(!n||typeof n!=="object")return null;
+  const label=String(n.label||"؟").slice(0,30);
+  if(n.word!=null&&!(Array.isArray(n.children)&&n.children.length))return{label,word:String(n.word).slice(0,40)};
+  const kids=(Array.isArray(n.children)?n.children:[]).map(normalize).filter(Boolean);
+  if(!kids.length)return{label,word:String(n.word??"")};
+  const out={label,children:kids};if(n.role)out.role=String(n.role).slice(0,40);return out;
+}
+function depth(n){return n.children?1+Math.max(...n.children.map(depth)):0}
+
+function drawTree(tree){drawTreeH(tree);drawTreeV(tree)}
+function drawTreeV(tree){
+  const svg=$("treeV");svg.textContent="";selected=null;
+  const LV=84,BOXH=40,LEAFH=38,GAP=26,PAD=20,WORDGAP=26;
+  const boxW=n=>Math.max(textW(n.label,18,UI)+28,56);
+  const colW=n=>n.children?boxW(n):Math.max(boxW(n),textW(n.word,26,NASKH)+8);
+  (function size(n){n.bw=boxW(n);if(!n.children){n.sw=colW(n);return}n.children.forEach(size);
+    const sum=n.children.reduce((t,c)=>t+c.sw,0)+GAP*(n.children.length-1);n.sw=Math.max(n.bw,sum)})(tree);
+  let maxD=0;
+  (function place(n,left,d){n.d=d;maxD=Math.max(maxD,d);
+    if(!n.children){n.x=left+n.sw/2;return}
+    const sum=n.children.reduce((t,c)=>t+c.sw,0)+GAP*(n.children.length-1);
+    let x=left+(n.sw-sum)/2;n.children.forEach(c=>{place(c,x,d+1);x+=c.sw+GAP});
+    const mid=(n.children[0].x+n.children[n.children.length-1].x)/2;
+    n.x=Math.min(Math.max(mid,left+n.bw/2),left+n.sw-n.bw/2);
+  })(tree,PAD,0);
+  const width=Math.max(tree.sw+2*PAD,320);
+  (function mirror(n){n.x=width-n.x;(n.children||[]).forEach(mirror)})(tree);
+  const yOf=n=>PAD+n.d*LV, height=PAD+maxD*LV+LEAFH+WORDGAP+30;
+  svg.setAttribute("viewBox",`0 0 ${width} ${height}`);svg.setAttribute("width",width);svg.setAttribute("height",height);
+  const gE=el("g",{},svg),gN=el("g",{},svg);
+  (function walk(n){if(!n.children)return;
+    n.children.forEach(c=>{el("line",{x1:n.x,y1:yOf(n)+BOXH,x2:c.x,y2:yOf(c),stroke:"var(--edge)","stroke-width":1.5},gE);walk(c)});
+  })(tree);
+  const all=[];(function col(n){all.push(n);(n.children||[]).forEach(col)})(tree);
+  all.forEach(n=>{
+    const phrase=!!n.children,h=phrase?BOXH:LEAFH,w=n.bw,hid=!phrase&&n.hidden;
+    const g=el("g",{},gN);
+    const ra={x:n.x-w/2,y:yOf(n),width:w,height:h,rx:8,fill:phrase?"var(--phrase-fill)":hid?"var(--hid-fill)":"var(--leaf-fill)",stroke:phrase?"var(--phrase-stroke)":hid?"var(--hid-stroke)":"var(--leaf-stroke)","stroke-width":1.5};if(hid)ra["stroke-dasharray"]="6 4";el("rect",ra,g);
+    const t=el("text",{x:n.x,y:yOf(n)+h/2,"text-anchor":"middle","dominant-baseline":"central",direction:"rtl",fill:phrase?"var(--phrase-ink)":hid?"var(--hid-ink)":"var(--leaf-ink)","font-size":18,"font-weight":600,"font-family":UI},g);t.textContent=n.label;
+    if(!phrase){const wt=el("text",{x:n.x,y:yOf(n)+LEAFH+WORDGAP,"text-anchor":"middle","dominant-baseline":"central",direction:"rtl",fill:hid?"var(--hid-ink)":"var(--ink)","font-size":26,"font-weight":700,"font-family":NASKH},gN);wt.textContent=n.word}
+  });
+}
+function setView(v){
+  $("tree").hidden=v!=="h";$("treeVBox").hidden=v!=="v";
+  try{localStorage.setItem("irabView",v)}catch(e){}
+}
+function drawTreeH(tree){
+  const box=$("tree");box.textContent="";
+  const words=[];
+  function li(n){
+    const item=document.createElement("li");item.setAttribute("role","treeitem");
+    const row=document.createElement("div");row.className="row";
+    const chip=document.createElement("span");
+    if(n.children){chip.className="chip2 ph";chip.textContent=n.label;row.appendChild(chip);item.appendChild(row);
+      const ul=document.createElement("ul");ul.setAttribute("role","group");n.children.forEach(c=>ul.appendChild(li(c)));item.appendChild(ul);}
+    else{chip.className="chip2 "+(n.hidden?"hd":"lf");chip.textContent=n.label;
+      const w=document.createElement("span");w.className="wd"+(n.hidden?" hd2":"");w.textContent=n.word;words.push(n.word);
+      row.append(chip,w);item.appendChild(row)}
+    return item;
+  }
+  const ul=document.createElement("ul");ul.appendChild(li(tree));box.appendChild(ul);
+  box.setAttribute("aria-label","شجرة الجملة: "+words.join(" "));
+}
+function explain(n){
+  const box=$("explain");if(!box)return;box.textContent="";
+  const g=gloss(n.label);
+  const b=document.createElement("b");b.textContent=n.label;box.appendChild(b);
+  let s=g?g[1]:"وظيفة إعرابية في هذه الجملة.";
+  if(n.word)s+=` والكلمة هنا: «${n.word}».`;
+  if(n.role)s+=` حكمها: ${n.role}.`;
+  const p=document.createElement("div");p.textContent=s;box.appendChild(p);
+}
+
+function buildTree(words,groups,type){
+  const leaf=w=>({label:w[1]||"؟",word:w[0],hidden:w[3]==="مستتر"});
+  let gs=(Array.isArray(groups)?groups:[]).map(g=>({type:String(g&&g.type||"").slice(0,30),mahall:String(g&&g.mahall||"").slice(0,20),from:parseInt(g&&g.from,10),to:parseInt(g&&g.to,10)}))
+    .filter(g=>g.type&&g.from>=0&&g.to>=g.from&&g.to<words.length&&!(g.from===0&&g.to===words.length-1))
+    .sort((a,b)=>a.from-b.from||b.to-a.to);
+  const ok=[];gs.forEach(g=>{if(!ok.some(o=>(o.from<g.from&&g.from<=o.to&&o.to<g.to)||(g.from<o.from&&o.from<=g.to&&g.to<o.to)))ok.push(g)});
+  function kids(lo,hi,avail){
+    const out=[];let i=lo;
+    while(i<=hi){
+      const g=avail.find(x=>x.from===i&&x.to<=hi);
+      if(g){
+        const rest=avail.filter(x=>x!==g&&x.from>=g.from&&x.to<=g.to);
+        let node={label:g.type,children:kids(g.from,g.to,rest)};
+        if(g.mahall)node={label:g.mahall,children:[node]};
+        out.push(node);i=g.to+1;
+      }else{out.push(leaf(words[i]));i++}
+    }
+    return out;
+  }
+  return{label:(type&&type.length<=24)?type:"الجملة",children:kids(0,words.length-1,ok)};
+}
+function tidy(t){return String(t||"").replace(/[،,]?\s*و?(?:ال)?جملة[^.]*?لا محل لها من الإعراب[.،]?/g,".").replace(/\.\s*\./g,".").replace(/\s+\./g,".").trim()}
+function render(data){
+  current=data;
+  (data.words||[]).forEach(w=>{if(Array.isArray(w))w[2]=tidy(w[2])});
+  data.tree=buildTree(data.words||[],data.groups||[],data.type);
+  drawTree(data.tree);
+  const meta=$("meta");meta.textContent="";
+  const add=(k,v)=>{if(!v)return;const s=document.createElement("span");const b=document.createElement("b");b.textContent=v;s.append(k+": ",b);meta.appendChild(s)};
+  add(data.quran?"الآية":"الجملة",data.sentence);if(data.ref)add("الموضع",data.ref);add("نوعها",data.type);add("التقدير",data.taqdir);
+  const tb=$("words");tb.textContent="";
+  (data.words||[]).forEach(w=>{const hid=w[3]==="مستتر";
+    const li=document.createElement("li");if(hid)li.className="hidrow";
+    const head=document.createElement("div");head.className="ihead";
+    const a=document.createElement("span");a.className="iw";a.textContent=w[0];
+    const t=document.createElement("span");t.className=hid?"tag hid":"tag";t.textContent=w[1]+(hid?" (مستتر)":"");
+    head.append(a,t);
+    const c=document.createElement("p");c.className="itext";c.textContent=w[2];
+    li.append(head,c);tb.appendChild(li)});
+
+}
+
+function buildChips(){
+  const box=$("examples");box.textContent="";
+  const lab=document.createElement("span");lab.textContent="جرّب مثالاً:";box.appendChild(lab);
+  EXAMPLES.forEach(ex=>{const b=document.createElement("button");b.className="chip";b.textContent=ex.sentence;
+    b.onclick=()=>{$("sentence").value=ex.sentence;setStatus("");render(ex)};box.appendChild(b)});
+}
+const ar=n=>Number(n).toLocaleString("ar-EG",{useGrouping:false});
+const sel=$("surah");
+SURAHS.forEach(([n],i)=>{const o=document.createElement("option");o.value=i;o.textContent=ar(i+1)+". "+n;sel.appendChild(o)});
+function mk(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function showRefs(){
+  const i=+sel.value||0,[name,shamPg]=SURAHS[i],max=AYAT[i];
+  const raw=$("ayah").value.trim(),ay=parseInt(raw,10);
+  $("ayah").max=max;
+  if(raw&&!(ay>=1&&ay<=max)){$("qStatus").textContent=`سورة ${name} عدد آياتها ${ar(max)}. اكتب رقماً من ١ إلى ${ar(max)}.`;$("qStatus").classList.add("err");return}
+  $("qStatus").textContent="";$("qStatus").classList.remove("err");
+  const out=$("qOut");out.textContent="";
+  out.appendChild(mk("div","qhead",`سورة ${name}`+(ay?`، الآية ${ar(ay)}`:"")+` (عدد آياتها ${ar(max)})`));
+  const g=mk("div","qgrid");
+  const c1=mk("div","refcard");
+  c1.append(mk("h3",null,"إعراب القرآن الكريم الميسر"),mk("div","by","محمد الطيب الإبراهيم، دار النفائس، بيروت"));
+  const p1=mk("div","pg");p1.append("تبدأ سورة "+name+" في الصفحة ",mk("b",null,ar(MUYASSAR[i]))," من الكتاب المطبوع.");c1.appendChild(p1);
+  if(ay)c1.appendChild(mk("div","by","في أعلى كل صفحة من الكتاب أرقام الآيات التي تعربها، فتابع منها حتى تصل إلى آيتك."));
+  const dl=mk("a",null,"تحميل الكتاب (PDF، نحو ٤٠ ميغابايت) من أرشيف الإنترنت");dl.href="https://archive.org/download/way2sona_20160917_2043/141110.pdf";dl.target="_blank";dl.rel="noopener";
+  const p0=mk("div","pg");p0.appendChild(dl);c1.appendChild(p0);
+  const c2=mk("div","refcard");
+  c2.append(mk("h3",null,"إعراب القرآن الكريم"),mk("div","by","مجموعة من المؤلفين، دار الصحابة للتراث، طنطا، ١٤٢٧هـ"));
+  const a=mk("a",null,`افتح إعراب سورة ${name} في المكتبة الشاملة`);a.href="https://shamela.ws/book/86/"+shamPg;a.target="_blank";a.rel="noopener";
+  const p2=mk("div","pg");p2.appendChild(a);c2.appendChild(p2);
+  g.append(c1,c2);out.appendChild(g);
+  out.appendChild(mk("div","notice","لا يقدّم هذا البرنامج إعراباً للآيات من عنده. خذ الإعراب من الكتاب، أو اسأل معلمك."));
+}
+function setMode(m){
+  mode=m;const q=m==="q";
+  $("sBox").hidden=q;$("qBox").hidden=!q;$("qPanel").hidden=!q;
+  document.querySelectorAll("section.res").forEach(x=>x.hidden=q);
+  if(q)showRefs();
+}
+$("viewH").addEventListener("change",()=>setView("h"));
+$("viewV").addEventListener("change",()=>setView("v"));
+try{if(localStorage.getItem("irabView")==="v"){$("viewV").checked=true;setView("v")}}catch(e){}
+$("modeS").addEventListener("change",()=>setMode("s"));
+$("modeQ").addEventListener("change",()=>setMode("q"));
+$("findRef").onclick=showRefs;
+sel.addEventListener("change",()=>{$("ayah").value="";showRefs()});
+$("ayah").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();showRefs()}});
+buildChips();
+render(EXAMPLES[4]);
+
+function setStatus(m,err){const s=$("status");s.textContent=m;s.classList.toggle("err",!!err)}
+const ERR={not_granted:"تحتاج الصفحة إذنك لاستخدام Claude. أعد تحميل الصفحة واختر «السماح» لتعرب جملك الخاصة.",sampling_disabled:"الإعراب غير متاح في هذا الحساب، لكن يمكنك استعراض الأمثلة.",rate_limited:"طلبات كثيرة في وقت قصير. انتظر دقيقة ثم حاول مرة أخرى.",session_expired:"سجّل الدخول إلى Claude مرة أخرى، ثم أعد المحاولة.",refused:"تعذر إعراب هذا النص. جرّب جملة أخرى.",invalid_json:"وصل الإعراب بصيغة غير صحيحة. اضغط «أعرب الجملة» مرة أخرى.",empty_completion:"لم يصل أي إعراب. جرّب جملة أقصر.",prompt_too_large:"النص طويل جداً. اكتب جملة واحدة."};
+
+function buildPrompt(s){return `أنت معلم لغة عربية متمكن من النحو، تدرّس طلاب المرحلة الثانوية في السعودية. أعرب الجملة التالية إعراباً تاماً وصحيحاً، وابنِ لها شجرة تركيبية.
+
+الجملة: """${s}"""
+
+القواعد:
+- إن كان النص أكثر من جملة فأعرب الجملة الأولى فقط.
+- اكتب كل كلمة بالترتيب كما وردت، مضبوطة بالشكل على آخرها، ولا تحذف أي كلمة. الحروف والضمائر المتصلة (مثل: بالقلم، لنا) تبقى مع كلمتها.
+- لكل كلمة موقع مختصر من كلمة أو كلمتين فقط، مثل: مبتدأ، خبر، فعل، فاعل، مفعول به، حرف ناسخ، اسم إنّ، جار ومجرور، مضاف إليه، نعت، حال.
+- الإعراب التفصيلي بالأسلوب المدرسي المعتاد، مثل: "مبتدأ مرفوع وعلامة رفعه الضمة الظاهرة على آخره." ولا تذكر حكم الجملة إلا إذا كان لها محل من الإعراب، فتذكره عند آخر كلماتها، مثل: "والجملة الفعلية (بنى لنا بيتاً) في محل رفع خبر إنّ." أما الجمل التي لا محل لها (الابتدائية، والاستئنافية، وصلة الموصول، وغيرها) فلا تذكر حكمها أبداً، ولا تكتب عنها «لا محل لها من الإعراب».
+- المصدر المؤول: إن كان في الجملة مصدر مؤول (أنْ والفعل، أو أنّ ومعموليها، أو ما المصدرية والفعل) فاكتب في "taqdir" الجملة كاملة بعد وضع المصدر الصريح مكانه مع حرف الجر المقدر إن وُجد، مضبوطة بالشكل، مثل: «الحقُّ أحقُّ أن يُتّبعَ» تقديرها «الحقُّ أحقُّ بالاتباعِ». وإن لم يكن فيها مصدر مؤول فاجعل "taqdir" "".
+- اكتب تنوين الفتح على الألف لا قبلها (مثل: كثيراً، بيتاً).
+- الضمير المستتر: إذا كان في الجملة ضمير مستتر (فاعل أو غيره) فأضفه عنصراً مستقلاً بعد كلمته مباشرة، بهذا الشكل: ["(هو)","فاعل","ضمير مستتر جوازاً تقديره هو في محل رفع فاعل.","مستتر"]، واكتب «وجوباً» أو «جوازاً» بحسب حكمه.
+- التراكيب المتفرعة: اذكرها في "groups" بأرقام كلماتها في مصفوفة words (تبدأ من 0، والضمير المستتر يُعدّ كلمة)، بهذا الشكل: {"type":"جملة فعلية","mahall":"خبر إنّ","from":5,"to":8}.
+  الأنواع فقط: «جملة فعلية»، «جملة اسمية»، «شبه جملة جار ومجرور»، «شبه جملة ظرفية»، «الموصول وصلته»، «جملة الصلة».
+  "mahall": موقع التركيب بكلمة أو كلمتين إن كان له محل (خبر، خبر إنّ، اسم إنّ، نعت، حال، مفعول به…)، وإلا "".
+  قد يقع تركيب داخل تركيب، ولا تتقاطع التراكيب، ولا تضع الجملة الكبرى في groups.
+  مثال: «إنّ الذي رفع السماء بنى لنا بيتاً» كلماتها: إنّ(0) الذي(1) رفعَ(2) (هو)(3) السماءَ(4) بنى(5) (هو)(6) لنا(7) بيتاً(8)، وgroups: [{"type":"الموصول وصلته","mahall":"اسم إنّ","from":1,"to":4},{"type":"جملة الصلة","mahall":"","from":2,"to":4},{"type":"جملة فعلية","mahall":"خبر إنّ","from":5,"to":8},{"type":"شبه جملة جار ومجرور","mahall":"","from":7,"to":7}]، والموقع المختصر لكلمة (الذي) «اسم موصول».
+- لا شرح ولا ملاحظات.
+
+أجب بـ JSON فقط بهذا الشكل:
+{"sentence":"الجملة مضبوطة بالشكل","taqdir":"","type":"جملة اسمية | جملة فعلية | جملة اسمية منسوخة","groups":[],"words":[["كتبَ","فعل","فعل ماضٍ مبني على الفتح."],["الطالبُ","فاعل","فاعل مرفوع وعلامة رفعه الضمة الظاهرة على آخره."]]}
+
+إن لم يكن النص جملة عربية فأجب: {"error":"شرح قصير ولطيف"}`}
+
+const samplerP=Promise.resolve(null); // the site has no Claude connection; own sentences open the lab in Claude
+let ctl=null;
+$("go").onclick=async()=>{
+  const s=$("sentence").value.trim().replace(/\s+/g," ");
+  if(!s){setStatus("اكتب جملة أولاً.",true);$("sentence").focus();return}
+  if(s.split(" ").length>30){setStatus("الجملة طويلة. اكتب جملة من 30 كلمة أو أقل.",true);return}
+  const strip=t=>t.replace(/[ؐ-ًؚ-ٰٟۖ-ۭ.،؟!]/g,"").replace(/ٱ/g,"ا").trim();
+  const ex=EXAMPLES.find(e=>strip(e.sentence)===strip(s));
+  if(ex){setStatus("");render(ex);return}
+  const sample=await samplerP;
+  if(!sample){setStatus("إعراب جملك الخاصة يعمل في نسخة المختبر داخل Claude (الزر أدناه). يمكنك هنا استعراض الأمثلة.",true);return}
+  $("go").disabled=true;$("stop").hidden=false;setStatus("جارٍ الإعراب… يستغرق عادة من 10 إلى 30 ثانية.");
+  ctl=new AbortController();
+  try{
+    const data=await sample.json(buildPrompt(s),{signal:ctl.signal});
+    if(data&&data.error){setStatus(String(data.error),true);return}
+    if(!data||!Array.isArray(data.words)||!data.words.length){setStatus(ERR.invalid_json,true);return}
+    render({sentence:String(data.sentence||s),taqdir:String(data.taqdir||"").slice(0,200),type:String(data.type||""),groups:Array.isArray(data.groups)?data.groups:[],
+      words:(Array.isArray(data.words)?data.words:[]).filter(Array.isArray).map(w=>[String(w[0]??""),String(w[1]??""),String(w[2]??""),String(w[3]??"")]),
+      notes:(Array.isArray(data.notes)?data.notes:[]).map(String).slice(0,5)});
+    setStatus("");
+  }catch(e){
+    if(e&&e.code==="cancelled")setStatus("توقف الإعراب.");
+    else setStatus(ERR[e&&e.code]||"حدث خطأ. اضغط «أعرب الجملة» للمحاولة مرة أخرى.",true);
+  }finally{$("go").disabled=false;$("stop").hidden=true}
+};
+$("stop").onclick=()=>ctl&&ctl.abort();
+$("sentence").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("go").click()}});
+document.fonts&&document.fonts.ready.then(()=>{if(current)drawTree(current.tree)});
+</script>
 </body>
 </html>
