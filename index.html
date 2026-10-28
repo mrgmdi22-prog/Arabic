@@ -5,104 +5,112 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
 <title>مرافئ العربية · Arabic Harbours</title>
-<meta name="description" content="Arabic Harbours (مرافئ العربية) — Arabic for non-native speakers: Kalila wa Dimna stories, reading comprehension, dictation and an I‘rab lab. Prepared by Mr. Ahmed Al-Salim.">
-<meta name="theme-color" content="#fbf8f1">
+<meta name="description" content="Arabic Harbours (مرافئ العربية) — Arabic for non-native speakers: the old Arab harbours, Kalila wa Dimna stories, reading, dictation and an I‘rab lab. Prepared by Mr. Ahmed Al-Salim.">
+<meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 <style>
-/* Home: a light hero with a slowly turning eight-point star pattern, then four paths and a story of the day. */
-.hero{position:relative;overflow:hidden;border-radius:34px;margin-top:16px;padding:34px 14px 26px;text-align:center;
-  background:linear-gradient(180deg,#e3f3fb 0%,#fbf8f1 70%);border:1.5px solid #d6eaf0}
-.hero > svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hero .pat{animation:turn 120s linear infinite;transform-origin:50% 50%;transform-box:view-box}
-@keyframes turn{to{transform:rotate(360deg)}}
-.hero > *:not(svg){position:relative}
-.dad{font-family:var(--text-ar);font-size:3.6rem;line-height:1;color:#1f6f99;font-weight:700;display:inline-grid;place-items:center;width:120px;height:120px;border-radius:36px;background:rgba(255,255,255,.85);border:2px solid #bfe3dd;box-shadow:0 18px 30px -22px rgba(15,127,116,.6)}
-.hero h1{margin:16px 0 4px;line-height:1.25;font-weight:800}
-.hero h1 .a{display:block;font-family:var(--text-ar);font-size:clamp(2.4rem,9vw,3.6rem);direction:rtl}
-.hero h1 .e{display:block;font-family:var(--ui-en);font-weight:600;font-size:clamp(1rem,3.5vw,1.3rem);letter-spacing:3px;color:var(--teal);text-transform:uppercase;margin-top:6px}
-.hero p{margin:10px auto 0;max-width:32em;color:var(--muted);font-size:1.12rem}
-.strip{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:6px 20px;margin-top:18px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:999px;padding:7px 22px;font-size:1rem;color:var(--muted)}
-.strip b{color:var(--ink)}
+/* Home: the harbours map set inside a rock-cut facade, then the learning harbours as painted stone houses. */
+.title{text-align:center;padding:28px 8px 6px}
+.title h1{margin:0;line-height:1.25}
+.title h1 .a{display:block;font-family:var(--kufi);font-weight:700;font-size:clamp(2.8rem,11vw,4.6rem);color:var(--rose);direction:rtl}
+.title h1 .e{display:block;font-family:var(--en-serif);font-style:italic;font-weight:400;font-size:clamp(1.2rem,4vw,1.6rem);color:var(--sea);margin-top:2px}
+.title p{margin:12px auto 0;max-width:30em;color:var(--muted);font-size:1.1rem}
+.strip{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin:14px 0 0;font-family:var(--kufi);color:var(--muted);font-size:1rem}
+.strip b{color:var(--ink);font-weight:700}
+.strip .ic-svg{color:var(--sand)}
 
-.hero-map{margin:20px auto 0;text-align:initial;max-width:940px}
-.harb-h{text-align:center;font-size:1.5rem;margin:30px 0 0}
-.path.wide{grid-column:1/-1;background:linear-gradient(120deg,#e3f3fb,#fff 70%)}
-.paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:14px}
-@media (max-width:640px){.paths{grid-template-columns:1fr}}
-.path{--c:var(--teal);--t:var(--teal-soft);display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:center;text-decoration:none;background:#fff;border:1.5px solid var(--line);border-radius:26px;padding:20px;position:relative;transition:transform .2s var(--ease),border-color .2s,box-shadow .2s}
-.path:hover{transform:translateY(-4px);border-color:var(--c);box-shadow:0 18px 30px -22px rgba(40,50,80,.55)}
-.path .ic{grid-row:span 2;width:70px;height:70px;border-radius:22px;background:var(--t);display:grid;place-items:center;font-size:2.2rem}
-.path b{font-size:1.35rem;color:var(--c);line-height:1.3}
-.path b .ar{font-size:1.1em}
-.path p{margin:0;color:var(--muted);font-size:1rem;line-height:1.55}
-.path .tag{position:absolute;top:14px;inset-inline-end:14px;background:var(--sand-soft);color:var(--sand);border-radius:999px;padding:1px 12px;font-size:.85rem;font-weight:800}
+.harb-h{display:flex;align-items:center;gap:14px;margin:38px 0 14px}
+.harb-h h2{margin:0;font-size:1.6rem;white-space:nowrap}
+.harb-h .sadu{flex:1;height:10px;background-size:23px 10px;opacity:.8}
 
-.today{margin-top:26px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;text-decoration:none;border-radius:26px;padding:18px 20px;
-  background:linear-gradient(120deg,var(--b1),var(--b2));border:1.5px solid rgba(0,0,0,.05)}
-.today .art{font-size:3rem;letter-spacing:4px}
-.today small{display:block;color:var(--sc);font-weight:800;font-size:.95rem}
-.today .ti{font-family:var(--text-ar);font-size:1.7rem;font-weight:700;line-height:1.5}
-.today .go{background:var(--sc);color:#fff;border-radius:999px;padding:8px 18px;font-weight:800;white-space:nowrap}
-@media (max-width:560px){.today{grid-template-columns:auto 1fr}.today .go{grid-column:1/-1;text-align:center}}
+/* learning harbours: stone house fronts with a painted qatt lintel */
+.houses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:640px){.houses{grid-template-columns:1fr}}
+.house{--c:var(--teal);--t:var(--teal-soft);position:relative;display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:center;text-decoration:none;
+  background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:26px 18px 18px;overflow:hidden}
+.house::before{content:"";position:absolute;inset:0 0 auto 0;height:12px;background:var(--qatt)}
+.house:hover{border-color:var(--c)}
+.house .niche{grid-row:span 2}
+.house b{font-family:var(--kufi);font-weight:700;font-size:1.35rem;color:var(--c);line-height:1.35}
+html[data-lang="en"] .house b{font-family:var(--en-serif)}
+.house p{margin:0;color:var(--muted);font-size:1.02rem;line-height:1.6}
+.house.voyage{grid-column:1/-1;background:linear-gradient(90deg,var(--sea-soft),var(--card) 70%)}
 
-.sister{margin-top:26px;display:flex;align-items:center;gap:16px;text-decoration:none;background:linear-gradient(120deg,#ebedfd,#fff 70%);border:1.5px solid #d9dcf8;border-radius:26px;padding:18px 20px}
-.sister .ic{font-size:2.4rem}
-.sister b{color:var(--indigo);font-size:1.2rem}
+/* story of the day: a manuscript leaf */
+.leaf{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;margin-top:16px;text-decoration:none;background:var(--card);
+  border:1.5px solid var(--line);border-radius:6px;padding:18px 20px;outline:1.5px solid var(--line);outline-offset:-8px}
+.leaf .art{font-size:2.6rem;letter-spacing:4px}
+.leaf small{display:block;color:var(--sand);font-family:var(--kufi);font-weight:600;font-size:.95rem}
+.leaf .ti{font-family:var(--text-ar);font-size:1.75rem;font-weight:700;line-height:1.5}
+.leaf .te{color:var(--muted);font-family:var(--en-serif);font-style:italic}
+@media (max-width:560px){.leaf{grid-template-columns:auto 1fr}.leaf .btn{grid-column:1/-1}}
+
+.sister{display:flex;align-items:center;gap:14px;margin-top:16px;text-decoration:none;background:var(--indigo-soft);border:1.5px solid #CFD9EB;border-radius:6px;padding:16px 20px;color:var(--indigo)}
+.sister b{font-family:var(--kufi);font-weight:600;font-size:1.15rem}
 .sister p{margin:0;color:var(--muted);font-size:1rem}
-.sister .go{margin-inline-start:auto;background:var(--indigo);color:#fff;border-radius:999px;padding:8px 18px;font-weight:800;white-space:nowrap}
-@media (max-width:560px){.sister{flex-wrap:wrap}.sister .go{margin:0;width:100%;text-align:center}}
 </style>
 </head>
 <body data-root="">
 <header id="topbar"></header>
 <main class="wrap">
-  <section class="hero reveal">
-    <span class="dad" aria-hidden="true">⚓</span>
+  <section class="title">
     <h1><span class="a">مَرَافِئُ العَرَبِيَّةِ</span><span class="e">Arabic Harbours</span></h1>
-    <p><span class="t-en">Arabic travelled the seas with Arab sailors, from harbour to harbour. Sail with them and learn Arabic: stories, reading, spelling and grammar.</span><span class="t-ar">أبحرت العربية مع البحّارة العرب من مرفأ إلى مرفأ. أبحر معهم وتعلّم العربية: حكايات، وقراءة، وإملاء، ونحو.</span></p>
-    <div class="mapbox hero-map"><div class="mapscroll" id="mapS"><div id="map"></div></div>
-      <div class="maplegend"><span><i style="border-color:#4f9fb3"></i><span class="t-en">Sea lanes</span><span class="t-ar">طرق البحر</span></span><span><i style="border-color:#c0883a"></i><span class="t-en">Incense Road</span><span class="t-ar">درب البخور</span></span><span>📍 <span class="t-en">Tap a harbour to visit it</span><span class="t-ar">المس المرفأ لتزوره</span></span></div></div>
-    <div class="strip"><span>⚓ <b id="nPorts">0</b>/<span id="tPorts">0</span> <span class="t-en">harbours</span><span class="t-ar">مرفأ</span></span><span>📖 <b id="nRead">0</b> <span class="t-en">stories read</span><span class="t-ar">قصص مقروءة</span></span><span>⭐ <b id="nStars">0</b> <span class="t-en">stars</span><span class="t-ar">نجمة</span></span></div>
+    <p><span class="t-en">Arabic travelled the seas with Arab sailors, from harbour to harbour. Sail with them and learn the language.</span><span class="t-ar">أبحرت العربية مع البحّارة العرب من مرفأ إلى مرفأ. أبحر معهم وتعلّم لغتهم.</span></p>
   </section>
 
-  <h2 class="harb-h reveal"><span class="t-en">Learning harbours</span><span class="t-ar">مرافئ التعلّم</span></h2>
-  <div class="paths">
-    <a class="path wide reveal" href="ports/index.html" style="--c:#1f6f99;--t:#e3f3fb">
-      <span class="ic" aria-hidden="true">⛵</span>
+  <section class="facade" aria-label="Map">
+    <svg class="crown" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+      <path class="rock" d="M0 120V78h40V70h920v8h40v42zM90 70V58h40V46h40V34h40V22h40V10h40v60zM620 70V10h40v12h40v12h40v12h40v12h40v12z"/>
+      <path class="cut" d="M40 78h920M40 92h920M90 58h40M130 46h40M170 34h40M210 22h40M660 22h40M700 34h40M740 46h40M780 58h40"/>
+    </svg>
+    <div class="body"><div class="door">
+      <div class="mapbox"><div class="mapscroll" id="mapS"><div id="map"></div></div></div>
+      <div class="maplegend"><span><i style="border-color:#4C8FA8"></i><span class="t-en">Sea lanes</span><span class="t-ar">طرق البحر</span></span><span><i style="border-color:#B9822F"></i><span class="t-en">Incense Road</span><span class="t-ar">درب البخور</span></span><span><span class="t-en">Tap a harbour to visit it</span><span class="t-ar">المس المرفأ لتزوره</span></span></div>
+    </div></div>
+  </section>
+  <div class="strip">
+    <span><i data-ic="anchor"></i> <b id="nPorts">0</b> / <span id="tPorts">0</span> <span class="t-en">harbours visited</span><span class="t-ar">مرفأ زرته</span></span>
+    <span><i data-ic="book"></i> <b id="nRead">0</b> <span class="t-en">stories read</span><span class="t-ar">قصص قرأتها</span></span>
+    <span><i data-ic="star"></i> <b id="nStars">0</b> <span class="t-en">stars</span><span class="t-ar">نجمة</span></span>
+  </div>
+
+  <div class="harb-h"><h2><span class="t-en">Learning harbours</span><span class="t-ar">مرافئ التعلّم</span></h2><span class="sadu" aria-hidden="true"></span></div>
+  <div class="houses">
+    <a class="house voyage" href="ports/index.html" style="--c:#2D6F92;--t:#E1EFF5">
+      <span class="niche"><i data-ic="dhow"></i></span>
       <b><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></b>
-      <p><span class="t-en">21 harbours from Aden to Serendib, Zanzibar and Dina Arobi — each a short reading lesson.</span><span class="t-ar">٢١ مرفأً من عدن إلى سرنديب وزنجبار ودينا عروبي، وكل مرفأ درس قراءة قصير.</span></p>
+      <p><span class="t-en">27 harbours from Alexandria to Serendib and Dina Arobi. Each one is a short reading lesson.</span><span class="t-ar">٢٧ مرفأً من الإسكندرية إلى سرنديب ودينا عروبي، وكل مرفأ درس قراءة قصير.</span></p>
     </a>
-    <a class="path reveal" href="stories/index.html" style="--c:#a2650c;--t:#fdf1da">
-      <span class="ic" aria-hidden="true">📖</span>
+    <a class="house" href="stories/index.html" style="--c:#A26F1C;--t:#FBEFD8">
+      <span class="niche"><i data-ic="book"></i></span>
       <b><span class="t-en">Harbour of Tales</span><span class="t-ar">مرفأ الحكايات</span></b>
-      <p><span class="t-en">Six Kalila wa Dimna fables with tappable words, audio and translation.</span><span class="t-ar">ست حكايات من كليلة ودمنة: المس الكلمة لمعناها، واستمع، واعرض الترجمة.</span></p>
+      <p><span class="t-en">Six fables from Kalila wa Dimna, with word meanings and translation.</span><span class="t-ar">ست حكايات من كليلة ودمنة، مع معاني الكلمات والترجمة.</span></p>
     </a>
-    <a class="path reveal" href="reading/index.html" style="--c:#0f7f74;--t:#e2f4f1">
-      <span class="ic" aria-hidden="true">🧠</span>
+    <a class="house" href="reading/index.html" style="--c:#2C7A6E;--t:#E2F0EB">
+      <span class="niche"><i data-ic="lamp"></i></span>
       <b><span class="t-en">Harbour of Understanding</span><span class="t-ar">مرفأ الفهم</span></b>
-      <p><span class="t-en">Reading comprehension: questions, true or false, and events in order.</span><span class="t-ar">فهم المقروء: أسئلة اختيار، وصواب وخطأ، وترتيب الأحداث.</span></p>
+      <p><span class="t-en">Questions on each story, true or false, and putting events in order.</span><span class="t-ar">أسئلة على كل حكاية، وصواب وخطأ، وترتيب الأحداث.</span></p>
     </a>
-    <a class="path reveal" href="dictation/index.html" style="--c:#b03a66;--t:#fdecf2">
-      <span class="ic" aria-hidden="true">✍️</span>
+    <a class="house" href="dictation/index.html" style="--c:#A23E2E;--t:#F8E5DD">
+      <span class="niche"><i data-ic="qalam"></i></span>
       <b><span class="t-en">Harbour of Spelling</span><span class="t-ar">مرفأ الإملاء</span></b>
-      <p><span class="t-en">Taa, hamza, final alif, sun &amp; moon letters, tanween, and sentence dictation.</span><span class="t-ar">التاء، والهمزة، والألف اللينة، واللام الشمسية والقمرية، والتنوين، وإملاء الجمل.</span></p>
+      <p><span class="t-en">Taa, hamza, final alif, sun and moon letters, tanween and sentences.</span><span class="t-ar">التاء، والهمزة، والألف اللينة، واللام الشمسية والقمرية، والتنوين، والجمل.</span></p>
     </a>
-    <a class="path reveal" href="irab/index.html" style="--c:#4552c9;--t:#ebedfd">
-      <span class="ic" aria-hidden="true">🔬</span>
+    <a class="house" href="irab/index.html" style="--c:#34578A;--t:#E6ECF6">
+      <span class="niche"><i data-ic="branches"></i></span>
       <b><span class="t-en">Harbour of I‘rab</span><span class="t-ar">مرفأ الإعراب</span></b>
-      <p><span class="t-en">The I‘rab Lab: parse a sentence word by word, with a grammar tree.</span><span class="t-ar">مختبر الإعراب: أعرب الجملة كلمةً كلمةً، مع شجرة نحوية.</span></p>
+      <p><span class="t-en">The I‘rab Lab: each word’s role, with a grammar tree.</span><span class="t-ar">مختبر الإعراب: موقع كل كلمة، مع شجرة نحوية.</span></p>
     </a>
   </div>
 
-  <a class="today reveal" id="today" href="#"></a>
+  <a class="leaf" id="today" href="#"></a>
 
-  <a class="sister reveal" href="https://mrgmdi22-prog.github.io/English/">
-    <span class="ic" aria-hidden="true">🇬🇧</span>
+  <a class="sister" href="https://mrgmdi22-prog.github.io/English/">
+    <i data-ic="compass"></i>
     <span><b><span class="t-en">English Club</span><span class="t-ar">نادي اللغة الإنجليزية</span></b>
-      <p><span class="t-en">Our sister site for learning English: capsules, vocabulary, grammar and stories.</span><span class="t-ar">موقعنا الشقيق لتعلّم الإنجليزية: الكبسولات، والمفردات، والقواعد، والقصص.</span></p></span>
-    <span class="go"><span class="t-en">Visit →</span><span class="t-ar">زيارة ←</span></span>
+      <p><span class="t-en">Our sister site for learning English.</span><span class="t-ar">موقعنا الشقيق لتعلّم الإنجليزية.</span></p></span>
   </a>
 
   <footer id="sitefoot"></footer>
@@ -115,26 +123,23 @@
 <script src="assets/seamap.js"></script>
 <script>
 (function(){
-  var S = Site;
-  // progress over everything on this device
-  var read = 0, stars = 0;
+  var S = Site, read = 0, stars = 0, visited = 0;
   STORIES.forEach(function(s){ try { if (localStorage.getItem('ar-read-' + s.id)) read++; } catch(e) {} stars += S.getStars('read-' + s.id); });
-  DICTATION.forEach(function(u){ ['choose', 'gap', 'listen'].forEach(function(m){ stars += S.getStars('dict-' + u.id + '-' + m); }); });
-  var visited = 0; PORTS.forEach(function(p){ stars += S.getStars('port-' + p.id); try { if (localStorage.getItem('ar-port-' + p.id)) visited++; } catch(e) {} });
+  DICTATION.forEach(function(u){ ['choose', 'gap', 'look'].forEach(function(m){ stars += S.getStars('dict-' + u.id + '-' + m); }); });
+  PORTS.forEach(function(p){ stars += S.getStars('port-' + p.id); try { if (localStorage.getItem('ar-port-' + p.id)) visited++; } catch(e) {} });
   document.getElementById('nPorts').textContent = visited; document.getElementById('tPorts').textContent = PORTS.length;
+  document.getElementById('nRead').textContent = read; document.getElementById('nStars').textContent = stars;
+
   SeaMap.draw(document.getElementById('map'), { root: '' });
-  var ms = document.getElementById('mapS'); requestAnimationFrame(function(){ ms.scrollLeft = (ms.scrollWidth - ms.clientWidth) * .3; });
-  document.getElementById('nRead').textContent = read;
-  document.getElementById('nStars').textContent = stars;
+  var ms = document.getElementById('mapS'); requestAnimationFrame(function(){ ms.scrollLeft = (ms.scrollWidth - ms.clientWidth) * .28; });
 
   // story of the day: changes daily, same for everyone
   var d = new Date(), st = STORIES[(d.getFullYear() * 400 + d.getMonth() * 31 + d.getDate()) % STORIES.length];
   var t = document.getElementById('today');
   t.href = 'stories/read.html?s=' + st.id;
-  t.style.setProperty('--sc', st.c); t.style.setProperty('--b1', st.bg[0]); t.style.setProperty('--b2', st.bg[1]);
   t.innerHTML = '<span class="art" aria-hidden="true">' + st.cover + st.partner + '</span>' +
-    '<span><small>' + S.bi('Story of the day', 'قصة اليوم') + '</small><span class="ti">' + st.ar + '</span><br><span style="color:var(--muted);font-family:var(--ui-en)">' + st.en + '</span></span>' +
-    '<span class="go">' + S.bi('Read now →', 'اقرأ الآن ←') + '</span>';
+    '<span><small>' + S.bi('Story of the day', 'حكاية اليوم') + '</small><span class="ti">' + st.ar + '</span><br><span class="te">' + st.en + '</span></span>' +
+    '<span class="btn">' + S.bi('Read it', 'اقرأها') + '</span>';
 })();
 </script>
 </body>

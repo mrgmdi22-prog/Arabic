@@ -4,41 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
-<title>Dictation Practice · تدريب الإملاء · مرافئ العربية</title>
-<meta name="theme-color" content="#fbf8f1">
+<title>تدريب الإملاء · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
 .dhead{display:flex;align-items:center;gap:14px;margin-top:22px}
-.dhead .ic{width:62px;height:62px;border-radius:20px;background:var(--ut);color:var(--uc);display:grid;place-items:center;font-family:var(--text-ar);font-size:2rem;font-weight:700;flex:none}
-.dhead h1{margin:0;font-family:var(--text-ar);font-size:1.75rem;line-height:1.5;color:var(--uc);direction:rtl}
-.dhead p{margin:0;color:var(--muted);font-size:1rem}
+.dhead .ic{width:62px;height:70px;border-radius:31px 31px 6px 6px;background:var(--ut);color:var(--uc);display:grid;place-items:center;font-family:var(--text-ar);font-size:2rem;font-weight:700;flex:none;border:1.5px solid color-mix(in srgb,var(--uc) 25%,white)}
+.dhead h1{margin:0;font-family:var(--text-ar);font-size:1.9rem;line-height:1.5;color:var(--uc);direction:rtl}
+.dhead p{margin:0;color:var(--muted);font-family:var(--en-serif);font-style:italic}
 .modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.modes a{text-decoration:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 16px;font-weight:700;font-size:.95rem}
+.modes a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;border:1.5px solid var(--line);background:var(--card);border-radius:6px;padding:6px 14px;font-family:var(--kufi);font-size:.98rem}
 .modes a.on{background:var(--uc);border-color:var(--uc);color:#fff}
+.panel{--c:var(--uc)}
 .prompt{text-align:center;padding:6px 0 10px}
-.prompt .mean{font-family:var(--ui-en);font-size:1.35rem;font-weight:600;direction:ltr}
-.prompt .say{margin-top:10px}
-.big-w{font-family:var(--text-ar);direction:rtl;font-size:clamp(2.6rem,10vw,3.6rem);line-height:1.6;text-align:center;margin:4px 0}
-.gapbox{display:inline-block;min-width:1.1em;border:3px dashed var(--uc);border-radius:12px;padding:0 .12em;margin:0 .06em;color:var(--uc);line-height:1.2;vertical-align:middle}
-.gapbox.fill{border-style:solid;background:var(--ut)}
+.prompt .mean{font-family:var(--en-serif);font-style:italic;font-size:1.45rem;direction:ltr}
+.big-w{font-family:var(--text-ar);direction:rtl;font-size:clamp(2.8rem,11vw,3.8rem);line-height:1.6;text-align:center;margin:4px 0}
+.gapbox{display:inline-block;min-width:1.1em;border:3px dashed var(--uc);border-radius:6px;padding:0 .12em;margin:0 .06em;color:var(--uc);line-height:1.2;vertical-align:middle}
 .letters{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:8px}
-.letters .opt{width:auto;min-width:88px;text-align:center;font-size:2.1rem;padding:6px 18px}
-.opts.words .opt{text-align:center;font-size:1.9rem}
-.speakbtn{width:84px;height:84px;border-radius:50%;border:none;background:var(--ut);color:var(--uc);font-size:2.2rem;cursor:pointer;box-shadow:0 10px 22px -14px var(--uc)}
-.speakbtn:active{transform:scale(.96)}
-.flash{font-family:var(--text-ar);font-size:2.8rem;direction:rtl;text-align:center;min-height:1.8em;transition:opacity .3s}
-.answer{width:100%;font-family:var(--text-ar);direction:rtl;text-align:center;font-size:2rem;border:2.5px solid var(--line);border-radius:18px;padding:8px 14px;margin-top:12px;background:#fffdf8;color:var(--ink)}
+.letters .opt{width:auto;min-width:88px;text-align:center;font-size:2.2rem;padding:4px 18px}
+.opts.words .opt{text-align:center;font-size:2rem}
+.flash{font-family:var(--text-ar);font-size:2.9rem;direction:rtl;text-align:center;min-height:1.8em;transition:opacity .3s}
+.answer{width:100%;font-family:var(--text-ar);direction:rtl;text-align:center;font-size:2.1rem;border:2.5px solid var(--line);border-radius:8px;padding:6px 14px;margin-top:12px;background:#FFFDF9;color:var(--ink)}
 .answer:focus{outline:none;border-color:var(--uc)}
 .kb{display:grid;gap:6px;margin-top:12px;direction:rtl}
 .kb .r{display:flex;gap:5px;justify-content:center}
-.kb button{flex:1;max-width:52px;min-height:50px;border:1.5px solid var(--line);background:#fff;border-radius:12px;font-family:var(--text-ar);font-size:1.45rem;cursor:pointer;padding:0}
+.kb button{flex:1;max-width:52px;min-height:52px;border:1.5px solid var(--line);background:#FFFDF9;border-radius:6px;font-family:var(--text-ar);font-size:1.55rem;cursor:pointer;padding:0}
 .kb button:active{background:var(--ut)}
-.kb .wide{max-width:none;flex:3;font-family:var(--ui-ar);font-size:1rem;font-weight:700}
-.kb .del{max-width:none;flex:1.4;font-size:1.2rem}
-.cmp{font-family:var(--text-ar);font-size:1.6rem;direction:rtl;margin-top:6px;font-weight:600}
-@media (max-width:480px){.kb .r{gap:3px}.kb button{min-height:46px;font-size:1.25rem;border-radius:9px}.letters .opt{min-width:72px}}
+.kb .wide{max-width:none;flex:3;font-family:var(--kufi);font-size:1rem}
+.kb .del{max-width:none;flex:1.4;font-family:var(--kufi);font-size:1rem}
+.cmp{font-family:var(--text-ar);font-size:1.7rem;direction:rtl;margin-top:6px;font-weight:700}
+@media (max-width:480px){.kb .r{gap:3px}.kb button{min-height:48px;font-size:1.35rem}.letters .opt{min-width:72px}}
 </style>
 </head>
 <body data-root="../">
@@ -51,68 +48,57 @@
 (function(){
   var S = Site, P = new URLSearchParams(location.search);
   var U = DICTATION.filter(function(u){ return u.id === P.get('u'); })[0] || DICTATION[0];
-  var mode = P.get('m') || (U.listenOnly ? 'listen' : 'choose');
-  if (U.listenOnly) mode = 'listen';
+  var mode = U.lookOnly ? 'look' : (P.get('m') || 'choose');
+  if (['choose', 'gap', 'look'].indexOf(mode) < 0) mode = 'choose';
   var app = document.getElementById('app');
   app.style.setProperty('--uc', U.c); app.style.setProperty('--ut', U.t);
-  var MODES = { choose: ['Choose the spelling', 'اختر الكتابة الصحيحة', '🔎'], gap: ['Missing letter', 'الحرف الناقص', '🧩'], listen: ['Listen & write', 'استمع واكتب', '🎧'] };
-  document.title = MODES[mode][0] + ' · ' + S.strip(U.ar);
+  var MODES = { choose: ['Choose the spelling', 'اختر الكتابة الصحيحة', 'eye'], gap: ['Missing letter', 'الحرف الناقص', 'gem'], look: ['Look, then write', 'انظر ثم اكتب', 'qalam'] };
+  document.title = S.strip(U.ar) + ' · ' + MODES[mode][1] + ' · مرافئ العربية';
   var show = function(w){ return U.marks ? w : S.strip(w); };
   var ROUND = 10, items, i, score;
 
   function start(){ items = S.shuffle(U.items).slice(0, ROUND); i = 0; score = 0; draw(); }
-
   function head(){
-    var tabs = U.listenOnly ? '' : '<div class="modes">' + Object.keys(MODES).map(function(m){
-      return '<a href="practice.html?u=' + U.id + '&m=' + m + '" class="' + (m === mode ? 'on' : '') + '">' + MODES[m][2] + ' ' + S.bi(MODES[m][0], MODES[m][1]) + '</a>'; }).join('') + '</div>';
+    var tabs = U.lookOnly ? '' : '<div class="modes">' + Object.keys(MODES).map(function(m){
+      return '<a href="practice.html?u=' + U.id + '&m=' + m + '" class="' + (m === mode ? 'on' : '') + '">' + S.icon(MODES[m][2]) + S.bi(MODES[m][0], MODES[m][1]) + '</a>'; }).join('') + '</div>';
     return '<div class="dhead"><span class="ic" aria-hidden="true">' + U.icon + '</span><div><h1>' + U.ar + '</h1><p>' + S.esc(U.en) + '</p></div></div>' + tabs;
   }
   function meta(){
-    return '<div class="q-meta"><span>' + (i + 1) + ' / ' + items.length + '</span><span>✔ ' + score + '</span></div>' +
+    return '<div class="q-meta"><span>' + (i + 1) + ' / ' + items.length + '</span><span>' + S.icon('check') + ' ' + score + '</span></div>' +
       '<div class="q-progress"><i style="width:' + (i / items.length * 100) + '%"></i></div>';
   }
-  function tail(){ return '<div class="feedback" id="fb"></div><div class="btn-row" id="nextRow" style="display:none"><button class="btn" style="background:var(--uc)" type="button" id="bNext">' + S.bi('Next', 'التالي') + ' ←</button></div>'; }
+  function tail(){ return '<div class="feedback" id="fb"></div><div class="btn-row" id="nextRow" style="display:none"><button class="btn" style="background:var(--uc)" type="button" id="bNext">' + S.bi('Next', 'التالي') + S.icon('next') + '</button></div>'; }
   function done(ok, html){
     if (ok) score++;
     var fb = document.getElementById('fb');
     fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
-    fb.innerHTML = (ok ? '🎉 ' + S.bi('Correct!', 'أحسنت!') : '💡 ' + S.bi('The correct spelling:', 'الكتابة الصحيحة:')) + (html || '');
+    fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ' + S.bi('The correct spelling:', 'الكتابة الصحيحة:')) + (html || '');
     document.getElementById('nextRow').style.display = '';
     var n = document.getElementById('bNext'); n.onclick = function(){ i++; draw(); }; n.focus();
   }
-  function sayBtn(w){ return '<button class="speakbtn" type="button" id="bSay" aria-label="Listen">🔊</button>'; }
 
   function draw(){
-    S.stopSpeak();
     if (i >= items.length) return finish();
     var it = items[i], html = head() + '<div class="panel">' + meta();
-
     if (mode === 'choose') {
       var opts = S.shuffle([it.w].concat(it.x));
-      html += '<div class="prompt"><div class="mean">“' + S.esc(it.en) + '”</div><div class="say">' + sayBtn() + '</div></div>' +
+      html += '<div class="prompt"><div class="mean">“' + S.esc(it.en) + '”</div></div>' +
         '<p class="q-hint" style="text-align:center">' + S.bi('Which spelling is correct?', 'أيّ كتابة صحيحة؟') + '</p>' +
         '<div class="opts words">' + opts.map(function(o){ return '<button class="opt" type="button" data-ok="' + (o === it.w ? 1 : 0) + '">' + S.esc(show(o)) + '</button>'; }).join('') + '</div>';
     } else if (mode === 'gap') {
       html += '<div class="prompt"><div class="mean">“' + S.esc(it.en) + '”</div></div>' +
-        '<div class="big-w" id="gw">' + S.esc(it.g).replace('_', '<span class="gapbox" id="gb">؟</span>') + '</div>' +
+        '<div class="big-w" id="gw">' + S.esc(it.g).replace('_', '<span class="gapbox">؟</span>') + '</div>' +
         '<p class="q-hint" style="text-align:center">' + S.bi('Choose the missing letter', 'اختر الحرف الناقص') + '</p>' +
         '<div class="letters">' + U.letters.map(function(l){ return '<button class="opt" type="button" data-l="' + l + '">' + (/^[ً-ْ]/.test(l) ? 'ـ' + l : l) + '</button>'; }).join('') + '</div>';
     } else {
-      var can = S.canSpeak();
-      html += '<div class="prompt">' + (can
-          ? '<div class="say">' + sayBtn() + '</div><p class="q-hint">' + S.bi('Listen, then write what you hear', 'استمع، ثم اكتب ما تسمع') + '</p>'
-          : '<p class="q-hint">' + S.bi('Your device has no Arabic voice, so look at the word, remember it, and write it when it disappears.', 'لا يوجد صوت عربي على جهازك؛ انظر إلى الكلمة واحفظها، ثم اكتبها بعد أن تختفي.') + '</p>' +
-            '<div class="flash" id="flash"></div><button class="btn soft" type="button" id="bShow">👀 ' + S.bi('Show the word', 'أظهر الكلمة') + '</button>') +
-        '<div class="mean" style="font-size:1.05rem;color:var(--muted);margin-top:6px">' + S.bi('Meaning: ', 'المعنى: ') + '“' + S.esc(it.en) + '”</div></div>' +
-        '<input class="answer" id="ans" dir="rtl" autocomplete="off" autocapitalize="off" spellcheck="false" lang="ar" placeholder="اكتب هنا" inputmode="text">' +
-        kb() +
-        '<div class="btn-row"><button class="btn" style="background:var(--uc)" type="button" id="bCheck">✔ ' + S.bi('Check', 'تحقّق') + '</button></div>';
+      html += '<div class="prompt"><p class="q-hint">' + S.bi('Look at the word for a few seconds, remember it, then write it when it disappears.', 'انظر إلى الكلمة ثوانيَ، واحفظها، ثم اكتبها بعد أن تختفي.') + '</p>' +
+          '<div class="flash" id="flash"></div><button class="btn soft" type="button" id="bShow">' + S.icon('eye') + S.bi('Show the word', 'أظهر الكلمة') + '</button>' +
+        '<div class="mean" style="font-size:1.1rem;color:var(--muted);margin-top:8px">' + S.bi('Meaning: ', 'المعنى: ') + '“' + S.esc(it.en) + '”</div></div>' +
+        '<input class="answer" id="ans" dir="rtl" autocomplete="off" autocapitalize="off" spellcheck="false" lang="ar" placeholder="اكتب هنا">' +
+        kb() + '<div class="btn-row"><button class="btn" style="background:var(--uc)" type="button" id="bCheck">' + S.icon('check') + S.bi('Check', 'تحقّق') + '</button></div>';
     }
-    html += tail() + '</div>' + '<div style="text-align:center"><a class="crumb" href="index.html">' + S.bi('← All dictation units', 'كل وحدات الإملاء ←') + '</a></div>';
+    html += tail() + '</div><div style="text-align:center"><a class="crumb" href="index.html">' + S.icon('qalam') + S.bi('All spelling units', 'كل وحدات الإملاء') + '</a></div>';
     app.innerHTML = html;
-
-    var say = document.getElementById('bSay');
-    if (say) { say.onclick = function(){ S.speak(S.strip(it.w), { rate: .72 }); }; setTimeout(function(){ S.speak(S.strip(it.w), { rate: .72 }); }, 350); }
 
     if (mode === 'choose') {
       var bs = app.querySelectorAll('.opt');
@@ -128,22 +114,20 @@
         ls.forEach(function(x){ x.disabled = true; if (x.dataset.l === it.a) x.classList.add('ok'); });
         if (!ok) b.classList.add('no');
         document.getElementById('gw').innerHTML = S.esc(it.w);
-        S.speak(S.strip(it.w), { rate: .72 });
         done(ok, ok ? '' : ' <span class="ar">' + S.esc(it.w) + '</span>');
       }; });
     } else {
-      var ans = document.getElementById('ans');
-      var bShow = document.getElementById('bShow');
-      if (bShow) bShow.onclick = function(){
+      var ans = document.getElementById('ans'), bShow = document.getElementById('bShow');
+      bShow.onclick = function(){
         var f = document.getElementById('flash'); f.textContent = it.w; f.style.opacity = 1; bShow.disabled = true;
         setTimeout(function(){ f.style.opacity = 0; setTimeout(function(){ f.textContent = ''; bShow.disabled = false; }, 300); ans.focus(); }, 3000);
       };
-      wireKb(ans);
+      app.querySelectorAll('.kb button').forEach(function(b){ b.onclick = function(){ if (b.dataset.c === 'del') ans.value = ans.value.slice(0, -1); else ans.value += b.dataset.c; }; });
       var check = document.getElementById('bCheck');
       function doCheck(){
         if (!ans.value.trim()) { ans.focus(); return; }
         var ok = S.norm(ans.value) === S.norm(it.w);
-        ans.disabled = true; check.disabled = true; app.querySelectorAll('.kb button').forEach(function(b){ b.disabled = true; });
+        ans.disabled = true; check.disabled = true; bShow.disabled = true; app.querySelectorAll('.kb button').forEach(function(b){ b.disabled = true; });
         ans.style.borderColor = ok ? 'var(--green)' : 'var(--red)';
         done(ok, '<div class="cmp">' + S.esc(it.w) + '</div>');
       }
@@ -151,37 +135,25 @@
       ans.addEventListener('keydown', function(e){ if (e.key === 'Enter') doCheck(); });
     }
   }
-
   function kb(){
     var rows = ['ض ص ث ق ف غ ع ه خ ح ج', 'ش س ي ب ل ا ت ن م ك ط', 'ئ ء ؤ ر ى ة و ز ظ د ذ', 'أ إ آ'];
     return '<div class="kb" aria-label="Arabic keyboard">' + rows.map(function(r, k){
       return '<div class="r">' + r.split(' ').map(function(c){ return '<button type="button" data-c="' + c + '">' + c + '</button>'; }).join('') +
-        (k === 3 ? '<button type="button" class="wide" data-c=" ">' + S.bi('space', 'مسافة') + '</button><button type="button" class="del" data-c="del" aria-label="Delete">⌫</button>' : '') + '</div>';
+        (k === 3 ? '<button type="button" class="wide" data-c=" ">' + S.bi('space', 'مسافة') + '</button><button type="button" class="del" data-c="del">' + S.bi('delete', 'حذف') + '</button>' : '') + '</div>';
     }).join('') + '</div>';
   }
-  function wireKb(ans){
-    app.querySelectorAll('.kb button').forEach(function(b){ b.onclick = function(){
-      if (b.dataset.c === 'del') ans.value = ans.value.slice(0, -1); else ans.value += b.dataset.c;
-    }; });
-  }
-
   function finish(){
     var stars = S.starsFor(score, items.length);
     S.saveStars('dict-' + U.id + '-' + mode, stars);
-    app.innerHTML = head() + '<div class="panel score">' +
-      '<div class="stars">' + '⭐'.repeat(stars) + '<span style="opacity:.25">' + '⭐'.repeat(3 - stars) + '</span></div>' +
+    app.innerHTML = head() + '<div class="panel score">' + S.stars(stars) +
       '<div class="big" style="color:var(--uc)">' + score + ' / ' + items.length + '</div>' +
-      '<p style="font-size:1.15rem;font-weight:700">' + (stars === 3 ? S.bi('Excellent spelling!', 'إملاء ممتاز!') : S.bi('Good effort! Read the rule again and try once more.', 'محاولة جيدة! راجع القاعدة وحاول مرة أخرى.')) + '</p>' +
-      '<div class="btn-row"><button class="btn" style="background:var(--uc)" type="button" id="bRetry">↺ ' + S.bi('Play again', 'العب مرة أخرى') + '</button>' +
-      '<a class="btn ghost" href="index.html#' + U.id + '">📘 ' + S.bi('Read the rule', 'راجع القاعدة') + '</a></div></div>' +
-      '<div style="text-align:center"><a class="crumb" href="index.html">' + S.bi('← All dictation units', 'كل وحدات الإملاء ←') + '</a></div>';
+      '<p style="font-size:1.15rem">' + (stars === 3 ? S.bi('Excellent spelling!', 'إملاء ممتاز!') : S.bi('Good effort. Read the rule again and try once more.', 'محاولة جيدة. راجع القاعدة وحاول مرة أخرى.')) + '</p>' +
+      '<div class="btn-row"><button class="btn" style="background:var(--uc)" type="button" id="bRetry">' + S.icon('redo') + S.bi('Practise again', 'تدرّب مرة أخرى') + '</button>' +
+      '<a class="btn ghost" href="index.html#' + U.id + '">' + S.icon('scroll') + S.bi('Read the rule', 'راجع القاعدة') + '</a></div></div>' +
+      '<div style="text-align:center"><a class="crumb" href="index.html">' + S.icon('qalam') + S.bi('All spelling units', 'كل وحدات الإملاء') + '</a></div>';
     document.getElementById('bRetry').onclick = start;
   }
-
-  // voices load a moment after the page on some browsers; give them a short chance before the first word
-  if ('speechSynthesis' in window && !S.canSpeak()) {
-    var tries = 0, w = setInterval(function(){ if (S.canSpeak() || ++tries > 8) { clearInterval(w); start(); } }, 120);
-  } else start();
+  start();
 })();
 </script>
 </body>

@@ -5,62 +5,56 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
 <title>مرفأ · مرافئ العربية</title>
-<meta name="theme-color" content="#fbf8f1">
+<meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
-/* A harbour lesson: postcard header, where it is on the map, a short reading with glossary words, a fact, and questions. */
-.card-h{margin-top:18px;border-radius:30px;padding:48px 20px 22px;text-align:center;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,var(--st),#fff 75%);border:1.5px solid color-mix(in srgb,var(--sc) 25%,white)}
-.card-h .stamp{position:absolute;top:14px;inset-inline-end:14px;border:2px dashed var(--sc);color:var(--sc);border-radius:12px;padding:2px 10px;font-weight:800;font-size:.85rem;transform:rotate(4deg);background:rgba(255,255,255,.7)}
-.card-h .big{font-size:3.6rem;line-height:1.1}
-.card-h h1{font-family:var(--text-ar);font-size:clamp(2rem,7.5vw,2.8rem);color:var(--sc);margin:6px 0 0;line-height:1.5;direction:rtl}
-.card-h .en{font-family:var(--ui-en);font-weight:600;color:var(--muted);font-size:1.08rem}
-.chip-sea{display:inline-block;margin-top:10px;background:#fff;color:var(--sc);border:1.5px solid color-mix(in srgb,var(--sc) 35%,white);border-radius:999px;padding:3px 16px;font-weight:800;font-size:.95rem}
-.legend-note{margin-top:12px;background:#f1ecfb;color:#5d3696;border-radius:14px;padding:8px 14px;font-weight:700;font-size:.98rem}
-.mini{margin-top:16px}
-.mini .mapscroll{max-height:340px;overflow:auto}
-.lesson{background:#fff;border:1.5px solid var(--line);border-radius:26px;padding:20px 20px 10px;margin-top:16px}
-.para{font-family:var(--text-ar);direction:rtl;text-align:right;font-size:clamp(1.45rem,4.4vw,1.8rem);line-height:2.2;margin:0 0 6px}
-.gl{background:none;border:none;padding:0 2px;font:inherit;color:var(--sc);font-weight:700;cursor:pointer;border-bottom:2.5px dotted color-mix(in srgb,var(--sc) 55%,white);border-radius:4px}
-.gl:hover,.gl.on{background:color-mix(in srgb,var(--sc) 12%,white)}
-.trans{direction:ltr;text-align:left;font-family:var(--ui-en);color:var(--muted);font-size:1.05rem;line-height:1.7;background:#faf7f0;border-radius:14px;padding:10px 14px;margin:0 0 14px;display:none}
+/* A harbour lesson: a stone gateway with the harbour's name, where it is on the map, the reading, a fact and questions. */
+.gatehead{margin-top:18px;text-align:center;position:relative}
+.gatehead .arch{background:var(--card);border:1.5px solid var(--line);border-radius:160px 160px 6px 6px;padding:40px 20px 22px;max-width:620px;margin:0 auto;position:relative}
+.gatehead .arch::after{content:"";position:absolute;inset:8px;border:1.5px dashed color-mix(in srgb,var(--sc) 35%,white);border-radius:152px 152px 4px 4px;pointer-events:none}
+.gatehead .niche{margin:0 auto;width:74px;height:84px;border-radius:37px 37px 6px 6px}
+.gatehead .niche .ic-svg{width:42px;height:42px}
+.gatehead h1{font-family:var(--text-ar);font-size:clamp(2.1rem,8vw,3rem);color:var(--sc);margin:8px 0 0;line-height:1.5;direction:rtl}
+.gatehead .en{font-family:var(--en-serif);font-style:italic;color:var(--muted);font-size:1.15rem}
+.gatehead .meta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:10px;font-family:var(--kufi);font-size:.95rem}
+.gatehead .meta span{border:1.5px solid color-mix(in srgb,var(--sc) 35%,white);color:var(--sc);background:#fff;border-radius:6px;padding:2px 12px}
+.legend-note{margin:12px auto 0;max-width:30em;background:#F1EAF8;color:#5D3B8C;border-radius:6px;padding:8px 14px;font-family:var(--kufi);font-size:.98rem}
+.mini{margin-top:16px;border:1.5px solid var(--line);border-radius:6px}
+.mini .mapscroll{max-height:320px;overflow:auto}
+.lesson{background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:22px 20px 10px;margin-top:16px}
+.para{font-family:var(--text-ar);direction:rtl;text-align:right;font-size:clamp(1.55rem,4.6vw,1.9rem);line-height:2.15;margin:0 0 6px}
+.trans{direction:ltr;text-align:left;font-family:var(--en-serif);color:var(--muted);font-size:1.12rem;line-height:1.7;background:#FAF4EA;border-inline-start:4px solid var(--stone);padding:8px 14px;margin:0 0 14px;display:none}
 .trans.on{display:block}
-.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:6px 0 10px}
-.tool{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:7px 16px;font-weight:700;font-size:.98rem;cursor:pointer;min-height:44px}
-.tool[aria-pressed="true"]{background:color-mix(in srgb,var(--sc) 12%,white);border-color:var(--sc);color:var(--sc)}
-.fact{margin-top:16px;border-radius:22px;padding:14px 18px;background:var(--sand-soft);border:1.5px solid #f1dfb8}
-.fact b{color:var(--sand)}
-.fact .ar{font-size:1.35rem;line-height:2;margin:4px 0 0}
-.fact .fe{font-family:var(--ui-en);color:var(--muted);font-size:1rem;direction:ltr;text-align:left}
+.fact{margin-top:16px;padding:14px 18px;background:var(--sand-soft);border:1.5px solid #EFD9B0;border-radius:6px}
+.fact h3{margin:0;color:var(--sand);font-size:1.1rem;display:flex;align-items:center;gap:8px}
+.fact .ar{font-size:1.45rem;line-height:2;margin:4px 0 0}
+.fact .fe{font-family:var(--en-serif);color:var(--muted);font-size:1.05rem;direction:ltr;text-align:left}
 .qs{margin-top:16px}
-.q{background:#fff;border:1.5px solid var(--line);border-radius:22px;padding:14px 16px;margin-bottom:12px}
-.q .q-text{font-size:1.4rem;margin:0}
-.q .qen{direction:ltr;text-align:left;font-family:var(--ui-en);color:var(--muted);font-size:.98rem;margin:0 0 10px}
+.qs h2{font-size:1.4rem;margin:0 0 10px}
+.q{background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:14px 16px;margin-bottom:12px}
+.q .q-text{font-size:1.5rem;margin:0}
+.q .qen{direction:ltr;text-align:left;font-family:var(--en-serif);color:var(--muted);font-size:1.02rem;margin:0 0 10px}
 html[data-lang="ar"] .q .qen{display:none}
-.q .opt{font-size:1.3rem;padding:6px 16px}
+.q .opt{font-size:1.35rem;padding:6px 16px}
 .q .tf{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.q .tf .opt{text-align:center;font-family:var(--ui-ar);font-weight:800}
-.result{text-align:center;font-weight:800;font-size:1.2rem;padding:8px;display:none}
+.q .tf .opt{text-align:center;font-family:var(--kufi);font-weight:600}
+.result{text-align:center;font-family:var(--kufi);font-size:1.2rem;padding:8px;display:none}
 .result.on{display:block}
+.result .stars-row{font-size:1.8rem}
 .pn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;direction:rtl}
-.pn a{text-decoration:none;background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.pn a{text-decoration:none;background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
 .pn a:hover{border-color:var(--teal)}
-.pn small{color:var(--muted);font-weight:700;font-size:.85rem}
-.pn b{font-family:var(--text-ar);font-size:1.3rem}
+.pn small{color:var(--muted);font-family:var(--kufi);font-size:.88rem}
+.pn b{font-family:var(--text-ar);font-size:1.35rem}
 .pn .nx{text-align:left}
-.pop{position:fixed;z-index:50;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#fff;border:2px solid var(--sc);border-radius:22px;padding:10px 16px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);display:flex;align-items:center;gap:14px;transition:all .25s var(--ease);max-width:calc(100% - 32px)}
-.pop.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
-.pop .w{font-family:var(--text-ar);font-size:1.7rem;color:var(--sc);font-weight:700}
-.pop .m{font-family:var(--ui-en);font-size:1.08rem;font-weight:600;direction:ltr;white-space:nowrap}
-.pop button{border:none;background:var(--teal-soft);border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer}
 </style>
 </head>
 <body data-root="../">
 <header id="topbar"></header>
 <main class="wrap" id="app"></main>
-<div class="pop" id="pop" role="status"><span class="w" id="popW"></span><span class="m" id="popM"></span><button type="button" id="popS" aria-label="Listen">🔊</button></div>
+<div class="pop" id="pop" role="status"><span class="w" id="popW"></span><span class="m" id="popM"></span></div>
 <div class="wrap" style="padding-bottom:30px"><footer id="sitefoot"></footer></div>
 <script src="../assets/site.js"></script>
 <script src="../assets/ports.js"></script>
@@ -72,50 +66,48 @@ html[data-lang="ar"] .q .qen{display:none}
   var idx = Math.max(0, PORTS.findIndex(function(p){ return p.id === id; })), P = PORTS[idx], SEA = SEAS[P.sea];
   var app = document.getElementById('app');
   document.documentElement.style.setProperty('--sc', SEA.c); document.documentElement.style.setProperty('--st', SEA.t);
+  document.documentElement.style.setProperty('--c', SEA.c);
   document.title = S.strip(P.ar) + ' · ' + P.en + ' · مرافئ العربية';
   var pref = {}; try { pref = JSON.parse(localStorage.getItem('ar-reader') || '{}'); } catch(e) {}
   var showTr = !!pref.tr, showHk = pref.hk !== false;
   function savePref(){ try { localStorage.setItem('ar-reader', JSON.stringify({ tr: showTr, hk: showHk })); } catch(e) {} }
   function H(s){ return showHk ? s : S.strip(s); }
+  // [word|meaning] → glossary button; <br> in the data is kept as a line break (poetry)
   function render(s){
-    return S.esc(s).replace(/\[([^\]|]+)\|([^\]]+)\]/g, function(_, w, m){
+    return S.esc(s).replace(/&lt;br&gt;/g, '<br>').replace(/\[([^\]|]+)\|([^\]]+)\]/g, function(_, w, m){
       return '<button type="button" class="gl" data-w="' + w + '" data-m="' + m + '">' + H(w) + '</button>';
     }).replace(/[^<>]+(?=<|$)/g, function(t){ return showHk ? t : S.strip(t); });
   }
-  var plainAr = function(s){ return s.replace(/\[([^\]|]+)\|[^\]]+\]/g, '$1'); };
   var prev = PORTS[(idx - 1 + PORTS.length) % PORTS.length], next = PORTS[(idx + 1) % PORTS.length];
 
   function draw(){
     app.innerHTML =
-      '<section class="card-h"><span class="stamp">' + S.bi('Harbour ' + (idx + 1) + ' / ' + PORTS.length, 'المرفأ ' + (idx + 1) + ' من ' + PORTS.length) + '</span>' +
-        '<div class="big" aria-hidden="true">' + P.icon + '</div><h1>' + H(P.ar) + '</h1><div class="en">' + S.esc(P.en) + '</div>' +
-        '<span class="chip-sea">🌊 ' + S.bi(SEA.en, S.strip(SEA.ar)) + '</span>' +
-        (P.legend ? '<div class="legend-note">✨ ' + S.bi('A legend from the old sailors’ tales — not a real place.', 'أسطورة من حكايات البحّارة القدماء، وليست مكاناً حقيقياً.') + '</div>' : '') +
-      '</section>' +
+      '<section class="gatehead"><div class="arch" style="--c:' + SEA.c + ';--t:' + SEA.t + '">' +
+        '<span class="niche">' + S.icon(P.icon) + '</span><h1>' + H(P.ar) + '</h1><div class="en">' + S.esc(P.en) + '</div>' +
+        '<div class="meta"><span>' + S.bi(SEA.en, S.strip(SEA.ar)) + '</span><span>' + S.bi('Harbour ' + (idx + 1) + ' of ' + PORTS.length, 'المرفأ ' + (idx + 1) + ' من ' + PORTS.length) + '</span></div>' +
+        (P.legend ? '<div class="legend-note">' + S.bi('A legend from the old sailors’ tales, not a real place.', 'أسطورة من حكايات البحّارة القدماء، وليست مكاناً حقيقياً.') + '</div>' : '') +
+      '</div></section>' +
       '<div class="mapbox mini"><div class="mapscroll" id="mapS"><div id="map"></div></div></div>' +
-      '<section class="lesson"><div id="paras">' + P.text.map(function(t){ return '<p class="para">' + render(t.ar) + '</p><p class="trans' + (showTr ? ' on' : '') + '">' + S.esc(t.en) + '</p>'; }).join('') + '</div>' +
-        '<div class="tools"><button class="tool" type="button" id="bListen">🔊 ' + S.bi('Listen', 'استمع') + '</button>' +
-        '<button class="tool" type="button" id="bTr" aria-pressed="' + showTr + '">🇬🇧 ' + S.bi('Translation', 'الترجمة') + '</button>' +
-        '<button class="tool" type="button" id="bHk" aria-pressed="' + showHk + '">ـَـ ' + S.bi('Vowel marks', 'التشكيل') + '</button></div></section>' +
-      '<div class="fact"><b>💡 ' + S.bi('Did you know?', 'هل تعلم؟') + '</b><p class="ar">' + H(P.fact.ar) + '</p><div class="fe t-en">' + S.esc(P.fact.en) + '</div></div>' +
-      '<section class="qs"><h2 style="font-size:1.35rem;margin:0 0 10px">✅ ' + S.bi('Check your understanding', 'اختبر فهمك') + '</h2>' +
+      '<section class="lesson">' + P.text.map(function(t){ return '<p class="para">' + render(t.ar) + '</p><p class="trans' + (showTr ? ' on' : '') + '">' + S.esc(t.en) + '</p>'; }).join('') +
+        '<div class="tools"><button class="tool" type="button" id="bTr" aria-pressed="' + showTr + '">' + S.icon('translate') + S.bi('English translation', 'الترجمة الإنجليزية') + '</button>' +
+        '<button class="tool" type="button" id="bHk" aria-pressed="' + showHk + '">' + S.icon('marks') + S.bi('Vowel marks', 'التشكيل') + '</button></div></section>' +
+      '<div class="fact"><h3>' + S.icon('lantern') + S.bi('Did you know?', 'هل تعلم؟') + '</h3><p class="ar">' + H(P.fact.ar) + '</p><div class="fe t-en">' + S.esc(P.fact.en) + '</div></div>' +
+      '<section class="qs"><h2>' + S.bi('Check your understanding', 'اختبر فهمك') + '</h2>' +
         P.quiz.map(function(q, k){
           var body = q.t === 'tf'
-            ? '<div class="tf"><button class="opt" type="button" data-v="1">✔ صَحِيح</button><button class="opt" type="button" data-v="0">✘ خَطَأ</button></div>'
+            ? '<div class="tf"><button class="opt" type="button" data-v="1">صَحِيح</button><button class="opt" type="button" data-v="0">خَطَأ</button></div>'
             : '<div class="opts">' + S.shuffle(q.o.map(function(o, i){ return { o: o, i: i }; })).map(function(x){ return '<button class="opt" type="button" data-i="' + x.i + '">' + S.esc(H(x.o)) + '</button>'; }).join('') + '</div>';
           return '<div class="q" data-k="' + k + '"><p class="q-text">' + S.esc(H(q.q)) + '</p><p class="qen">' + (q.t === 'tf' ? 'True or false? ' : '') + S.esc(q.qen) + '</p>' + body + '</div>';
         }).join('') +
         '<div class="result" id="res"></div></section>' +
-      '<nav class="pn"><a href="port.html?p=' + prev.id + '"><small>→ ' + S.bi('Previous harbour', 'المرفأ السابق') + '</small><b>' + S.strip(prev.ar) + '</b></a>' +
-        '<a class="nx" href="port.html?p=' + next.id + '"><small>' + S.bi('Next harbour', 'المرفأ التالي') + ' ←</small><b>' + S.strip(next.ar) + '</b></a></nav>' +
-      '<div style="text-align:center"><a class="crumb" href="index.html">' + S.bi('← All harbours', 'كل المرافئ ←') + '</a></div>';
+      '<nav class="pn"><a href="port.html?p=' + prev.id + '"><small>' + S.bi('Previous harbour', 'المرفأ السابق') + '</small><b>' + S.strip(prev.ar) + '</b></a>' +
+        '<a class="nx" href="port.html?p=' + next.id + '"><small>' + S.bi('Next harbour', 'المرفأ التالي') + '</small><b>' + S.strip(next.ar) + '</b></a></nav>' +
+      '<div style="text-align:center"><a class="crumb" href="index.html">' + S.icon('anchor') + S.bi('All harbours', 'كل المرافئ') + '</a></div>';
 
     SeaMap.draw(document.getElementById('map'), { root: '../', highlight: P.id });
-    // bring this harbour into view inside the scrollable map
     var ms = document.getElementById('mapS'), sv = ms.querySelector('svg');
     requestAnimationFrame(function(){ var k = sv.getBoundingClientRect().width / LAND.w, q = SeaMap.xy(P.lon, P.lat); ms.scrollLeft = Math.max(0, q[0] * k - ms.clientWidth / 2); ms.scrollTop = Math.max(0, q[1] * k - ms.clientHeight / 2); });
 
-    document.getElementById('bListen').onclick = function(){ S.speak(S.strip(P.text.map(function(t){ return plainAr(t.ar); }).join(' '))); };
     document.getElementById('bTr').onclick = function(){ showTr = !showTr; savePref(); this.setAttribute('aria-pressed', showTr); app.querySelectorAll('.trans').forEach(function(t){ t.classList.toggle('on', showTr); }); };
     document.getElementById('bHk').onclick = function(){ showHk = !showHk; savePref(); draw(); };
     app.querySelectorAll('.gl').forEach(function(b){ b.onclick = function(ev){ ev.stopPropagation(); openPop(b); }; });
@@ -124,24 +116,23 @@ html[data-lang="ar"] .q .qen{display:none}
     app.querySelectorAll('.q').forEach(function(box){
       var q = P.quiz[+box.dataset.k], bs = box.querySelectorAll('.opt');
       bs.forEach(function(b){ b.onclick = function(){
-        var ok = q.t === 'tf' ? (b.dataset.v === '1') === q.a : +b.dataset.i === q.a;
-        bs.forEach(function(x){ x.disabled = true; var r = q.t === 'tf' ? (x.dataset.v === '1') === q.a : +x.dataset.i === q.a; if (r) x.classList.add('ok'); });
+        var right = function(x){ return q.t === 'tf' ? (x.dataset.v === '1') === q.a : +x.dataset.i === q.a; }, ok = right(b);
+        bs.forEach(function(x){ x.disabled = true; if (right(x)) x.classList.add('ok'); });
         if (!ok) b.classList.add('no');
         done++; if (ok) score++;
         if (done === P.quiz.length) {
           var st = S.starsFor(score, P.quiz.length); S.saveStars('port-' + P.id, st);
           try { localStorage.setItem('ar-port-' + P.id, '1'); } catch(e) {}
           var r = document.getElementById('res'); r.classList.add('on');
-          r.innerHTML = '⭐'.repeat(st) + '<span style="opacity:.25">' + '⭐'.repeat(3 - st) + '</span> ' + score + ' / ' + P.quiz.length +
-            '<br><a class="btn" style="margin-top:10px;background:var(--sc)" href="port.html?p=' + next.id + '">⛵ ' + S.bi('Sail on to ' + next.en, 'أبحر إلى ' + S.strip(next.ar)) + '</a>';
+          r.innerHTML = S.stars(st) + ' &nbsp;' + score + ' / ' + P.quiz.length +
+            '<br><a class="btn" style="margin-top:12px;background:var(--sc)" href="port.html?p=' + next.id + '">' + S.icon('dhow') + S.bi('Sail on to ' + next.en, 'أبحر إلى ' + S.strip(next.ar)) + '</a>';
         }
       }; });
     });
   }
 
-  var pop = document.getElementById('pop'), cur = null;
-  function openPop(b){ cur = b; document.getElementById('popW').textContent = H(b.dataset.w); document.getElementById('popM').textContent = b.dataset.m; pop.classList.add('on'); S.speak(S.strip(b.dataset.w)); }
-  document.getElementById('popS').onclick = function(e){ e.stopPropagation(); if (cur) S.speak(S.strip(cur.dataset.w)); };
+  var pop = document.getElementById('pop');
+  function openPop(b){ document.getElementById('popW').textContent = H(b.dataset.w); document.getElementById('popM').textContent = b.dataset.m; pop.classList.add('on'); }
   document.addEventListener('click', function(e){ if (!pop.contains(e.target)) pop.classList.remove('on'); });
   draw();
 })();

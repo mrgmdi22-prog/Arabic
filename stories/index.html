@@ -4,47 +4,39 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
-<title>Kalila wa Dimna Stories · قصص كليلة ودمنة · مرافئ العربية</title>
-<meta name="theme-color" content="#fbf8f1">
+<title>Kalila wa Dimna · حكايات كليلة ودمنة · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
-.intro{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:linear-gradient(120deg,#fdf1da,#fff 70%);border:1.5px solid #f1dfb8;border-radius:26px;padding:18px 20px;margin:8px 0 22px}
-.intro .bk{font-size:3rem}
-.intro p{margin:0;font-size:1.02rem;line-height:1.75}
-.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-.cover{display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1.5px solid var(--line);border-radius:26px;overflow:hidden;transition:transform .22s var(--ease),box-shadow .22s,border-color .22s}
-.cover:hover{transform:translateY(-5px) rotate(-.4deg);border-color:var(--sc);box-shadow:0 22px 36px -26px rgba(40,50,80,.6)}
-.cover .art{height:150px;background:linear-gradient(135deg,var(--b1),var(--b2));display:grid;place-items:center;position:relative}
-.cover .art span{font-size:3.6rem;letter-spacing:8px;transition:transform .35s var(--ease)}
-.cover:hover .art span{transform:scale(1.1)}
-.cover .lv{position:absolute;top:12px;inset-inline-start:12px;background:rgba(255,255,255,.9);color:var(--sc);font-weight:800;font-size:.85rem;border-radius:999px;padding:2px 12px}
-.cover .done{position:absolute;top:12px;inset-inline-end:12px;background:#fff;border-radius:999px;padding:2px 10px;font-size:.9rem;font-weight:800;color:var(--green);display:none}
-.cover.read .done{display:block}
-.cover .info{padding:14px 18px 18px}
-.cover .ti{font-family:var(--text-ar);font-size:1.75rem;font-weight:700;color:var(--sc);direction:rtl;line-height:1.6}
-.cover .te{color:var(--muted);font-family:var(--ui-en);font-weight:600;font-size:1rem}
-.cover .mo{margin-top:8px;font-size:.95rem;color:var(--muted)}
+/* A shelf of bound manuscripts: each cover carries a framed miniature and a woven spine band. */
+.intro{max-width:46em;margin:6px auto 24px;padding:14px 20px;border-top:3px double var(--sand);border-bottom:3px double var(--sand);font-size:1.05rem;line-height:1.85;text-align:center}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.cover{display:flex;flex-direction:column;text-decoration:none;background:var(--card);border:1.5px solid var(--line);border-radius:6px;overflow:hidden}
+.cover:hover{border-color:var(--sc)}
+.cover .spine{height:12px;background:var(--sadu) repeat-x;background-size:28px 12px}
+.cover .art{margin:12px 12px 0;height:140px;background:linear-gradient(180deg,var(--b1),var(--b2));display:grid;place-items:center;position:relative;outline:1.5px solid var(--line)}
+.cover .art::before{content:"";position:absolute;inset:6px;border:2px solid rgba(255,255,255,.85)}
+.cover .art span{font-size:3.3rem;letter-spacing:8px}
+.cover .lv{position:absolute;top:10px;inset-inline-start:12px;background:var(--card);color:var(--sc);font-family:var(--kufi);font-size:.85rem;border-radius:4px;padding:0 10px}
+.cover .info{padding:12px 16px 16px}
+.cover .ti{font-family:var(--text-ar);font-size:1.8rem;font-weight:700;color:var(--sc);direction:rtl;line-height:1.55}
+.cover .te{color:var(--muted);font-family:var(--en-serif);font-style:italic}
+.cover .mo{margin-top:6px;font-size:.98rem;color:var(--muted);display:flex;justify-content:space-between;gap:8px;align-items:center}
 </style>
 </head>
 <body data-root="../">
 <header id="topbar"></header>
 <main class="wrap">
   <div class="phead">
-    <div class="ic" aria-hidden="true">📖</div>
-    <h1><span class="t-en">Kalila wa Dimna Stories</span><span class="t-ar">قصص من كليلة ودمنة</span></h1>
-    <p><span class="t-en">Classic animal fables retold in simple Arabic. Tap a coloured word to see its meaning and hear it.</span><span class="t-ar">حكايات الحيوان الشهيرة بلغة عربية مبسّطة. المس الكلمة الملوّنة لترى معناها وتسمعها.</span></p>
+    <i data-ic="book"></i>
+    <h1><span class="t-en">Kalila wa Dimna</span><span class="t-ar">حكايات كليلة ودمنة</span></h1>
+    <p><span class="t-en">Classic animal fables retold in simple Arabic. Tap a coloured word to see its meaning.</span><span class="t-ar">حكايات الحيوان الشهيرة بعربية مبسّطة. المس الكلمة الملوّنة لترى معناها.</span></p>
   </div>
-
-  <div class="intro reveal">
-    <span class="bk" aria-hidden="true">📜</span>
-    <p><span class="t-en"><b>Kalila wa Dimna</b> is a famous book of fables. Ibn al-Muqaffa’ translated it into Arabic about 1,250 years ago. In it, the wise Bidpai tells King Dabshalim stories in which animals speak and teach lessons about life.</span>
-    <span class="t-ar"><b>كليلة ودمنة</b> كتاب حكايات مشهور، نقله ابن المقفع إلى العربية قبل نحو ألف ومئتين وخمسين سنة. يروي فيه الحكيم بيدبا للملك دبشليم قصصاً تتكلم فيها الحيوانات وتعلّمنا دروساً في الحياة.</span></p>
-  </div>
-
+  <p class="intro"><span class="t-en"><b>Kalila wa Dimna</b> is a famous book of fables. Ibn al-Muqaffa’ brought it into Arabic about 1,250 years ago. In it, the wise Bidpai tells King Dabshalim stories in which animals speak and teach lessons about life.</span><span class="t-ar"><b>كليلة ودمنة</b> كتاب حكايات مشهور، نقله ابن المقفع إلى العربية قبل نحو ألف ومئتين وخمسين سنة. يروي فيه الحكيم بيدبا للملك دبشليم قصصاً تتكلم فيها الحيوانات وتعلّمنا دروساً في الحياة.</span></p>
   <div class="shelf" id="shelf"></div>
-  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">← Home</span><span class="t-ar">الرئيسية ←</span></a></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
   <footer id="sitefoot"></footer>
 </main>
 <script src="../assets/site.js"></script>
@@ -53,16 +45,13 @@
 (function(){
   var S = Site;
   document.getElementById('shelf').innerHTML = STORIES.map(function(s){
-    var read = false; try { read = !!localStorage.getItem('ar-read-' + s.id); } catch(e) {}
-    var stars = S.getStars('read-' + s.id);
-    return '<a class="cover reveal' + (read ? ' read' : '') + '" href="read.html?s=' + s.id + '" style="--sc:' + s.c + ';--b1:' + s.bg[0] + ';--b2:' + s.bg[1] + '">' +
-      '<div class="art"><span aria-hidden="true">' + s.cover + s.partner + '</span>' +
-        '<b class="lv">' + S.bi('Level ' + s.level, 'المستوى ' + s.level) + '</b>' +
-        '<b class="done">✓ ' + (stars ? '⭐'.repeat(stars) : S.bi('Read', 'قُرئت')) + '</b></div>' +
+    var n = S.getStars('read-' + s.id), read = false; try { read = !!localStorage.getItem('ar-read-' + s.id); } catch(e) {}
+    return '<a class="cover" href="read.html?s=' + s.id + '" style="--sc:' + s.c + ';--b1:' + s.bg[0] + ';--b2:' + s.bg[1] + '">' +
+      '<div class="spine" aria-hidden="true"></div>' +
+      '<div class="art"><span aria-hidden="true">' + s.cover + s.partner + '</span><b class="lv">' + S.bi('Level ' + s.level, 'المستوى ' + s.level) + '</b></div>' +
       '<div class="info"><div class="ti">' + s.ar + '</div><div class="te">' + s.en + '</div>' +
-      '<div class="mo">' + s.pages.length + ' ' + S.bi('pages', 'صفحات') + ' · ' + S.esc(s.moral.en) + '</div></div></a>';
+      '<div class="mo"><span>' + S.esc(s.moral.en) + '</span>' + (n ? S.stars(n) : read ? S.icon('check') : '') + '</div></div></a>';
   }).join('');
-  S.reveal();
 })();
 </script>
 </body>

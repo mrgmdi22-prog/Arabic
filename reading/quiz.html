@@ -5,28 +5,29 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
 <title>Reading Comprehension · فهم المقروء · مرافئ العربية</title>
-<meta name="theme-color" content="#fbf8f1">
+<meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
 .qhead{display:flex;align-items:center;gap:14px;margin-top:22px}
-.qhead .ic{width:62px;height:62px;border-radius:20px;background:linear-gradient(135deg,var(--b1),var(--b2));display:grid;place-items:center;font-size:2rem;flex:none}
+.qhead .ic{width:62px;height:70px;border-radius:31px 31px 6px 6px;background:linear-gradient(180deg,var(--b1),var(--b2));display:grid;place-items:center;font-size:2rem;flex:none;border:1.5px solid var(--line)}
 .qhead h1{margin:0;font-family:var(--text-ar);font-size:1.9rem;line-height:1.5;color:var(--sc);direction:rtl}
 .qhead p{margin:0;color:var(--muted);font-size:1rem}
 .tf{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .tf .opt{text-align:center;font-family:var(--ui-ar);font-weight:800;font-size:1.3rem}
 .qen{direction:ltr;text-align:left;font-family:var(--ui-en);color:var(--muted);font-size:1.02rem;margin:0 0 14px}
 html[data-lang="ar"] .qen{display:none}
+.qen{font-family:var(--en-serif)!important}
 .order-list{display:grid;gap:10px}
-.ev{display:flex;align-items:center;gap:12px;width:100%;direction:rtl;text-align:right;background:#fff;border:2px solid var(--line);border-radius:18px;padding:10px 16px;font-family:var(--text-ar);font-size:1.4rem;line-height:1.7;cursor:pointer}
-.ev .n{flex:none;width:38px;height:38px;border-radius:50%;background:#f2ede1;display:grid;place-items:center;font-family:var(--ui-ar);font-weight:800;font-size:1.1rem;color:var(--muted)}
+.ev{display:flex;align-items:center;gap:12px;width:100%;direction:rtl;text-align:right;background:#FFFDF9;border:2px solid var(--line);border-radius:8px;padding:10px 16px;font-family:var(--text-ar);font-size:1.4rem;line-height:1.7;cursor:pointer}
+.ev .n{flex:none;width:38px;height:38px;transform:rotate(45deg);background:#F0E4D2;display:grid;place-items:center;font-family:var(--kufi);font-weight:700;font-size:1.1rem;color:var(--muted)}
 .ev.picked{border-color:var(--sc);background:color-mix(in srgb,var(--sc) 7%,white)}
 .ev.picked .n{background:var(--sc);color:#fff}
 .ev.ok{border-color:var(--green);background:var(--green-soft)}
 .ev.no{border-color:var(--red);background:var(--red-soft)}
 .peek{margin-top:14px;text-align:center}
-.peek-box{display:none;margin-top:12px;background:#faf7f0;border-radius:18px;padding:14px 18px;font-family:var(--text-ar);direction:rtl;text-align:right;font-size:1.3rem;line-height:2.1;max-height:340px;overflow:auto}
+.peek-box{display:none;margin-top:12px;background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:14px 18px;font-family:var(--text-ar);direction:rtl;text-align:right;font-size:1.3rem;line-height:2.1;max-height:340px;overflow:auto}
 .peek-box.on{display:block}
 .peek-box p{margin:0 0 10px}
 </style>
@@ -64,7 +65,7 @@ html[data-lang="ar"] .qen{display:none}
       '<p>' + S.bi('Reading comprehension · ' + st.en, 'فهم المقروء') + '</p></div></div>';
   }
   function peek(){
-    return '<div class="peek"><button class="btn ghost" type="button" id="bPeek">📖 ' + S.bi('Look at the story', 'انظر في القصة') + '</button>' +
+    return '<div class="peek"><button class="btn ghost" type="button" id="bPeek">' + S.icon('book') + S.bi('Look at the story', 'انظر في الحكاية') + '</button>' +
       '<div class="peek-box" id="peekBox">' + st.pages.map(function(p){ return '<p>' + S.esc(plain(p.ar)) + '</p>'; }).join('') + '</div></div>';
   }
   function wirePeek(){
@@ -75,23 +76,23 @@ html[data-lang="ar"] .qen{display:none}
   function draw(){
     if (i >= total) return finish();
     var q = qs[i], html = head() + '<div class="panel">' +
-      '<div class="q-meta"><span>' + S.bi('Question', 'السؤال') + ' ' + (i + 1) + ' / ' + total + '</span><span>✔ ' + score + '</span></div>' +
+      '<div class="q-meta"><span>' + S.bi('Question', 'السؤال') + ' ' + (i + 1) + ' / ' + total + '</span><span>' + S.icon('check') + ' ' + score + '</span></div>' +
       '<div class="q-progress"><i style="width:' + (i / total * 100) + '%"></i></div>';
     if (q.t === 'order') {
       var evs = S.shuffle(st.order.map(function(t, k){ return { t: t, k: k }; }));
       html += '<p class="q-text">' + 'رَتِّبِ الأَحْدَاثَ حَسَبَ وُقُوعِهَا فِي القِصَّةِ.' + '</p>' +
         '<p class="qen">Tap the events in the order they happened in the story.</p>' +
         '<div class="order-list" id="ol">' + evs.map(function(e){ return '<button type="button" class="ev" data-k="' + e.k + '"><span class="n"></span><span>' + S.esc(e.t) + '</span></button>'; }).join('') + '</div>' +
-        '<div class="btn-row"><button class="btn ghost" type="button" id="bReset">↺ ' + S.bi('Start over', 'من جديد') + '</button></div>';
+        '<div class="btn-row"><button class="btn ghost" type="button" id="bReset">' + S.icon('redo') + S.bi('Start over', 'من جديد') + '</button></div>';
     } else if (q.t === 'tf') {
       html += '<p class="q-text">' + S.esc(q.q) + '</p><p class="qen">True or false? ' + S.esc(q.qen) + '</p>' +
-        '<div class="tf"><button class="opt" type="button" data-v="1">✔ صَحِيح<br><small class="t-en" style="font-family:var(--ui-en);font-size:.85rem">True</small></button>' +
-        '<button class="opt" type="button" data-v="0">✘ خَطَأ<br><small class="t-en" style="font-family:var(--ui-en);font-size:.85rem">False</small></button></div>';
+        '<div class="tf"><button class="opt" type="button" data-v="1">صَحِيح<br><small class="t-en" style="font-family:var(--ui-en);font-size:.85rem">True</small></button>' +
+        '<button class="opt" type="button" data-v="0">خَطَأ<br><small class="t-en" style="font-family:var(--ui-en);font-size:.85rem">False</small></button></div>';
     } else {
       html += '<p class="q-text">' + S.esc(q.q) + '</p><p class="qen">' + S.esc(q.qen) + '</p>' +
         '<div class="opts">' + q.o.map(function(o, k){ return '<button class="opt" type="button" data-k="' + k + '">' + S.esc(o.t) + '</button>'; }).join('') + '</div>';
     }
-    html += '<div class="feedback" id="fb"></div><div class="btn-row" id="nextRow" style="display:none"><button class="btn" style="background:var(--sc)" type="button" id="bNext">' + S.bi('Next', 'التالي') + ' ←</button></div></div>' + peek();
+    html += '<div class="feedback" id="fb"></div><div class="btn-row" id="nextRow" style="display:none"><button class="btn" style="background:var(--sc)" type="button" id="bNext">' + S.bi('Next', 'التالي') + S.icon('next') + '</button></div></div>' + peek();
     app.innerHTML = html;
     wirePeek();
     if (q.t === 'order') wireOrder(); else wireChoice(q);
@@ -101,7 +102,7 @@ html[data-lang="ar"] .qen{display:none}
     if (ok) score++;
     var fb = document.getElementById('fb');
     fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
-    fb.innerHTML = (ok ? '🎉 ' + S.bi('Correct!', 'أحسنت!') : '💡 ' + S.bi('Not quite.', 'ليست الإجابة الصحيحة.')) + (extra || '');
+    fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ' + S.bi('Not quite. The right order:', 'ليست الإجابة الصحيحة.')) + (extra || '');
     document.getElementById('nextRow').style.display = '';
     document.getElementById('bNext').onclick = function(){ i++; draw(); };
     document.getElementById('bNext').focus();
@@ -149,15 +150,15 @@ html[data-lang="ar"] .qen{display:none}
     S.saveStars('read-' + st.id, stars);
     var nextSt = STORIES[(STORIES.indexOf(st) + 1) % STORIES.length];
     app.innerHTML = head() + '<div class="panel score">' +
-      '<div class="stars">' + '⭐'.repeat(stars) + '<span style="opacity:.25">' + '⭐'.repeat(3 - stars) + '</span></div>' +
+      S.stars(stars) +
       '<div class="big">' + score + ' / ' + total + '</div>' +
       '<p style="font-size:1.15rem;font-weight:700">' + (stars === 3 ? S.bi('Excellent reading!', 'قراءة ممتازة!') : stars === 2 ? S.bi('Well done! Try again for three stars.', 'أحسنت! أعد المحاولة لتنال ثلاث نجوم.') : S.bi('Read the story again, then try once more.', 'اقرأ القصة مرة أخرى ثم حاول من جديد.')) + '</p>' +
       '<div class="btn-row">' +
-        '<button class="btn" style="background:var(--sc)" type="button" id="bRetry">↺ ' + S.bi('Try again', 'أعد المحاولة') + '</button>' +
-        '<a class="btn soft" href="../stories/read.html?s=' + st.id + '">📖 ' + S.bi('Read the story', 'اقرأ القصة') + '</a>' +
-        '<a class="btn ghost" href="quiz.html?s=' + nextSt.id + '">' + S.bi('Next story', 'القصة التالية') + ' ←</a>' +
+        '<button class="btn" style="background:var(--sc)" type="button" id="bRetry">' + S.icon('redo') + S.bi('Try again', 'أعد المحاولة') + '</button>' +
+        '<a class="btn ghost" href="../stories/read.html?s=' + st.id + '">' + S.icon('book') + S.bi('Read the story', 'اقرأ القصة') + '</a>' +
+        '<a class="btn ghost" href="quiz.html?s=' + nextSt.id + '">' + S.bi('Next story', 'الحكاية التالية') + S.icon('next') + '</a>' +
       '</div></div>' +
-      '<div style="text-align:center"><a class="crumb" href="index.html">' + S.bi('← All reading exercises', 'كل تمارين القراءة ←') + '</a></div>';
+      '<div style="text-align:center"><a class="crumb" href="index.html">' + S.bi('All reading exercises', 'كل تمارين القراءة') + '</a></div>';
     document.getElementById('bRetry').onclick = start;
   }
 

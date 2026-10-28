@@ -2,7 +2,7 @@
 // g = the word with "_" where a letter is missing, a = the missing letter(s). Unit `letters` are the choices for the gap.
 window.DICTATION = [
 {
-  id: 'taa', ar: 'التَّاءُ المَرْبُوطَةُ وَالمَفْتُوحَةُ', en: 'Tied taa (ة) and open taa (ت)', icon: 'ة', c: '#0f7f74', t: '#e2f4f1',
+  id: 'taa', ar: 'التَّاءُ المَرْبُوطَةُ وَالمَفْتُوحَةُ', en: 'Tied taa (ة) and open taa (ت)', icon: 'ة', c: '#2C7A6E', t: '#E2F0EB',
   ruleEn: 'Use ة at the end of a noun when it sounds like “h” if you stop on it, and like “t” if you keep reading. Use ت when it is always heard as “t” (بِنْت، بَيْت), and in verbs (كَتَبَتْ). Use ه when there is no “t” sound at all (وَجْه).',
   ruleAr: 'تُكْتَبُ التَّاءُ مَرْبُوطَةً (ة) إِذَا نُطِقَتْ هَاءً عِنْدَ الوَقْفِ، وَتُكْتَبُ مَفْتُوحَةً (ت) إِذَا نُطِقَتْ تَاءً دَائِماً، وَفِي آخِرِ الفِعْلِ. وَتُكْتَبُ هَاءً (ه) إِذَا لَمْ يَكُنْ فِيهَا صَوْتُ التَّاءِ.',
   letters: ['ة', 'ت', 'ه'],
@@ -22,7 +22,7 @@ window.DICTATION = [
   ]
 },
 {
-  id: 'hamza', ar: 'الهَمْزَةُ', en: 'Hamza (ء أ إ ؤ ئ)', icon: 'ء', c: '#4552c9', t: '#ebedfd',
+  id: 'hamza', ar: 'الهَمْزَةُ', en: 'Hamza (ء أ إ ؤ ئ)', icon: 'ء', c: '#34578A', t: '#E6ECF6',
   ruleEn: 'Hamza sits on a “seat” chosen by the vowels around it. Kasra is strongest (ئ), then damma (ؤ), then fatha (أ). At the start of a word: أ with fatha or damma, إ with kasra. At the end after a long vowel or sukun it stands alone (ء).',
   ruleAr: 'تُكْتَبُ الهَمْزَةُ عَلَى الحَرْفِ المُنَاسِبِ لِأَقْوَى الحَرَكَتَيْنِ: الكَسْرَةُ (ئ) ثُمَّ الضَّمَّةُ (ؤ) ثُمَّ الفَتْحَةُ (أ). وَفِي أَوَّلِ الكَلِمَةِ تُكْتَبُ (أ) مَعَ الفَتْحِ وَالضَّمِّ، وَ(إ) مَعَ الكَسْرِ.',
   letters: ['أ', 'إ', 'ؤ', 'ئ', 'ء'],
@@ -42,7 +42,7 @@ window.DICTATION = [
   ]
 },
 {
-  id: 'alif', ar: 'الأَلِفُ اللَّيِّنَةُ', en: 'Final alif (ا or ى)', icon: 'ى', c: '#a2650c', t: '#fdf1da',
+  id: 'alif', ar: 'الأَلِفُ اللَّيِّنَةُ', en: 'Final alif (ا or ى)', icon: 'ى', c: '#A26F1C', t: '#FBEFD8',
   ruleEn: 'A long “aa” at the end of a word is written ى when it comes from ي (مَشَى ← يَمْشِي) and ا when it comes from و (دَعَا ← يَدْعُو). Many nouns of four letters or more end in ى (مُسْتَشْفَى).',
   ruleAr: 'تُكْتَبُ الأَلِفُ فِي آخِرِ الفِعْلِ الثُّلَاثِيِّ مَقْصُورَةً (ى) إِذَا كَانَ أَصْلُهَا يَاءً (مَشَى ← يَمْشِي)، وَمَمْدُودَةً (ا) إِذَا كَانَ أَصْلُهَا وَاواً (دَعَا ← يَدْعُو). وَتُكْتَبُ (ى) فِي آخِرِ أَكْثَرِ الأَسْمَاءِ الَّتِي تَزِيدُ عَلَى ثَلَاثَةِ أَحْرُفٍ.',
   letters: ['ا', 'ى'],
@@ -62,7 +62,7 @@ window.DICTATION = [
   ]
 },
 {
-  id: 'lam', ar: 'اللَّامُ الشَّمْسِيَّةُ وَالقَمَرِيَّةُ', en: 'Sun and moon letters (ال)', icon: 'ال', c: '#b03a66', t: '#fdecf2',
+  id: 'lam', ar: 'اللَّامُ الشَّمْسِيَّةُ وَالقَمَرِيَّةُ', en: 'Sun and moon letters (ال)', icon: 'ال', c: '#A23E2E', t: '#F8E5DD',
   ruleEn: 'We always write “ال” at the start of a definite word. Before “sun letters” (like ش ر س د ن ت ط) the ل is written but not pronounced, and the next letter is doubled: الشَّمْس = ash-shams. Before “moon letters” (like ق ب ك ي) the ل is pronounced: القَمَر = al-qamar.',
   ruleAr: 'تُكْتَبُ «ال» دَائِماً فِي أَوَّلِ الكَلِمَةِ المُعَرَّفَةِ. فَإِذَا جَاءَ بَعْدَهَا حَرْفٌ شَمْسِيٌّ كُتِبَتِ اللَّامُ وَلَمْ تُنْطَقْ، وَشُدِّدَ الحَرْفُ بَعْدَهَا (الشَّمْس). وَإِذَا جَاءَ بَعْدَهَا حَرْفٌ قَمَرِيٌّ نُطِقَتِ اللَّامُ (القَمَر).',
   letters: ['ال', 'ا', 'أل'],
@@ -82,7 +82,7 @@ window.DICTATION = [
   ]
 },
 {
-  id: 'tanween', ar: 'تَنْوِينُ الفَتْحِ', en: 'Tanween with fatha (ـاً)', icon: 'اً', c: '#2d7d3a', t: '#e6f5e8', marks: true,
+  id: 'tanween', ar: 'تَنْوِينُ الفَتْحِ', en: 'Tanween with fatha (ـاً)', icon: 'اً', c: '#3B7A39', t: '#E7F3E3', marks: true,
   ruleEn: 'When a word ends with the sound “-an”, we usually add an alif: كِتَاباً. We do not add the alif after ة (شَجَرَةً) or after ء that follows an alif (سَمَاءً).',
   ruleAr: 'نَزِيدُ أَلِفاً فِي آخِرِ الكَلِمَةِ المُنَوَّنَةِ بِالفَتْحِ (كِتَاباً)، إِلَّا إِذَا انْتَهَتْ بِتَاءٍ مَرْبُوطَةٍ (شَجَرَةً)، أَوْ بِهَمْزَةٍ قَبْلَهَا أَلِفٌ (سَمَاءً).',
   letters: ['اً', 'ً'],
@@ -102,9 +102,9 @@ window.DICTATION = [
   ]
 },
 {
-  id: 'jumal', ar: 'جُمَلٌ مِنَ القِصَصِ', en: 'Sentences from the stories', icon: '✍️', c: '#7a46b8', t: '#f1ecfb', listenOnly: true,
-  ruleEn: 'Listen to a whole sentence from the Kalila wa Dimna stories and write it. Vowel marks are not needed.',
-  ruleAr: 'اسْتَمِعْ إِلَى جُمْلَةٍ كَامِلَةٍ مِنْ قِصَصِ كَلِيلَةَ وَدِمْنَةَ، ثُمَّ اكْتُبْهَا. لَا يَلْزَمُ كِتَابَةُ التَّشْكِيلِ.',
+  id: 'jumal', ar: 'جُمَلٌ مِنَ القِصَصِ', en: 'Sentences from the stories', icon: 'ج', c: '#2D6F92', t: '#E1EFF5', lookOnly: true,
+  ruleEn: 'Look at a whole sentence from the Kalila wa Dimna stories, remember it, then write it when it disappears. Vowel marks are not needed.',
+  ruleAr: 'انْظُرْ إِلَى جُمْلَةٍ كَامِلَةٍ مِنْ قِصَصِ كَلِيلَةَ وَدِمْنَةَ، وَاحْفَظْهَا، ثُمَّ اكْتُبْهَا بَعْدَ أَنْ تَخْتَفِيَ. لَا يَلْزَمُ كِتَابَةُ التَّشْكِيلِ.',
   items: [
     { w: 'خَرَجَ الثَّعْلَبُ جَائِعاً', en: 'The fox went out hungry.' },
     { w: 'جَفَّ مَاءُ البُحَيْرَةِ', en: 'The lake’s water dried up.' },

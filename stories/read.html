@@ -4,69 +4,50 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
-<title>Kalila wa Dimna · كليلة ودمنة · مرافئ العربية</title>
-<meta name="theme-color" content="#fbf8f1">
+<title>كليلة ودمنة · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
-/* Story reader: one paragraph per page, a scene above it, tappable glossary words, listen / translation / tashkeel switches. */
-.sthead{text-align:center;padding:24px 8px 6px}
-.sthead h1{font-family:var(--text-ar);font-size:clamp(2rem,7vw,2.8rem);margin:0;line-height:1.5;direction:rtl}
-.sthead .sub{font-family:var(--ui-en);color:var(--muted);font-weight:600;font-size:1.05rem;direction:ltr}
-.dots{display:flex;justify-content:center;gap:7px;margin:12px 0 4px;flex-wrap:wrap;direction:rtl}
-.dots i{width:12px;height:12px;border-radius:50%;background:#e4dccb;transition:background .25s,transform .25s}
-.dots i.on{background:var(--sc);transform:scale(1.25)}
-.dots i.done{background:color-mix(in srgb,var(--sc) 45%,white)}
-
-.book{margin-top:12px;border-radius:30px;overflow:hidden;background:#fff;border:1.5px solid var(--line);box-shadow:0 20px 40px -32px rgba(40,50,80,.55)}
-.stage{position:relative;height:190px;background:linear-gradient(135deg,var(--b1),var(--b2));display:grid;place-items:center;overflow:hidden}
-.stage .scene{font-size:4.2rem;letter-spacing:10px;line-height:1;direction:ltr;filter:drop-shadow(0 8px 10px rgba(0,0,0,.12));animation:bob 4.5s ease-in-out infinite}
-.stage .scene.swap{animation:pop .5s var(--ease)}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
-.stage svg{position:absolute;inset:0;width:100%;height:100%;opacity:.35}
-.pg-no{position:absolute;top:12px;inset-inline-start:14px;background:rgba(255,255,255,.85);border-radius:999px;padding:2px 12px;font-weight:800;font-size:.9rem;color:var(--sc)}
-
-.text{padding:22px 22px 8px}
-.para{font-family:var(--text-ar);direction:rtl;text-align:right;font-size:clamp(1.55rem,4.6vw,1.95rem);line-height:2.25;margin:0;min-height:5em}
-.para.fade{animation:pop .45s var(--ease)}
-.gl{background:none;border:none;padding:0 2px;font:inherit;color:var(--sc);font-weight:700;cursor:pointer;border-bottom:2.5px dotted color-mix(in srgb,var(--sc) 60%,white);border-radius:4px}
-.gl:hover,.gl.on{background:color-mix(in srgb,var(--sc) 12%,white)}
-.trans{direction:ltr;text-align:left;font-family:var(--ui-en);color:var(--muted);font-size:1.08rem;line-height:1.7;background:#faf7f0;border-radius:16px;padding:12px 16px;margin:14px 0 0;display:none}
+/* Story reader as a manuscript: a framed miniature above, one paragraph per leaf, page dots, glossary words. */
+.sthead{text-align:center;padding:24px 8px 4px}
+.sthead h1{font-family:var(--text-ar);font-size:clamp(2.1rem,7.5vw,2.9rem);margin:0;line-height:1.5;direction:rtl;color:var(--sc)}
+.sthead .sub{font-family:var(--en-serif);font-style:italic;color:var(--muted);font-size:1.1rem}
+.dots{display:flex;justify-content:center;gap:8px;margin:12px 0 4px;flex-wrap:wrap;direction:rtl}
+.dots i{width:12px;height:12px;transform:rotate(45deg);background:#E8DAC6}
+.dots i.on{background:var(--sc)}
+.dots i.done{background:color-mix(in srgb,var(--sc) 40%,white)}
+.book{margin-top:12px;background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:10px}
+.mini-art{position:relative;height:180px;display:grid;place-items:center;border-radius:3px;border:none;
+  background:linear-gradient(180deg,var(--b1),var(--b2));outline:1.5px solid var(--line)}
+.mini-art::before{content:"";position:absolute;inset:0;border:2px solid rgba(255,255,255,.8);margin:6px;pointer-events:none}
+.mini-art .scene{font-size:4rem;letter-spacing:10px;line-height:1;direction:ltr}
+.pg-no{position:absolute;top:10px;inset-inline-start:12px;background:var(--card);border-radius:4px;padding:0 10px;font-family:var(--kufi);font-size:.95rem;color:var(--sc)}
+.sadu-edge{height:12px;background:var(--sadu) repeat-x;background-size:28px 12px;margin:0 0 6px}
+.text{padding:18px 14px 6px}
+.para{font-family:var(--text-ar);direction:rtl;text-align:right;font-size:clamp(1.65rem,4.8vw,2.05rem);line-height:2.2;margin:0;min-height:5em}
+.trans{direction:ltr;text-align:left;font-family:var(--en-serif);color:var(--muted);font-size:1.12rem;line-height:1.7;background:#FAF4EA;border-inline-start:4px solid var(--stone);padding:8px 14px;margin:14px 0 0;display:none}
 .trans.on{display:block}
-
-.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px 16px 4px}
-.tool{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:7px 16px;font-weight:700;font-size:.98rem;cursor:pointer;min-height:44px}
-.tool[aria-pressed="true"]{background:color-mix(in srgb,var(--sc) 12%,white);border-color:var(--sc);color:var(--sc)}
-.nav{display:flex;justify-content:space-between;gap:10px;padding:14px 16px 20px;direction:rtl}
+.nav{display:flex;justify-content:space-between;gap:10px;padding:14px 6px 8px;direction:rtl}
 .nav .btn{background:var(--sc);min-width:130px}
-.nav .btn.ghost{background:#fff;color:var(--ink)}
-
-.pop{position:fixed;z-index:50;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;
-  background:#fff;border:2px solid var(--sc);border-radius:22px;padding:12px 18px;box-shadow:0 20px 40px -20px rgba(0,0,0,.35);
-  display:flex;align-items:center;gap:14px;transition:all .25s var(--ease);max-width:calc(100% - 32px)}
-.pop.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
-.pop .w{font-family:var(--text-ar);font-size:1.8rem;color:var(--sc);font-weight:700}
-.pop .m{font-family:var(--ui-en);font-size:1.1rem;font-weight:600;direction:ltr;white-space:nowrap}
-.pop button{border:none;background:var(--teal-soft);border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer}
-
-.end{padding:24px 20px 26px;text-align:center}
-.moral{background:linear-gradient(135deg,var(--b1),var(--b2));border-radius:24px;padding:18px;margin:4px 0 18px}
-.moral .lbl{font-weight:800;color:var(--sc);font-size:1rem}
-.moral .ar{font-size:2rem;line-height:1.9;font-weight:700}
-.moral .enm{font-family:var(--ui-en);color:var(--muted);font-size:1.08rem}
+.nav .btn.ghost{background:var(--card);color:var(--ink)}
+.end{padding:18px 10px 20px;text-align:center}
+.moral{padding:18px;margin:4px 0 18px;border-top:3px double var(--sc);border-bottom:3px double var(--sc)}
+.moral h3{margin:0;color:var(--sc);font-size:1.05rem}
+.moral .ar{font-size:2.1rem;line-height:1.9;font-weight:700}
+.moral .enm{font-family:var(--en-serif);font-style:italic;color:var(--muted);font-size:1.1rem}
 .vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:12px 0 0}
-.vw{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:8px 14px;cursor:pointer;text-align:start}
-.vw .a{font-family:var(--text-ar);font-size:1.45rem;color:var(--sc);font-weight:700}
-.vw .e{font-family:var(--ui-en);font-size:.98rem;color:var(--muted)}
-.notice{color:var(--muted);font-size:.95rem;margin-top:10px}
+.vw{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#FFFDF9;border:1.5px solid var(--line);border-radius:6px;padding:8px 14px}
+.vw .a{font-family:var(--text-ar);font-size:1.55rem;color:var(--sc);font-weight:700}
+.vw .e{font-family:var(--en-serif);font-size:1.02rem;color:var(--muted)}
+.notice{color:var(--muted);font-size:.98rem;margin-top:12px}
 </style>
 </head>
 <body data-root="../">
 <header id="topbar"></header>
 <main class="wrap" id="app"></main>
-<div class="pop" id="pop" role="status"><span class="w" id="popW"></span><span class="m" id="popM"></span><button type="button" id="popS" aria-label="Listen">🔊</button></div>
+<div class="pop" id="pop" role="status"><span class="w" id="popW"></span><span class="m" id="popM"></span></div>
 <div class="wrap" style="padding-bottom:30px"><footer id="sitefoot"></footer></div>
 <script src="../assets/site.js"></script>
 <script src="../assets/stories.js"></script>
@@ -74,84 +55,66 @@
 (function(){
   var S = Site, id = new URLSearchParams(location.search).get('s');
   var st = STORIES.filter(function(x){ return x.id === id; })[0] || STORIES[0];
-  var app = document.getElementById('app');
-  document.title = st.en + ' · ' + S.strip(st.ar);
-  app.style.setProperty('--sc', st.c); app.style.setProperty('--b1', st.bg[0]); app.style.setProperty('--b2', st.bg[1]);
-  document.getElementById('pop').style.setProperty('--sc', st.c);
-
+  var app = document.getElementById('app'), R = document.documentElement.style;
+  document.title = S.strip(st.ar) + ' · ' + st.en + ' · مرافئ العربية';
+  R.setProperty('--sc', st.c); R.setProperty('--b1', st.bg[0]); R.setProperty('--b2', st.bg[1]);
   var pref = {}; try { pref = JSON.parse(localStorage.getItem('ar-reader') || '{}'); } catch(e) {}
   var showTr = !!pref.tr, showHk = pref.hk !== false, page = 0, N = st.pages.length;
   function savePref(){ try { localStorage.setItem('ar-reader', JSON.stringify({ tr: showTr, hk: showHk })); } catch(e) {} }
   function H(s){ return showHk ? s : S.strip(s); }
-
-  // [word|meaning] → glossary button
-  var vocab = [];
   function render(s){
     return S.esc(s).replace(/\[([^\]|]+)\|([^\]]+)\]/g, function(_, w, m){
       return '<button type="button" class="gl" data-w="' + w + '" data-m="' + m + '">' + H(w) + '</button>';
     }).replace(/[^<>]+(?=<|$)/g, function(txt){ return showHk ? txt : S.strip(txt); });
   }
-  st.pages.concat([{ ar: st.moral.ar }]).forEach(function(p){
-    p.ar.replace(/\[([^\]|]+)\|([^\]]+)\]/g, function(_, w, m){ vocab.push({ w: w, m: m }); });
-  });
-
-  var star = '<svg viewBox="0 0 400 190" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="g" width="60" height="60" patternUnits="userSpaceOnUse">' +
-    '<path d="M30 6 L36 24 L54 30 L36 36 L30 54 L24 36 L6 30 L24 24 Z" fill="none" stroke="#ffffff" stroke-width="2"/></pattern></defs><rect width="400" height="190" fill="url(#g)"/></svg>';
+  var vocab = [];
+  st.pages.concat([{ ar: st.moral.ar }]).forEach(function(p){ p.ar.replace(/\[([^\]|]+)\|([^\]]+)\]/g, function(_, w, m){ vocab.push({ w: w, m: m }); }); });
 
   app.innerHTML =
-    '<div class="sthead"><h1>' + H(st.ar) + '</h1><div class="sub">' + st.en + '</div>' +
+    '<div class="sthead"><h1 id="ttl"></h1><div class="sub">' + st.en + '</div>' +
     '<div class="dots" id="dots">' + st.pages.map(function(){ return '<i></i>'; }).join('') + '<i></i></div></div>' +
-    '<div class="book">' +
-      '<div class="stage">' + star + '<span class="pg-no" id="pgNo"></span><div class="scene" id="scene"></div></div>' +
-      '<div id="body"></div>' +
-    '</div>' +
-    '<div style="text-align:center"><a class="crumb" href="index.html">' + S.bi('← All stories', 'كل القصص ←') + '</a></div>';
-
+    '<div class="book"><div class="sadu-edge" aria-hidden="true"></div><div class="mini-art"><span class="pg-no" id="pgNo"></span><div class="scene" id="scene"></div></div><div id="body"></div></div>' +
+    '<div style="text-align:center"><a class="crumb" href="index.html">' + S.icon('book') + S.bi('All stories', 'كل الحكايات') + '</a></div>';
   var body = document.getElementById('body');
 
   function showPage(){
-    S.stopSpeak(); hidePop();
+    hidePop();
+    document.getElementById('ttl').innerHTML = H(st.ar);
     document.querySelectorAll('#dots i').forEach(function(d, i){ d.className = i === page ? 'on' : i < page ? 'done' : ''; });
     var sc = document.getElementById('scene');
-    sc.classList.remove('swap'); void sc.offsetWidth; sc.classList.add('swap');
     if (page < N) {
       var p = st.pages[page];
       sc.textContent = p.e;
       document.getElementById('pgNo').innerHTML = '<bdi dir="ltr">' + (page + 1) + ' / ' + N + '</bdi>';
       body.innerHTML =
-        '<div class="text"><p class="para fade" id="para">' + render(p.ar) + '</p>' +
+        '<div class="text"><p class="para">' + render(p.ar) + '</p>' +
         '<p class="trans' + (showTr ? ' on' : '') + '" id="trans">' + S.esc(p.en) + '</p></div>' +
         '<div class="tools">' +
-          '<button class="tool" type="button" id="bListen">🔊 ' + S.bi('Listen', 'استمع') + '</button>' +
-          '<button class="tool" type="button" id="bTr" aria-pressed="' + showTr + '">🇬🇧 ' + S.bi('Translation', 'الترجمة') + '</button>' +
-          '<button class="tool" type="button" id="bHk" aria-pressed="' + showHk + '">ـَـ ' + S.bi('Vowel marks', 'التشكيل') + '</button>' +
+          '<button class="tool" type="button" id="bTr" aria-pressed="' + showTr + '">' + S.icon('translate') + S.bi('English translation', 'الترجمة الإنجليزية') + '</button>' +
+          '<button class="tool" type="button" id="bHk" aria-pressed="' + showHk + '">' + S.icon('marks') + S.bi('Vowel marks', 'التشكيل') + '</button>' +
         '</div>' +
         '<div class="nav">' +
-          '<button class="btn ghost" type="button" id="bPrev"' + (page === 0 ? ' disabled' : '') + '>→ ' + S.bi('Back', 'السابق') + '</button>' +
-          '<button class="btn" type="button" id="bNext">' + S.bi(page === N - 1 ? 'The lesson' : 'Next', page === N - 1 ? 'الحكمة' : 'التالي') + ' ←</button>' +
+          '<button class="btn ghost" type="button" id="bPrev"' + (page === 0 ? ' disabled' : '') + '>' + S.icon('back') + S.bi('Back', 'السابق') + '</button>' +
+          '<button class="btn" type="button" id="bNext">' + S.bi(page === N - 1 ? 'The lesson' : 'Next', page === N - 1 ? 'الحكمة' : 'التالي') + S.icon('next') + '</button>' +
         '</div>';
-      document.getElementById('bListen').onclick = function(){
-        if (!S.speak(S.strip(p.ar.replace(/\[([^\]|]+)\|[^\]]+\]/g, '$1')))) alert(S.t('Listening is not supported on this device.', 'الاستماع غير مدعوم على هذا الجهاز.'));
-      };
       document.getElementById('bTr').onclick = function(){ showTr = !showTr; savePref(); this.setAttribute('aria-pressed', showTr); document.getElementById('trans').classList.toggle('on', showTr); };
       document.getElementById('bHk').onclick = function(){ showHk = !showHk; savePref(); showPage(); };
       document.getElementById('bPrev').onclick = function(){ if (page > 0) { page--; showPage(); } };
       document.getElementById('bNext').onclick = function(){ page++; showPage(); };
     } else {
       sc.textContent = st.cover + ' ' + st.partner;
-      document.getElementById('pgNo').textContent = '⭐';
+      document.getElementById('pgNo').textContent = S.t('The end', 'تمّت');
       body.innerHTML =
         '<div class="end">' +
-          '<div class="moral"><div class="lbl">' + S.bi('The lesson', 'الحكمة') + '</div><div class="ar">' + render(st.moral.ar) + '</div><div class="enm">' + S.esc(st.moral.en) + '</div></div>' +
-          '<h2 style="margin:0;font-size:1.35rem">' + S.bi('New words', 'كلمات جديدة') + '</h2>' +
-          '<div class="vocab">' + vocab.map(function(v){ return '<button type="button" class="vw" data-w="' + v.w + '"><span class="a">' + H(v.w) + '</span><span class="e">' + S.esc(v.m) + '</span></button>'; }).join('') + '</div>' +
+          '<div class="moral"><h3>' + S.bi('The lesson', 'الحكمة') + '</h3><div class="ar">' + render(st.moral.ar) + '</div><div class="enm">' + S.esc(st.moral.en) + '</div></div>' +
+          '<h2 style="margin:0;font-size:1.4rem">' + S.bi('New words', 'كلمات جديدة') + '</h2>' +
+          '<div class="vocab">' + vocab.map(function(v){ return '<div class="vw"><span class="a">' + H(v.w) + '</span><span class="e">' + S.esc(v.m) + '</span></div>'; }).join('') + '</div>' +
           '<div class="btn-row">' +
-            '<a class="btn" style="background:var(--sc)" href="../reading/quiz.html?s=' + st.id + '">✅ ' + S.bi('Check your understanding', 'اختبر فهمك') + '</a>' +
-            '<button class="btn ghost" type="button" id="bAgain">↺ ' + S.bi('Read again', 'اقرأ مرة أخرى') + '</button>' +
+            '<a class="btn" style="background:var(--sc)" href="../reading/quiz.html?s=' + st.id + '">' + S.icon('lamp') + S.bi('Check your understanding', 'اختبر فهمك') + '</a>' +
+            '<button class="btn ghost" type="button" id="bAgain">' + S.icon('redo') + S.bi('Read again', 'اقرأ مرة أخرى') + '</button>' +
           '</div>' +
           '<p class="notice">' + S.bi('Retold in simple Arabic from Kalila wa Dimna (Ibn al-Muqaffa’).', 'بتصرّف مبسّط عن كتاب كليلة ودمنة لابن المقفع.') + '</p>' +
         '</div>';
-      document.querySelectorAll('.vw').forEach(function(b){ b.onclick = function(){ S.speak(S.strip(b.dataset.w)); }; });
       document.getElementById('bAgain').onclick = function(){ page = 0; showPage(); };
       try { localStorage.setItem('ar-read-' + st.id, '1'); } catch(e) {}
     }
@@ -159,17 +122,15 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  var pop = document.getElementById('pop'), cur = null;
+  var pop = document.getElementById('pop');
   function openPop(b){
     document.querySelectorAll('.gl.on').forEach(function(x){ x.classList.remove('on'); });
-    b.classList.add('on'); cur = b;
-    document.getElementById('popW').textContent = showHk ? b.dataset.w : S.strip(b.dataset.w);
+    b.classList.add('on');
+    document.getElementById('popW').textContent = H(b.dataset.w);
     document.getElementById('popM').textContent = b.dataset.m;
     pop.classList.add('on');
-    S.speak(S.strip(b.dataset.w));
   }
   function hidePop(){ pop.classList.remove('on'); document.querySelectorAll('.gl.on').forEach(function(x){ x.classList.remove('on'); }); }
-  document.getElementById('popS').onclick = function(e){ e.stopPropagation(); if (cur) S.speak(S.strip(cur.dataset.w)); };
   document.addEventListener('click', function(e){ if (!pop.contains(e.target)) hidePop(); });
   document.addEventListener('keydown', function(e){
     if (e.key === 'ArrowLeft' && page < N) { page++; showPage(); }

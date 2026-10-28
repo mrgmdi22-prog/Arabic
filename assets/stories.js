@@ -4,7 +4,7 @@
 window.STORIES = [
 {
   id: 'lion', ar: 'الأَسَدُ وَالأَرْنَبُ', en: 'The Lion and the Hare', level: 1,
-  cover: '🦁', partner: '🐇', bg: ['#fff3d6', '#e6f4ea'], c: '#a2650c',
+  cover: '🦁', partner: '🐇', bg: ['#FBEFD8', '#F3E6CF'], c: '#A26F1C',
   pages: [
     { e: '🌳🦁🌳', ar: 'كَانَ فِي [غَابَةٍ|a forest] كَبِيرَةٍ [أَسَدٌ|a lion] قَوِيٌّ، وَكَانَ يَصْطَادُ الحَيَوَانَاتِ كُلَّ يَوْمٍ، [فَخَافَتْ|were afraid] مِنْهُ الحَيَوَانَاتُ خَوْفاً شَدِيداً.',
       en: 'In a big forest there lived a strong lion. He hunted the animals every day, so the animals were very afraid of him.' },
@@ -38,7 +38,7 @@ window.STORIES = [
 },
 {
   id: 'tortoise', ar: 'السُّلَحْفَاةُ وَالبَطَّتَانِ', en: 'The Tortoise and the Two Ducks', level: 1,
-  cover: '🐢', partner: '🦆', bg: ['#e3f3fb', '#eef8e6'], c: '#1f6f99',
+  cover: '🐢', partner: '🦆', bg: ['#E1EFF5', '#EEF4E8'], c: '#2D6F92',
   pages: [
     { e: '🐢🏞️🦆🦆', ar: 'كَانَتْ [سُلَحْفَاةٌ|a tortoise] تَعِيشُ قُرْبَ [بُحَيْرَةٍ|a lake] صَغِيرَةٍ، وَكَانَ لَهَا صَدِيقَتَانِ مِنَ [البَطِّ|ducks] تَزُورَانِهَا كُلَّ يَوْمٍ.',
       en: 'A tortoise lived near a small lake, and she had two duck friends who visited her every day.' },
@@ -70,7 +70,7 @@ window.STORIES = [
 },
 {
   id: 'dove', ar: 'الحَمَامَةُ المُطَوَّقَةُ', en: 'The Ringdove', level: 2,
-  cover: '🕊️', partner: '🐭', bg: ['#eef0fd', '#f3ecfb'], c: '#4552c9',
+  cover: '🕊️', partner: '🐭', bg: ['#E6ECF6', '#F1EAF8'], c: '#34578A',
   pages: [
     { e: '🧔🕸️🌾', ar: 'خَرَجَ [صَيَّادٌ|a hunter] إِلَى الغَابَةِ، فَنَصَبَ [شَبَكَتَهُ|his net]، وَنَثَرَ عَلَيْهَا [حَبّاً|grain]، وَجَلَسَ يَنْتَظِرُ.',
       en: 'A hunter went out to the forest. He set up his net, scattered grain on it, and sat down to wait.' },
@@ -104,7 +104,7 @@ window.STORIES = [
 },
 {
   id: 'monkey', ar: 'القِرْدُ وَالغَيْلَمُ', en: 'The Monkey and the Turtle', level: 2,
-  cover: '🐒', partner: '🐢', bg: ['#e0f5f2', '#fff1dd'], c: '#0f7f74',
+  cover: '🐒', partner: '🐢', bg: ['#E2F0EB', '#FBEFD8'], c: '#2C7A6E',
   pages: [
     { e: '🌴🐒🌊🐢', ar: 'كَانَ [قِرْدٌ|a monkey] يَعِيشُ عَلَى شَجَرَةِ [تِينٍ|figs] قُرْبَ البَحْرِ، وَكَانَ يَرْمِي التِّينَ [لِغَيْلَمٍ|a turtle] يَعِيشُ فِي المَاءِ، فَصَارَا صَدِيقَيْنِ.',
       en: 'A monkey lived in a fig tree near the sea. He used to throw figs to a turtle who lived in the water, and they became friends.' },
@@ -136,7 +136,7 @@ window.STORIES = [
 },
 {
   id: 'drum', ar: 'الثَّعْلَبُ وَالطَّبْلُ', en: 'The Fox and the Drum', level: 1,
-  cover: '🦊', partner: '🥁', bg: ['#fdeee4', '#fff7dc'], c: '#b4521c',
+  cover: '🦊', partner: '🥁', bg: ['#F8E5DD', '#FBEFD8'], c: '#A23E2E',
   pages: [
     { e: '🦊🍂', ar: 'خَرَجَ [ثَعْلَبٌ|a fox] [جَائِعٌ|hungry] يَبْحَثُ عَنْ طَعَامٍ، فَوَصَلَ إِلَى شَجَرَةٍ عُلِّقَ عَلَيْهَا [طَبْلٌ|a drum] كَبِيرٌ.',
       en: 'A hungry fox went out looking for food. He came to a tree on which a big drum had been hung.' },
@@ -164,7 +164,7 @@ window.STORIES = [
 },
 {
   id: 'weasel', ar: 'النَّاسِكُ وَابْنُ عِرْسٍ', en: 'The Hermit and the Weasel', level: 2,
-  cover: '🦦', partner: '👶', bg: ['#f1ecfb', '#e6f4ea'], c: '#7a46b8',
+  cover: '🦦', partner: '👶', bg: ['#F1EAF8', '#E7F3E3'], c: '#6B4E9B',
   pages: [
     { e: '👴👩👶🦦', ar: 'كَانَ رَجُلٌ [نَاسِكٌ|a hermit] يَعِيشُ مَعَ زَوْجَتِهِ، وَلَهُمَا ابْنٌ صَغِيرٌ. وَكَانَ عِنْدَهُمَا [ابْنُ عِرْسٍ|a weasel] أَلِيفٌ يُحِبُّهُ الجَمِيعُ.',
       en: 'A hermit lived with his wife, and they had a little son. They also had a tame weasel that everyone loved.' },

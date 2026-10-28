@@ -5,28 +5,30 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
 <title>Dictation · الإملاء · مرافئ العربية</title>
-<meta name="theme-color" content="#fbf8f1">
+<meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
-.unit{background:#fff;border:1.5px solid var(--line);border-radius:26px;padding:18px;margin-bottom:16px;scroll-margin-top:80px}
+/* Each spelling unit is a tablet: the rule as a scroll, then three ways to practise. */
+.unit{--c:var(--uc);background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:26px 18px 18px;margin-bottom:16px;scroll-margin-top:90px;position:relative;overflow:hidden}
+.unit::before{content:"";position:absolute;inset:0 0 auto 0;height:10px;background:var(--qatt)}
 .unit .top{display:flex;align-items:center;gap:14px}
-.unit .ic{width:60px;height:60px;border-radius:18px;background:var(--ut);color:var(--uc);display:grid;place-items:center;font-family:var(--text-ar);font-size:1.9rem;font-weight:700;flex:none}
-.unit .ti{font-family:var(--text-ar);font-size:1.55rem;font-weight:700;color:var(--uc);line-height:1.5;direction:rtl}
-.unit .te{color:var(--muted);font-family:var(--ui-en);font-size:1rem;font-weight:600}
-.rule{margin-top:12px;background:var(--ut);border-radius:18px;padding:12px 16px}
-.rule summary{cursor:pointer;font-weight:800;color:var(--uc);list-style:none}
+.unit .ic{width:60px;height:68px;border-radius:30px 30px 6px 6px;background:var(--ut);color:var(--uc);display:grid;place-items:center;font-family:var(--text-ar);font-size:1.9rem;font-weight:700;flex:none;border:1.5px solid color-mix(in srgb,var(--uc) 25%,white)}
+.unit .ti{font-family:var(--text-ar);font-size:1.65rem;font-weight:700;color:var(--uc);line-height:1.5;direction:rtl}
+.unit .te{color:var(--muted);font-family:var(--en-serif);font-style:italic}
+.rule{margin-top:12px;background:#FAF4EA;border-inline-start:4px solid var(--uc);padding:10px 16px}
+.rule summary{cursor:pointer;font-family:var(--kufi);color:var(--uc);list-style:none;display:flex;align-items:center;gap:8px}
 .rule summary::-webkit-details-marker{display:none}
-.rule .ar{font-size:1.3rem;line-height:2;margin:8px 0 0}
-.rule .en{font-size:1.02rem;margin:8px 0 0;line-height:1.7}
+.rule .ar{font-size:1.4rem;line-height:2;margin:8px 0 0}
+.rule .en{font-family:var(--en-serif);font-size:1.05rem;margin:8px 0 0;line-height:1.7}
 .ex{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;direction:rtl}
-.ex span{background:#fff;border-radius:12px;padding:2px 12px;font-family:var(--text-ar);font-size:1.3rem}
+.ex span{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:0 12px;font-family:var(--text-ar);font-size:1.4rem}
 .mbtns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
-.mbtns a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;border:1.5px solid var(--line);border-radius:18px;padding:10px 6px;font-weight:800;font-size:.98rem;text-align:center;transition:border-color .15s,transform .15s}
-.mbtns a:hover{border-color:var(--uc);transform:translateY(-2px)}
-.mbtns a .e{font-size:1.6rem}
-.mbtns a .s{font-size:.85rem;letter-spacing:1px;min-height:1.2em}
+.mbtns a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;border:1.5px solid var(--line);border-radius:6px;padding:10px 6px;font-family:var(--kufi);font-size:.98rem;text-align:center;background:#FFFDF9}
+.mbtns a:hover{border-color:var(--uc)}
+.mbtns a .ic-svg{width:30px;height:30px;color:var(--uc)}
+.mbtns a .s{min-height:1.2em;font-size:.8rem}
 .mbtns.one{grid-template-columns:1fr}
 @media (max-width:520px){.mbtns a{font-size:.88rem}}
 </style>
@@ -35,12 +37,12 @@
 <header id="topbar"></header>
 <main class="wrap">
   <div class="phead">
-    <div class="ic" aria-hidden="true">✍️</div>
+    <i data-ic="qalam"></i>
     <h1><span class="t-en">Dictation (Imla’)</span><span class="t-ar">الإملاء</span></h1>
-    <p><span class="t-en">Learn one spelling rule at a time, then practise it three ways: choose the spelling, find the missing letter, and listen &amp; write.</span><span class="t-ar">تعلّم قاعدة إملائية في كل مرة، ثم تدرّب عليها بثلاث طرق: اختر الكتابة الصحيحة، وأكمل الحرف الناقص، واستمع واكتب.</span></p>
+    <p><span class="t-en">Learn one spelling rule at a time, then practise it three ways: choose the spelling, find the missing letter, and look then write.</span><span class="t-ar">تعلّم قاعدة إملائية في كل مرة، ثم تدرّب عليها بثلاث طرق: اختر الكتابة الصحيحة، وأكمل الحرف الناقص، وانظر ثم اكتب.</span></p>
   </div>
   <div id="units"></div>
-  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">← Home</span><span class="t-ar">الرئيسية ←</span></a></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
   <footer id="sitefoot"></footer>
 </main>
 <script src="../assets/site.js"></script>
@@ -48,21 +50,19 @@
 <script>
 (function(){
   var S = Site;
-  var M = [['choose', '🔎', 'Choose', 'اختر'], ['gap', '🧩', 'Missing letter', 'الحرف الناقص'], ['listen', '🎧', 'Listen & write', 'استمع واكتب']];
+  var M = [['choose', 'eye', 'Choose', 'اختر'], ['gap', 'gem', 'Missing letter', 'الحرف الناقص'], ['look', 'qalam', 'Look, then write', 'انظر ثم اكتب']];
   document.getElementById('units').innerHTML = DICTATION.map(function(u){
-    var modes = u.listenOnly ? M.slice(2) : M;
-    return '<section class="unit reveal" id="' + u.id + '" style="--uc:' + u.c + ';--ut:' + u.t + '">' +
+    var modes = u.lookOnly ? M.slice(2) : M;
+    return '<section class="unit" id="' + u.id + '" style="--uc:' + u.c + ';--ut:' + u.t + '">' +
       '<div class="top"><span class="ic" aria-hidden="true">' + u.icon + '</span><div><div class="ti">' + u.ar + '</div><div class="te">' + S.esc(u.en) + '</div></div></div>' +
-      '<details class="rule"' + (location.hash === '#' + u.id ? ' open' : '') + '><summary>📘 ' + S.bi('The rule', 'القاعدة') + '</summary>' +
+      '<details class="rule"' + (location.hash === '#' + u.id ? ' open' : '') + '><summary>' + S.icon('scroll') + S.bi('The rule', 'القاعدة') + '</summary>' +
         '<p class="ar">' + u.ruleAr + '</p><p class="en t-en">' + S.esc(u.ruleEn) + '</p>' +
         '<div class="ex">' + u.items.slice(0, 6).map(function(it){ return '<span>' + it.w + '</span>'; }).join('') + '</div></details>' +
-      '<div class="mbtns' + (u.listenOnly ? ' one' : '') + '">' + modes.map(function(m){
+      '<div class="mbtns' + (u.lookOnly ? ' one' : '') + '">' + modes.map(function(m){
         var n = S.getStars('dict-' + u.id + '-' + m[0]);
-        return '<a href="practice.html?u=' + u.id + '&m=' + m[0] + '"><span class="e" aria-hidden="true">' + m[1] + '</span>' + S.bi(m[2], m[3]) +
-          '<span class="s">' + (n ? '⭐'.repeat(n) : '') + '</span></a>';
+        return '<a href="practice.html?u=' + u.id + '&m=' + m[0] + '">' + S.icon(m[1]) + S.bi(m[2], m[3]) + '<span class="s">' + (n ? S.stars(n) : '') + '</span></a>';
       }).join('') + '</div></section>';
   }).join('');
-  S.reveal();
 })();
 </script>
 </body>

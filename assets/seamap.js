@@ -14,10 +14,14 @@
     return d;
     function f(v) { return v.toFixed(1); }
   }
-  var LEFT = { mokha: 1, jubail: 1, uqair: 1, ubulla: 1, calicut: 1, zanzibar: 1, kilwa: 1, waqwaq: 1 };
+  var LEFT = { farasan: 1, adulis: 1, mokha: 1, jubail: 1, uqair: 1, ubulla: 1, calicut: 1, zanzibar: 1, kilwa: 1, waqwaq: 1 };
   var DY = { jubail: -6, uqair: 10, mokha: -4, aden: 10 };
   var plain = function (s) { return String(s).replace(/[ً-ْٰ]/g, '').replace(/\s*\(.*\)/, ''); };
 
+  function ship(lane, dur, begin) {
+    return '<g class="ship"><g transform="translate(-15 -22)"><path d="M2 21h27l-4 6H6z"/><path d="M15 21V3"/><path class="sail" d="M15 4c6 4 10 9 11 15H15z"/><path class="sail" d="M15 8l-7 11h7z"/></g>' +
+      '<animateMotion dur="' + dur + 's" begin="' + begin + 's" repeatCount="indefinite"><mpath href="#' + lane + '"/></animateMotion></g>';
+  }
   function draw(el, opt) {
     opt = opt || {};
     var root = opt.root || '', S = window.SEAS, hl = opt.highlight;
@@ -52,8 +56,7 @@
       '<path class="incense" d="' + inc + '"/>' +
       '<g class="inc-l" transform="translate(' + incLbl[0].toFixed(0) + ' ' + incLbl[1].toFixed(0) + ') rotate(-38)"><text text-anchor="middle">دَرْبُ البَخُورِ</text></g>' +
       '<text class="china" x="' + (china[0] - 6).toFixed(0) + '" y="' + china[1].toFixed(0) + '" text-anchor="end">← إلى الصين</text>' +
-      '<g class="ship"><text font-size="34" text-anchor="middle" dominant-baseline="central">⛵</text><animateMotion dur="38s" repeatCount="indefinite" rotate="0"><mpath href="#lane3"/></animateMotion></g>' +
-      '<g class="ship"><text font-size="30" text-anchor="middle" dominant-baseline="central">⛵</text><animateMotion dur="46s" begin="-12s" repeatCount="indefinite" rotate="0"><mpath href="#lane4"/></animateMotion></g>' +
+      ship('lane4', 40, 0) + ship('lane5', 48, -14) +
       ports + '</svg>';
   }
   window.SeaMap = { draw: draw, xy: xy };

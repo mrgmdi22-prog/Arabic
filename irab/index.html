@@ -5,28 +5,28 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){}</script>
 <title>مختبر الإعراب · I‘rab Lab · مرافئ العربية</title>
-<meta name="theme-color" content="#fbf8f1">
+<meta name="theme-color" content="#F6EDE1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Reem+Kufi:wght@600;700&family=Tajawal:wght@400;500;700;800&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="../assets/site.css">
 <style>
 /* مختبر الإعراب — من تصميم أ. أحمد آل سالم ومراجعة أ. سعد بن فارس؛ نسخة الموقع بالألوان الفاتحة فقط. */
 /* Layout: one right-to-left study column; the tree gets a full-width scrollable panel, the إعراب table and notes sit below. */
 :root{
-  --bg:#F5F7F4; --panel:#FFFFFF; --ink:#1E2A24; --muted:#56655D; --line:#D7E0DA;
-  --accent:#1F7A5C; --accent-ink:#FFFFFF;
+  --bg:#FAF4EA; --panel:#FFFBF5; --ink:#3B2B21; --muted:#6F5B4B; --line:#E5D2BB;
+  --accent:#2C7A6E; --accent-ink:#FFFFFF;
   --phrase-fill:#FBF1DD; --phrase-stroke:#C99A3E; --phrase-ink:#5E400B;
   --leaf-fill:#E2F4EC; --leaf-stroke:#3F9B78; --leaf-ink:#14523B; --hid-fill:#EAF0FF; --hid-stroke:#5B7BD6; --hid-ink:#2B3F8F;
   --edge:#9FAEA5; --sel:#3A5BD0; --warn-bg:#FFF4DE; --warn-ink:#7A4B00;
-  --display:"Reem Kufi","IBM Plex Sans Arabic",Tahoma,sans-serif;
-  --ui:"IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif;
-  --naskh:"Noto Naskh Arabic","Traditional Arabic",serif;
+  --display:"Reem Kufi",Tahoma,sans-serif;
+  --ui:"Amiri","Noto Naskh Arabic",serif;
+  --naskh:"Amiri","Noto Naskh Arabic",serif;
 }
 .wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
 h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,50px);line-height:1.3;margin:0}
 h2{font-family:var(--display);font-weight:600;font-size:24px;margin:0 0 10px}
 .lede{color:var(--muted);margin:4px 0 0;max-width:60ch}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.panel{background:var(--panel);border:1.5px solid var(--line);border-radius:6px;padding:20px}
 label.big{font-weight:600;display:block;margin-bottom:8px}
 textarea{width:100%;box-sizing:border-box;font-family:var(--naskh);font-size:26px;line-height:1.9;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;resize:vertical;min-height:92px}
 textarea:focus-visible,button:focus-visible{outline:3px solid var(--sel);outline-offset:2px}
@@ -103,15 +103,17 @@ svg .node:focus{outline:none}
 svg .node:focus rect,svg .node.sel rect{stroke:var(--sel);stroke-width:3}
 
 .labpage{padding-top:22px}
-.claudebox{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#ebedfd;border-radius:12px;padding:10px 14px;font-size:17px;color:#2b3f8f}
-.claudebox a{background:#4552c9;color:#fff;text-decoration:none;font-weight:700;border-radius:999px;padding:6px 16px}
+.labhead h1{color:var(--rose)}
+button.chip{border-radius:6px}
+.claudebox{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--indigo-soft);border-radius:6px;padding:10px 14px;font-size:18px;color:var(--indigo)}
+.claudebox a{background:var(--indigo);color:#fff;text-decoration:none;font-family:var(--kufi);border-radius:6px;padding:6px 16px}
 .lede.t-en{direction:ltr;text-align:left}
 </style>
 </head>
 <body data-root="../">
 <header id="topbar"></header>
 <div class="wrap labpage" dir="rtl" lang="ar">
-  <header>
+  <header class="labhead">
     <h1>مختبر الإعراب</h1>
     <p class="lede t-ar">اكتب جملة عربية لترى شجرتها وإعرابها.</p>
     <p class="lede t-en">Type an Arabic sentence to see its grammar tree and word-by-word i‘rab (explained in Arabic).</p>
@@ -131,7 +133,7 @@ svg .node:focus rect,svg .node.sel rect{stroke:var(--sel);stroke-width:3}
         <div class="status" id="status" role="status" aria-live="polite"></div>
       </div>
       <div class="chips" id="examples"><span>جرّب مثالاً:</span></div>
-      <div class="claudebox"><span>لإعراب جملك الخاصة افتح المختبر في Claude:</span><a href="https://claude.ai/artifact/TqPx7th1FhqBAiKF9P6igp" target="_blank" rel="noopener">افتح المختبر في Claude ←</a></div>
+      <div class="claudebox"><span>لإعراب جملك الخاصة افتح المختبر في Claude:</span><a href="https://claude.ai/artifact/TqPx7th1FhqBAiKF9P6igp" target="_blank" rel="noopener">افتح المختبر في Claude</a></div>
     </div>
     <div id="qBox" hidden>
       <p class="qintro">إعراب القرآن الكريم يؤخذ من كتب أهل الاختصاص، ولا يعرب هذا البرنامج الآيات من عنده. اختر السورة ورقم الآية، ليرشدك إلى موضع إعرابها في المراجع المعتمدة.</p>
@@ -264,7 +266,7 @@ let current=null,selected=null;
 function el(tag,attrs,parent){const e=document.createElementNS(svgNS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
 const ctx=document.createElement("canvas").getContext("2d");
 function textW(t,size,font){ctx.font=`700 ${size}px ${font}`;ctx.direction="rtl";return ctx.measureText(t).width}
-const NASKH="'Noto Naskh Arabic', 'Traditional Arabic', serif", UI="'IBM Plex Sans Arabic', Tahoma, sans-serif";
+const NASKH="'Amiri', 'Noto Naskh Arabic', serif", UI="'Reem Kufi', Tahoma, sans-serif";
 
 function normalize(n){
   if(!n||typeof n!=="object")return null;
