@@ -55,6 +55,8 @@
     puzzle: '<path d="M6 12h5a3 3 0 1 1 6 0h5v5a3 3 0 1 1 0 6v5H6z"/>',
     search: '<circle cx="14" cy="14" r="8"/><path d="M20 20l7 7"/>',
     shuffle: '<path d="M4 9h5c5 0 9 14 14 14h5M4 23h5c2 0 4-2 6-5M17 13c2-2 4-4 6-4h5M24 5l4 4-4 4M24 19l4 4-4 4"/>',
+    ear: '<path d="M5 12h5l7-6v20l-7-6H5z"/><path d="M21 11c2 2.5 2 7.5 0 10M24.5 8c4 4.5 4 11.5 0 16"/>',
+    mic: '<rect x="12" y="4" width="8" height="14" rx="4"/><path d="M7 15a9 9 0 0 0 18 0M16 24v4M11 28h10"/>',
     lantern: '<path d="M13 4h6M16 4v3M11 10h10l-1-3h-8zM11 10c-1 5-1 10 0 14h10c1-4 1-9 0-14M11 24l1 3h8l1-3"/><path d="M16 14v6"/>'
   };
   function icon(name, cls) {
@@ -119,6 +121,26 @@
   function t(en, ar) { return getLang() === 'ar' ? ar : en; }
   function bi(en, ar) { return '<span class="t-en">' + en + '</span><span class="t-ar">' + ar + '</span>'; }
 
+  // ---------- recordings in the teacher's voice (assets/audio.js lists what exists) ----------
+  var player = null, playingBtn = null;
+  function hasAudio(key) { return !!(window.AUDIO && window.AUDIO[key]); }
+  function audioUrl(key) { return root + 'audio/' + key + '.mp3?v=' + (window.AUDIO[key] || 1); }
+  function stopAudio() { if (player) { player.pause(); } if (playingBtn) { playingBtn.classList.remove('playing'); playingBtn = null; } }
+  function playAudio(keys, btn) {
+    keys = [].concat(keys).filter(hasAudio); if (!keys.length) return;
+    if (btn && btn === playingBtn) { stopAudio(); return; }
+    stopAudio(); if (!player) player = new Audio();
+    var i = 0; playingBtn = btn || null; if (btn) btn.classList.add('playing');
+    function next() { if (i >= keys.length) { stopAudio(); return; } player.src = audioUrl(keys[i++]); player.play().catch(function () { stopAudio(); }); }
+    player.onended = next; next();
+  }
+  // a listen button, or nothing when no recording exists yet
+  function audioBtn(keys, label, cls) {
+    keys = [].concat(keys); if (!keys.some(hasAudio)) return '';
+    return '<button type="button" class="aud ' + (cls || '') + '" data-aud="' + keys.join(' ') + '" aria-label="' + (label || 'استمع') + '">' + icon('ear') + (label ? '<span>' + label + '</span>' : '') + '</button>';
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest('.aud[data-aud]'); if (!b) return; e.preventDefault(); e.stopPropagation(); playAudio(b.dataset.aud.split(' '), b); });
+
   window.Site = { strip: strip, norm: norm, getStars: getStars, saveStars: saveStars, starsFor: starsFor, shuffle: shuffle, esc: esc,
-    lang: lang, t: t, bi: bi, icon: icon, stars: stars, hydrate: hydrate, reveal: function () {}, root: root, ENGLISH_CLUB: ENGLISH_CLUB };
+    lang: lang, t: t, bi: bi, icon: icon, hasAudio: hasAudio, playAudio: playAudio, stopAudio: stopAudio, audioBtn: audioBtn, stars: stars, hydrate: hydrate, reveal: function () {}, root: root, ENGLISH_CLUB: ENGLISH_CLUB };
 })();

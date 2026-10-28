@@ -47,6 +47,7 @@
   <div style="text-align:center"><a class="crumb" href="index.html"><span class="t-en">Harbour of Words</span><span class="t-ar">مرفأ المفردات</span></a></div>
   <footer id="sitefoot"></footer>
 </main>
+<script src="../assets/audio.js"></script>
 <script src="../assets/site.js"></script>
 <script src="../assets/vocab.js"></script>
 <script src="../assets/stories.js"></script>
@@ -56,7 +57,7 @@
   var S = Site;
   // gather: themed words + glossary words from stories and harbours ([word|meaning])
   var all = [];
-  THEMES.forEach(function(t){ t.words.forEach(function(w){ all.push({ a: w.a, e: w.e, t: w.t, src: t.id, srcAr: S.strip(t.ar), srcEn: t.en }); }); });
+  THEMES.forEach(function(t){ t.words.forEach(function(w, i){ all.push({ a: w.a, e: w.e, t: w.t, src: t.id, srcAr: S.strip(t.ar), srcEn: t.en, ak: 'w/' + t.id + '/' + (i + 1) }); }); });
   function glean(text, id, ar, en){ String(text).replace(/\[([^\]|]+)\|([^\]]+)\]/g, function(_, w, m){ all.push({ a: w, e: m, t: '', src: id, srcAr: ar, srcEn: en }); }); }
   STORIES.forEach(function(s){ s.pages.forEach(function(p){ glean(p.ar, 'stories', 'الحكايات', 'Stories'); }); glean(s.moral.ar, 'stories', 'الحكايات', 'Stories'); });
   PORTS.forEach(function(p){ p.text.forEach(function(x){ glean(x.ar, 'ports', 'المرافئ', 'Harbours'); }); });
@@ -88,7 +89,7 @@
     list.forEach(function(w){
       var L = w.k.charAt(0);
       if (L !== cur) { cur = L; letters.push(L); html += '<h2 class="letter" id="L' + ORDER.indexOf(L) + '">' + L + '</h2>'; }
-      html += '<div class="entry"><span class="a">' + w.a + '</span><span class="r"><span class="m">' + S.esc(w.e) + '</span>' + (w.t ? ' <span class="tr">· ' + S.esc(w.t) + '</span>' : '') +
+      html += '<div class="entry"><span class="a">' + w.a + (w.ak ? ' ' + S.audioBtn(w.ak, '', 'round') : '') + '</span><span class="r"><span class="m">' + S.esc(w.e) + '</span>' + (w.t ? ' <span class="tr">· ' + S.esc(w.t) + '</span>' : '') +
         '<br><span class="src">' + S.bi(w.srcEn, w.srcAr) + '</span></span></div>';
     });
     document.getElementById('list').innerHTML = html || '<p class="count">' + S.bi('No words found. Try fewer letters.', 'لم نجد كلمات. جرّب حروفاً أقل.') + '</p>';

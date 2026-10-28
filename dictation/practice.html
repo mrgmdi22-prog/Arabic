@@ -42,6 +42,7 @@
 <header id="topbar"></header>
 <main class="wrap" id="app"></main>
 <div class="wrap" style="padding-bottom:30px"><footer id="sitefoot"></footer></div>
+<script src="../assets/audio.js"></script>
 <script src="../assets/site.js"></script>
 <script src="../assets/dictation.js"></script>
 <script>
@@ -91,7 +92,8 @@
         '<p class="q-hint" style="text-align:center">' + S.bi('Choose the missing letter', 'اختر الحرف الناقص') + '</p>' +
         '<div class="letters">' + U.letters.map(function(l){ return '<button class="opt" type="button" data-l="' + l + '">' + (/^[ً-ْ]/.test(l) ? 'ـ' + l : l) + '</button>'; }).join('') + '</div>';
     } else {
-      html += '<div class="prompt"><p class="q-hint">' + S.bi('Look at the word for a few seconds, remember it, then write it when it disappears.', 'انظر إلى الكلمة ثوانيَ، واحفظها، ثم اكتبها بعد أن تختفي.') + '</p>' +
+      var dk = 'd/' + U.id + '/' + (U.items.indexOf(it) + 1);
+      html += '<div class="prompt">' + (S.hasAudio(dk) ? '<p class="q-hint">' + S.bi('Listen, then write. You may also look at the word.', 'استمع ثم اكتب، ويمكنك أيضاً أن تنظر إلى الكلمة.') + '</p><p>' + S.audioBtn(dk, S.t('Listen', 'استمع')) + '</p>' : '<p class="q-hint">' + S.bi('Look at the word for a few seconds, remember it, then write it when it disappears.', 'انظر إلى الكلمة ثوانيَ، واحفظها، ثم اكتبها بعد أن تختفي.') + '</p>') +
           '<div class="flash" id="flash"></div><button class="btn soft" type="button" id="bShow">' + S.icon('eye') + S.bi('Show the word', 'أظهر الكلمة') + '</button>' +
         '<div class="mean" style="font-size:1.1rem;color:var(--muted);margin-top:8px">' + S.bi('Meaning: ', 'المعنى: ') + '“' + S.esc(it.en) + '”</div></div>' +
         '<input class="answer" id="ans" dir="rtl" autocomplete="off" autocapitalize="off" spellcheck="false" lang="ar" placeholder="اكتب هنا">' +

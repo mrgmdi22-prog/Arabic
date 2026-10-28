@@ -56,6 +56,7 @@ html[data-lang="ar"] .q .qen{display:none}
 <main class="wrap" id="app"></main>
 <div class="pop" id="pop" role="status"><span class="w" id="popW"></span><span class="m" id="popM"></span></div>
 <div class="wrap" style="padding-bottom:30px"><footer id="sitefoot"></footer></div>
+<script src="../assets/audio.js"></script>
 <script src="../assets/site.js"></script>
 <script src="../assets/ports.js"></script>
 <script src="../assets/land.js"></script>
@@ -89,9 +90,9 @@ html[data-lang="ar"] .q .qen{display:none}
       '</div></section>' +
       '<div class="mapbox mini"><div class="mapscroll" id="mapS"><div id="map"></div></div></div>' +
       '<section class="lesson">' + P.text.map(function(t){ return '<p class="para">' + render(t.ar) + '</p><p class="trans' + (showTr ? ' on' : '') + '">' + S.esc(t.en) + '</p>'; }).join('') +
-        '<div class="tools"><button class="tool" type="button" id="bTr" aria-pressed="' + showTr + '">' + S.icon('translate') + S.bi('English translation', 'الترجمة الإنجليزية') + '</button>' +
+        '<div class="tools">' + S.audioBtn(P.text.map(function(_, i){ return 'p/' + P.id + '/' + (i + 1); }), S.t('Listen', 'استمع')) + '<button class="tool" type="button" id="bTr" aria-pressed="' + showTr + '">' + S.icon('translate') + S.bi('English translation', 'الترجمة الإنجليزية') + '</button>' +
         '<button class="tool" type="button" id="bHk" aria-pressed="' + showHk + '">' + S.icon('marks') + S.bi('Vowel marks', 'التشكيل') + '</button></div></section>' +
-      '<div class="fact"><h3>' + S.icon('lantern') + S.bi('Did you know?', 'هل تعلم؟') + '</h3><p class="ar">' + H(P.fact.ar) + '</p><div class="fe t-en">' + S.esc(P.fact.en) + '</div></div>' +
+      '<div class="fact"><h3>' + S.icon('lantern') + S.bi('Did you know?', 'هل تعلم؟') + '</h3><p class="ar">' + H(P.fact.ar) + ' ' + S.audioBtn('p/' + P.id + '/fact', '', 'round') + '</p><div class="fe t-en">' + S.esc(P.fact.en) + '</div></div>' +
       '<section class="qs"><h2>' + S.bi('Check your understanding', 'اختبر فهمك') + '</h2>' +
         P.quiz.map(function(q, k){
           var body = q.t === 'tf'

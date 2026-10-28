@@ -50,6 +50,7 @@
 <main class="wrap" id="app"></main>
 <div class="pop" id="pop" role="status"><span class="w" id="popW"></span><span class="m" id="popM"></span></div>
 <div class="wrap" style="padding-bottom:30px"><footer id="sitefoot"></footer></div>
+<script src="../assets/audio.js"></script>
 <script src="../assets/site.js"></script>
 <script src="../assets/stories.js"></script>
 <script>
@@ -90,7 +91,7 @@
       body.innerHTML =
         '<div class="text"><p class="para">' + render(p.ar) + '</p>' +
         '<p class="trans' + (showTr ? ' on' : '') + '" id="trans">' + S.esc(p.en) + '</p></div>' +
-        '<div class="tools">' +
+        '<div class="tools">' + S.audioBtn('s/' + st.id + '/' + (page + 1), S.t('Listen', 'استمع')) +
           '<button class="tool" type="button" id="bTr" aria-pressed="' + showTr + '">' + S.icon('translate') + S.bi('English translation', 'الترجمة الإنجليزية') + '</button>' +
           '<button class="tool" type="button" id="bHk" aria-pressed="' + showHk + '">' + S.icon('marks') + S.bi('Vowel marks', 'التشكيل') + '</button>' +
         '</div>' +
@@ -107,7 +108,7 @@
       document.getElementById('pgNo').textContent = S.t('The end', 'تمّت');
       body.innerHTML =
         '<div class="end">' +
-          '<div class="moral"><h3>' + S.bi('The lesson', 'الحكمة') + '</h3><div class="ar">' + render(st.moral.ar) + '</div><div class="enm">' + S.esc(st.moral.en) + '</div></div>' +
+          '<div class="moral"><h3>' + S.bi('The lesson', 'الحكمة') + '</h3><div class="ar">' + render(st.moral.ar) + ' ' + S.audioBtn('s/' + st.id + '/moral', '', 'round') + '</div><div class="enm">' + S.esc(st.moral.en) + '</div></div>' +
           '<h2 style="margin:0;font-size:1.4rem">' + S.bi('New words', 'كلمات جديدة') + '</h2>' +
           '<div class="vocab">' + vocab.map(function(v){ return '<div class="vw"><span class="a">' + H(v.w) + '</span><span class="e">' + S.esc(v.m) + '</span></div>'; }).join('') + '</div>' +
           '<div class="btn-row">' +

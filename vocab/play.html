@@ -58,6 +58,7 @@ html[data-lang="en"] .vhead h1{display:block}
 <header id="topbar"></header>
 <main class="wrap" id="app"></main>
 <div class="wrap" style="padding-bottom:30px"><footer id="sitefoot"></footer></div>
+<script src="../assets/audio.js"></script>
 <script src="../assets/site.js"></script>
 <script src="../assets/vocab.js"></script>
 <script>
@@ -95,12 +96,12 @@ html[data-lang="en"] .vhead h1{display:block}
       app.innerHTML = head() + '<div class="panel"><div class="q-meta"><span>' + (i + 1) + ' / ' + deck.length + '</span><span>' + S.icon('check') + ' ' + known + '</span></div>' +
         '<div class="q-progress"><i style="width:' + (i / deck.length * 100) + '%"></i></div>' +
         '<div class="flip" id="flip"><div class="inner">' +
-          '<div class="face"><div class="w">' + w.a + '</div><div class="tr">' + S.esc(w.t) + '</div><small>' + S.bi('Tap to see the meaning', 'المس البطاقة لترى المعنى') + '</small></div>' +
+          '<div class="face"><div class="w">' + w.a + '</div>' + S.audioBtn('w/' + T.id + '/' + (T.words.indexOf(w) + 1), '', 'round') + '<div class="tr">' + S.esc(w.t) + '</div><small>' + S.bi('Tap to see the meaning', 'المس البطاقة لترى المعنى') + '</small></div>' +
           '<div class="face back"><div class="w">' + w.a + '</div><div class="m">' + S.esc(w.e) + '</div></div>' +
         '</div></div>' +
         '<div class="btn-row"><button class="btn ghost" type="button" id="bAgainW">' + S.icon('redo') + S.bi('Review again', 'أراجعها') + '</button>' +
         '<button class="btn" style="background:var(--uc)" type="button" id="bKnow">' + S.icon('check') + S.bi('I know it', 'أعرفها') + '</button></div></div>' + back();
-      var f = document.getElementById('flip'); f.onclick = function(){ f.classList.toggle('on'); };
+      var f = document.getElementById('flip'); f.onclick = function(e){ if (e.target.closest('.aud')) return; f.classList.toggle('on'); };
       document.getElementById('bKnow').onclick = function(){ known++; i++; draw(); };
       document.getElementById('bAgainW').onclick = function(){ again.push(w); i++; draw(); };
     }
@@ -113,7 +114,7 @@ html[data-lang="en"] .vhead h1{display:block}
     function draw(){
       if (i >= qs.length) return endPanel(score, qs.length, choose);
       var w = qs[i], others = S.shuffle(T.words.filter(function(x){ return x !== w; })).slice(0, 3), opts = S.shuffle([w].concat(others));
-      var q = dir === 'ar' ? '<p class="q-text" style="text-align:center;font-size:2.4rem">' + w.a + '</p><p class="mean"><small>' + S.esc(w.t) + '</small></p>'
+      var q = dir === 'ar' ? '<p class="q-text" style="text-align:center;font-size:2.4rem">' + w.a + ' ' + S.audioBtn('w/' + T.id + '/' + (T.words.indexOf(w) + 1), '', 'round') + '</p><p class="mean"><small>' + S.esc(w.t) + '</small></p>'
                            : '<p class="mean" style="font-size:1.8rem">“' + S.esc(w.e) + '”</p>';
       app.innerHTML = head() + '<div class="panel"><div class="dirsw"><button class="tool" type="button" id="dAr" aria-pressed="' + (dir === 'ar') + '">' + S.bi('Arabic → English', 'من العربية') + '</button><button class="tool" type="button" id="dEn" aria-pressed="' + (dir === 'en') + '">' + S.bi('English → Arabic', 'إلى العربية') + '</button></div>' +
         '<div class="q-meta"><span>' + (i + 1) + ' / ' + qs.length + '</span><span>' + S.icon('check') + ' ' + score + '</span></div><div class="q-progress"><i style="width:' + (i / qs.length * 100) + '%"></i></div>' + q +

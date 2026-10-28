@@ -94,7 +94,7 @@
   document.addEventListener('click', function (e) {
     if (!on) return;
     var el = e.target.closest('a, button, .mc, .tile, .gl, summary, label[for]');
-    if (!el || el.id === 'sfxBtn') return;
+    if (!el || el.id === 'sfxBtn' || el.closest('.aud')) return;
     // answers: judge after the page has marked them right or wrong
     if (el.matches('.opt, .tile, .mc, .ev, .popts button')) {
       if (el.matches('.opt, .popts button')) lastOpt = Date.now();

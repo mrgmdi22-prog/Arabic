@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ar" data-lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{document.documentElement.setAttribute('data-lang','ar');}catch(e){}</script>
+<title>استوديو التسجيل · مرافئ العربية</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* Recording studio for the teacher: one text at a time, large and vowelled, record → listen → keep or redo → next.
+   Recordings stay on this device (IndexedDB) until exported as one ZIP file. */
+.tips{background:var(--sand-soft);border:1.5px solid #EFD9B0;border-radius:6px;padding:10px 16px;font-size:1rem;line-height:1.9}
+.tips b{font-family:var(--kufi)}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.pick select{font:inherit;font-size:1.05rem;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:100%}
+.prog{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;font-family:var(--kufi);color:var(--muted)}
+.prog .bar{flex:1;height:10px;background:#EFE3D2;border-radius:3px;overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--teal);width:0}
+.prompt{background:var(--card);border:2px solid var(--line);border-radius:8px;padding:20px 18px;margin-top:14px;text-align:center;position:relative}
+.prompt.rec{border-color:var(--red);box-shadow:0 0 0 5px var(--red-soft)}
+.prompt .key{font-family:var(--ui-en);direction:ltr;color:var(--muted);font-size:.85rem}
+.prompt .txt{font-family:var(--text-ar);font-size:clamp(1.8rem,6vw,2.5rem);line-height:2.1;margin:6px 0;color:var(--ink)}
+.prompt .en{font-family:var(--en-serif);font-style:italic;color:var(--muted);direction:ltr}
+.prompt .state{position:absolute;top:10px;inset-inline-start:12px;font-family:var(--kufi);font-size:.9rem}
+.meter{height:8px;background:#EFE3D2;border-radius:3px;overflow:hidden;margin-top:10px;visibility:hidden}
+.prompt.rec .meter{visibility:visible}
+.meter i{display:block;height:100%;width:0;background:var(--red);transition:width .08s}
+.ctrls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.ctrls .btn{padding:8px 6px;font-size:1rem;min-height:56px}
+.ctrls #bRec{background:var(--red)}
+.ctrls #bRec.on{background:var(--ink)}
+.auto{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px;font-size:1rem;color:var(--muted)}
+.list{margin-top:16px;display:grid;gap:6px;max-height:340px;overflow:auto;border:1.5px solid var(--line);border-radius:6px;padding:8px;background:var(--card)}
+.li{display:flex;align-items:center;gap:8px;padding:4px 8px;border-radius:4px;cursor:pointer;font-family:var(--text-ar);font-size:1.1rem;line-height:1.6;text-align:right;border:none;background:none;width:100%}
+.li:hover,.li.cur{background:var(--teal-soft)}
+.li .dot{flex:none;width:12px;height:12px;border-radius:50%;background:#E3D3BD}
+.li.done .dot{background:var(--green)}
+.li .t{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.export{margin-top:18px;background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:14px 16px}
+.export p{margin:4px 0;font-size:1rem;line-height:1.8}
+.warn{color:var(--red);font-family:var(--kufi);font-size:.95rem}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="mic"></i>
+    <h1>استوديو التسجيل</h1>
+    <p>سجّل نصوص الموقع بصوتك نصاً نصاً. تُحفظ التسجيلات في هذا الجهاز حتى تصدّرها في ملف واحد.</p>
+  </div>
+  <div class="tips">
+    <b>قبل أن تبدأ:</b> اجلس في غرفة هادئة، وأمسك الجوال على بعد شبر من فمك، واسكت ثانية قبل القراءة وبعدها. سأقصّ الصمت وأوحّد ارتفاع الصوت عند الرفع.
+    <br><b>اختصار:</b> على الحاسوب، اضغط مفتاح المسافة للتسجيل والإيقاف، والسهم الأيسر للنص التالي.
+  </div>
+  <div class="pick">
+    <select id="grp"><option value="stories">الحكايات</option><option value="ports">المرافئ</option><option value="words">المفردات</option><option value="dictation">الإملاء</option></select>
+    <select id="set"></select>
+  </div>
+  <div class="prog"><span id="pc"></span><span class="bar"><i id="pb"></i></span><span id="pt"></span></div>
+
+  <section class="prompt" id="prompt">
+    <span class="state" id="st"></span>
+    <div class="key" id="key"></div>
+    <div class="txt" id="txt"></div>
+    <div class="en" id="en"></div>
+    <div class="meter"><i id="mt"></i></div>
+  </section>
+  <div class="ctrls">
+    <button class="btn ghost" type="button" id="bPrev">السابق</button>
+    <button class="btn" type="button" id="bRec">تسجيل</button>
+    <button class="btn soft" type="button" id="bPlay" disabled>استمع</button>
+    <button class="btn ghost" type="button" id="bNext">التالي</button>
+  </div>
+  <label class="auto"><input type="checkbox" id="autoNext" checked> انتقل إلى النص التالي بعد الإيقاف</label>
+  <div class="list" id="list"></div>
+
+  <section class="export">
+    <h2 style="margin:0;font-size:1.3rem">حفظ التسجيلات وإرسالها</h2>
+    <p>عندما تنتهي من مجموعة، اضغط «تنزيل التسجيلات» فيصلك ملف ZIP واحد فيه كل ما سجّلته. أرسله إليّ في المحادثة، فأنظّفه وأرفعه إلى الموقع، فيسمعه الطلاب في كل مكان.</p>
+    <p id="total"></p>
+    <div class="btn-row" style="justify-content:flex-start">
+      <button class="btn" type="button" id="bZip">تنزيل التسجيلات (ZIP)</button>
+      <button class="btn ghost" type="button" id="bClear">حذف التسجيلات من هذا الجهاز</button>
+    </div>
+    <p class="warn" id="micErr"></p>
+  </section>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/audio.js"></script>
+<script src="../assets/site.js"></script>
+<script src="../assets/stories.js"></script>
+<script src="../assets/ports.js"></script>
+<script src="../assets/vocab.js"></script>
+<script src="../assets/dictation.js"></script>
+<script src="../assets/audio-items.js"></script>
+<script>
+(function(){
+  var S = Site, ALL = audioItems(), items = [], idx = 0, have = {};
+  var $ = function(id){ return document.getElementById(id); };
+
+  // ---------- storage on this device ----------
+  var db = null;
+  function openDb(){ return new Promise(function(res, rej){ var r = indexedDB.open('marafi-studio', 1);
+    r.onupgradeneeded = function(){ r.result.createObjectStore('rec'); }; r.onsuccess = function(){ db = r.result; res(); }; r.onerror = function(){ rej(r.error); }; }); }
+  function tx(mode){ return db.transaction('rec', mode).objectStore('rec'); }
+  function put(key, val){ return new Promise(function(res){ var q = tx('readwrite').put(val, key); q.onsuccess = res; }); }
+  function get(key){ return new Promise(function(res){ var q = tx('readonly').get(key); q.onsuccess = function(){ res(q.result); }; }); }
+  function keys(){ return new Promise(function(res){ var q = tx('readonly').getAllKeys(); q.onsuccess = function(){ res(q.result); }; }); }
+
+  // ---------- choosing what to record ----------
+  function sets(){
+    var g = $('grp').value, seen = {}, opts = [];
+    ALL.forEach(function(it){ if (it.group === g && !seen[it.set]) { seen[it.set] = 1; opts.push([it.set, S.strip(it.setAr)]); } });
+    $('set').innerHTML = '<option value="*">الكل</option>' + opts.map(function(o){ return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join('');
+  }
+  function load(){ var g = $('grp').value, st = $('set').value; items = ALL.filter(function(it){ return it.group === g && (st === '*' || it.set === st); }); idx = 0;
+    var first = items.findIndex(function(it){ return !have[it.key]; }); if (first > 0) idx = first; drawList(); show(); }
+  $('grp').onchange = function(){ sets(); load(); }; $('set').onchange = load;
+
+  function drawList(){
+    $('list').innerHTML = items.map(function(it, i){ return '<button type="button" class="li' + (have[it.key] ? ' done' : '') + (i === idx ? ' cur' : '') + '" data-i="' + i + '"><span class="dot"></span><span class="t">' + S.esc(S.strip(it.text)) + '</span></button>'; }).join('');
+    var n = items.filter(function(it){ return have[it.key]; }).length;
+    $('pc').textContent = n + ' / ' + items.length; $('pb').style.width = (items.length ? n / items.length * 100 : 0) + '%';
+    var tot = Object.keys(have).length; $('pt').textContent = 'الكل: ' + tot;
+    $('total').textContent = 'في هذا الجهاز الآن ' + tot + ' تسجيلاً من أصل ' + ALL.length + ' نصاً.';
+    var cur = $('list').querySelector('.cur'); if (cur) cur.scrollIntoView({ block: 'nearest' });
+  }
+  $('list').onclick = function(e){ var b = e.target.closest('.li'); if (!b) return; idx = +b.dataset.i; drawList(); show(); };
+  function show(){
+    var it = items[idx]; if (!it) return;
+    $('key').textContent = it.key; $('txt').textContent = it.text; $('en').textContent = it.en || '';
+    $('st').textContent = have[it.key] ? '✓ مسجَّل' : ''; $('bPlay').disabled = !have[it.key];
+  }
+  function go(d){ idx = Math.max(0, Math.min(items.length - 1, idx + d)); drawList(); show(); }
+  $('bPrev').onclick = function(){ go(-1); }; $('bNext').onclick = function(){ go(1); };
+
+  // ---------- recording ----------
+  var stream = null, rec = null, chunks = [], anim = 0, an = null;
+  var MIME = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/ogg;codecs=opus', ''].filter(function(m){ return !m || (window.MediaRecorder && MediaRecorder.isTypeSupported(m)); })[0];
+  function ext(type){ return /mp4|aac/.test(type) ? 'm4a' : /ogg/.test(type) ? 'ogg' : 'webm'; }
+  async function startRec(){
+    try { if (!stream) stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); }
+    catch (e) { $('micErr').textContent = 'لم يُسمح باستعمال الميكروفون. اسمح للمتصفح باستعماله ثم أعد المحاولة.'; return; }
+    $('micErr').textContent = '';
+    chunks = []; rec = new MediaRecorder(stream, MIME ? { mimeType: MIME } : undefined);
+    rec.ondataavailable = function(e){ if (e.data.size) chunks.push(e.data); };
+    rec.onstop = saveRec; rec.start();
+    $('prompt').classList.add('rec'); $('bRec').classList.add('on'); $('bRec').textContent = 'إيقاف'; $('st').textContent = '● يسجّل';
+    meter();
+  }
+  function stopRec(){ if (rec && rec.state === 'recording') rec.stop(); cancelAnimationFrame(anim); $('prompt').classList.remove('rec'); $('bRec').classList.remove('on'); $('bRec').textContent = 'تسجيل'; }
+  async function saveRec(){
+    var it = items[idx], type = rec.mimeType || MIME || 'audio/webm', blob = new Blob(chunks, { type: type });
+    await put(it.key, { blob: blob, type: type, at: Date.now() }); have[it.key] = 1;
+    if ($('autoNext').checked && idx < items.length - 1) { idx++; } drawList(); show();
+  }
+  function meter(){
+    try { var c = new (window.AudioContext || window.webkitAudioContext)(), src = c.createMediaStreamSource(stream); an = c.createAnalyser(); an.fftSize = 512; src.connect(an); } catch (e) { return; }
+    var d = new Uint8Array(an.fftSize);
+    (function loop(){ an.getByteTimeDomainData(d); var m = 0; for (var i = 0; i < d.length; i++) m = Math.max(m, Math.abs(d[i] - 128)); $('mt').style.width = Math.min(100, m / 128 * 140) + '%'; anim = requestAnimationFrame(loop); })();
+  }
+  $('bRec').onclick = function(){ if (rec && rec.state === 'recording') stopRec(); else startRec(); };
+  var au = new Audio();
+  $('bPlay').onclick = async function(){ var r = await get(items[idx].key); if (!r) return; au.src = URL.createObjectURL(r.blob); au.play(); };
+  document.addEventListener('keydown', function(e){
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+    if (e.code === 'Space') { e.preventDefault(); $('bRec').click(); }
+    if (e.key === 'ArrowLeft') go(1); if (e.key === 'ArrowRight') go(-1);
+  });
+
+  // ---------- export as one ZIP (stored, no compression; audio is already compressed) ----------
+  var CRC = (function(){ var t = new Uint32Array(256); for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(u8){ var c = 0xFFFFFFFF; for (var i = 0; i < u8.length; i++) c = CRC[(c ^ u8[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+  function zip(files){
+    var enc = new TextEncoder(), parts = [], central = [], off = 0;
+    files.forEach(function(f){
+      var name = enc.encode(f.name), data = f.data, crc = crc32(data), h = new DataView(new ArrayBuffer(30));
+      h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, 0, true);
+      h.setUint32(14, crc, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, name.length, true);
+      parts.push(h.buffer, name, data);
+      var c = new DataView(new ArrayBuffer(46));
+      c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true);
+      c.setUint32(16, crc, true); c.setUint32(20, data.length, true); c.setUint32(24, data.length, true); c.setUint16(28, name.length, true); c.setUint32(42, off, true);
+      central.push(c.buffer, name); off += 30 + name.length + data.length;
+    });
+    var cSize = central.reduce(function(s, b){ return s + (b.byteLength || b.length); }, 0), e = new DataView(new ArrayBuffer(22));
+    e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, cSize, true); e.setUint32(16, off, true);
+    return new Blob(parts.concat(central, [e.buffer]), { type: 'application/zip' });
+  }
+  $('bZip').onclick = async function(){
+    var ks = await keys(); if (!ks.length) { alert('لا توجد تسجيلات بعد.'); return; }
+    var files = [];
+    for (var i = 0; i < ks.length; i++) { var r = await get(ks[i]); files.push({ name: ks[i].replace(/\//g, '__') + '.' + ext(r.type), data: new Uint8Array(await r.blob.arrayBuffer()) }); }
+    var a = document.createElement('a'), d = new Date();
+    a.href = URL.createObjectURL(zip(files)); a.download = 'marafi-recordings-' + d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '.zip';
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+  $('bClear').onclick = async function(){
+    if (!confirm('هل أرسلت ملف ZIP؟ سيُحذف كل ما سجّلته من هذا الجهاز.')) return;
+    await new Promise(function(res){ var q = tx('readwrite').clear(); q.onsuccess = res; }); have = {}; drawList(); show();
+  };
+
+  openDb().then(keys).then(function(ks){ ks.forEach(function(k){ have[k] = 1; }); sets(); load(); })
+    .catch(function(){ $('micErr').textContent = 'هذا المتصفح لا يسمح بالحفظ. جرّب Chrome أو Safari بدون التصفح الخفي.'; sets(); load(); });
+  if (!window.MediaRecorder) $('micErr').textContent = 'هذا المتصفح لا يدعم التسجيل. استعمل Chrome على الحاسوب أو الجوال، أو Safari الحديث.';
+})();
+</script>
+</body>
+</html>
