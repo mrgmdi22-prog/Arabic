@@ -105,6 +105,14 @@ svg .node:focus rect,svg .node.sel rect{stroke:var(--sel);stroke-width:3}
 .labpage{padding-top:22px}
 .labhead h1{color:var(--rose)}
 button.chip{border-radius:6px}
+.pats{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.pats button{border-radius:8px}
+.pats button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.phint{color:var(--muted);font-size:17px;margin:8px 0 4px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.slots label{display:flex;flex-direction:column;gap:4px;font-size:17px;color:var(--muted)}
+.slots select{font-family:var(--naskh);font-size:21px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:8px;padding:4px 10px}
+.preview{font-family:var(--naskh);font-weight:700;font-size:30px;line-height:1.7;margin:14px 0 4px;padding:8px 14px;border:1.5px dashed var(--line);border-radius:8px;background:var(--bg)}
 .bank{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
 .bank label{font-size:17px;color:var(--muted)}
 .bank select{font:inherit;font-size:18px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:8px;padding:4px 10px;flex:1 1 220px;min-width:0}
@@ -130,13 +138,14 @@ button.chip{border-radius:6px}
 <div class="wrap labpage" dir="rtl" lang="ar">
   <header class="labhead">
     <h1>مختبر الإعراب</h1>
-    <p class="lede t-ar">اختر باباً من أبواب النحو وجملة منه لترى شجرتها وإعرابها، أو جرّب «أعرب بنفسك».</p>
-    <p class="lede t-en">Choose a grammar topic and a sentence to see its tree and word-by-word i‘rab, or try “Parse it yourself”. Works without any sign-in.</p>
+    <p class="lede t-ar">ابنِ جملتك من الكلمات ليكتب المختبر إعرابها، أو اختر جملة من بنك الجمل، أو جرّب «أعرب بنفسك». يعمل كله دون تسجيل.</p>
+    <p class="lede t-en">Choose a grammar topic and a sentence to see its tree and word-by-word i‘rab, build your own sentence from word lists, or try “Parse it yourself”. Everything works without sign-in.</p>
   </header>
 
   <section class="panel" aria-label="الإدخال">
     <div class="modes" role="radiogroup" aria-label="نوع النص">
       <input type="radio" name="mode" id="modeS" value="s" checked><label for="modeS">جملة عربية</label>
+      <input type="radio" name="mode" id="modeB" value="b"><label for="modeB">ابنِ جملتك</label>
       <input type="radio" name="mode" id="modeP" value="p"><label for="modeP">أعرب بنفسك</label>
       <input type="radio" name="mode" id="modeQ" value="q"><label for="modeQ">آية قرآنية</label>
     </div>
@@ -153,6 +162,7 @@ button.chip{border-radius:6px}
       </div>
       <div class="chips" id="examples"></div>
     </div>
+    <div id="bBox" hidden></div>
     <div id="pBox" hidden>
       <p class="qintro">اختر لكل كلمة موقعها الإعرابي، ثم قارن جوابك بالإعراب الصحيح.</p>
       <div class="bank"><label for="pTopic">الباب:</label><select id="pTopic"></select><button class="primary" id="pNew">جملة جديدة</button></div>
@@ -420,8 +430,8 @@ function showRefs(){
 }
 function setMode(m){
   mode=m;const q=m==="q",p=m==="p";
-  $("sBox").hidden=m!=="s";$("pBox").hidden=!p;$("qBox").hidden=!q;$("qPanel").hidden=!q;
-  document.querySelectorAll("section.res").forEach(x=>x.hidden=m!=="s");
+  $("sBox").hidden=m!=="s";$("bBox").hidden=m!=="b";$("pBox").hidden=!p;$("qBox").hidden=!q;$("qPanel").hidden=!q;
+  document.querySelectorAll("section.res").forEach(x=>x.hidden=!(m==="s"||m==="b"));
   if(q)showRefs();
   if(p&&!$("pOut").children.length)practice();
 }
@@ -431,6 +441,7 @@ try{if(localStorage.getItem("irabView")==="v"){$("viewV").checked=true;setView("
 $("modeS").addEventListener("change",()=>setMode("s"));
 $("modeQ").addEventListener("change",()=>setMode("q"));
 $("modeP").addEventListener("change",()=>setMode("p"));
+$("modeB").addEventListener("change",()=>setMode("b"));
 $("findRef").onclick=showRefs;
 sel.addEventListener("change",()=>{$("ayah").value="";showRefs()});
 $("ayah").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();showRefs()}});
@@ -484,5 +495,6 @@ function practice(){
 $("sentence").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("go").click()}});
 document.fonts&&document.fonts.ready.then(()=>{if(current)drawTree(current.tree)});
 </script>
+<script src="../assets/irab-builder.js"></script>
 </body>
 </html>
