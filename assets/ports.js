@@ -1,9 +1,9 @@
 // رحلة المرافئ — the old harbours through which Arabic travelled by sea.
 // Each port: map position (lon, lat), sea, a short reading lesson ([word|meaning] = glossary word), a fact, and questions.
 window.SEAS = {
-  red:    { ar: 'البَحْرُ الأَحْمَرُ', en: 'Red Sea', c: '#b03a66', t: '#fdecf2' },
+  red:    { ar: 'البَحْرُ الأَحْمَرُ', en: 'Red Sea', c: '#7a4a24', t: '#f5ebe0' },
   arab:   { ar: 'بَحْرُ العَرَبِ', en: 'Arabian Sea', c: '#0f7f74', t: '#e2f4f1' },
-  gulf:   { ar: 'الخَلِيجُ العَرَبِيُّ', en: 'Arabian Gulf', c: '#a2650c', t: '#fdf1da' },
+  gulf:   { ar: 'الخَلِيجُ العَرَبِيُّ', en: 'Arabian Gulf', c: '#b03a66', t: '#fdecf2' },
   ocean:  { ar: 'المُحِيطُ الهِنْدِيُّ', en: 'Indian Ocean', c: '#1f6f99', t: '#e3f3fb' },
   rum:    { ar: 'بَحْرُ الرُّومِ', en: 'Mediterranean (Sea of the Romans)', c: '#4552c9', t: '#ebedfd' },
   legend: { ar: 'جُزُرُ الخَيَالِ', en: 'Islands of legend', c: '#7a46b8', t: '#f1ecfb' }
