@@ -103,6 +103,31 @@
       ' · <a href="https://dictionary.ksaa.gov.sa/" target="_blank" rel="noopener"><span class="t-en">Riyadh Dictionary</span> <span>معجم الرياض</span></a></div>';
   }
   hydrate();
+
+  // In English mode a button shows "English | العربية". When the pair does not fit on one line the Arabic
+  // moves to its own line under the English; then the separator bar is hidden so the label stays tidy.
+  var wrapT = 0;
+  function markWraps() {
+    var all = document.querySelectorAll('.t-ar.bi-wrap');
+    for (var i = 0; i < all.length; i++) all[i].classList.remove('bi-wrap');
+    if (document.documentElement.getAttribute('data-lang') !== 'en') return;
+    var ars = document.querySelectorAll('.t-en + .t-ar'), hit = [];
+    for (var j = 0; j < ars.length; j++) {
+      var a = ars[j]; if (!a.offsetParent) continue;
+      var ra = a.getBoundingClientRect(), re = a.previousElementSibling.getBoundingClientRect();
+      if (ra.height && re.height && ra.top >= re.bottom - 3) hit.push(a);
+    }
+    hit.forEach(function (a) { a.classList.add('bi-wrap'); });
+  }
+  var wrapT2 = 0;
+  function soon() { clearTimeout(wrapT); clearTimeout(wrapT2); wrapT = setTimeout(markWraps, 60); wrapT2 = setTimeout(markWraps, 700); }
+  window.addEventListener('resize', soon);
+  document.addEventListener('langchange', soon);
+  if (window.MutationObserver) new MutationObserver(function (m) {
+    for (var i = 0; i < m.length; i++) if (m[i].type === 'childList' && m[i].target.nodeType === 1 && !m[i].target.closest('svg')) { soon(); return; }
+  }).observe(document.body, { childList: true, subtree: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(soon);
+  window.addEventListener('load', soon); soon();
   // gentle sounds (assets/sfx.js), loaded after the top bar exists
   try { var me = document.currentScript && document.currentScript.src; if (me) { var sx = document.createElement('script'); sx.src = new URL('sfx.js', me).href; document.body.appendChild(sx); } } catch (e) {}
 

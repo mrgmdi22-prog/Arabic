@@ -58,6 +58,7 @@
       var q = xy(p.lon, p.lat), c = S[p.sea].c, left = !!LEFT[p.id], on = hl === p.id;
       var tx = (left ? -13 : 13) * u, anchor = left ? 'end' : 'start', dy = (DY[p.id] || 0) * u;
       if (p.id === 'alexandria' && !v) { tx = 0; anchor = 'middle'; dy = 28 * u; }
+      else if (p.id === 'alexandria') { tx = 0; anchor = 'middle'; dy = 26 * u; }
       return '<a class="port' + (on ? ' on' : '') + (p.legend ? ' legend' : '') + '" href="' + root + 'ports/port.html?p=' + p.id + '" aria-label="' + plain(p.ar) + ' · ' + p.en + '">' +
         '<circle class="hit" cx="' + f(q[0]) + '" cy="' + f(q[1]) + '" r="' + f(22 * u) + '"/>' +
         (p.legend ? '<circle class="mist" cx="' + f(q[0]) + '" cy="' + f(q[1]) + '" r="' + f(30 * u) + '"/>' : '') +
