@@ -75,7 +75,7 @@
       seaLbl + lanes +
       '<path class="incense" d="' + smooth(window.INCENSE) + '"/>' +
       '<g class="inc-l" transform="translate(' + f(incLbl[0]) + ' ' + f(incLbl[1]) + ') rotate(-38)"><text text-anchor="middle">دَرْبُ البَخُورِ</text></g>' +
-      '<text class="china" x="' + f(china[0] - 6 * u) + '" y="' + f(china[1]) + '" text-anchor="end">← إلى الصين</text>' +
+      '<text class="china" x="' + f(china[0] - 6 * u) + '" y="' + f(china[1]) + '" text-anchor="end">إلى الصين →</text>' +
       '<text class="china" x="' + f(greece[0]) + '" y="' + f(greece[1]) + '" text-anchor="middle">إلى اليونان</text>' +
       '<text class="china" x="' + f(rome[0]) + '" y="' + f(rome[1]) + '" text-anchor="start">← إلى روما</text>' +
       ship('lane4', 40, 0, u) + ship('lane5', 48, -14, u) + ship('lane6', 26, -5, u) + ship('lane7', 30, -19, u) +
