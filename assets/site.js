@@ -75,7 +75,7 @@
   function setLang(l) {
     document.documentElement.setAttribute('data-lang', l);
     document.documentElement.lang = l;
-    document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = 'rtl';   // the page always flows right to left, like Arabic; English text inside keeps its own direction
     try { localStorage.setItem('ar-site-lang', l); } catch (e) {}
     document.dispatchEvent(new CustomEvent('langchange', { detail: l }));
   }
@@ -119,8 +119,34 @@
     }
     hit.forEach(function (a) { a.classList.add('bi-wrap'); });
   }
+  // The page flows right to left. A line that is mostly English (a translation, a subtitle) keeps its words
+  // in English order, but stays aligned where it was (so it lines up with the Arabic above it).
+  var flagged = [];
+  function mostlyLatin(t) { var lat = (t.match(/[A-Za-z]/g) || []).length, f = t.match(/[A-Za-z\u0600-\u06FF]/); return lat >= 3 && !!f && /[A-Za-z]/.test(f[0]); }
+  function fixLatin() {
+    flagged = flagged.filter(function (el) {
+      if (el.isConnected && mostlyLatin(el.textContent)) return true;
+      el.__ltr = 0; el.style.direction = el.style.unicodeBidi = el.style.textAlign = ''; return false; });
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n, seen = [], wraps = [];
+    while ((n = w.nextNode())) {
+      var el = n.parentElement, t = n.textContent;
+      if (!el || el.closest('svg,textarea,input,script,style,select,option')) continue;
+      // counters like "3 / 10" keep their order
+      if (/\d\s*\/\s*\d/.test(t) && el.tagName !== 'BDI' && !/[A-Za-z\u0600-\u06FF]/.test(t)) { wraps.push(n); continue; }
+      if (el.__ltr || el.closest('[dir]:not(html)')) continue;
+      var lat = (t.match(/[A-Za-z]/g) || []).length, ar = (t.match(/[؀-ۿ]/g) || []).length;
+      if (lat < 3 || lat <= ar) continue;
+      var cs = getComputedStyle(el); if (cs.direction !== 'rtl') continue;
+      seen.push([el, cs.textAlign]);
+    }
+    wraps.forEach(function (t) { var b = document.createElement('bdi'); b.dir = 'ltr'; t.parentNode.insertBefore(b, t); b.appendChild(t); });
+    seen.forEach(function (x) { var el = x[0], ta = x[1];
+      el.__ltr = 1; flagged.push(el); el.style.direction = 'ltr'; el.style.unicodeBidi = 'isolate';
+      if (ta === 'start' || ta === 'right') el.style.textAlign = 'right'; else if (ta === 'end' || ta === 'left') el.style.textAlign = 'left'; });
+  }
   var wrapT2 = 0;
-  function soon() { clearTimeout(wrapT); clearTimeout(wrapT2); wrapT = setTimeout(markWraps, 60); wrapT2 = setTimeout(markWraps, 700); }
+  function tidy() { fixLatin(); markWraps(); }
+  function soon() { clearTimeout(wrapT); clearTimeout(wrapT2); wrapT = setTimeout(tidy, 60); wrapT2 = setTimeout(tidy, 700); }
   window.addEventListener('resize', soon);
   document.addEventListener('langchange', soon);
   if (window.MutationObserver) new MutationObserver(function (m) {
