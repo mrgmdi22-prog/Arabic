@@ -175,7 +175,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
     tabs.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.v === view); });
     document.getElementById('plegend').hidden = view !== 'ports';
     document.getElementById('jpanel').hidden = view !== 'journey';
-    if (view === 'journey') { mapEl.innerHTML = '<div class="jwrap"></div>'; Journey.draw(mapEl.firstChild, { root: '' }); Journey.panel(document.getElementById('jpanel'), { root: '' }); }
+    if (view === 'journey') { mapEl.innerHTML = '<div class="jwrap"></div>'; Journey.draw(mapEl.firstChild, { root: '', stars: stars }); Journey.panel(document.getElementById('jpanel'), { root: '', stars: stars }); }
     else SeaMap.mount(mapEl, { root: '' });
   }
   tabs.onclick = function(e){ var b = e.target.closest('button'); if (!b || b.dataset.v === view) return; view = b.dataset.v; try { sessionStorage.setItem('ar-homemap', view); } catch(er) {} showMap(); };
