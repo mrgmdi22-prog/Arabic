@@ -221,6 +221,8 @@ html[data-lang="en"] .maptabs button{flex-wrap:wrap;row-gap:0}
 .journey .leg{fill:none;stroke-width:calc(var(--u)*4px);stroke-dasharray:calc(var(--u)*2px) calc(var(--u)*9px);stroke-linecap:round}
 .journey .leg.done{stroke-dasharray:none;stroke-width:calc(var(--u)*4.5px)}
 .journey .stn{cursor:pointer}
+.journey .pass circle{fill:#fff;stroke:#8C7A66;stroke-width:calc(var(--u)*2px)}
+.journey .pass text{font-family:var(--kufi);font-size:calc(var(--u)*12px);fill:#7A6A58;paint-order:stroke;stroke:#FFFBF4;stroke-width:calc(var(--u)*3px)}
 .journey .stn .hit{fill:transparent}
 .journey .stn .disc{fill:#fff;stroke:var(--c);stroke-width:calc(var(--u)*3px)}
 .journey .stn.on .disc{fill:var(--c)}

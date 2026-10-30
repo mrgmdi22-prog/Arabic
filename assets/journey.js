@@ -1,5 +1,5 @@
 // رحلة التعلّم — the learning voyage map on the home page.
-// The ship sets sail from Jeddah and calls at seven harbours; each harbour is one section of the site,
+// The ship sets sail from Al-Khuraybah and calls at seven harbours; each harbour is one section of the site,
 // in the order a learner meets them, coloured by level. Stations you have visited turn solid and
 // the little ship waits at your next stop.
 // Needs site.js, land.js, ports.js and seamap.js first.
@@ -12,32 +12,34 @@
   ];
   // side: where the label sits (L left, R right, B below, T above)
   var STATIONS = [
-    { id: 'guide', port: 'jeddah', href: 'guide/index.html', ic: 'compass', lv: 0, side: 'L', sideN: 'R',
-      ar: 'دليل المتعلّم', en: 'Learner’s Guide', whyAr: 'من جدة تنطلق الرحلة: اعرف طريقك قبل أن تبحر.', whyEn: 'The voyage sets sail from Jeddah: learn the way before you sail.' },
-    { id: 'words', port: 'farasan', href: 'vocab/index.html', ic: 'cards', lv: 0, side: 'L', sideN: 'R',
-      ar: 'مرفأ المفردات', en: 'Harbour of Words', whyAr: 'في جزر فرسان تجمع زادك الأول من الكلمات.', whyEn: 'At the Farasan Islands you gather your first store of words.' },
-    { id: 'tales', port: 'mokha', href: 'stories/index.html', ic: 'book', lv: 1, side: 'L',
-      ar: 'مرفأ الحكايات', en: 'Harbour of Tales', whyAr: 'في المخا يجلس البحّارة يتسامرون بالحكايات.', whyEn: 'At Mocha the sailors sit and tell their tales.' },
-    { id: 'reading', port: 'aden', href: 'reading/index.html', ic: 'lamp', lv: 1, side: 'B',
-      ar: 'مرفأ الفهم', en: 'Harbour of Understanding', whyAr: 'في عدن تختبر فهمك لما قرأت.', whyEn: 'At Aden you test how well you understood.' },
-    { id: 'spelling', port: 'qana', href: 'dictation/index.html', ic: 'qalam', lv: 1, side: 'T',
-      ar: 'مرفأ الإملاء', en: 'Harbour of Spelling', whyAr: 'في قنا نقش الأجداد كتاباتهم على الصخر، فتعلّم الكتابة الصحيحة.', whyEn: 'At Qana the ancients carved their writing in rock: learn to spell well.' },
+    { id: 'guide', port: 'khuraybah', href: 'guide/index.html', ic: 'compass', lv: 0, side: 'R',
+      ar: 'دليل المتعلّم', en: 'Learner’s Guide', whyAr: 'من الخريبة، ميناء الأنباط القديم «القرية البيضاء»، تنطلق الرحلة: اعرف طريقك قبل أن تبحر.', whyEn: 'The voyage sets sail from Al-Khuraybah, the old Nabataean port of the “White Village”: learn the way before you sail.' },
+    { id: 'words', port: 'jeddah', href: 'vocab/index.html', ic: 'cards', lv: 0, side: 'L',
+      ar: 'مرفأ المفردات', en: 'Harbour of Words', whyAr: 'في جدة، باب مكة على البحر، تجمع زادك الأول من الكلمات.', whyEn: 'At Jeddah, Makkah’s gate on the sea, you gather your first store of words.' },
+    { id: 'tales', port: 'sirrain', href: 'stories/index.html', ic: 'book', lv: 1, side: 'L',
+      ar: 'مرفأ الحكايات', en: 'Harbour of Tales', whyAr: 'في السرّين، ميناء مكة القديم، يتسامر البحّارة بالحكايات.', whyEn: 'At Al-Sirrain, an old port of Makkah, the sailors sit and tell their tales.' },
+    { id: 'reading', port: 'athar', href: 'reading/index.html', ic: 'lamp', lv: 1, side: 'R', nudge: [0.45, 0.3], nudgeN: [0.95, 0.6],
+      ar: 'مرفأ الفهم', en: 'Harbour of Understanding', whyAr: 'في عثّر يلتقي تجّار الحجاز واليمن وأفريقيا، ولا تجارة بلا فهم، فاختبر فهمك لما قرأت.', whyEn: 'At Athar traders from the Hijaz, Yemen and Africa met, and trade needs understanding: test how well you understood.' },
+    { id: 'spelling', port: 'farasan', href: 'dictation/index.html', ic: 'qalam', lv: 1, side: 'L', nudge: [-0.35, -0.25], nudgeN: [-0.75, -0.45],
+      ar: 'مرفأ الإملاء', en: 'Harbour of Spelling', whyAr: 'في جزر فرسان نقوش قديمة على الحجر، فتعلّم أن تكتب كلماتك صحيحة.', whyEn: 'The Farasan Islands keep old inscriptions in stone: learn to write your words correctly.' },
     { id: 'voyage', port: 'sohar', href: 'ports/index.html', ic: 'dhow', lv: 2, side: 'B',
       ar: 'رحلة المرافئ', en: 'The Harbours Voyage', whyAr: 'من صحار، مدينة السندباد، تبحر إلى سبعة وعشرين مرفأً.', whyEn: 'From Sohar, Sindbad’s city, sail on to twenty-seven harbours.' },
     { id: 'irab', port: 'ubulla', href: 'irab/index.html', ic: 'branches', lv: 3, side: 'L',
       ar: 'مختبر الإعراب', en: 'I‘rab Lab', whyAr: 'الأبلّة مرفأ البصرة، وفي البصرة وُلد علم النحو.', whyEn: 'Al-Ubulla is the port of Basra, where Arabic grammar was born.' }
   ];
-  var VIEW = [32.6, 32.3, 62.4, 8.6];   // west, north, east, south (degrees)
-  var VIEW_N = [36.6, 31.6, 60.4, 10.9]; // narrow screens
+  // harbours the ship passes on the way, without a stop
+  var PASS = [{ port: 'mokha', side: 'L' }, { port: 'aden', side: 'B' }, { port: 'qana', side: 'T' }];
+  var VIEW = [31.6, 32.3, 62.4, 8.6];   // west, north, east, south (degrees)
+  var VIEW_N = [33.6, 31.6, 60.4, 10.9]; // narrow screens
   var KEY = 'ar-journey';
 
   function visited() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { return []; } }
   function nextIndex() { var v = visited(); for (var i = 0; i < STATIONS.length; i++) if (v.indexOf(STATIONS[i].id) < 0) return i; return STATIONS.length - 1; }
 
-  // the route: down the Red Sea from Jeddah, round Aden, along Arabia and up the Gulf (lanes already checked to stay at sea)
+  // the route: from Al-Khuraybah down the Red Sea, round Aden, along Arabia and up the Gulf (lanes already checked to stay at sea)
   function route() {
     var r1 = window.ROUTES[1], r2 = window.ROUTES[2], start = 0, best = 1e9;
-    r1.forEach(function (p, i) { var d = Math.hypot(p[0] - 38.6, p[1] - 21.5); if (d < best) { best = d; start = i; } });
+    r1.forEach(function (p, i) { var d = Math.hypot(p[0] - 34.75, p[1] - 28.0); if (d < best) { best = d; start = i; } });
     return r1.slice(start).concat(r2.slice(1));
   }
   function nearest(pts, lon, lat, from) {
@@ -56,7 +58,7 @@
     var seen = visited(), nx = nextIndex();
     var pts = route(), idx = [], from = 0;
     var port = function (id) { return window.PORTS.filter(function (p) { return p.id === id; })[0]; };
-    STATIONS.forEach(function (s) { var p = port(s.port); s.lon = p.lon; s.lat = p.lat; s.portAr = S.strip(p.ar); s.portEn = p.en;
+    STATIONS.forEach(function (s) { var p = port(s.port); s.lon = p.lon; s.lat = p.lat; s.portAr = S.strip(p.ar).replace(/\s*\(.*\)/, ''); s.portEn = p.en;
       from = nearest(pts, p.lon, p.lat, from); idx.push(from); });
     // legs between stations, coloured by the level of the station they lead to
     var legs = '';
@@ -68,7 +70,7 @@
     legs = '<path id="jroute" class="leg-base" d="' + SeaMap.smooth(pts.slice(idx[0], idx[idx.length - 1] + 1)) + '"/>' + legs;
     // stations
     var st = STATIONS.map(function (s, i) {
-      var q = xy(s.lon, s.lat), c = LEVELS[s.lv].c, on = seen.indexOf(s.id) >= 0, cur = i === nx;
+      var nd = (narrow ? s.nudgeN : s.nudge) || [0, 0], q = xy(s.lon + nd[0], s.lat + nd[1]), c = LEVELS[s.lv].c, on = seen.indexOf(s.id) >= 0, cur = i === nx;
       var r = (cur ? (narrow ? 14 : 17) : (narrow ? 11.5 : 14)) * u, ic = (narrow ? 12.5 : 15) * u, side = narrow && s.sideN ? s.sideN : s.side;
       var lx = q[0], ly = q[1], anchor = 'middle', gap = r + 7 * u;
       if (side === 'L') { lx -= gap; anchor = 'end'; } else if (side === 'R') { lx += gap; anchor = 'start'; }
@@ -85,6 +87,10 @@
           '<text class="t1" x="' + f(lx) + '" y="' + f(ly) + '" text-anchor="' + anchor + '">' + '<tspan class="n">' + (i + 1) + '</tspan> ' + s.ar + '</text>' +
           (narrow ? '' : '<text class="t2" x="' + f(lx) + '" y="' + f(ly + 17 * u) + '" text-anchor="' + anchor + '">' + line2 + '</text>') + '</g></a>');
     }).join('');
+    var pass = PASS.map(function (w) { var p = port(w.port), q = xy(p.lon, p.lat), lx = q[0], ly = q[1] + 4.5 * u, an = 'middle';
+      if (w.side === 'L') { lx -= 9 * u; an = 'end'; } else if (w.side === 'B') ly += 16 * u; else ly -= 13 * u;
+      return '<a class="pass" href="' + root + 'ports/port.html?p=' + p.id + '"><circle cx="' + f(q[0]) + '" cy="' + f(q[1]) + '" r="' + f(4.5 * u) + '"/>' +
+        (narrow ? '' : '<text x="' + f(lx) + '" y="' + f(ly) + '" text-anchor="' + an + '">' + S.strip(p.ar) + '</text>') + '</a>'; }).join('');
     var start = xy(STATIONS[0].lon, STATIONS[0].lat);
     var shipAt = xy(pts[idx[nx]][0], pts[idx[nx]][1]);
     el.innerHTML = '<svg class="seamap journey' + (narrow ? ' narrow' : '') + '" viewBox="' + vb.map(f).join(' ') + '" style="--u:' + u.toFixed(3) + '" role="img" aria-label="خريطة رحلة التعلّم">' +
@@ -95,7 +101,7 @@
       legs +
       (narrow ? '' : '<text class="j-start" x="' + f(start[0]) + '" y="' + f(start[1] - 24 * u) + '" text-anchor="middle">' + (lang === 'en' ? 'Set sail ↓' : 'الانطلاق ↓') + '</text>') +
       '<g class="j-ship" transform="translate(' + f(shipAt[0]) + ' ' + f(shipAt[1] - 26 * u) + ')"><g transform="scale(' + f(u * 1.05) + ') translate(-15 -22)"><path d="M2 21h27l-4 6H6z"/><path d="M15 21V3"/><path class="sail" d="M15 4c6 4 10 9 11 15H15z"/><path class="sail" d="M15 8l-7 11h7z"/></g></g>' +
-      st + '</svg>';
+      pass + st + '</svg>';
     // a soft paper plate behind every label so it reads over land and sea
     var svg = el.querySelector('svg.journey');
     svg.querySelectorAll('.lbl').forEach(function (g) {
@@ -116,7 +122,7 @@
         '<span class="jn-go">' + S.bi('Sail', 'أبحر') + S.icon('next') + '</span></a>' +
       (el.clientWidth < 560 ? '<ol class="jlist">' + STATIONS.map(function (t, k) { var on = visited().indexOf(t.id) >= 0, p = window.PORTS.filter(function (x) { return x.id === t.port; })[0];
         return '<li class="' + (on ? 'on' : '') + (k === i ? ' cur' : '') + '" style="--c:' + LEVELS[t.lv].c + '"><a href="' + root + t.href + '"><span class="no">' + (on ? S.icon('check') : (k + 1)) + '</span>' +
-          '<span class="nm"><b>' + S.bi(t.en, t.ar) + '</b><small>' + S.bi(p.en, S.strip(p.ar)) + ' · ' + S.bi(LEVELS[t.lv].en, LEVELS[t.lv].ar) + '</small></span></a></li>'; }).join('') + '</ol>' : '') +
+          '<span class="nm"><b>' + S.bi(t.en, t.ar) + '</b><small>' + S.bi(p.en.replace(/\s*\(.*\)/, ''), S.strip(p.ar).replace(/\s*\(.*\)/, '')) + ' · ' + S.bi(LEVELS[t.lv].en, LEVELS[t.lv].ar) + '</small></span></a></li>'; }).join('') + '</ol>' : '') +
       '<div class="jlevels">' + LEVELS.map(function (l) { return '<span style="--c:' + l.c + '"><i></i>' + S.bi(l.en, l.ar) + '</span>'; }).join('') +
         '<a href="' + root + 'guide/index.html#levels">' + S.bi('About the levels', 'عن المستويات') + '</a></div>';
   }
