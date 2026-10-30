@@ -112,5 +112,5 @@
     half = half || 7;
     return [p.lon - half * 1.15, p.lat + half * 0.8, p.lon + half * 1.15, p.lat - half * 0.8];
   }
-  window.SeaMap = { draw: draw, mount: mount, around: around, xy: xy, VIEWS: VIEWS };
+  window.SeaMap = { draw: draw, mount: mount, around: around, xy: xy, VIEWS: VIEWS, smooth: smooth, ship: ship, f: f };
 })();

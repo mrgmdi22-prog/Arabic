@@ -104,6 +104,14 @@
   }
   hydrate();
 
+  // the learning voyage on the home page: remember which harbour (site section) this learner has reached
+  (function () {
+    var J = [['/guide/', 'guide'], ['/vocab/', 'words'], ['/stories/', 'tales'], ['/reading/', 'reading'], ['/dictation/', 'spelling'], ['/ports/', 'voyage'], ['/irab/', 'irab']];
+    for (var i = 0; i < J.length; i++) if (location.pathname.indexOf(J[i][0]) >= 0) {
+      try { var v = JSON.parse(localStorage.getItem('ar-journey') || '[]'); if (v.indexOf(J[i][1]) < 0) { v.push(J[i][1]); localStorage.setItem('ar-journey', JSON.stringify(v)); } } catch (e) {}
+    }
+  })();
+
   // In English mode a button shows "English | العربية". When the pair does not fit on one line the Arabic
   // moves to its own line under the English; then the separator bar is hidden so the label stays tidy.
   var wrapT = 0;
@@ -194,5 +202,5 @@
   document.addEventListener('click', function (e) { var b = e.target.closest('.aud[data-aud]'); if (!b) return; e.preventDefault(); e.stopPropagation(); playAudio(b.dataset.aud.split(' '), b); });
 
   window.Site = { strip: strip, norm: norm, getStars: getStars, saveStars: saveStars, starsFor: starsFor, shuffle: shuffle, esc: esc,
-    lang: lang, t: t, bi: bi, icon: icon, hasAudio: hasAudio, playAudio: playAudio, stopAudio: stopAudio, audioBtn: audioBtn, stars: stars, hydrate: hydrate, reveal: function () {}, root: root, ENGLISH_CLUB: ENGLISH_CLUB };
+    lang: lang, t: t, bi: bi, icon: icon, I: I, hasAudio: hasAudio, playAudio: playAudio, stopAudio: stopAudio, audioBtn: audioBtn, stars: stars, hydrate: hydrate, reveal: function () {}, root: root, ENGLISH_CLUB: ENGLISH_CLUB };
 })();

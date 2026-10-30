@@ -78,8 +78,13 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
       <path class="cut" d="M40 78h920M40 92h920M90 58h40M130 46h40M170 34h40M210 22h40M660 22h40M700 34h40M740 46h40M780 58h40"/>
     </svg>
     <div class="body"><div class="door">
+      <div class="maptabs" role="tablist">
+        <button type="button" role="tab" data-v="journey"><i data-ic="compass"></i><span class="t-en">Learning voyage</span><span class="t-ar">رحلة التعلّم</span></button>
+        <button type="button" role="tab" data-v="ports"><i data-ic="anchor"></i><span class="t-en">Harbours map</span><span class="t-ar">خريطة المرافئ</span></button>
+      </div>
       <div class="mapbox" id="map"></div>
-      <div class="maplegend"><span><i style="border-color:#4C8FA8"></i><span class="t-en">Sea lanes</span><span class="t-ar">طرق البحر</span></span><span><i style="border-color:#B9822F"></i><span class="t-en">Incense Road</span><span class="t-ar">درب البخور</span></span><span><span class="t-en">Tap a harbour to visit it</span><span class="t-ar">المس المرفأ لتزوره</span></span></div>
+      <div class="jpanel" id="jpanel"></div>
+      <div class="maplegend" id="plegend"><span><i style="border-color:#4C8FA8"></i><span class="t-en">Sea lanes</span><span class="t-ar">طرق البحر</span></span><span><i style="border-color:#B9822F"></i><span class="t-en">Incense Road</span><span class="t-ar">درب البخور</span></span><span><span class="t-en">Tap a harbour to visit it</span><span class="t-ar">المس المرفأ لتزوره</span></span></div>
     </div></div>
   </section>
   <div class="strip">
@@ -129,13 +134,6 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
 
   <a class="leaf" id="today" href="#"></a>
 
-  <div class="harb-h"><h2><span class="t-en">Your path in Arabic</span><span class="t-ar">طريقك في العربية</span></h2><span class="sadu" aria-hidden="true"></span></div>
-  <ol class="route">
-    <li><a href="guide/index.html#levels"><i data-ic="tent"></i><b><span class="t-en">Introductory</span><span class="t-ar">التمهيدي</span></b><small><span class="t-en">greetings, numbers, colours, days</span><span class="t-ar">التحية، الأعداد، الألوان، الأيام</span></small></a></li>
-    <li><a href="guide/index.html#levels"><i data-ic="camel"></i><b><span class="t-en">Beginner</span><span class="t-ar">المبتدئ</span></b><small><span class="t-en">word themes, first fables, spelling</span><span class="t-ar">المفردات، الحكايات الأولى، الإملاء</span></small></a></li>
-    <li><a href="guide/index.html#levels"><i data-ic="dhow"></i><b><span class="t-en">Intermediate</span><span class="t-ar">المتوسط</span></b><small><span class="t-en">the harbours, the Nights, hamza</span><span class="t-ar">المرافئ، ألف ليلة، الهمزة</span></small></a></li>
-    <li><a href="guide/index.html#levels"><i data-ic="facade"></i><b><span class="t-en">Advanced</span><span class="t-ar">المتقدم</span></b><small><span class="t-en">world stories, i‘rab, sentences</span><span class="t-ar">الأدب العالمي، الإعراب، الجمل</span></small></a></li>
-  </ol>
 
 
   <a class="sister riyadh" href="https://dictionary.ksaa.gov.sa/" target="_blank" rel="noopener">
@@ -159,6 +157,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
 <script src="assets/ports.js"></script>
 <script src="assets/land.js"></script>
 <script src="assets/seamap.js"></script>
+<script src="assets/journey.js"></script>
 <script>
 (function(){
   var S = Site, read = 0, stars = 0, visited = 0;
@@ -169,7 +168,20 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
   document.getElementById('nPorts').textContent = visited; document.getElementById('tPorts').textContent = PORTS.length;
   document.getElementById('nRead').textContent = read; document.getElementById('nStars').textContent = stars;
 
-  SeaMap.mount(document.getElementById('map'), { root: '' });
+  // the map: the learning voyage (default) or the 27 harbours
+  var view = 'journey'; try { view = sessionStorage.getItem('ar-homemap') || 'journey'; } catch(e) {}
+  var mapEl = document.getElementById('map'), tabs = document.querySelector('.maptabs');
+  function showMap(){
+    tabs.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.v === view); });
+    document.getElementById('plegend').hidden = view !== 'ports';
+    document.getElementById('jpanel').hidden = view !== 'journey';
+    if (view === 'journey') { mapEl.innerHTML = '<div class="jwrap"></div>'; Journey.draw(mapEl.firstChild, { root: '' }); Journey.panel(document.getElementById('jpanel'), { root: '' }); }
+    else SeaMap.mount(mapEl, { root: '' });
+  }
+  tabs.onclick = function(e){ var b = e.target.closest('button'); if (!b || b.dataset.v === view) return; view = b.dataset.v; try { sessionStorage.setItem('ar-homemap', view); } catch(er) {} showMap(); };
+  var rt = 0; window.addEventListener('resize', function(){ if (view !== 'journey') return; clearTimeout(rt); rt = setTimeout(showMap, 200); });
+  document.addEventListener('langchange', function(){ if (view === 'journey') showMap(); });
+  showMap();
 
   // story of the day: changes daily, same for everyone
   var d = new Date(), st = STORIES[(d.getFullYear() * 400 + d.getMonth() * 31 + d.getDate()) % STORIES.length];
