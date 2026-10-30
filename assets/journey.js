@@ -30,7 +30,7 @@
   ];
   // the far harbours, reached by effort (stars gathered anywhere on the site)
   var DEST = [
-    { port: 'adulis', from: 'farasan', need: 3 },
+    { port: 'adulis', from: 'farasan', need: 3, href: 'poetry/index.html', ar: 'مرفأ الشعر', en: 'Harbour of Poetry' },
     { port: 'alexandria', from: 'khuraybah', need: 8 },
     { port: 'zanzibar', from: 'athar', need: 15 },
     { port: 'calicut', from: 'sohar', need: 25 },
@@ -89,14 +89,14 @@
     });
     // far harbours
     var dst = DEST.map(function (d) {
-      var p = port(d.port), q = xy(p.lon, p.lat), c = window.SEAS[p.sea].c, nm = lang === 'en' ? p.en.replace(/\s*\(.*\)/, '') : plain(p.ar);
+      var p = port(d.port), q = xy(p.lon, p.lat), c = window.SEAS[p.sea].c, nm = (lang === 'en' ? p.en.replace(/\s*\(.*\)/, '') : plain(p.ar)) + (d.ar ? ' · ' + (lang === 'en' ? d.en : d.ar) : '');
       var left = { zanzibar: 1, kilwa: 1, adulis: 1, alexandria: 1 }[d.port], tx = q[0] + (left ? -12 : 12) * u, an = left ? 'end' : 'start';
       var dy = ({ adulis: 18 })[d.port] || 0;
       var lbl = '<text class="dn" x="' + f(tx) + '" y="' + f(q[1] + (5 + dy) * u) + '" text-anchor="' + an + '">' + nm + '</text>' +
         (d.ok ? '' : '<text class="need" x="' + f(tx) + '" y="' + f(q[1] + (21 + dy) * u) + '" text-anchor="' + an + '">★ ' + d.need + '</text>');
       var dot = '<circle class="dring" cx="' + f(q[0]) + '" cy="' + f(q[1]) + '" r="' + f(10 * u) + '"/><circle class="ddot" cx="' + f(q[0]) + '" cy="' + f(q[1]) + '" r="' + f(5.5 * u) + '"/>';
       var tip = d.ok ? '' : '<title>' + (lang === 'en' ? 'Gather ' + d.need + ' stars to reach ' + nm : 'اجمع ' + d.need + ' نجمة لتصل إلى ' + nm) + '</title>';
-      return d.ok ? '<a class="dst ok" style="--c:' + c + '" href="' + root + 'ports/port.html?p=' + d.port + '">' + dot + lbl + '</a>'
+      return d.ok ? '<a class="dst ok" style="--c:' + c + '" href="' + root + (d.href || 'ports/port.html?p=' + d.port) + '">' + dot + lbl + '</a>'
                   : '<g class="dst" style="--c:' + c + '">' + tip + dot + lbl + '</g>';
     }).join('');
     // launch harbours = sections
@@ -137,7 +137,7 @@
     var S = window.Site, i = nextIndex(), s = STATIONS[i], all = visited().length >= STATIONS.length, root = opt.root || '', stars = opt.stars || 0;
     var reached = DEST.filter(function (d) { return stars >= d.need; }), next = DEST.filter(function (d) { return stars < d.need; })[0];
     var prev = reached.length ? reached[reached.length - 1].need : 0, pct = next ? Math.round((stars - prev) / (next.need - prev) * 100) : 100;
-    var nm = function (d) { var p = port(d.port); return S.bi(p.en.replace(/\s*\(.*\)/, ''), plain(p.ar)); };
+    var nm = function (d) { var p = port(d.port); return S.bi(p.en.replace(/\s*\(.*\)/, '') + (d.en ? ' · ' + d.en : ''), plain(p.ar) + (d.ar ? ' · ' + d.ar : '')); };
     el.innerHTML =
       '<div class="jfar">' +
         '<div class="jf-top"><span class="jf-st">' + S.icon('star') + '<b>' + stars + '</b> ' + S.bi('stars', 'نجمة') + '</span>' +

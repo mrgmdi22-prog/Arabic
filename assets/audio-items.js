@@ -1,5 +1,5 @@
 // Every text on the site that can carry a recording, with a stable key.
-// s/<story>/<page>, s/<story>/moral · p/<harbour>/<paragraph>, p/<harbour>/fact · w/<theme>/<n> · d/<unit>/<n>
+// s/<story>/<page>, s/<story>/moral · p/<harbour>/<paragraph>, p/<harbour>/fact · w/<theme>/<n> · d/<unit>/<n> · v/<poem>/<line>
 window.audioItems = function () {
   var plain = function (s) { return String(s).replace(/\[([^\]|]+)\|[^\]]+\]/g, '$1').replace(/<br>/g, ' '); };
   var out = [];
@@ -16,6 +16,9 @@ window.audioItems = function () {
   });
   (window.DICTATION || []).forEach(function (u) {
     u.items.forEach(function (it, i) { out.push({ key: 'd/' + u.id + '/' + (i + 1), group: 'dictation', set: u.id, setAr: u.ar, text: it.w, raw: it.w, en: it.en }); });
+  });
+  (window.POEMS || []).forEach(function (p) {
+    p.lines.forEach(function (l, i) { out.push({ key: 'v/' + p.id + '/' + (i + 1), group: 'poetry', set: p.id, setAr: p.poet, text: l[0] + ' … ' + l[1], raw: null, en: i === 0 ? p.en : '' }); });
   });
   out.plain = plain;
   return out;

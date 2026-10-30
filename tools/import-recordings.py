@@ -14,7 +14,7 @@ import io, json, os, re, subprocess, sys, tempfile, time, zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUDIO = os.path.join(ROOT, 'audio')
-KEY = re.compile(r'^([spwd])__([a-z0-9]+)__([a-z0-9]+)$')
+KEY = re.compile(r'^([spwdv])__([a-z0-9]+)__([a-z0-9]+)$')
 FILTER = ('silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.12,'
           'areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.25,areverse,'
           'loudnorm=I=-18:TP=-2:LRA=11,afade=t=in:d=0.02')
@@ -36,6 +36,7 @@ def apply_edits(edits):
     ok, bad, texts = 0, [], {}
     for key, e in sorted(edits.items()):
         g, set_id, _ = key.split('/')
+        if g not in FILES: bad.append(key); continue
         name, far, fen = FILES[g]
         path = os.path.join(ROOT, 'assets', name)
         src = texts.get(path) or io.open(path, encoding='utf-8').read()

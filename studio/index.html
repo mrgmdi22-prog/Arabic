@@ -75,7 +75,7 @@
     <br><b>اختصار:</b> على الحاسوب، اضغط مفتاح المسافة للتسجيل والإيقاف، والسهم الأيسر للنص التالي.
   </div>
   <div class="pick">
-    <select id="grp"><option value="stories">الحكايات</option><option value="ports">المرافئ</option><option value="words">المفردات</option><option value="dictation">الإملاء</option></select>
+    <select id="grp"><option value="stories">الحكايات</option><option value="ports">المرافئ</option><option value="words">المفردات</option><option value="dictation">الإملاء</option><option value="poetry">الشعر</option></select>
     <select id="set"></select>
   </div>
   <div class="prog"><span id="pc"></span><span class="bar"><i id="pb"></i></span><span id="pt"></span></div>
@@ -132,6 +132,7 @@
 <script src="../assets/ports.js"></script>
 <script src="../assets/vocab.js"></script>
 <script src="../assets/dictation.js"></script>
+<script src="../assets/poems.js"></script>
 <script src="../assets/audio-items.js"></script>
 <script>
 (function(){
@@ -176,6 +177,7 @@
   function show(){
     var it = items[idx]; if (!it) return;
     var c = textOf(it), e = edits[it.key];
+    $('bEdit').hidden = it.raw == null; if (it.raw == null) closeEditor();
     $('key').textContent = it.key; $('txt').textContent = c.text; $('en').textContent = c.en;
     $('st').textContent = have[it.key] ? '✓ مسجَّل' : ''; $('bPlay').disabled = !have[it.key];
     var redo = e && have[it.key] && (recAt[it.key] || 0) < e.at;

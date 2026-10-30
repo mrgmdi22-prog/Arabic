@@ -120,6 +120,11 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
       <b><span class="t-en">Harbour of Spelling</span><span class="t-ar">مرفأ الإملاء</span></b>
       <p><span class="t-en">Taa, hamza, final alif, sun and moon letters, tanween and sentences.</span><span class="t-ar">التاء، والهمزة، والألف اللينة، واللام الشمسية والقمرية، والتنوين، والجمل.</span></p>
     </a>
+    <a class="house" href="poetry/index.html" style="--c:#7A4A24;--t:#F5EBE0">
+      <span class="niche"><i data-ic="scroll"></i></span>
+      <b><span class="t-en">Harbour of Poetry</span><span class="t-ar">مرفأ الشعر</span></b>
+      <p><span class="t-en">Famous lines of Arabic poetry at Adulis, the harbour Tarafa sang of: read, listen and complete the line.</span><span class="t-ar">أبيات مشهورة من الشعر العربي في عدولى التي ذكرها طرفة: اقرأ واستمع وأكمل البيت.</span></p>
+    </a>
     <a class="house" href="irab/index.html" style="--c:#34578A;--t:#E6ECF6">
       <span class="niche"><i data-ic="branches"></i></span>
       <b><span class="t-en">I‘rab Lab</span><span class="t-ar">مختبر الإعراب</span></b>
@@ -155,6 +160,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
 <script src="assets/dictation.js"></script>
 <script src="assets/vocab.js"></script>
 <script src="assets/ports.js"></script>
+<script src="assets/poems.js"></script>
 <script src="assets/land.js"></script>
 <script src="assets/seamap.js"></script>
 <script src="assets/journey.js"></script>
@@ -164,6 +170,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
   STORIES.forEach(function(s){ try { if (localStorage.getItem('ar-read-' + s.id)) read++; } catch(e) {} stars += S.getStars('read-' + s.id); });
   DICTATION.forEach(function(u){ ['choose', 'gap', 'look'].forEach(function(m){ stars += S.getStars('dict-' + u.id + '-' + m); }); });
   THEMES.forEach(function(t){ ['cards', 'choose', 'memory', 'letters'].forEach(function(g){ stars += S.getStars('voc-' + t.id + '-' + g); }); });
+  POEMS.forEach(function(p){ stars += S.getStars('poem-' + p.id); });
   PORTS.forEach(function(p){ stars += S.getStars('port-' + p.id); try { if (localStorage.getItem('ar-port-' + p.id)) visited++; } catch(e) {} });
   document.getElementById('nPorts').textContent = visited; document.getElementById('tPorts').textContent = PORTS.length;
   document.getElementById('nRead').textContent = read; document.getElementById('nStars').textContent = stars;
