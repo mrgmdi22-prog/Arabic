@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" data-lang="en" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir='rtl';}catch(e){}</script>
+<title>Traveller's Talk · محادثات السائح · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:center;margin:0 0 14px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg button{border:none;background:none;padding:8px 14px;font-family:var(--kufi);font-weight:600;font-size:1rem;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--teal);color:#fff}
+.cats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}
+.cats button{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:#FFFDF9;border-radius:20px;padding:6px 14px;font-family:var(--kufi);font-size:1rem;cursor:pointer;color:var(--ink)}
+.cats button .ic-svg{width:20px;height:20px}
+.cats button[aria-pressed="true"]{border-color:var(--sea);color:var(--sea);background:#E6F1F6}
+.cat-h{display:flex;align-items:center;gap:10px;margin:26px 0 10px}
+.cat-h h2{margin:0;font-size:1.4rem}
+.cat-h .sadu{flex:1;height:10px;background-size:23px 10px;opacity:.8}
+.talk{background:var(--card);border:1.5px solid var(--line);border-radius:6px;margin-bottom:12px;overflow:hidden}
+.talk summary{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;list-style:none}
+.talk summary::-webkit-details-marker{display:none}
+.talk summary b{font-family:var(--text-ar);font-size:1.4rem;color:var(--sea)}
+.talk summary small{color:var(--muted);font-family:var(--en-serif);font-style:italic;font-size:1rem}
+.talk summary .chev{margin-inline-start:auto;color:var(--muted);transition:transform .2s}
+.talk[open] summary .chev{transform:rotate(-90deg)}
+.talk .body{padding:4px 14px 14px;border-top:1.5px solid var(--line)}
+.roles{display:flex;justify-content:space-between;gap:10px;font-family:var(--kufi);font-size:.92rem;color:var(--muted);margin:10px 0 4px}
+.chat{display:grid;gap:8px}
+.ln{max-width:86%;border-radius:12px;padding:8px 12px;position:relative}
+.ln.t{justify-self:start;background:#E6F1F6;border:1px solid #CBE1EB;border-start-start-radius:3px}
+.ln.l{justify-self:end;background:#FBEFD8;border:1px solid #EFD9B0;border-start-end-radius:3px}
+.ln .who{font-family:var(--kufi);font-size:.8rem;color:var(--muted)}
+.ln .fu,.ln .di{font-family:var(--text-ar);font-size:1.3rem;line-height:1.9;color:var(--ink)}
+.ln .di{color:#7A4A24}
+.ln .lab{font-family:var(--kufi);font-size:.72rem;border-radius:3px;padding:0 6px;margin-inline-end:6px;vertical-align:middle}
+.ln .fu .lab{background:#DDEBE6;color:#2C7A6E}
+.ln .di .lab{background:#F2DFC4;color:#7A4A24}
+.ln .tr{direction:ltr;text-align:left;font-family:var(--ui-en);font-size:.95rem;color:#7A6A58}
+.ln .en{direction:ltr;text-align:left;font-family:var(--en-serif);font-style:italic;color:var(--muted);font-size:1rem}
+.ln .aud{margin-inline-start:6px}
+.tip{display:flex;gap:8px;align-items:flex-start;margin-top:12px;background:var(--sand-soft);border-radius:6px;padding:8px 12px;font-size:1rem;line-height:1.8}
+.tip .ic-svg{flex:none;width:22px;height:22px;color:#B9822F;margin-top:4px}
+.hide-f .fu,.hide-d .di,.hide-d .tr,.hide-en .en{display:none}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="dallah"></i>
+    <h1><span class="t-en">Traveller’s Talk</span><span class="t-ar">محادثات السائح</span></h1>
+    <p><span class="t-en">Short conversations for visiting Saudi Arabia, each in two forms: Standard Arabic (Fusha), understood everywhere, and the Saudi dialect you will hear in the street.</span><span class="t-ar">محادثات قصيرة لزائر السعودية، كل محادثة بصيغتين: الفصحى التي يفهمها الجميع، واللهجة السعودية التي ستسمعها في الشارع.</span></p>
+  </div>
+  <div class="bar">
+    <div class="seg" role="group" id="mode">
+      <button type="button" data-m="both"><span class="t-en">Both</span><span class="t-ar">الاثنتان</span></button>
+      <button type="button" data-m="f"><span class="t-en">Fusha</span><span class="t-ar">الفصحى</span></button>
+      <button type="button" data-m="d"><span class="t-en">Saudi dialect</span><span class="t-ar">اللهجة السعودية</span></button>
+    </div>
+    <button class="tool" type="button" id="bEn"><i data-ic="translate"></i><span class="t-en">English meaning</span><span class="t-ar">المعنى بالإنجليزية</span></button>
+  </div>
+  <div class="cats" id="cats"></div>
+  <div id="list"></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/audio.js"></script>
+<script src="../assets/site.js"></script>
+<script src="../assets/talks.js"></script>
+<script>
+(function(){
+  var S = Site, list = document.getElementById('list');
+  var get = function(k, d){ try { return localStorage.getItem(k) || d; } catch(e) { return d; } };
+  var set = function(k, v){ try { localStorage.setItem(k, v); } catch(e) {} };
+  var mode = get('ar-talk-mode', 'both'), showEn = get('ar-talk-en', '1') === '1', cat = 'all', open = {};
+  function apply(){
+    document.querySelectorAll('#mode button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.m === mode); });
+    document.getElementById('bEn').setAttribute('aria-pressed', showEn);
+    list.className = (mode === 'f' ? 'hide-d' : mode === 'd' ? 'hide-f' : '') + (showEn ? '' : ' hide-en');
+  }
+  function line(t, x, i){
+    var r = t.roles[x.who], n = i + 1;
+    return '<div class="ln ' + x.who + '"><div class="who">' + S.bi(r[1], r[0]) + '</div>' +
+      '<div class="fu"><span class="lab">' + S.t('Fusha', 'فصحى') + '</span>' + x.f + S.audioBtn('t/' + t.id + '/f' + n, '', 'round') + '</div>' +
+      '<div class="di"><span class="lab">' + S.t('Saudi', 'لهجة') + '</span>' + x.d + S.audioBtn('t/' + t.id + '/d' + n, '', 'round') + '</div>' +
+      '<div class="tr">' + S.esc(x.tr) + '</div><div class="en">' + S.esc(x.en) + '</div></div>';
+  }
+  function draw(){
+    document.getElementById('cats').innerHTML = '<button type="button" data-c="all" aria-pressed="' + (cat === 'all') + '">' + S.bi('All', 'الكل') + '</button>' +
+      TALK_CATS.map(function(c){ return '<button type="button" data-c="' + c.id + '" aria-pressed="' + (cat === c.id) + '">' + S.icon(c.ic) + S.bi(c.en, c.ar) + '</button>'; }).join('');
+    list.innerHTML = TALK_CATS.filter(function(c){ return cat === 'all' || cat === c.id; }).map(function(c){
+      return '<div class="cat-h"><h2>' + S.bi(c.en, c.ar) + '</h2><span class="sadu" aria-hidden="true"></span></div>' +
+        TALKS.filter(function(t){ return t.cat === c.id; }).map(function(t){
+          return '<details class="talk" id="' + t.id + '"' + (open[t.id] ? ' open' : '') + '><summary><b>' + t.ar + '</b><small class="t-en">' + t.en + '</small><span class="chev">' + S.icon('next') + '</span></summary>' +
+            '<div class="body"><div class="roles"><span>' + S.bi(t.roles.t[1], t.roles.t[0]) + '</span><span>' + S.bi(t.roles.l[1], t.roles.l[0]) + '</span></div>' +
+            '<div class="chat">' + t.lines.map(function(x, i){ return line(t, x, i); }).join('') + '</div>' +
+            (t.tip ? '<div class="tip">' + S.icon('lantern') + '<span>' + S.bi(S.esc(t.tip.en), t.tip.ar) + '</span></div>' : '') + '</div></details>';
+        }).join('');
+    }).join('');
+    apply();
+  }
+  document.getElementById('mode').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; mode = b.dataset.m; set('ar-talk-mode', mode); apply(); };
+  document.getElementById('bEn').onclick = function(){ showEn = !showEn; set('ar-talk-en', showEn ? '1' : '0'); apply(); };
+  document.getElementById('cats').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; cat = b.dataset.c; draw(); };
+  list.addEventListener('toggle', function(e){ if (e.target.id) open[e.target.id] = e.target.open; }, true);
+  document.addEventListener('langchange', draw);
+  if (location.hash) open[location.hash.slice(1)] = true; else open[TALKS[0].id] = true;
+  draw();
+  if (location.hash) { var el = document.querySelector(location.hash); if (el) el.scrollIntoView(); }
+})();
+</script>
+</body>
+</html>

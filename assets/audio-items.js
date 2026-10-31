@@ -20,6 +20,12 @@ window.audioItems = function () {
   (window.POEMS || []).forEach(function (p) {
     p.lines.forEach(function (l, i) { out.push({ key: 'v/' + p.id + '/' + (i + 1), group: 'poetry', set: p.id, setAr: p.poet, text: l[0] + ' … ' + l[1], raw: null, en: i === 0 ? p.en : '' }); });
   });
+  (window.TALKS || []).forEach(function (t) {
+    t.lines.forEach(function (x, i) {
+      out.push({ key: 't/' + t.id + '/f' + (i + 1), group: 'talk', set: t.id, setAr: t.ar, text: x.f, raw: null, en: 'Fusha · ' + x.en });
+      out.push({ key: 't/' + t.id + '/d' + (i + 1), group: 'talk', set: t.id, setAr: t.ar, text: x.d, raw: null, en: 'Saudi dialect · ' + x.tr });
+    });
+  });
   out.plain = plain;
   return out;
 };
