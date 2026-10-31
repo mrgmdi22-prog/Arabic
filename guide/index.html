@@ -59,6 +59,18 @@ html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
 .sm ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px}
 .sm li a{font-family:var(--kufi);font-weight:600;color:var(--sea);text-decoration:none}
 .sm li small{display:block;color:var(--muted);font-size:.9rem}
+.rt-h{margin:16px 0 4px;font-size:1.15rem;color:var(--rose)}
+.rsteps{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;direction:rtl;margin:10px 0}
+.rs{display:flex;flex-direction:column;align-items:center;border:1.5px solid var(--line);border-radius:8px;padding:4px 14px;background:#FFFDF9}
+.rs small{font-family:var(--kufi);font-size:.8rem;color:var(--muted)}
+.rs b{font-family:var(--text-ar);font-size:1.7rem;line-height:1.7}
+.rs s,.rtry s{color:#C9775F;text-decoration-thickness:2px}
+.rs.r{background:var(--rose-soft);border-color:#E7C3B6}.rs.r b{color:var(--rose)}
+.ar-arrow{font-size:1.4rem;color:#B9822F}
+@media (max-width:560px){.rsteps{gap:4px}.rs{padding:2px 8px}.rs b{font-size:1.35rem}.ar-arrow{font-size:1.1rem}}
+.rtry{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px;direction:rtl;margin:6px 0 10px}
+.rtry span{font-family:var(--text-ar);font-size:1.25rem;background:#FBF6EE;border-radius:6px;padding:2px 12px;text-align:center}
+.rtry em{font-style:normal;color:var(--rose);font-weight:700}
 </style>
 </head>
 <body data-root="../">
@@ -149,6 +161,20 @@ html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
     <h2><i data-ic="search"></i><span class="t-en">3. How to use an Arabic dictionary</span><span class="t-ar">٣. كيف تبحث في المعجم العربي</span></h2>
     <p><span class="t-en">Most Arabic words grow from a root of three letters. Many classic dictionaries are arranged by root, so first find the root, then the word under it:</span><span class="t-ar">تعود أكثر الكلمات العربية إلى جذر من ثلاثة أحرف، وكثير من المعاجم مرتّب على الجذور؛ فابحث أولاً عن الجذر، ثم عن الكلمة تحته:</span></p>
     <div class="root"><span class="r">ك ت ب</span><span>كَتَبَ</span><span>كِتَابٌ</span><span>كَاتِبٌ</span><span>مَكْتَبٌ</span><span>مَكْتَبَةٌ</span></div>
+    <h3 class="rt-h"><span class="t-en">How to find the root of any word</span><span class="t-ar">كيف تستخرج جذر أي كلمة؟</span></h3>
+    <p><span class="t-en">Turn the word into a present-tense verb, then drop the present-tense letter at its start (يـ). What is left is the root:</span><span class="t-ar">حوّل الكلمة إلى فعل مضارع، ثم احذف حرف المضارعة من أوله (الياء)، فيبقى لك الجذر:</span></p>
+    <div class="rsteps">
+      <div class="rs"><small><span class="t-en">the word</span><span class="t-ar">الكلمة</span></small><b>مَكْتَبَة</b></div><span class="ar-arrow">←</span>
+      <div class="rs"><small><span class="t-en">present verb</span><span class="t-ar">الفعل المضارع</span></small><b><s>يَـ</s>كْتُبُ</b></div><span class="ar-arrow">←</span>
+      <div class="rs r"><small><span class="t-en">the root</span><span class="t-ar">الجذر</span></small><b>ك ت ب</b></div>
+    </div>
+    <div class="rtry">
+      <span><b>مَدْرَسَة</b> ← <s>يَـ</s>دْرُسُ ← <em>د ر س</em></span>
+      <span><b>مَلْعَب</b> ← <s>يَـ</s>لْعَبُ ← <em>ل ع ب</em></span>
+      <span><b>مَشْرُوب</b> ← <s>يَـ</s>شْرَبُ ← <em>ش ر ب</em></span>
+      <span><b>عِلْم</b> ← <s>يَـ</s>عْلَمُ ← <em>ع ل م</em></span>
+    </div>
+    <p><span class="t-en">Then look the root up in the dictionary: all its family of words is listed under it.</span><span class="t-ar">ثم ابحث عن الجذر في المعجم، فتجد تحته أسرة الكلمة كلها.</span></p>
     <p><span class="t-en">Other dictionaries are alphabetical by the whole word; bilingual dictionaries give the meaning in your language; picture dictionaries show the meaning with images. This site’s</span><span class="t-ar">ومعاجم أخرى ترتّب الكلمة كما تُكتب على الحروف، والمعاجم الثنائية تعطيك المعنى بلغتك، والمعاجم المصوّرة تعرضه بالصور. أما</span> <a href="../vocab/dictionary.html" style="color:var(--indigo)"><span class="t-en">dictionary</span><span class="t-ar">معجم هذا الموقع</span></a> <span class="t-en">is bilingual and alphabetical, ignoring “al-”.</span><span class="t-ar">فثنائي اللغة، مرتّب على الحروف بعد «ال».</span></p>
     <p><span class="t-en">For a full dictionary of today’s Arabic, with meanings, examples and pronunciation, use the</span><span class="t-ar">وللبحث في معجم كامل للعربية المعاصرة بالمعاني والأمثلة والنطق، استعمل</span> <a href="https://dictionary.ksaa.gov.sa/" target="_blank" rel="noopener" style="color:var(--indigo)"><span class="t-en">Riyadh Dictionary</span> «معجم الرياض للغة العربية المعاصرة»</a><span class="t-en"> (King Salman Global Academy for the Arabic Language).</span><span class="t-ar"> من مجمع الملك سلمان العالمي للغة العربية.</span></p>
   </section>
