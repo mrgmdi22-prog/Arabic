@@ -128,7 +128,7 @@ html[data-lang="en"] .vhead h1{display:block}
         bs.forEach(function(x){ x.disabled = true; if (x.dataset.ok === '1') x.classList.add('ok'); });
         if (!ok) b.classList.add('no'); else score++;
         var fb = document.getElementById('fb'); fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
-        fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ') + ' <span class="ar">' + w.a + '</span> = ' + S.esc(w.e);
+        fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ') + ' <span class="ar">' + w.a + '</span> = ' + S.esc(w.e) + (w.t ? ' <span class="t-en" style="font-family:var(--ui-en);font-weight:400">(' + S.esc(w.t) + ')</span>' : '');
         document.getElementById('nx').style.display = ''; document.getElementById('bNext').onclick = function(){ i++; draw(); };
       }; });
     }

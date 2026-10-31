@@ -98,11 +98,11 @@ html[data-lang="ar"] .qen{display:none}
     if (q.t === 'order') wireOrder(); else wireChoice(q);
   }
 
-  function answered(ok, extra){
+  function answered(ok, extra, isOrder){
     if (ok) score++;
     var fb = document.getElementById('fb');
     fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
-    fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ' + S.bi('Not quite. The right order:', 'ليست الإجابة الصحيحة.')) + (extra || '');
+    fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ' + (isOrder ? S.bi('Not quite. The right order:', 'ليس هذا الترتيب. الترتيب الصحيح:') : S.bi('Not quite.', 'ليست الإجابة الصحيحة.'))) + (extra || '');
     document.getElementById('nextRow').style.display = '';
     document.getElementById('bNext').onclick = function(){ i++; draw(); };
     document.getElementById('bNext').focus();
@@ -121,7 +121,7 @@ html[data-lang="ar"] .qen{display:none}
           if (isRight) x.classList.add('ok');
         });
         if (!ok) b.classList.add('no');
-        answered(ok);
+        var cq = st.quiz[i] || {}; answered(ok, S.evidence(cq.q || '', cq.t === 'tf' ? '' : (cq.o || [])[cq.a], st.pages));
       };
     });
   }
@@ -139,7 +139,7 @@ html[data-lang="ar"] .qen{display:none}
           evs.forEach(function(x){ x.disabled = true; x.classList.add(+x.dataset.k === picked.indexOf(x) ? 'ok' : 'no'); });
           document.getElementById('bReset').disabled = true;
           var right = '<div class="ar" style="margin-top:8px;font-weight:600">' + st.order.map(function(t, k){ return (k + 1) + '. ' + S.esc(t); }).join('<br>') + '</div>';
-          answered(ok, ok ? '' : right);
+          answered(ok, ok ? '' : right, true);
         }
       };
     });

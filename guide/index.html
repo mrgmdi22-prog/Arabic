@@ -49,6 +49,10 @@ td.a{font-family:var(--text-ar);font-size:1.3rem;direction:rtl}
 html[data-lang="en"] .ch h2{flex-direction:row;flex-wrap:wrap;gap:4px 10px}
 html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
 .credit{margin-top:22px;text-align:center;color:var(--muted);font-size:.98rem}
+.marks{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+.marks span{display:flex;flex-direction:column;align-items:center;background:#FBF6EE;border:1px solid var(--line);border-radius:6px;padding:4px 12px;min-width:84px}
+.marks b{font-family:var(--text-ar);font-size:2rem;line-height:1.6;color:var(--sea)}
+.marks small{direction:ltr;font-family:var(--ui-en);color:var(--muted)}
 </style>
 </head>
 <body data-root="../">
@@ -60,6 +64,7 @@ html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
     <p><span class="t-en">How to learn Arabic step by step, and where to find each step on this site.</span><span class="t-ar">كيف تتعلّم العربية خطوةً خطوةً، وأين تجد كل خطوة في هذا الموقع.</span></p>
   </div>
   <nav class="toc">
+    <a href="#start"><span class="t-en">Start here</span><span class="t-ar">ابدأ هنا</span></a>
     <a href="#levels"><span class="t-en">Levels</span><span class="t-ar">المستويات</span></a>
     <a href="#skills"><span class="t-en">The four skills</span><span class="t-ar">المهارات الأربع</span></a>
     <a href="#dict"><span class="t-en">Using a dictionary</span><span class="t-ar">استعمال المعجم</span></a>
@@ -68,6 +73,18 @@ html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
     <a href="#proverbs"><span class="t-en">Proverbs</span><span class="t-ar">الأمثال</span></a>
     <a href="#resources"><span class="t-en">Resources</span><span class="t-ar">مصادر</span></a>
   </nav>
+
+  <section class="ch" id="start" style="--c:var(--sea)">
+    <h2><i data-ic="compass"></i><span class="t-en">Start here: new to Arabic?</span><span class="t-ar">ابدأ هنا: جديد على العربية؟</span></h2>
+    <p><span class="t-en">Arabic is read and written from right to left. It has 28 letters, and most letters join to the next one, so a letter changes its shape a little at the start, middle or end of a word: بـ ـبـ ـب.</span><span class="t-ar">تُقرأ العربية وتُكتب من اليمين إلى اليسار، وحروفها ثمانية وعشرون، ومعظمها يتصل بما بعده، فيتغيّر شكل الحرف قليلاً في أول الكلمة ووسطها وآخرها: بـ ـبـ ـب.</span></p>
+    <p><span class="t-en">Short vowels are small marks above or below the letters. On this site most texts carry them, so you can read every word:</span><span class="t-ar">الحركات القصيرة علامات صغيرة فوق الحروف أو تحتها، ومعظم نصوص الموقع مشكولة لتقرأ كل كلمة:</span></p>
+    <div class="marks">
+      <span><b>بَ</b><small>fatha · a</small></span><span><b>بُ</b><small>damma · u</small></span><span><b>بِ</b><small>kasra · i</small></span><span><b>بْ</b><small>sukun · no vowel</small></span>
+      <span><b>بّ</b><small>shadda · double bb</small></span><span><b>باً</b><small>tanween · -an</small></span><span><b>بٌ</b><small>tanween · -un</small></span><span><b>بٍ</b><small>tanween · -in</small></span>
+    </div>
+    <p><span class="t-en">Long vowels are letters: ا = aa, و = uu, ي = ii (بَاب bāb, نُور nūr, كَبِير kabīr).</span><span class="t-ar">الحركات الطويلة حروف: الألف والواو والياء (بَاب، نُور، كَبِير).</span></p>
+    <p><span class="t-en">Where to begin: follow the learning voyage on the home page. Start with the Harbour of Words and the Common Words, then the Tales (tap a coloured word to see its meaning), then Understanding and Spelling. Use the button at the top to switch the site between English and Arabic: in English you will also see the meaning of grammar terms and a short reason after each answer.</span><span class="t-ar">من أين تبدأ؟ اتبع رحلة التعلّم في الصفحة الرئيسية: ابدأ بمرفأ المفردات والكلمات الشائعة، ثم الحكايات (المس الكلمة الملوّنة لترى معناها)، ثم الفهم والإملاء. وبالزر في أعلى الصفحة تبدّل لغة الموقع بين الإنجليزية والعربية.</span></p>
+  </section>
 
   <section class="ch" id="levels" style="--c:var(--rose)">
     <h2><i data-ic="anchor"></i><span class="t-en">1. Your path: four levels</span><span class="t-ar">١. طريقك: أربعة مستويات</span></h2>

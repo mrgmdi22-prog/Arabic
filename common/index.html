@@ -28,6 +28,7 @@
 .wc .w{font-family:var(--text-ar);font-size:1.9rem;font-weight:700;color:var(--teal)}
 .wc .pos{font-family:var(--kufi);font-size:.8rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px}
 .wc .rk{margin-inline-start:auto;font-family:var(--ui-en);font-size:.8rem;color:#B08A2E}
+.wc .tl{direction:ltr;text-align:left;font-family:var(--ui-en);color:#8A5A12;font-size:1rem}
 .wc .m{direction:ltr;text-align:left;font-family:var(--en-serif);font-size:1.15rem;color:var(--ink)}
 .wc .ex{font-family:var(--text-ar);font-size:1.2rem;line-height:1.9;margin-top:6px}
 .wc .ex mark{background:#FBEFD8;color:#7A4A24;border-radius:3px;padding:0 3px}
@@ -115,7 +116,7 @@ html[data-lang="en"] .stages button .t-ar,html[data-lang="en"] .modes button .t-
   function learn(U, box){
     box.innerHTML = '<div class="cards">' + U.words.map(function(w){
       return '<div class="wc"><div class="top"><span class="w">' + w[1] + '</span><span class="pos">' + w[2] + '</span>' + S.audioBtn('r/u' + U.n + '/w' + w[0], '', 'round') + '<span class="rk">#' + w[0] + '</span></div>' +
-        '<div class="m">' + S.esc(w[3]) + '</div><div class="ex">' + exHtml(w[4], 'mark') + S.audioBtn('r/u' + U.n + '/e' + w[0], '', 'round') + '</div><div class="exe">' + S.esc(w[5]) + '</div></div>';
+        '<div class="tl t-en">' + S.translit(w[1]) + '</div><div class="m">' + S.esc(w[3]) + '</div><div class="ex">' + exHtml(w[4], 'mark') + S.audioBtn('r/u' + U.n + '/e' + w[0], '', 'round') + '</div><div class="exe">' + S.esc(w[5]) + '</div></div>';
     }).join('') + '</div><div class="btnrow"><button class="btn" type="button" id="toP">' + S.bi('Practise', 'تدرّب') + S.icon('next') + '</button></div>';
     document.getElementById('toP').onclick = function(){ go({ s: 'practice' }); };
   }
@@ -137,7 +138,10 @@ html[data-lang="en"] .stages button .t-ar,html[data-lang="en"] .modes button .t-
         '<div class="opts">' + q.opts.map(function(o, k){ return '<button type="button" class="' + (o.en ? 'en' : '') + '" data-k="' + k + '">' + (o.en ? S.esc(o.t) : o.t) + '</button>'; }).join('') + '</div><div class="msg"></div></div>';
       box.querySelector('.opts').onclick = function(e){
         var b = e.target.closest('button'); if (!b || b.disabled) return; var o = q.opts[+b.dataset.k];
-        if (o.ok) { b.classList.add('ok'); if (!tried) score++; box.querySelectorAll('.opts button').forEach(function(x){ x.disabled = true; }); setTimeout(function(){ i++; one(); }, 700); }
+        if (o.ok) { b.classList.add('ok'); if (!tried) score++; box.querySelectorAll('.opts button').forEach(function(x){ x.disabled = true; });
+          var w = q.w; box.querySelector('.msg').innerHTML = S.why('<span class="why-ar">' + w[1] + ' <span class="t-en" style="font-family:var(--ui-en);font-size:1rem;color:var(--muted)">' + S.translit(w[1]) + '</span> = <span style="font-family:var(--en-serif)">' + S.esc(w[3]) + '</span></span><span class="why-ar" style="font-size:1.1rem">' + w[4].replace(/[\[\]]/g, '') + '</span><span class="why-en t-en">' + S.esc(w[5]) + '</span>') +
+            '<div class="btnrow"><button class="btn" type="button" id="qNext">' + S.bi('Next', 'التالي') + S.icon('next') + '</button></div>';
+          document.getElementById('qNext').onclick = function(){ i++; one(); }; }
         else { b.classList.add('no'); b.disabled = true; tried = true; box.querySelector('.msg').textContent = S.t('Try again', 'حاول مرة أخرى'); }
       };
     })();

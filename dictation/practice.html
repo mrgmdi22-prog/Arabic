@@ -69,11 +69,32 @@
       '<div class="q-progress"><i style="width:' + (i / items.length * 100) + '%"></i></div>';
   }
   function tail(){ return '<div class="feedback" id="fb"></div><div class="btn-row" id="nextRow" style="display:none"><button class="btn" style="background:var(--uc)" type="button" id="bNext">' + S.bi('Next', 'التالي') + S.icon('next') + '</button></div>'; }
+  // a short reason after each answer, by the letter the word turns on (falls back to the unit's rule)
+  var WHY = {
+    'ة': ['Tied taa (ة): stop on the word and you hear “h”.', 'تاء مربوطة: إذا وقفت عليها نطقتها هاءً.'],
+    'ت': ['Open taa (ت): it is always heard as “t”, and verbs end in ت.', 'تاء مفتوحة: تُنطق تاءً دائماً، وتأتي في آخر الفعل.'],
+    'ه': ['Haa (ه): there is no “t” sound at all.', 'هاء: لا يُسمع فيها صوت التاء أبداً.'],
+    'أ': ['Hamza on alif (أ): fatha or damma is the strongest vowel around it.', 'همزة على الألف: أقوى حركة حولها الفتحة أو الضمة.'],
+    'إ': ['Hamza under alif (إ): the word begins with a kasra.', 'همزة تحت الألف: في أول الكلمة مع الكسرة.'],
+    'ؤ': ['Hamza on waw (ؤ): damma is the strongest vowel around it.', 'همزة على الواو: أقوى حركة حولها الضمة.'],
+    'ئ': ['Hamza on a yaa seat (ئ): kasra is the strongest vowel around it.', 'همزة على النبرة: أقوى حركة حولها الكسرة.'],
+    'ء': ['Hamza alone (ء): at the end of a word after a long vowel or sukun.', 'همزة على السطر: في آخر الكلمة بعد مدّ أو سكون.'],
+    'ا': ['Tall alif (ا): this long “aa” comes from و (يَدْعُو ← دَعَا).', 'ألف قائمة: أصلها واو.'],
+    'ى': ['Alif maqsura (ى): this long “aa” comes from ي (يَمْشِي ← مَشَى).', 'ألف مقصورة: أصلها ياء.'],
+    'ال': ['We always write ال at the start of a definite word, even when the ل is silent.', 'تُكتب «ال» في أول الكلمة المعرّفة دائماً، حتى لو لم تُنطق اللام.'],
+    'اً': ['“-an” at the end: add an alif (كِتَاباً), but not after ة or after ءا.', 'تنوين الفتح: نزيد ألفاً (كِتَاباً)، إلا بعد التاء المربوطة أو بعد ءا.'],
+    'ً': ['“-an” at the end: add an alif (كِتَاباً), but not after ة or after ءا.', 'تنوين الفتح: نزيد ألفاً (كِتَاباً)، إلا بعد التاء المربوطة أو بعد ءا.']
+  };
+  function whyFor(it){
+    var w = WHY[it.a];
+    if (!w) { var first = function(s){ return String(s || '').split(/(?<=[.؛])\s/)[0]; }; w = [first(U.ruleEn), first(U.ruleAr)]; }
+    return w[0] ? S.why(S.bi(S.esc(w[0]), w[1])) : '';
+  }
   function done(ok, html){
     if (ok) score++;
     var fb = document.getElementById('fb');
     fb.className = 'feedback on ' + (ok ? 'ok' : 'no');
-    fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ' + S.bi('The correct spelling:', 'الكتابة الصحيحة:')) + (html || '');
+    fb.innerHTML = (ok ? S.icon('check') + ' ' + S.bi('Correct!', 'أحسنت!') : S.icon('cross') + ' ' + S.bi('The correct spelling:', 'الكتابة الصحيحة:')) + (html || '') + whyFor(items[i]);
     document.getElementById('nextRow').style.display = '';
     var n = document.getElementById('bNext'); n.onclick = function(){ i++; draw(); }; n.focus();
   }

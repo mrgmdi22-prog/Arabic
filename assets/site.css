@@ -100,6 +100,11 @@ html[data-lang="ar"] .t-en{display:none!important}
 .opt.ok{background:var(--green-soft);border-color:var(--green)}
 .opt.no{background:var(--red-soft);border-color:var(--red)}
 .opt:disabled{cursor:default}
+.why{display:flex;gap:10px;align-items:flex-start;margin-top:10px;padding:10px 14px;border-radius:8px;background:#FBF5EA;border:1px solid #EFD9B0;font-weight:400;color:var(--ink);text-align:start}
+.why .ic-svg{flex:none;width:22px;height:22px;color:#B9822F;margin-top:3px}
+.why > div{display:flex;flex-direction:column;gap:4px;font-family:var(--kufi);font-size:.95rem;color:#8A5A12}
+.why .why-ar{font-family:var(--text-ar);font-size:1.25rem;line-height:1.9;color:var(--ink);font-weight:500}
+.why .why-en{font-family:var(--en-serif);font-style:italic;font-size:1.02rem;color:var(--muted);direction:ltr;text-align:left}
 .feedback{margin-top:14px;border-radius:8px;padding:12px 16px;font-family:var(--kufi);font-weight:600;display:none}
 .feedback.on{display:block}
 .feedback.ok{background:var(--green-soft);color:var(--green)}

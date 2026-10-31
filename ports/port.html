@@ -119,6 +119,7 @@ html[data-lang="ar"] .q .qen{display:none}
         var right = function(x){ return q.t === 'tf' ? (x.dataset.v === '1') === q.a : +x.dataset.i === q.a; }, ok = right(b);
         bs.forEach(function(x){ x.disabled = true; if (right(x)) x.classList.add('ok'); });
         if (!ok) b.classList.add('no');
+        box.insertAdjacentHTML('beforeend', S.evidence(q.q, q.t === 'tf' ? '' : q.o[q.a], P.text));
         done++; if (ok) score++;
         if (done === P.quiz.length) {
           var st = S.starsFor(score, P.quiz.length); S.saveStars('port-' + P.id, st);

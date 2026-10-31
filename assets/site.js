@@ -200,6 +200,52 @@
   }
   document.addEventListener('click', function (e) { var b = e.target.closest('.aud[data-aud]'); if (!b) return; e.preventDefault(); e.stopPropagation(); playAudio(b.dataset.aud.split(' '), b); });
 
-  window.Site = { strip: strip, norm: norm, getStars: getStars, saveStars: saveStars, starsFor: starsFor, shuffle: shuffle, esc: esc,
+  // ---------- explanations after an answer ----------
+  // evidence(question, answer, pages): the sentence of the text that holds the answer, with the English of that page.
+  var STOPW = ' في من الى إلى على عن ان أن كان كانت هذا هذه ذلك التي الذي ما لا لم قد ثم او أو مع كل هل لماذا ماذا متى اين أين كيف كم بعد قبل عند بين وهو وهي هو هي ';
+  function words(s) { return norm(s).replace(/[^\u0621-\u064A\s]/g, ' ').split(/\s+/).filter(function (w) { return w.length > 2 && STOPW.indexOf(' ' + w + ' ') < 0; }).map(function (w) { return w.replace(/^(وال|فال|بال|كال|ال|و|ف|ب|ل)(?=..)/, ''); }); }
+  function evidence(q, ans, pages) {
+    var key = words(q + ' ' + (ans || '')), best = null, bs = 0;
+    pages.forEach(function (p) {
+      var txt = String(p.ar).replace(/\[([^\]|]+)\|[^\]]+\]/g, '$1').replace(/<br>/g, ' ');
+      txt.split(/(?<=[.!؟?»])\s+/).forEach(function (sen) {
+        var ws = words(sen), sc = 0; key.forEach(function (k) { if (ws.some(function (w) { return w === k || (k.length > 3 && (w.indexOf(k) >= 0 || k.indexOf(w) >= 0) && w.length > 3); })) sc++; });
+        if (sc > bs) { bs = sc; best = { ar: sen, en: p.en }; }
+      });
+    });
+    if (!best || bs < 1) return '';
+    return why(bi('In the text:', 'في النص:') + '<span class="why-ar">' + esc(best.ar) + '</span>' + (best.en ? '<span class="why-en t-en">' + esc(best.en) + '</span>' : ''));
+  }
+  function why(html) { return '<div class="why">' + icon('lantern') + '<div>' + html + '</div></div>'; }
+
+  // Arabic → Latin letters, for fully vowelled words (a learner's guide to sounds, not a strict scheme)
+  var TL = { 'ا': 'ā', 'أ': 'ʾ', 'إ': 'ʾ', 'آ': 'ʾā', 'ء': 'ʾ', 'ؤ': 'ʾ', 'ئ': 'ʾ', 'ب': 'b', 'ت': 't', 'ث': 'th', 'ج': 'j', 'ح': 'ḥ', 'خ': 'kh', 'د': 'd', 'ذ': 'dh', 'ر': 'r', 'ز': 'z', 'س': 's', 'ش': 'sh', 'ص': 'ṣ', 'ض': 'ḍ', 'ط': 'ṭ', 'ظ': 'ẓ', 'ع': 'ʿ', 'غ': 'gh', 'ف': 'f', 'ق': 'q', 'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n', 'ه': 'h', 'و': 'w', 'ي': 'y', 'ة': 'a', 'ى': 'ā' };
+  function translit(s) {
+    s = String(s).replace(/[\[\]]/g, '').replace(/^ال/, 'الْ');
+    var out = '', ch = Array.from(s), taa = 0;
+    for (var i = 0; i < ch.length; i++) {
+      var c = ch[i], n = ch[i + 1], p = out.slice(-1);
+      if (c === 'َ') { if (n === 'ا' || n === 'ى') { out += 'ā'; i++; } else out += 'a'; continue; }
+      if (c === 'ُ') { if (n === 'و' && ch[i + 2] !== 'َ' && ch[i + 2] !== 'ِ' && ch[i + 2] !== 'ُ' && ch[i + 2] !== 'ّ') { out += 'ū'; i++; } else out += 'u'; continue; }
+      if (c === 'ِ') { if (n === 'ي' && ch[i + 2] !== 'َ' && ch[i + 2] !== 'ُ' && ch[i + 2] !== 'ِ' && ch[i + 2] !== 'ّ') { out += 'ī'; i++; } else out += 'i'; continue; }
+      if (c === 'ْ' || c === 'ـ') continue;
+      if (c === 'ّ') { var m = out.match(/(th|kh|dh|sh|gh|[^aiuāīū\s-])([aiu]?)$/); if (m) out = out.slice(0, out.length - m[0].length) + m[1] + m[1] + m[2]; continue; }
+      if (c === 'ً') { out += 'an'; if (n === 'ا' || n === 'ى') i++; continue; }
+      if (c === 'ٌ' || c === 'ٍ') continue;           // case endings are left out
+      if (c === 'ٰ') { out += 'ā'; continue; }
+      if (c === 'ا' && i === 0) { out += (n === 'ل' ? 'a' : 'i'); continue; }
+      if (c === 'ا' && n === 'ً') continue;
+      if (c === 'ا' && (p === 'a' || p === 'ā')) { if (p === 'a') out = out.slice(0, -1) + 'ā'; continue; }
+      if (c === 'ل' && i === 1 && ch[0] === 'ا') { out = 'al-'; continue; }
+      if (c === ' ') { out += ' '; continue; }
+      if (c === 'ة') { if (/ā$/.test(out)) out += 'h'; else if (!/a$/.test(out)) out += 'a'; if (/[َُِ]/.test(n || '')) i++; taa = 1; continue; }
+      out += TL[c] !== undefined ? TL[c] : '';
+    }
+    out = out.replace(/^ʾ(?=[aiuāīū])/, '').replace(/iyy$/, 'ī').replace(/uww$/, 'ū');
+    if (/^al-/.test(out)) out = (taa ? out : out.replace(/[aiu]$/, '')).replace(/^al-(th|dh|sh|t|d|r|z|s|ṣ|ḍ|ṭ|ẓ|l|n)\1/, 'a$1-$1');
+    return out;
+  }
+
+  window.Site = { evidence: evidence, why: why, translit: translit, strip: strip, norm: norm, getStars: getStars, saveStars: saveStars, starsFor: starsFor, shuffle: shuffle, esc: esc,
     lang: lang, t: t, bi: bi, icon: icon, I: I, hasAudio: hasAudio, playAudio: playAudio, stopAudio: stopAudio, audioBtn: audioBtn, stars: stars, hydrate: hydrate, reveal: function () {}, root: root, ENGLISH_CLUB: ENGLISH_CLUB };
 })();
