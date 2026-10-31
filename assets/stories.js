@@ -4,7 +4,8 @@
 window.COLLECTIONS = {
   kd: { ar: 'حِكَايَاتُ كَلِيلَةَ وَدِمْنَةَ', en: 'Kalila wa Dimna', note: { en: 'Retold in simple Arabic from Kalila wa Dimna (Ibn al-Muqaffa’).', ar: 'بتصرّف مبسّط عن كتاب كليلة ودمنة لابن المقفع.' } },
   ln: { ar: 'حِكَايَاتُ أَلْفِ لَيْلَةٍ وَلَيْلَةٍ', en: 'One Thousand and One Nights', note: { en: 'Retold in simple Arabic from One Thousand and One Nights.', ar: 'بتصرّف مبسّط عن حكايات ألف ليلة وليلة.' } },
-  mp: { ar: 'قِصَصٌ مِنَ الأَدَبِ العَالَمِيِّ: مُوبَاسَان', en: 'World stories: Guy de Maupassant', note: { en: 'Retold in simple Arabic from a story by Guy de Maupassant (1850–1893).', ar: 'بتصرّف مبسّط عن قصة للكاتب الفرنسي جي دي موباسان (١٨٥٠–١٨٩٣م).' } }
+  mp: { ar: 'قِصَصٌ مِنَ الأَدَبِ العَالَمِيِّ: مُوبَاسَان', en: 'World stories: Guy de Maupassant', note: { en: 'Retold in simple Arabic from a story by Guy de Maupassant (1850–1893).', ar: 'بتصرّف مبسّط عن قصة للكاتب الفرنسي جي دي موباسان (١٨٥٠–١٨٩٣م).' } },
+  ul: { ar: 'أَعْلَامٌ خَدَمُوا العَرَبِيَّةَ', en: 'Scholars from many lands who served Arabic', note: { en: 'Scholars and poets from Persia, Central Asia, the Greek world and Africa who built Arabic grammar, dictionaries and eloquence. Retold simply.', ar: 'علماء وشعراء من فارس وآسيا الوسطى والروم وإفريقيا خدموا نحو العربية ومعاجمها وبلاغتها. بتصرّف مبسّط.' } }
 };
 window.STORIES = [
 {
@@ -435,7 +436,160 @@ window.STORIES = [
     { t: 'mcq', q: 'مَنْ كَشَفَ خُطَّةَ اللُّصُوصِ؟', qen: 'Who uncovered the thieves’ plan?', o: ['مَرْجَانَةُ', 'قَاسِمٌ', 'رَئِيسُ اللُّصُوصِ'], a: 0 }
   ],
   order: ['رَأَى عَلِي بَابَا اللُّصُوصَ أَمَامَ الصَّخْرَةِ.', 'دَخَلَ عَلِي بَابَا المَغَارَةَ.', 'نَسِيَ قَاسِمٌ الكَلِمَةَ.', 'كَشَفَتْ مَرْجَانَةُ خُطَّةَ اللُّصُوصِ.']
+},
+{
+  id: 'sibawayh', col: 'ul', ar: 'سِيبَوَيْهِ', en: 'Sibawayh', level: 3, icon: 'book',
+  cover: '', partner: '', bg: ['#E6ECF6', '#FBEFD8'], c: '#34578A',
+  pages: [
+    { ar: 'وُلِدَ عَمْرُو بْنُ عُثْمَانَ فِي بِلَادِ فَارِسَ، وَلَقَبُهُ «سِيبَوَيْهِ»، وَمَعْنَاهُ بِالفَارِسِيَّةِ «[رَائِحَةُ|the scent of] التُّفَّاحِ». وَلَمْ تَكُنِ العَرَبِيَّةُ لُغَتَهُ الأُولَى.',
+      en: 'ʿAmr ibn ʿUthman was born in Persia. His nickname was “Sibawayh”, which in Persian means “the scent of apples”. Arabic was not his first language.' },
+    { ar: 'جَاءَ إِلَى البَصْرَةِ شَابّاً لِيَتَعَلَّمَ الحَدِيثَ. وَفِي يَوْمٍ قَرَأَ أَمَامَ شَيْخِهِ فَأَخْطَأَ فِي حَرَكَةِ كَلِمَةٍ، فَقَالَ لَهُ الشَّيْخُ: «[لَحَنْتَ|you made a grammar mistake]!».',
+      en: 'He came to Basra as a young man to study hadith. One day he read aloud before his teacher and got the ending of a word wrong. The teacher said: “You have made a grammar mistake!”' },
+    { ar: 'فَقَالَ سِيبَوَيْهِ: «سَأَطْلُبُ عِلْماً لَا تُخَطِّئُنِي فِيهِ أَبَداً». فَتَعَلَّمَ النَّحْوَ عَلَى يَدِ [الخَلِيلِ بْنِ أَحْمَدَ|al-Khalil ibn Ahmad, a great scholar]، وَلَازَمَهُ سِنِينَ طَوِيلَةً.',
+      en: 'Sibawayh said: “I will seek a knowledge in which you will never fault me.” He learned grammar from al-Khalil ibn Ahmad and stayed with him for many years.' },
+    { ar: 'ثُمَّ كَتَبَ كِتَاباً عَظِيماً سَمَّاهُ العُلَمَاءُ «الكِتَابَ» فَقَطْ، وَقَالُوا عَنْهُ: «[قُرْآنُ النَّحْوِ|the Quran of grammar, i.e. its basic book]». وَمَاتَ سِيبَوَيْهِ شَابّاً، لَكِنَّ كِتَابَهُ مَا زَالَ يُدْرَسُ إِلَى اليَوْمِ.',
+      en: 'Then he wrote a great book that scholars simply called “The Book”, and they described it as “the Quran of grammar”. Sibawayh died young, but his book is still studied today.' }
+  ],
+  moral: { ar: 'الخَطَأُ قَدْ يَكُونُ بِدَايَةَ طَرِيقِ العِلْمِ.', en: 'A mistake can be the start of the road to knowledge.' },
+  quiz: [
+    { t: 'mcq', q: 'مِنْ أَيْنَ جَاءَ سِيبَوَيْهِ؟', qen: 'Where did Sibawayh come from?', o: ['مِنْ بِلَادِ فَارِسَ', 'مِنَ اليَمَنِ', 'مِنَ الأَنْدَلُسِ'], a: 0 },
+    { t: 'mcq', q: 'مَا مَعْنَى «سِيبَوَيْهِ»؟', qen: 'What does “Sibawayh” mean?', o: ['رَائِحَةُ التُّفَّاحِ', 'نُورُ القَمَرِ', 'صَاحِبُ الكِتَابِ'], a: 0 },
+    { t: 'tf', q: 'تَعَلَّمَ سِيبَوَيْهِ النَّحْوَ لِأَنَّهُ أَخْطَأَ فِي القِرَاءَةِ.', qen: 'Sibawayh learned grammar because he made a mistake in reading.', a: true },
+    { t: 'mcq', q: 'مَاذَا سَمَّى العُلَمَاءُ كِتَابَهُ؟', qen: 'What did scholars call his book?', o: ['الكِتَابَ', 'القَامُوسَ', 'الصِّحَاحَ'], a: 0 }
+  ],
+  order: ['وُلِدَ سِيبَوَيْهِ فِي بِلَادِ فَارِسَ.', 'جَاءَ إِلَى البَصْرَةِ لِيَتَعَلَّمَ الحَدِيثَ.', 'أَخْطَأَ أَمَامَ شَيْخِهِ.', 'كَتَبَ «الكِتَابَ».']
+},
+{
+  id: 'ibnjinni', col: 'ul', ar: 'ابْنُ جِنِّي', en: 'Ibn Jinni', level: 3, icon: 'branches',
+  cover: '', partner: '', bg: ['#E2F0EB', '#E6ECF6'], c: '#2C7A6E',
+  pages: [
+    { ar: 'وُلِدَ عُثْمَانُ بْنُ جِنِّي فِي مَدِينَةِ المَوْصِلِ. وَكَانَ أَبُوهُ رَجُلاً [رُومِيّاً|Byzantine Greek] اسْمُهُ «جِنِّي»، فَهُوَ مِنْ أَصْلٍ يُونَانِيٍّ.',
+      en: 'ʿUthman ibn Jinni was born in the city of Mosul. His father was a Byzantine Greek named “Jinni”, so he was of Greek origin.' },
+    { ar: 'جَلَسَ ابْنُ جِنِّي شَابّاً يُعَلِّمُ النَّحْوَ فِي مَسْجِدِ المَوْصِلِ. فَمَرَّ بِهِ العَالِمُ أَبُو عَلِيٍّ الفَارِسِيُّ وَسَأَلَهُ سُؤَالاً، فَلَمْ يَعْرِفِ الجَوَابَ.',
+      en: 'As a young man Ibn Jinni sat teaching grammar in the mosque of Mosul. The scholar Abu ʿAli al-Farisi passed by and asked him a question, and he did not know the answer.' },
+    { ar: 'فَقَالَ لَهُ أَبُو عَلِيٍّ: «[تَزَبَّبْتَ|you became a raisin] وَأَنْتَ [حِصْرِمٌ|a sour, unripe grape]»، أَيْ: صِرْتَ مُعَلِّماً قَبْلَ أَنْ [تَنْضَجَ|you ripen]. فَتَرَكَ ابْنُ جِنِّي الدَّرْسَ وَتَبِعَهُ، وَتَعَلَّمَ مِنْهُ نَحْوَ أَرْبَعِينَ سَنَةً.',
+      en: 'Abu ʿAli said to him: “You have become a raisin while still a sour grape”, meaning: you became a teacher before you were ripe. Ibn Jinni left his class and followed him, and learned from him for about forty years.' },
+    { ar: 'وَصَارَ مِنْ أَعْظَمِ عُلَمَاءِ اللُّغَةِ، وَكَتَبَ «الخَصَائِصَ» وَ«سِرَّ صِنَاعَةِ الإِعْرَابِ». وَكَانَ صَدِيقاً لِلْمُتَنَبِّي، حَتَّى قَالَ عَنْهُ: «ابْنُ جِنِّي أَعْرَفُ بِشِعْرِي مِنِّي».',
+      en: 'He became one of the greatest scholars of language and wrote “al-Khasaʾis” and “Sirr Sinaʿat al-Iʿrab”. He was a friend of al-Mutanabbi, who even said: “Ibn Jinni knows my poetry better than I do.”' }
+  ],
+  moral: { ar: 'تَعَلَّمْ قَبْلَ أَنْ تُعَلِّمَ، وَلَا تَسْتَحِ مِنْ أَنْ تَبْدَأَ مِنْ جَدِيدٍ.', en: 'Learn before you teach, and do not be ashamed to start again.' },
+  quiz: [
+    { t: 'mcq', q: 'مِنْ أَيِّ أَصْلٍ كَانَ ابْنُ جِنِّي؟', qen: 'What was Ibn Jinni’s origin?', o: ['يُونَانِيٍّ رُومِيٍّ', 'فَارِسِيٍّ', 'هِنْدِيٍّ'], a: 0 },
+    { t: 'tf', q: 'عَرَفَ ابْنُ جِنِّي جَوَابَ سُؤَالِ أَبِي عَلِيٍّ.', qen: 'Ibn Jinni knew the answer to Abu ʿAli’s question.', a: false },
+    { t: 'mcq', q: 'كَمْ سَنَةً تَعَلَّمَ مِنْ أَبِي عَلِيٍّ تَقْرِيباً؟', qen: 'About how many years did he learn from Abu ʿAli?', o: ['أَرْبَعِينَ سَنَةً', 'سَنَةً وَاحِدَةً', 'عَشْرَ سَنَوَاتٍ'], a: 0 },
+    { t: 'mcq', q: 'أَيُّ شَاعِرٍ كَانَ صَدِيقَهُ؟', qen: 'Which poet was his friend?', o: ['المُتَنَبِّي', 'امْرُؤُ القَيْسِ', 'حَافِظ إِبْرَاهِيم'], a: 0 }
+  ],
+  order: ['وُلِدَ ابْنُ جِنِّي فِي المَوْصِلِ.', 'عَلَّمَ النَّحْوَ فِي المَسْجِدِ وَهُوَ شَابٌّ.', 'سَأَلَهُ أَبُو عَلِيٍّ سُؤَالاً.', 'تَبِعَ أَبَا عَلِيٍّ وَتَعَلَّمَ مِنْهُ.']
+},
+{
+  id: 'azhari', col: 'ul', ar: 'الأَزْهَرِيُّ', en: 'Al-Azhari', level: 3, icon: 'tent',
+  cover: '', partner: '', bg: ['#FBEFD8', '#F3E6CF'], c: '#A26F1C',
+  pages: [
+    { ar: 'وُلِدَ أَبُو مَنْصُورٍ الأَزْهَرِيُّ فِي مَدِينَةِ هَرَاةَ فِي خُرَاسَانَ، وَهِيَ اليَوْمَ فِي أَفْغَانِسْتَانَ. وَأَحَبَّ اللُّغَةَ العَرَبِيَّةَ مُنْذُ صِغَرِهِ.',
+      en: 'Abu Mansur al-Azhari was born in the city of Herat in Khurasan, which is in Afghanistan today. He loved the Arabic language from childhood.' },
+    { ar: 'وَخَرَجَ مَرَّةً إِلَى الحَجِّ، فَهَاجَمَ [القَرَامِطَةُ|the Qarmatians, raiders of that time] قَافِلَةَ الحُجَّاجِ، وَأَخَذُوهُ [أَسِيراً|as a captive].',
+      en: 'Once he set out for the Hajj, and the Qarmatians attacked the pilgrims’ caravan and took him captive.' },
+    { ar: 'عَاشَ الأَزْهَرِيُّ سَنَوَاتٍ بَيْنَ الأَعْرَابِ فِي بَادِيَةِ نَجْدٍ وَالدَّهْنَاءِ. وَكَانُوا يَتَكَلَّمُونَ عَرَبِيَّةً [فَصِيحَةً|pure, correct]، فَكَانَ يَسْمَعُهُمْ وَيَحْفَظُ كَلَامَهُمْ وَيَكْتُبُهُ.',
+      en: 'Al-Azhari lived for years among the Bedouin in the deserts of Najd and al-Dahna. They spoke pure Arabic, so he listened to them, memorised their words and wrote them down.' },
+    { ar: 'وَلَمَّا رَجَعَ إِلَى بَلَدِهِ كَتَبَ مُعْجَماً كَبِيراً سَمَّاهُ «تَهْذِيبَ اللُّغَةِ»، وَهُوَ مِنْ أَوْثَقِ مَعَاجِمِ العَرَبِيَّةِ، لِأَنَّهُ أَخَذَ كَثِيراً مِنْهُ مِنْ أَفْوَاهِ العَرَبِ مُبَاشَرَةً.',
+      en: 'When he returned home he wrote a large dictionary called “Tahdhib al-Lugha”, one of the most reliable Arabic dictionaries, because he took much of it directly from the mouths of the Arabs.' }
+  ],
+  moral: { ar: 'قَدْ تَحْمِلُ المِحْنَةُ فِي دَاخِلِهَا مِنْحَةً.', en: 'A hardship can carry a gift inside it.' },
+  quiz: [
+    { t: 'mcq', q: 'فِي أَيِّ بَلَدٍ تَقَعُ هَرَاةُ اليَوْمَ؟', qen: 'Which country is Herat in today?', o: ['أَفْغَانِسْتَانَ', 'مِصْرَ', 'تُونِسَ'], a: 0 },
+    { t: 'tf', q: 'أَخَذَ القَرَامِطَةُ الأَزْهَرِيَّ أَسِيراً فِي طَرِيقِ الحَجِّ.', qen: 'The Qarmatians took al-Azhari captive on the way to Hajj.', a: true },
+    { t: 'mcq', q: 'مِمَّنْ تَعَلَّمَ اللُّغَةَ وَهُوَ أَسِيرٌ؟', qen: 'From whom did he learn the language while captive?', o: ['مِنَ الأَعْرَابِ فِي البَادِيَةِ', 'مِنَ الكُتُبِ فَقَطْ', 'مِنَ التُّجَّارِ فِي السُّوقِ'], a: 0 },
+    { t: 'mcq', q: 'مَا اسْمُ مُعْجَمِهِ؟', qen: 'What is his dictionary called?', o: ['تَهْذِيبُ اللُّغَةِ', 'القَامُوسُ المُحِيطُ', 'أَسَاسُ البَلَاغَةِ'], a: 0 }
+  ],
+  order: ['وُلِدَ الأَزْهَرِيُّ فِي هَرَاةَ.', 'أُخِذَ أَسِيراً فِي طَرِيقِ الحَجِّ.', 'عَاشَ بَيْنَ الأَعْرَابِ فِي البَادِيَةِ.', 'كَتَبَ «تَهْذِيبَ اللُّغَةِ».']
+},
+{
+  id: 'jawhari', col: 'ul', ar: 'الجَوْهَرِيُّ', en: 'Al-Jawhari', level: 3, icon: 'scroll',
+  cover: '', partner: '', bg: ['#F1EAF8', '#E1EFF5'], c: '#6B4E9B',
+  pages: [
+    { ar: 'وُلِدَ إِسْمَاعِيلُ بْنُ حَمَّادٍ الجَوْهَرِيُّ فِي فَارَابَ، وَهِيَ اليَوْمَ فِي [كَازَاخِسْتَانَ|Kazakhstan]، بَعِيداً جِدّاً عَنْ بِلَادِ العَرَبِ.',
+      en: 'Ismaʿil ibn Hammad al-Jawhari was born in Farab, which is in Kazakhstan today, very far from the lands of the Arabs.' },
+    { ar: 'سَافَرَ إِلَى العِرَاقِ لِيَدْرُسَ اللُّغَةَ، ثُمَّ رَحَلَ إِلَى البَادِيَةِ وَعَاشَ بَيْنَ القَبَائِلِ العَرَبِيَّةِ لِيَسْمَعَ العَرَبِيَّةَ مِنْ أَهْلِهَا.',
+      en: 'He travelled to Iraq to study the language, then went into the desert and lived among the Arab tribes to hear Arabic from its own people.' },
+    { ar: 'ثُمَّ كَتَبَ مُعْجَمَ «الصِّحَاحِ»، وَرَتَّبَ فِيهِ الكَلِمَاتِ بِحَسَبِ [الحَرْفِ الأَخِيرِ|the last letter] مِنْ أُصُولِهَا، فَكَانَ ذَلِكَ عَوْناً لِلشُّعَرَاءِ فِي البَحْثِ عَنِ [القَوَافِي|rhymes].',
+      en: 'Then he wrote the dictionary “al-Sihah”, arranging the words by the last letter of their roots, which helped poets search for rhymes.' },
+    { ar: 'وَيُرْوَى أَنَّهُ صَنَعَ لِنَفْسِهِ [جَنَاحَيْنِ|two wings] مِنْ خَشَبٍ، وَصَعِدَ إِلَى سَطْحٍ عَالٍ لِيَطِيرَ، فَسَقَطَ وَمَاتَ. فَكَانَ عَالِماً جَرِيئاً فِي اللُّغَةِ وَفِي الحُلْمِ.',
+      en: 'It is told that he made himself two wings of wood and climbed onto a high roof to fly, but he fell and died. He was a daring scholar, in language and in dreams.' }
+  ],
+  moral: { ar: 'العِلْمُ يَحْتَاجُ إِلَى سَفَرٍ وَصَبْرٍ، وَالحُلْمُ يَحْتَاجُ إِلَى حِكْمَةٍ.', en: 'Knowledge needs travel and patience; dreams need wisdom.' },
+  quiz: [
+    { t: 'mcq', q: 'أَيْنَ تَقَعُ فَارَابُ اليَوْمَ؟', qen: 'Where is Farab today?', o: ['فِي كَازَاخِسْتَانَ', 'فِي العِرَاقِ', 'فِي الحِجَازِ'], a: 0 },
+    { t: 'tf', q: 'تَعَلَّمَ الجَوْهَرِيُّ اللُّغَةَ مِنَ الكُتُبِ وَلَمْ يُسَافِرْ.', qen: 'Al-Jawhari learned the language from books and never travelled.', a: false },
+    { t: 'mcq', q: 'كَيْفَ رَتَّبَ الكَلِمَاتِ فِي «الصِّحَاحِ»؟', qen: 'How did he arrange the words in “al-Sihah”?', o: ['بِحَسَبِ الحَرْفِ الأَخِيرِ', 'بِحَسَبِ المَوْضُوعَاتِ', 'بِحَسَبِ طُولِ الكَلِمَةِ'], a: 0 },
+    { t: 'mcq', q: 'مَاذَا يُرْوَى أَنَّهُ حَاوَلَ أَنْ يَفْعَلَ؟', qen: 'What is he said to have tried to do?', o: ['أَنْ يَطِيرَ', 'أَنْ يَعْبُرَ البَحْرَ', 'أَنْ يَبْنِيَ قَصْراً'], a: 0 }
+  ],
+  order: ['وُلِدَ الجَوْهَرِيُّ فِي فَارَابَ.', 'سَافَرَ إِلَى العِرَاقِ وَالبَادِيَةِ.', 'كَتَبَ مُعْجَمَ «الصِّحَاحِ».', 'حَاوَلَ أَنْ يَطِيرَ بِجَنَاحَيْنِ.']
+},
+{
+  id: 'firuzabadi', col: 'ul', ar: 'الفَيْرُوزَآبَادِيُّ', en: 'Al-Firuzabadi', level: 3, icon: 'compass',
+  cover: '', partner: '', bg: ['#E1EFF5', '#FBEFD8'], c: '#2D6F92',
+  pages: [
+    { ar: 'وُلِدَ مَجْدُ الدِّينِ الفَيْرُوزَآبَادِيُّ فِي بَلْدَةِ كَازَرُونَ قُرْبَ شِيرَازَ فِي بِلَادِ فَارِسَ، وَحَفِظَ القُرْآنَ وَهُوَ صَغِيرٌ.',
+      en: 'Majd al-Din al-Firuzabadi was born in the town of Kazarun near Shiraz in Persia, and he memorised the Quran as a child.' },
+    { ar: 'كَانَ [رَحَّالَةً|a great traveller] يُحِبُّ العِلْمَ: زَارَ العِرَاقَ وَالشَّامَ وَالقُدْسَ وَالقَاهِرَةَ وَالهِنْدَ، وَعَاشَ فِي مَكَّةَ سَنَوَاتٍ طَوِيلَةً.',
+      en: 'He was a great traveller who loved knowledge: he visited Iraq, Syria, Jerusalem, Cairo and India, and lived in Makkah for many years.' },
+    { ar: 'ثُمَّ ذَهَبَ إِلَى اليَمَنِ، وَصَارَ [قَاضِياً|a judge] فِي مَدِينَةِ زَبِيدَ، وَهُنَاكَ أَتَمَّ مُعْجَمَهُ المَشْهُورَ «القَامُوسَ المُحِيطَ».',
+      en: 'Then he went to Yemen and became a judge in the city of Zabid, and there he finished his famous dictionary, “al-Qamus al-Muhit”.' },
+    { ar: 'وَكَلِمَةُ «قَامُوسٍ» مَعْنَاهَا فِي الأَصْلِ [البَحْرُ العَظِيمُ|the great ocean]. وَاشْتَهَرَ مُعْجَمُهُ حَتَّى صَارَ النَّاسُ يُسَمُّونَ كُلَّ مُعْجَمٍ «قَامُوساً» إِلَى اليَوْمِ.',
+      en: 'The word “qamus” originally means “the great ocean”. His dictionary became so famous that people still call any dictionary a “qamus” today.' }
+  ],
+  moral: { ar: 'السَّفَرُ يَفْتَحُ لِلْعَالِمِ أَبْوَابَ المَعْرِفَةِ.', en: 'Travel opens the doors of knowledge for a scholar.' },
+  quiz: [
+    { t: 'mcq', q: 'أَيْنَ وُلِدَ الفَيْرُوزَآبَادِيُّ؟', qen: 'Where was al-Firuzabadi born?', o: ['فِي كَازَرُونَ قُرْبَ شِيرَازَ', 'فِي مَكَّةَ', 'فِي زَبِيدَ'], a: 0 },
+    { t: 'tf', q: 'أَتَمَّ «القَامُوسَ المُحِيطَ» فِي اليَمَنِ.', qen: 'He finished “al-Qamus al-Muhit” in Yemen.', a: true },
+    { t: 'mcq', q: 'مَا المَعْنَى الأَصْلِيُّ لِكَلِمَةِ «قَامُوسٍ»؟', qen: 'What did the word “qamus” originally mean?', o: ['البَحْرُ العَظِيمُ', 'الكِتَابُ الكَبِيرُ', 'الجَبَلُ العَالِي'], a: 0 },
+    { t: 'mcq', q: 'مَاذَا كَانَ عَمَلُهُ فِي زَبِيدَ؟', qen: 'What was his job in Zabid?', o: ['قَاضِياً', 'تَاجِراً', 'بَحَّاراً'], a: 0 }
+  ],
+  order: ['وُلِدَ فِي كَازَرُونَ.', 'سَافَرَ إِلَى بِلَادٍ كَثِيرَةٍ.', 'صَارَ قَاضِياً فِي زَبِيدَ.', 'أَتَمَّ «القَامُوسَ المُحِيطَ».']
+},
+{
+  id: 'zamakhshari', col: 'ul', ar: 'الزَّمَخْشَرِيُّ', en: 'Al-Zamakhshari', level: 3, icon: 'lamp',
+  cover: '', partner: '', bg: ['#F8E5DD', '#FBEFD8'], c: '#A23E2E',
+  pages: [
+    { ar: 'وُلِدَ مَحْمُودُ بْنُ عُمَرَ فِي قَرْيَةِ زَمَخْشَرَ فِي [خُوَارِزْمَ|Khwarazm, in Central Asia]، وَهِيَ اليَوْمَ فِي آسِيَا الوُسْطَى. وَكَانَ شِتَاؤُهَا شَدِيدَ البَرْدِ.',
+      en: 'Mahmud ibn ʿUmar was born in the village of Zamakhshar in Khwarazm, which is in Central Asia today. Its winters were bitterly cold.' },
+    { ar: 'وَفِي سَفَرٍ لَهُ أَصَابَ البَرْدُ وَالثَّلْجُ رِجْلَهُ، [فَقُطِعَتْ|so it was cut off]، فَصَارَ يَمْشِي بِرِجْلٍ مِنْ خَشَبٍ. وَلَمْ يَمْنَعْهُ ذَلِكَ مِنْ طَلَبِ العِلْمِ وَالسَّفَرِ.',
+      en: 'On one journey the cold and snow injured his leg, so it was cut off, and he walked with a wooden leg. That did not stop him from seeking knowledge and travelling.' },
+    { ar: 'سَافَرَ إِلَى مَكَّةَ وَعَاشَ بِجِوَارِ الكَعْبَةِ سَنَوَاتٍ، فَلَقَّبَهُ النَّاسُ «[جَارَ اللَّهِ|the neighbour of God, i.e. of His House]».',
+      en: 'He travelled to Makkah and lived next to the Kaaba for years, so people called him “Jar Allah”, the neighbour of God’s House.' },
+    { ar: 'وَكَانَ يُحِبُّ العَرَبِيَّةَ حُبّاً شَدِيداً وَيُدَافِعُ عَنْهَا. وَكَتَبَ «أَسَاسَ البَلَاغَةِ» وَ«المُفَصَّلَ» فِي النَّحْوِ، وَتَفْسِيرَهُ المَشْهُورَ «الكَشَّافَ».',
+      en: 'He loved Arabic deeply and defended it. He wrote “Asas al-Balagha”, “al-Mufassal” on grammar, and his famous Quran commentary “al-Kashshaf”.' }
+  ],
+  moral: { ar: 'لَا يَقِفُ أَمَامَ العَزِيمَةِ شَيْءٌ.', en: 'Nothing stands in the way of determination.' },
+  quiz: [
+    { t: 'mcq', q: 'مَاذَا حَدَثَ لِرِجْلِ الزَّمَخْشَرِيِّ؟', qen: 'What happened to al-Zamakhshari’s leg?', o: ['قُطِعَتْ بِسَبَبِ البَرْدِ', 'كُسِرَتْ فِي مُبَارَاةٍ', 'لَمْ يَحْدُثْ لَهَا شَيْءٌ'], a: 0 },
+    { t: 'mcq', q: 'لِمَاذَا لُقِّبَ «جَارَ اللَّهِ»؟', qen: 'Why was he called “Jar Allah”?', o: ['لِأَنَّهُ عَاشَ بِجِوَارِ الكَعْبَةِ', 'لِأَنَّهُ كَانَ غَنِيّاً', 'لِأَنَّهُ كَانَ شَاعِراً'], a: 0 },
+    { t: 'tf', q: 'تَوَقَّفَ الزَّمَخْشَرِيُّ عَنِ السَّفَرِ بَعْدَ مَا حَدَثَ لِرِجْلِهِ.', qen: 'Al-Zamakhshari stopped travelling after what happened to his leg.', a: false },
+    { t: 'mcq', q: 'أَيُّ هَذِهِ مِنْ كُتُبِهِ؟', qen: 'Which of these is one of his books?', o: ['الكَشَّافُ', 'الصِّحَاحُ', 'الخَصَائِصُ'], a: 0 }
+  ],
+  order: ['وُلِدَ فِي زَمَخْشَرَ.', 'أَصَابَ البَرْدُ رِجْلَهُ.', 'عَاشَ بِجِوَارِ الكَعْبَةِ.', 'كَتَبَ «الكَشَّافَ».']
+},
+{
+  id: 'suhaym', col: 'ul', ar: 'سُحَيْمٌ الشَّاعِرُ', en: 'Suhaym the poet', level: 3, icon: 'qalam',
+  cover: '', partner: '', bg: ['#F3E6CF', '#E2F0EB'], c: '#7A4A24',
+  pages: [
+    { ar: 'كَانَ سُحَيْمٌ عَبْداً مِنْ أَصْلٍ [حَبَشِيٍّ|Abyssinian, East African] عِنْدَ قَبِيلَةِ بَنِي الحَسْحَاسِ، فِي أَيَّامِ النَّبِيِّ ﷺ وَبَعْدَهَا.',
+      en: 'Suhaym was a slave of Abyssinian (East African) origin belonging to the tribe of Banu al-Hashas, in the time of the Prophet ﷺ and after.' },
+    { ar: 'وَلَمْ يَكُنْ غَنِيّاً وَلَا [ذَا جَاهٍ|of high standing]، لَكِنَّهُ كَانَ شَاعِراً فَصِيحاً، يَصِفُ الطَّبِيعَةَ وَالحَيَاةَ بِكَلِمَاتٍ جَمِيلَةٍ دَقِيقَةٍ.',
+      en: 'He was neither rich nor important, but he was an eloquent poet who described nature and life in beautiful, precise words.' },
+    { ar: 'وَسَمِعَ عُمَرُ بْنُ الخَطَّابِ رَضِيَ اللَّهُ عَنْهُ بَيْتاً مِنْ شِعْرِهِ يَقُولُ فِيهِ: «كَفَى الشَّيْبُ وَالإِسْلَامُ لِلْمَرْءِ [نَاهِياً|a restraint]»، فَأَعْجَبَهُ.',
+      en: 'ʿUmar ibn al-Khattab heard a line of his poetry saying: “Grey hair and Islam are enough to hold a man back (from wrong)”, and he liked it.' },
+    { ar: 'فَقَالَ عُمَرُ: «لَوْ قَدَّمْتَ الإِسْلَامَ عَلَى الشَّيْبِ لَأَعْطَيْتُكَ جَائِزَةً». فَالعَرَبُ كَانُوا يَسْمَعُونَ الشِّعْرَ الجَمِيلَ وَيُقَدِّرُونَهُ، مَهْمَا كَانَ أَصْلُ قَائِلِهِ.',
+      en: 'ʿUmar said: “Had you put Islam before grey hair, I would have given you a reward.” The Arabs listened to fine poetry and valued it, whatever the origin of the poet.' }
+  ],
+  moral: { ar: 'قِيمَةُ الإِنْسَانِ بِمَا يُحْسِنُهُ، لَا بِلَوْنِهِ وَلَا بِنَسَبِهِ.', en: 'A person’s worth lies in what he does well, not in his colour or lineage.' },
+  quiz: [
+    { t: 'mcq', q: 'مِنْ أَيِّ أَصْلٍ كَانَ سُحَيْمٌ؟', qen: 'What was Suhaym’s origin?', o: ['حَبَشِيٍّ إِفْرِيقِيٍّ', 'فَارِسِيٍّ', 'رُومِيٍّ'], a: 0 },
+    { t: 'tf', q: 'كَانَ سُحَيْمٌ غَنِيّاً ذَا جَاهٍ.', qen: 'Suhaym was rich and important.', a: false },
+    { t: 'mcq', q: 'مَنْ سَمِعَ شِعْرَهُ فَأَعْجَبَهُ؟', qen: 'Who heard his poetry and liked it?', o: ['عُمَرُ بْنُ الخَطَّابِ', 'سِيبَوَيْهِ', 'الجَوْهَرِيُّ'], a: 0 },
+    { t: 'mcq', q: 'مَاذَا تَمَنَّى عُمَرُ أَنْ يُقَدِّمَ سُحَيْمٌ فِي البَيْتِ؟', qen: 'What did ʿUmar wish Suhaym had put first in the line?', o: ['الإِسْلَامَ', 'الشَّيْبَ', 'المَالَ'], a: 0 }
+  ],
+  order: ['عَاشَ سُحَيْمٌ عِنْدَ بَنِي الحَسْحَاسِ.', 'قَالَ شِعْراً فَصِيحاً جَمِيلاً.', 'سَمِعَ عُمَرُ بَيْتاً مِنْ شِعْرِهِ.', 'قَالَ عُمَرُ رَأْيَهُ فِي البَيْتِ.']
 }
-
 ];
 window.STORIES.forEach(function (s) { if (!s.col) s.col = 'kd'; });

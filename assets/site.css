@@ -212,7 +212,7 @@ html[data-lang="en"] .title h1{display:block}
 html[data-lang="en"] .t-en{direction:ltr;unicode-bidi:isolate}
 html[data-lang="en"] .t-ar{unicode-bidi:isolate}
 html[data-lang="en"] :is(h1,h2,h3,.house b) > .t-en{text-align:match-parent}
-html[data-lang="en"] :is(p,li,label,small,dd,dt,figcaption,blockquote,td,th,summary,h3,h4,div,span,a,button,b,i,em,strong):has(> .t-en){direction:ltr}
+:where(html[data-lang="en"]) :where(p,li,label,small,dd,dt,figcaption,blockquote,td,th,summary,h3,h4,div,span,a,button,b,i,em,strong):where(:has(> .t-en)){direction:ltr;text-align:match-parent}
 html[data-lang="en"] :is(div,p,li,small).t-en{direction:ltr}
 
 /* ---------- home: map tabs and the learning voyage ---------- */
@@ -307,3 +307,7 @@ html[data-lang="en"] .jnext b .t-ar{display:block!important}
 .jlevels i{display:inline-block;width:22px;height:5px;border-radius:3px;background:var(--c)}
 .jlevels a{color:var(--sea);font-size:.95rem}
 @media (max-width:560px){.jnext{flex-wrap:wrap}.jnext .jn-go{width:100%;justify-content:center}}
+
+/* journey list: everything lines up on the right, like the Arabic */
+.jlist .nm,.jlist .nm *{text-align:right!important}
+.jlist .nm{align-items:flex-start}
