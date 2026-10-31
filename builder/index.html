@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" data-lang="en" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir='rtl';}catch(e){}</script>
+<title>Sentence Workshop · ورشة الجملة · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.pats{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.pat{display:flex;flex-direction:column;gap:6px;text-decoration:none;background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:12px 14px;color:var(--ink)}
+.pat:hover{border-color:var(--teal)}
+.pat .k{font-family:var(--kufi);font-size:.85rem;color:var(--muted)}
+.pat b{font-family:var(--kufi);font-size:1.15rem;color:var(--teal)}
+.pat .en{direction:ltr;text-align:left;font-family:var(--en-serif);font-style:italic;color:var(--muted)}
+.pat .formula{display:flex;flex-wrap:wrap;gap:4px}
+.pat .formula span{font-family:var(--kufi);font-size:.85rem;color:#fff;border-radius:4px;padding:1px 8px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.top h2{margin:0;font-size:1.35rem}
+.lvl{display:flex;gap:6px;justify-content:center;margin:10px 0}
+.lvl button{border:1.5px solid var(--line);background:#FFFDF9;border-radius:20px;padding:5px 14px;font-family:var(--kufi);cursor:pointer;color:var(--ink)}
+.lvl button[aria-pressed="true"]{border-color:var(--sea);background:#E6F1F6;color:var(--sea)}
+.board{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:16px 12px}
+.prog{display:flex;justify-content:space-between;font-family:var(--ui-en);color:var(--muted);margin-bottom:8px}
+.goal{direction:ltr;text-align:center;font-family:var(--en-serif);font-style:italic;font-size:1.25rem;margin-bottom:12px}
+.slots{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;direction:rtl}
+.slot{min-width:96px;min-height:70px;border:2px dashed var(--c);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:4px 6px;background:color-mix(in srgb,var(--c) 6%,white)}
+.slot .role{font-family:var(--kufi);font-size:.8rem;color:var(--c);line-height:1.3;text-align:center}
+.slot .role small{display:block;direction:ltr;font-family:var(--ui-en);font-size:.7rem;opacity:.85}
+.slot.over{background:color-mix(in srgb,var(--c) 18%,white)}
+.slot .tile{margin-bottom:2px}
+.slot.ok{border-style:solid;border-color:#3B7A39;background:#E2F0E3}
+.slot.no{border-style:solid;border-color:#C9775F;background:#F8E5DD}
+.pool{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px;min-height:60px;padding:10px;border-radius:10px;background:#FBF6EE}
+.tile{font-family:var(--text-ar);font-size:1.55rem;line-height:1.6;padding:4px 14px;border:1.5px solid #D9C7AE;border-radius:8px;background:#fff;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;color:var(--ink);box-shadow:0 2px 0 #E8DCCB}
+.tile.ghost{position:fixed;z-index:50;pointer-events:none;box-shadow:0 8px 20px rgba(0,0,0,.18);transform:scale(1.06)}
+.tile.lift{opacity:.3}
+.btnrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.msg{text-align:center;font-family:var(--kufi);min-height:1.6em;margin-top:10px}
+.hint{text-align:center;color:var(--muted);font-size:.95rem;margin-top:8px}
+html[data-lang="en"] .lvl button .t-ar{display:block!important;font-size:.85em}
+@media (max-width:560px){.slots{gap:5px}.slot{min-width:70px;padding:3px}.tile{font-size:1.3rem;padding:3px 9px}}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="branches"></i>
+    <h1><span class="t-en">Sentence Workshop</span><span class="t-ar">ورشة الجملة</span></h1>
+    <p><span class="t-en">The main patterns of the Arabic sentence. Drag the words into place (or tap them) to build each sentence, and watch the endings: they tell you each word’s role.</span><span class="t-ar">أهم أنماط الجملة العربية. اسحب الكلمات إلى أماكنها (أو المسها) لتبني الجملة، وانتبه إلى أواخر الكلمات فهي تدل على موقع كل كلمة.</span></p>
+  </div>
+  <div id="app"></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/site.js"></script>
+<script src="../assets/sentence-patterns.js"></script>
+<script>
+(function(){
+  var S = Site, app = document.getElementById('app');
+  function params(){ var h = new URLSearchParams(location.hash.slice(1)); return { p: h.get('p') || '', l: h.get('l') || 'roles' }; }
+  window.addEventListener('hashchange', render);
+  document.addEventListener('langchange', render);
+
+  function list(){
+    var groups = {};
+    SP_PATTERNS.forEach(function(p){ (groups[p.kind] = groups[p.kind] || []).push(p); });
+    app.innerHTML = '<div class="pats">' + SP_PATTERNS.map(function(p, k){
+      var st = Math.max(S.getStars('sp-' + p.id), S.getStars('sp-' + p.id + '-h'));
+      return '<a class="pat" href="#p=' + p.id + '"><span class="k">' + (k + 1) + ' · ' + p.kind + '</span><b>' + p.ar + '</b><span class="en t-en">' + S.esc(p.en) + '</span>' +
+        '<span class="formula">' + p.roles.map(function(r){ return '<span style="background:' + r[2] + '">' + r[0] + '</span>'; }).join('') + '</span>' + (st ? S.stars(st) : '') + '</a>';
+    }).join('') + '</div>';
+  }
+
+  // a wrong ending for the decoy tile (hard level): flip the last case vowel
+  function decoy(w){
+    var m = { 'ُ': 'َ', 'َ': 'ُ', 'ِ': 'ُ', 'ٌ': 'ً', 'ً': 'ٌ', 'ٍ': 'ٌ' }, last = w.slice(-1);
+    if (m[last]) return w.slice(0, -1) + m[last];
+    if (/اً$/.test(w)) return w.replace(/اً$/, 'ٌ');
+    return null;
+  }
+
+  function play(P, level){
+    var items = S.shuffle(P.items.slice()), i = 0, score = 0, hard = level === 'hard';
+    function one(){
+      if (i >= items.length) return finish();
+      var it = items[i], tries = 0, n = it.w.length, placed = new Array(n).fill(null);
+      var tiles = it.w.map(function(w, k){ return { t: w, k: k }; });
+      if (hard) { var cand = it.w.map(function(w, k){ return { k: k, d: decoy(w) }; }).filter(function(x){ return x.d && x.k > 0; }); if (cand.length) { var c = cand[Math.floor(Math.random() * cand.length)]; tiles.push({ t: c.d, k: -1 }); } }
+      tiles = S.shuffle(tiles); tiles.forEach(function(t, id){ t.id = id; });
+      function draw(){
+        app.innerHTML = '<div class="top"><h2>' + P.ar + ' <span class="t-en" style="font-size:.7em;font-family:var(--en-serif);font-style:italic;color:var(--muted)">' + S.esc(P.en) + '</span></h2><a class="crumb" style="margin:0" href="#">' + S.bi('All patterns', 'كل الأنماط') + '</a></div>' +
+          '<div class="lvl"><button type="button" data-l="roles" aria-pressed="' + !hard + '">' + S.bi('With roles', 'بالأدوار') + '</button><button type="button" data-l="hard" aria-pressed="' + hard + '">' + S.bi('Challenge: one word is a trap', 'تحدٍّ: كلمة دخيلة') + '</button></div>' +
+          '<div class="board"><div class="prog"><span>' + (i + 1) + ' / ' + items.length + '</span><span>✓ ' + score + '</span></div>' +
+          '<div class="goal t-en">“' + S.esc(it.en) + '”</div>' +
+          '<div class="slots">' + P.roles.map(function(r, k){ var t = placed[k];
+            return '<div class="slot" data-s="' + k + '" style="--c:' + r[2] + '">' + (t ? '<span class="tile" data-id="' + t.id + '">' + t.t + '</span>' : '') +
+              (hard ? '' : '<span class="role">' + r[0] + '<small class="t-en">' + r[1] + '</small></span>') + '</div>'; }).join('') + '</div>' +
+          '<div class="pool">' + tiles.filter(function(t){ return placed.indexOf(t) < 0; }).map(function(t){ return '<span class="tile" data-id="' + t.id + '">' + t.t + '</span>'; }).join('') + '</div>' +
+          '<p class="hint">' + S.bi('Drag a word into a box, or tap it. Tap a placed word to send it back.', 'اسحب الكلمة إلى مكانها أو المسها، والمس الكلمة الموضوعة لتعيدها.') + '</p>' +
+          '<div class="btnrow"><button class="btn" type="button" id="chk"' + (placed.every(Boolean) ? '' : ' disabled') + '>' + S.icon('check') + S.bi('Check', 'تحقّق') + '</button></div><div class="msg" id="msg"></div></div>';
+        app.querySelector('.lvl').onclick = function(e){ var b = e.target.closest('button'); if (b) location.hash = 'p=' + P.id + '&l=' + b.dataset.l; };
+        wire();
+        document.getElementById('chk').onclick = check;
+      }
+      function byId(id){ return tiles.filter(function(t){ return t.id === +id; })[0]; }
+      function put(t, k){ var from = placed.indexOf(t); if (from >= 0) placed[from] = null; if (k === null) { draw(); return; } if (placed[k] && from >= 0) placed[from] = placed[k]; placed[k] = t; draw(); }
+      function firstEmpty(){ for (var k = 0; k < n; k++) if (!placed[k]) return k; return -1; }
+      function wire(){
+        app.querySelectorAll('.tile').forEach(function(el){
+          el.addEventListener('pointerdown', function(e){
+            e.preventDefault();
+            var t = byId(el.dataset.id), sx = e.clientX, sy = e.clientY, ghost = null, moved = false, over = null;
+            function mv(ev){
+              if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 6) return;
+              if (!moved) { moved = true; ghost = el.cloneNode(true); ghost.classList.add('ghost'); document.body.appendChild(ghost); el.classList.add('lift'); }
+              ghost.style.left = (ev.clientX - ghost.offsetWidth / 2) + 'px'; ghost.style.top = (ev.clientY - ghost.offsetHeight / 2) + 'px';
+              var hit = document.elementFromPoint(ev.clientX, ev.clientY), s = hit && hit.closest('.slot');
+              if (over && over !== s) over.classList.remove('over'); if (s) s.classList.add('over'); over = s;
+            }
+            function up(ev){
+              window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up);
+              if (ghost) ghost.remove(); el.classList.remove('lift'); if (over) over.classList.remove('over');
+              if (!moved) { if (placed.indexOf(t) >= 0) put(t, null); else { var k = firstEmpty(); if (k >= 0) put(t, k); } return; }
+              var hit = document.elementFromPoint(ev.clientX, ev.clientY), s = hit && hit.closest('.slot');
+              if (s) put(t, +s.dataset.s); else if (hit && hit.closest('.pool')) put(t, null); else draw();
+            }
+            window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+          });
+        });
+      }
+      function check(){
+        tries++;
+        var ok = placed.every(function(t, k){ return t && t.k === k; });
+        app.querySelectorAll('.slot').forEach(function(s, k){ s.classList.add(placed[k] && placed[k].k === k ? 'ok' : 'no'); });
+        var msg = document.getElementById('msg'), b = document.getElementById('chk');
+        if (ok) {
+          if (tries === 1) score++;
+          var roles = '<span class="why-ar" style="font-size:1.05rem">' + it.w.map(function(w, k){ return w + ' <small style="font-family:var(--kufi);color:' + P.roles[k][2] + '">(' + P.roles[k][0] + ')</small>'; }).join(' ') + '</span>';
+          msg.innerHTML = S.icon('check') + ' ' + S.bi('Well built!', 'أحسنت البناء!') + S.why(roles + '<span class="why-en t-en">' + S.esc(it.en) + '</span>' + S.bi(S.esc(P.tip.en), P.tip.ar));
+          b.outerHTML = '<button class="btn" type="button" id="nx">' + S.bi('Next', 'التالي') + S.icon('next') + '</button>';
+          document.getElementById('nx').onclick = function(){ i++; one(); };
+        } else {
+          var trap = placed.some(function(t){ return t && t.k === -1; });
+          msg.innerHTML = S.icon('cross') + ' ' + (trap ? S.bi('One word has the wrong ending: look at the last vowel.', 'في الجملة كلمة بحركة آخر خاطئة: انظر إلى الحركة الأخيرة.') : S.bi('Not yet: move the red boxes.', 'ليس بعد: غيّر الكلمات في المربعات الحمراء.'));
+          setTimeout(function(){ placed = placed.map(function(t, k){ return t && t.k === k ? t : null; }); draw(); }, 1400);
+        }
+      }
+      draw();
+    }
+    function finish(){
+      var st = S.starsFor(score, items.length); S.saveStars('sp-' + P.id + (hard ? '-h' : ''), st);
+      var idx = SP_PATTERNS.indexOf(P), nx = SP_PATTERNS[idx + 1];
+      app.innerHTML = '<div class="board" style="text-align:center"><h2 style="margin:0">' + P.ar + '</h2><div style="font-family:var(--kufi);font-size:1.3rem;margin:10px 0">' + score + ' / ' + items.length + '</div>' + S.stars(st) +
+        S.why(S.bi(S.esc(P.tip.en), P.tip.ar)) +
+        '<div class="btnrow"><a class="btn" href="#p=' + P.id + '&l=' + (hard ? 'roles' : 'hard') + '">' + (hard ? S.bi('Again with roles', 'أعد بالأدوار') : S.bi('Try the challenge', 'جرّب التحدي')) + '</a>' +
+        (nx ? '<a class="btn" href="#p=' + nx.id + '">' + S.bi('Next pattern', 'النمط التالي') + S.icon('next') + '</a>' : '') + '</div></div>';
+    }
+    one();
+  }
+
+  function render(){ var p = params(), P = SP_PATTERNS.filter(function(x){ return x.id === p.p; })[0]; if (P) play(P, p.l); else list(); window.scrollTo(0, 0); }
+  render();
+})();
+</script>
+</body>
+</html>

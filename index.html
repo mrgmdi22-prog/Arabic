@@ -135,6 +135,11 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
       <b><span class="t-en">Harbour of Poetry</span><span class="t-ar">مرفأ الشعر</span></b>
       <p><span class="t-en">Famous lines of Arabic poetry at Adulis, the harbour Tarafa sang of: read, listen and complete the line.</span><span class="t-ar">أبيات مشهورة من الشعر العربي في عدولى التي ذكرها طرفة: اقرأ واستمع وأكمل البيت.</span></p>
     </a>
+    <a class="house" href="builder/index.html" style="--c:#2D6F92;--t:#E1EFF5">
+      <span class="niche"><i data-ic="puzzle"></i></span>
+      <b><span class="t-en">Sentence Workshop</span><span class="t-ar">ورشة الجملة</span></b>
+      <p><span class="t-en">Twelve key patterns of the Arabic sentence: drag the words into place and learn each word’s role.</span><span class="t-ar">اثنا عشر نمطاً من أهم أنماط الجملة العربية: اسحب الكلمات إلى أماكنها وتعرّف موقع كل كلمة.</span></p>
+    </a>
     <a class="house" href="irab/index.html" style="--c:#34578A;--t:#E6ECF6">
       <span class="niche"><i data-ic="branches"></i></span>
       <b><span class="t-en">I‘rab Lab</span><span class="t-ar">مختبر الإعراب</span></b>
@@ -172,6 +177,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
 <script src="assets/ports.js"></script>
 <script src="assets/poems.js"></script>
 <script src="assets/riyadh-words.js"></script>
+<script src="assets/sentence-patterns.js"></script>
 <script src="assets/land.js"></script>
 <script src="assets/seamap.js"></script>
 <script src="assets/journey.js"></script>
@@ -182,6 +188,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
   DICTATION.forEach(function(u){ ['choose', 'gap', 'look'].forEach(function(m){ stars += S.getStars('dict-' + u.id + '-' + m); }); });
   THEMES.forEach(function(t){ ['cards', 'choose', 'memory', 'letters'].forEach(function(g){ stars += S.getStars('voc-' + t.id + '-' + g); }); });
   POEMS.forEach(function(p){ stars += S.getStars('poem-' + p.id); });
+  SP_PATTERNS.forEach(function(p){ stars += S.getStars('sp-' + p.id) + S.getStars('sp-' + p.id + '-h'); });
   RW_UNITS.forEach(function(u){ ['', '-p', '-m'].forEach(function(x){ stars += S.getStars('rw-' + u.n + x); }); });
   PORTS.forEach(function(p){ stars += S.getStars('port-' + p.id); try { if (localStorage.getItem('ar-port-' + p.id)) visited++; } catch(e) {} });
   document.getElementById('nPorts').textContent = visited; document.getElementById('tPorts').textContent = PORTS.length;
