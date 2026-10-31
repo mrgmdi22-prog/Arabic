@@ -14,7 +14,7 @@ import io, json, os, re, subprocess, sys, tempfile, time, zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUDIO = os.path.join(ROOT, 'audio')
-KEY = re.compile(r'^([spwdvtr])__([a-z0-9]+)__([a-z0-9]+)$')
+KEY = re.compile(r'^([spwdvtrn])__([a-z0-9]+)__([a-z0-9]+)$')
 FILTER = ('silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.12,'
           'areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.25,areverse,'
           'loudnorm=I=-18:TP=-2:LRA=11,afade=t=in:d=0.02')

@@ -34,6 +34,12 @@ window.audioItems = function () {
     });
     out.push({ key: 'r/' + set + '/read', group: 'common', set: set, setAr: nm, text: u.read.ar, raw: null, en: u.read.en });
   });
+  (window.SOUNDS || []).forEach(function (x) {
+    var it = function (k, t, en) { out.push({ key: 'n/' + x.id + '/' + k, group: 'sounds', set: x.id, setAr: x.name, text: t, raw: null, en: en }); };
+    it('l', x.l + ' — ' + x.name, 'the letter on its own');
+    x.words.forEach(function (w, k) { it('w' + (k + 1), w[0], w[1]); });
+    if (x.pair) { it('p1', x.pair[0][0], x.pair[0][1]); it('p2', x.pair[1][0], x.pair[1][1]); }
+  });
   out.plain = plain;
   return out;
 };

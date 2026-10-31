@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" data-lang="en" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir='rtl';}catch(e){}</script>
+<title>Arabic Sounds · مخارج الحروف · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.grp h2{font-size:1.25rem;margin:18px 0 8px}
+.letters{display:flex;flex-wrap:wrap;gap:8px}
+.lt{display:flex;flex-direction:column;align-items:center;min-width:72px;padding:6px 8px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer;color:var(--ink);text-decoration:none}
+.lt b{font-family:var(--text-ar);font-size:2.2rem;line-height:1.5;color:var(--teal)}
+.lt small{font-family:var(--ui-en);color:var(--muted);direction:ltr}
+.lt[aria-current="true"]{border-color:var(--teal);background:#E2F0EB}
+.lesson{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;margin-top:18px}
+@media (max-width:760px){.lesson{grid-template-columns:1fr}}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:14px 16px}
+.big{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.big b{font-family:var(--text-ar);font-size:4rem;line-height:1.3;color:var(--teal)}
+.big .nm{font-family:var(--kufi);font-size:1.3rem}
+.big .ipa{direction:ltr;font-family:var(--ui-en);color:var(--muted)}
+.chip{display:inline-block;font-family:var(--kufi);font-size:.85rem;border-radius:4px;padding:1px 8px;margin-inline-end:6px}
+.chip.voiced{background:#E2F0EB;color:#2C7A6E}.chip.open{background:#EFE3D2;color:#7A6A58}.chip.closed{background:#F8E5DD;color:#A23E2E}.chip.emph{background:#E6ECF6;color:#34578A}
+.how{font-size:1.08rem;line-height:1.8;margin:10px 0}
+.where{display:flex;gap:8px;align-items:flex-start;background:#FBF5EA;border-radius:6px;padding:8px 10px;font-size:1rem}
+.where i{flex:none;width:14px;height:14px;border-radius:50%;background:#D84A3A;margin-top:6px;box-shadow:0 0 0 4px #F6C9C0}
+.ws{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ws span{display:inline-flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:6px;padding:4px 12px;background:#FFFDF9}
+.ws span b{font-family:var(--text-ar);font-size:1.5rem;line-height:1.6}
+.ws span small{direction:ltr;font-family:var(--en-serif);font-style:italic;color:var(--muted)}
+.pair{margin-top:12px;border-top:1.5px dashed var(--line);padding-top:10px}
+.pair h3{margin:0 0 6px;font-size:1rem;font-family:var(--kufi);color:#8A5A12}
+.pair .two{display:flex;gap:10px;align-items:center;justify-content:center}
+.pair .two span{font-family:var(--text-ar);font-size:1.7rem}
+.pair .two small{display:block;text-align:center;direction:ltr;font-family:var(--en-serif);font-style:italic;color:var(--muted);font-size:.95rem}
+.pair .vs{font-family:var(--ui-en);color:var(--muted)}
+.diagram svg{width:100%;height:auto;display:block;direction:ltr}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-size:.9rem;color:var(--muted);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px}
+/* drawing */
+.d-skin{fill:#FBE9DA;stroke:#C9A588;stroke-width:1.6}
+.d-cav{fill:#FFF8F0;stroke:none}
+.d-pal{fill:none;stroke:#B48A6A;stroke-width:3;stroke-linecap:round}
+.d-wall{fill:none;stroke:#B48A6A;stroke-width:3}
+.d-tooth{fill:#fff;stroke:#B9AFA3;stroke-width:1.2}
+.d-lip{fill:#E9A7A0;stroke:#C77C73;stroke-width:1}
+.d-tongue{fill:#E57B7B;stroke:#B9474B;stroke-width:1.6}
+.d-uvula{fill:#E9A7A0;stroke:#C77C73;stroke-width:1}
+.d-lab{font-family:var(--ui-en);font-size:8.5px;fill:#8A7A68}
+.d-labar{font-family:var(--kufi);font-size:9px;fill:#6B5A48}
+.d-hl{fill:#D84A3A;opacity:.9}
+.d-ring{fill:none;stroke:#D84A3A;stroke-width:2;animation:ring 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes ring{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.8);opacity:0}}
+.d-air{fill:none;stroke:#5C9DB8;stroke-width:2;stroke-dasharray:4 4;animation:air 1s linear infinite}
+@keyframes air{to{stroke-dashoffset:-16}}
+.d-fold{stroke:#7A4A24;stroke-width:3;stroke-linecap:round}
+.d-wave{fill:none;stroke:#2C7A6E;stroke-width:2}
+.d-wave.anim{animation:buzz .25s linear infinite}
+@keyframes buzz{50%{transform:translateY(1.5px)}}
+@media (prefers-reduced-motion:reduce){.d-ring,.d-air,.d-wave.anim{animation:none}}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="ear"></i>
+    <h1><span class="t-en">Arabic Sounds</span><span class="t-ar">مخارج الحروف</span></h1>
+    <p><span class="t-en">The Arabic sounds that English does not have: where each one is made in the mouth and throat, how to say it, and pairs of words to hear the difference.</span><span class="t-ar">الأصوات العربية التي لا توجد في الإنجليزية: مخرج كل صوت في الفم والحلق، وطريقة نطقه، وكلمات متقابلة لسماع الفرق.</span></p>
+  </div>
+  <div id="pick"></div>
+  <div id="lesson"></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/audio.js"></script>
+<script src="../assets/site.js"></script>
+<script src="../assets/sounds.js"></script>
+<script>
+(function(){
+  var S = Site, cur = (location.hash || '').slice(1) || SOUNDS[0].id;
+  function smooth(p){ var d = 'M' + p[0][0] + ' ' + p[0][1]; for (var i = 0; i < p.length - 1; i++) { var a = p[i - 1] || p[i], b = p[i], c = p[i + 1], e = p[i + 2] || c;
+    d += 'C' + (b[0] + (c[0] - a[0]) / 6).toFixed(1) + ' ' + (b[1] + (c[1] - a[1]) / 6).toFixed(1) + ' ' + (c[0] - (e[0] - b[0]) / 6).toFixed(1) + ' ' + (c[1] - (e[1] - b[1]) / 6).toFixed(1) + ' ' + c[0] + ' ' + c[1]; } return d; }
+
+  // side view of the head, facing left (the lips are on the left)
+  function drawing(x){
+    var tongue = smooth(x.t) + 'C176 238 140 226 122 206C110 192 104 178 103 165C102 158 102 152 ' + x.t[0][0] + ' ' + x.t[0][1] + 'Z';
+    var folds = x.v === 'voiced' ? '<line class="d-fold" x1="178" y1="262" x2="191" y2="262"/><line class="d-fold" x1="195" y1="262" x2="208" y2="262"/><path class="d-wave anim" d="M176 270q4-5 8 0t8 0t8 0t8 0t8 0"/>'
+      : x.v === 'closed' ? '<line class="d-fold" x1="178" y1="262" x2="208" y2="262" style="stroke:#D84A3A"/>'
+      : '<line class="d-fold" x1="178" y1="262" x2="186" y2="262"/><line class="d-fold" x1="200" y1="262" x2="208" y2="262"/>';
+    // the air: up the throat from the vocal folds, over the tongue, out between the lips
+    var over = x.t.slice().reverse().map(function(q, k){ return [Math.min(q[0] + (k < 2 ? 8 : 0), 209), q[1] - (k < 2 ? 0 : 9)]; }).filter(function(q){ return q[1] < 215; });
+    var air = x.v === 'closed' ? '' : '<path class="d-air" d="' + smooth([[193, 300], [200, 250]].concat(over, [[90, Math.min(x.t[0][1], 146)], [62, Math.min(x.t[0][1], 146)]])) + '"/>';
+    var hl = function(p){ return '<circle class="d-hl" cx="' + p[0] + '" cy="' + p[1] + '" r="4.5"/><circle class="d-ring" cx="' + p[0] + '" cy="' + p[1] + '" r="7"/>'; };
+    return '<svg viewBox="40 0 260 320" role="img" aria-label="' + S.esc(x.hlEn) + '">' +
+      // head and neck
+      '<path class="d-skin" d="M150 8C205 6 262 40 270 100C276 150 258 190 246 215L248 320H168L166 236C150 222 128 214 112 206C100 200 92 192 90 182C88 172 92 165 84 158C78 154 78 148 84 146C78 142 76 136 82 132C76 128 76 122 84 120C80 112 76 106 70 102C66 98 70 92 78 90L92 70C100 40 120 10 150 8Z"/>' +
+      // nose and mouth cavity, pharynx
+      '<path class="d-cav" d="M92 104C120 98 170 96 212 100L214 300L176 300L178 240C160 232 130 216 114 196C104 182 100 168 100 156C100 146 104 136 110 126C100 118 94 110 92 104Z"/>' +
+      '<path class="d-pal" d="M108 126C116 116 130 111 150 110C166 109 176 111 182 114"/>' +
+      '<path class="d-pal" d="M182 114C192 118 199 124 203 131" style="stroke:#D79A8A"/>' +
+      '<ellipse class="d-uvula" cx="202" cy="139" rx="3.5" ry="7"/>' +
+      '<path class="d-wall" d="M213 102C216 150 215 200 212 300"/>' +
+      '<path class="d-pal" d="M95 100C130 95 180 95 212 100" style="stroke-width:1.5;stroke:#C9A588"/>' +
+      // teeth and lips
+      '<path class="d-tooth" d="M98 126L106 125L105 140L100 141Z"/><path class="d-tooth" d="M99 151L106 150L107 163L101 163Z"/>' +
+      '<path class="d-lip" d="M80 124C88 121 96 122 98 128L96 140C90 140 84 138 80 134Z"/><path class="d-lip" d="M82 150C88 147 96 147 99 150L100 162C92 164 85 162 82 157Z"/>' +
+      // epiglottis, larynx
+      '<path class="d-pal" d="M186 212C190 204 196 198 200 196" style="stroke-width:2.5"/>' +
+      '<path class="d-pal" d="M176 250L176 300M210 250L210 300" style="stroke-width:1.5;stroke:#C9A588"/>' +
+      '<path class="d-tongue" d="' + tongue + '"/>' + folds + air +
+      hl(x.hl) + (x.hl2 ? hl(x.hl2) : '') +
+      // labels
+      '<text class="d-lab" x="48" y="120">lips</text><text class="d-labar" x="48" y="131">الشفتان</text>' +
+      '<text class="d-lab" x="124" y="106">palate</text><text class="d-labar" x="155" y="106">الحنك</text>' +
+      '<text class="d-lab" x="220" y="132">uvula</text><text class="d-labar" x="220" y="143">اللهاة</text>' +
+      '<text class="d-lab" x="220" y="186">throat</text><text class="d-labar" x="220" y="197">الحلق</text>' +
+      '<text class="d-lab" x="128" y="190">tongue</text><text class="d-labar" x="128" y="201">اللسان</text>' +
+      '<text class="d-lab" x="216" y="258">vocal folds</text><text class="d-labar" x="216" y="270">الأوتار الصوتية</text>' +
+      '<text class="d-lab" x="58" y="176">teeth</text><text class="d-labar" x="58" y="187">الأسنان</text>' +
+      '</svg>';
+  }
+
+  function pick(){
+    document.getElementById('pick').innerHTML = SOUND_GROUPS.map(function(g){
+      return '<div class="grp"><h2>' + S.bi(g.en, g.ar) + '</h2><div class="letters">' + g.ids.map(function(id){ var x = SOUNDS.filter(function(s){ return s.id === id; })[0];
+        return '<a class="lt" href="#' + id + '" aria-current="' + (id === cur) + '"><b>' + x.l + '</b><small>' + x.en + '</small></a>'; }).join('') + '</div></div>';
+    }).join('');
+  }
+  function lesson(){
+    var x = SOUNDS.filter(function(s){ return s.id === cur; })[0] || SOUNDS[0];
+    var vChip = x.v === 'voiced' ? S.bi('voiced: the vocal folds buzz', 'مجهور: تهتز الأوتار') : x.v === 'closed' ? S.bi('a stop in the throat', 'وقفة في الحنجرة') : S.bi('voiceless: no buzz', 'مهموس: لا تهتز الأوتار');
+    var keys = function(k){ return 'n/' + x.id + '/' + k; };
+    document.getElementById('lesson').innerHTML = '<div class="lesson">' +
+      '<div class="card"><div class="big"><b>' + x.l + '</b><span class="nm">' + x.name + '</span><span class="ipa">' + x.en + ' · /' + x.ipa + '/</span>' + S.audioBtn(keys('l'), '', 'round') + '</div>' +
+        '<div><span class="chip ' + x.v + '">' + vChip + '</span>' + (x.emph ? '<span class="chip emph">' + S.bi('heavy (emphatic)', 'مفخّم') + '</span>' : '') + '</div>' +
+        '<p class="how">' + S.bi(S.esc(x.how.en), x.how.ar) + '</p>' +
+        '<div class="where"><i></i><span>' + S.bi('Where: ' + S.esc(x.hlEn), 'المخرج: ' + x.hlAr) + '</span></div>' +
+        '<div class="ws">' + x.words.map(function(w, k){ return '<span><b>' + w[0] + '</b><small>' + S.esc(w[1]) + '</small>' + S.audioBtn(keys('w' + (k + 1)), '', 'round') + '</span>'; }).join('') + '</div>' +
+        (x.pair ? '<div class="pair"><h3>' + S.bi('Hear the difference', 'اسمع الفرق') + '</h3><div class="two"><span>' + x.pair[0][0] + '<small>' + S.esc(x.pair[0][1]) + '</small></span><span class="vs">↔</span><span>' + x.pair[1][0] + '<small>' + S.esc(x.pair[1][1]) + '</small></span></div>' +
+          S.audioBtn([keys('p1'), keys('p2')], S.t('Listen', 'استمع')) + '<p style="text-align:center;margin:6px 0 0;color:var(--muted)">' + S.bi(S.esc(x.pairNote.en), x.pairNote.ar) + '</p></div>' : '') +
+      '</div>' +
+      '<div class="card diagram">' + drawing(x) +
+        '<div class="legend"><span><i style="background:#D84A3A;border-radius:50%"></i>' + S.bi('where the sound is made', 'مخرج الصوت') + '</span><span><i style="background:#E57B7B"></i>' + S.bi('tongue', 'اللسان') + '</span><span><i style="background:none;border-top:2px dashed #5C9DB8;height:0"></i>' + S.bi('air', 'الهواء') + '</span>' +
+        '<span><i style="background:#2C7A6E;height:3px"></i>' + S.bi('buzzing vocal folds', 'اهتزاز الأوتار') + '</span></div></div>' +
+    '</div>';
+  }
+  function render(){ pick(); lesson(); }
+  window.addEventListener('hashchange', function(){ cur = location.hash.slice(1) || SOUNDS[0].id; render(); document.getElementById('lesson').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  document.addEventListener('langchange', render);
+  render();
+})();
+</script>
+</body>
+</html>
