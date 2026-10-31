@@ -89,7 +89,6 @@
       '<div class="in">' +
         '<a class="brand" href="' + root + 'index.html">' + icon('facade', 'mark') +
           '<span class="nm"><span class="t-en">Arabic Harbours</span><span class="t-ar">مرافئ العربية</span></span></a>' +
-        '<a class="pill" href="' + ENGLISH_CLUB + '"><span class="t-en">English Club</span><span class="t-ar">نادي الإنجليزية</span></a>' +
         '<button class="pill lang" id="langBtn" type="button"><span class="t-en">العربية</span><span class="t-ar">English</span></button>' +
       '</div><div class="sadu" aria-hidden="true"></div>';
     document.getElementById('langBtn').addEventListener('click', function () { setLang(getLang() === 'en' ? 'ar' : 'en'); });
