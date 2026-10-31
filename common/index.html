@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" data-lang="en" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{var l=localStorage.getItem('ar-site-lang')||'en';document.documentElement.setAttribute('data-lang',l);document.documentElement.dir='rtl';}catch(e){}</script>
+<title>Common Words · الكلمات الشائعة · مرافئ العربية</title>
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.src{max-width:760px;margin:-6px auto 18px;text-align:center;color:var(--muted);font-size:.95rem;line-height:1.7}
+.units{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.unit{display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:12px 8px;color:var(--ink)}
+.unit:hover{border-color:var(--teal)}
+.unit b{font-family:var(--kufi);font-size:1.15rem;color:var(--teal)}
+.unit .ws{font-family:var(--text-ar);font-size:1.05rem;color:var(--muted);text-align:center;line-height:1.7}
+.unit small{font-family:var(--ui-en);color:#B08A2E}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 14px}
+.stages button{border:1.5px solid var(--line);background:var(--card);border-radius:8px;padding:8px 4px;font-family:var(--kufi);font-weight:600;font-size:1rem;cursor:pointer;color:var(--muted)}
+.stages button[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.uhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.uhead h2{margin:0;font-size:1.4rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.wc{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:12px 14px}
+.wc .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.wc .w{font-family:var(--text-ar);font-size:1.9rem;font-weight:700;color:var(--teal)}
+.wc .pos{font-family:var(--kufi);font-size:.8rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px}
+.wc .rk{margin-inline-start:auto;font-family:var(--ui-en);font-size:.8rem;color:#B08A2E}
+.wc .m{direction:ltr;text-align:left;font-family:var(--en-serif);font-size:1.15rem;color:var(--ink)}
+.wc .ex{font-family:var(--text-ar);font-size:1.2rem;line-height:1.9;margin-top:6px}
+.wc .ex mark{background:#FBEFD8;color:#7A4A24;border-radius:3px;padding:0 3px}
+.wc .exe{direction:ltr;text-align:left;font-family:var(--en-serif);font-style:italic;color:var(--muted)}
+.panel{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:16px}
+.modes{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:12px}
+.modes button{border:1.5px solid var(--line);background:#FFFDF9;border-radius:20px;padding:5px 14px;font-family:var(--kufi);cursor:pointer;color:var(--ink)}
+.modes button[aria-pressed="true"]{border-color:var(--sea);background:#E6F1F6;color:var(--sea)}
+.prog{display:flex;justify-content:space-between;font-family:var(--ui-en);color:var(--muted);margin-bottom:8px}
+.q{text-align:center;margin:8px 0 14px}
+.q .big{font-family:var(--text-ar);font-size:2.3rem;font-weight:700;color:var(--teal)}
+.q .en{direction:ltr;font-family:var(--en-serif);font-size:1.5rem;font-style:italic}
+.q .sent{font-family:var(--text-ar);font-size:1.5rem;line-height:2}
+.q .sent .gap{display:inline-block;min-width:80px;border-bottom:2.5px solid var(--teal)}
+.q small{display:block;color:var(--muted);font-family:var(--en-serif);font-style:italic;direction:ltr}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opts button{border:1.5px solid var(--line);background:#FFFDF9;border-radius:8px;padding:10px;font-size:1.25rem;cursor:pointer;color:var(--ink);font-family:var(--text-ar)}
+.opts button.en{font-family:var(--en-serif);direction:ltr;font-size:1.1rem}
+.opts button.ok{background:#E2F0E3;border-color:#3B7A39}
+.opts button.no{background:#F8E5DD;border-color:#C9775F}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.match .col{display:grid;gap:8px;align-content:start}
+.match button{border:1.5px solid var(--line);background:#FFFDF9;border-radius:8px;padding:8px;cursor:pointer;color:var(--ink)}
+.match .a{font-family:var(--text-ar);font-size:1.3rem}
+.match .b{font-family:var(--en-serif);direction:ltr;font-size:1.05rem}
+.match button.sel{border-color:var(--sea);background:#E6F1F6}
+.match button.done{opacity:.35;pointer-events:none;background:#E2F0E3}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+.tiles button{width:52px;height:52px;border:1.5px solid var(--line);border-radius:8px;background:#FFFDF9;font-family:var(--text-ar);font-size:1.6rem;cursor:pointer}
+.slots{display:flex;gap:6px;justify-content:center;flex-direction:row-reverse;direction:ltr;min-height:56px}
+.slots span{width:46px;height:52px;border-bottom:2.5px solid var(--teal);font-family:var(--text-ar);font-size:1.6rem;display:grid;place-items:center}
+.msg{min-height:1.8em;text-align:center;font-family:var(--kufi);margin-top:10px}
+.read p{font-family:var(--text-ar);font-size:1.45rem;line-height:2.2;margin:0}
+.read mark{background:#E2F0EB;color:#1F5E54;border-radius:3px;padding:0 3px}
+.read .tr{direction:ltr;text-align:left;font-family:var(--en-serif);color:var(--muted);font-size:1.1rem;line-height:1.7;background:#FAF4EA;border-inline-start:4px solid var(--teal);padding:8px 14px;margin-top:12px}
+.btnrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+html[data-lang="en"] .stages button .t-ar,html[data-lang="en"] .modes button .t-ar{display:block!important;font-size:.85em;font-family:var(--kufi)}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="cards"></i>
+    <h1><span class="t-en">Common Words</span><span class="t-ar">ميدان الكلمات الشائعة</span></h1>
+    <p><span class="t-en">The most frequent words of today’s Arabic, in order: learn them, practise them, read them in a short text, then test yourself.</span><span class="t-ar">أكثر الكلمات شيوعاً في العربية المعاصرة، مرتبة بحسب شيوعها: تعرّف عليها، وتدرّب، واقرأها في نص قصير، ثم اختبر نفسك.</span></p>
+  </div>
+  <p class="src" id="src"></p>
+  <div id="app"></div>
+  <div style="text-align:center"><a class="crumb" href="../index.html"><span class="t-en">Home</span><span class="t-ar">الرئيسية</span></a></div>
+  <footer id="sitefoot"></footer>
+</main>
+<script src="../assets/audio.js"></script>
+<script src="../assets/site.js"></script>
+<script src="../assets/riyadh-words.js"></script>
+<script>
+(function(){
+  var S = Site, app = document.getElementById('app');
+  document.getElementById('src').innerHTML = S.bi('Words and frequency ranks: ', 'الكلمات وترتيب شيوعها: ') + '<b>' + S.bi(RW_SOURCE.en, RW_SOURCE.ar) + '</b>. ' + S.bi('Meanings and examples were written for this site.', 'المعاني والأمثلة من إعداد الموقع.');
+  var plainW = function(s){ return S.strip(s).replace(/[\[\]]/g, ''); };
+  var target = function(ex){ var m = ex.match(/\[([^\]]+)\]/); return m ? m[1] : ''; };
+  function exHtml(ex, tag){ return ex.replace(/\[([^\]]+)\]/, '<' + tag + '>$1</' + tag + '>'); }
+  function params(){ var h = new URLSearchParams(location.hash.slice(1)); return { u: +h.get('u') || 0, s: h.get('s') || 'learn', m: h.get('m') || 'meaning' }; }
+  function go(o){ var p = params(); for (var k in o) p[k] = o[k]; location.hash = 'u=' + p.u + '&s=' + p.s + '&m=' + p.m; }
+  window.addEventListener('hashchange', render);
+  document.addEventListener('langchange', render);
+
+  function home(){
+    app.innerHTML = '<div class="units">' + RW_UNITS.map(function(u){
+      var st = S.getStars('rw-' + u.n), r0 = u.words[0][0], r1 = u.words[u.words.length - 1][0];
+      return '<a class="unit" href="#u=' + u.n + '&s=learn"><b>' + S.bi('Unit ' + u.n, 'الوحدة ' + u.n) + '</b><span class="ws">' + u.words.slice(0, 4).map(function(w){ return w[1]; }).join('، ') + '…</span><small>#' + r0 + '–' + r1 + '</small>' + (st ? S.stars(st) : '') + '</a>';
+    }).join('') + '</div>';
+  }
+
+  function unit(p){
+    var U = RW_UNITS[p.u - 1]; if (!U) { home(); return; }
+    var stages = [['learn', 'Learn', 'تعرّف'], ['practice', 'Practise', 'تدرّب'], ['read', 'Read', 'اقرأ'], ['test', 'Test', 'اختبر']];
+    app.innerHTML = '<div class="uhead"><h2>' + S.bi('Unit ' + U.n, 'الوحدة ' + U.n) + '</h2><a class="crumb" style="margin:0" href="#">' + S.bi('All units', 'كل الوحدات') + '</a></div>' +
+      '<div class="stages">' + stages.map(function(s){ return '<button type="button" data-s="' + s[0] + '" aria-pressed="' + (p.s === s[0]) + '">' + S.bi(s[1], s[2]) + '</button>'; }).join('') + '</div><div id="stage"></div>';
+    app.querySelector('.stages').onclick = function(e){ var b = e.target.closest('button'); if (b) go({ s: b.dataset.s }); };
+    var box = document.getElementById('stage');
+    if (p.s === 'learn') learn(U, box); else if (p.s === 'practice') practice(U, box, p.m); else if (p.s === 'read') read(U, box); else test(U, box);
+  }
+
+  function learn(U, box){
+    box.innerHTML = '<div class="cards">' + U.words.map(function(w){
+      return '<div class="wc"><div class="top"><span class="w">' + w[1] + '</span><span class="pos">' + w[2] + '</span>' + S.audioBtn('r/u' + U.n + '/w' + w[0], '', 'round') + '<span class="rk">#' + w[0] + '</span></div>' +
+        '<div class="m">' + S.esc(w[3]) + '</div><div class="ex">' + exHtml(w[4], 'mark') + S.audioBtn('r/u' + U.n + '/e' + w[0], '', 'round') + '</div><div class="exe">' + S.esc(w[5]) + '</div></div>';
+    }).join('') + '</div><div class="btnrow"><button class="btn" type="button" id="toP">' + S.bi('Practise', 'تدرّب') + S.icon('next') + '</button></div>';
+    document.getElementById('toP').onclick = function(){ go({ s: 'practice' }); };
+  }
+
+  // ---------- question makers ----------
+  function others(U, w, n){ return S.shuffle(U.words.filter(function(x){ return x !== w; })).slice(0, n); }
+  function qMeaning(U, w){ return { kind: 'meaning', w: w, prompt: '<div class="big">' + w[1] + '</div>', opts: S.shuffle([w].concat(others(U, w, 3))).map(function(x){ return { t: x[3], ok: x === w, en: 1 }; }) }; }
+  function qWord(U, w){ return { kind: 'word', w: w, prompt: '<div class="en">“' + S.esc(w[3]) + '”</div>', opts: S.shuffle([w].concat(others(U, w, 3))).map(function(x){ return { t: x[1], ok: x === w }; }) }; }
+  function qGap(U, w){
+    var ans = target(w[4]), alt = others(U, w, 3).map(function(x){ return target(x[4]); });
+    return { kind: 'gap', w: w, prompt: '<div class="sent">' + w[4].replace(/\[[^\]]+\]/, '<span class="gap">…</span>') + '</div><small>' + S.esc(w[5]) + '</small>', opts: S.shuffle([ans].concat(alt)).map(function(t){ return { t: t, ok: t === ans }; }) };
+  }
+  function ask(box, qs, onDone){
+    var i = 0, score = 0;
+    (function one(){
+      if (i >= qs.length) { onDone(score, qs.length); return; }
+      var q = qs[i], tried = false;
+      box.innerHTML = '<div class="panel"><div class="prog"><span>' + (i + 1) + ' / ' + qs.length + '</span><span>✓ ' + score + '</span></div><div class="q">' + q.prompt + '</div>' +
+        '<div class="opts">' + q.opts.map(function(o, k){ return '<button type="button" class="' + (o.en ? 'en' : '') + '" data-k="' + k + '">' + (o.en ? S.esc(o.t) : o.t) + '</button>'; }).join('') + '</div><div class="msg"></div></div>';
+      box.querySelector('.opts').onclick = function(e){
+        var b = e.target.closest('button'); if (!b || b.disabled) return; var o = q.opts[+b.dataset.k];
+        if (o.ok) { b.classList.add('ok'); if (!tried) score++; box.querySelectorAll('.opts button').forEach(function(x){ x.disabled = true; }); setTimeout(function(){ i++; one(); }, 700); }
+        else { b.classList.add('no'); b.disabled = true; tried = true; box.querySelector('.msg').textContent = S.t('Try again', 'حاول مرة أخرى'); }
+      };
+    })();
+  }
+  function finish(box, U, score, n, again){
+    var st = S.starsFor(score, n); S.saveStars('rw-' + U.n + (again === 'test' ? '' : '-p'), st);
+    box.innerHTML = '<div class="panel" style="text-align:center"><div style="font-size:1.4rem;font-family:var(--kufi)">' + S.bi('Score', 'النتيجة') + ': ' + score + ' / ' + n + '</div><div style="margin:8px 0">' + S.stars(st) + '</div>' +
+      '<div class="btnrow"><button class="btn" type="button" id="again">' + S.bi('Again', 'أعد') + '</button>' +
+      (U.n < RW_UNITS.length && again === 'test' ? '<a class="btn" href="#u=' + (U.n + 1) + '&s=learn">' + S.bi('Next unit', 'الوحدة التالية') + '</a>' : '') + '</div></div>';
+    document.getElementById('again').onclick = render;
+  }
+
+  function practice(U, box, m){
+    var MODES = [['meaning', 'Meaning', 'المعنى'], ['word', 'Which word?', 'أي كلمة؟'], ['match', 'Match', 'طابق'], ['gap', 'Fill the gap', 'أكمل الجملة'], ['build', 'Build the word', 'رتّب الحروف']];
+    var head = '<div class="modes">' + MODES.map(function(x){ return '<button type="button" data-m="' + x[0] + '" aria-pressed="' + (m === x[0]) + '">' + S.bi(x[1], x[2]) + '</button>'; }).join('') + '</div>';
+    box.innerHTML = head + '<div id="pz"></div>';
+    box.querySelector('.modes').onclick = function(e){ var b = e.target.closest('button'); if (b) go({ m: b.dataset.m }); };
+    var pz = document.getElementById('pz'), ws = S.shuffle(U.words.slice()).slice(0, 10);
+    if (m === 'match') return matchGame(U, pz);
+    if (m === 'build') return buildGame(U, pz, ws.slice(0, 8));
+    var mk = m === 'word' ? qWord : m === 'gap' ? qGap : qMeaning;
+    ask(pz, ws.map(function(w){ return mk(U, w); }), function(s, n){ finish(pz, U, s, n, 'practice'); });
+  }
+
+  function matchGame(U, pz){
+    var set = S.shuffle(U.words.slice()).slice(0, 6), left = S.shuffle(set.slice()), right = S.shuffle(set.slice()), sel = null, done = 0, moves = 0;
+    pz.innerHTML = '<div class="panel"><div class="match"><div class="col">' + left.map(function(w){ return '<button type="button" class="a" data-r="' + w[0] + '">' + w[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="col">' + right.map(function(w){ return '<button type="button" class="b" data-r="' + w[0] + '">' + S.esc(w[3]) + '</button>'; }).join('') + '</div></div><div class="msg"></div></div>';
+    pz.querySelector('.match').onclick = function(e){
+      var b = e.target.closest('button'); if (!b) return;
+      if (!sel || sel.className.split(' ')[0] === b.className.split(' ')[0]) { if (sel) sel.classList.remove('sel'); sel = b; b.classList.add('sel'); return; }
+      moves++;
+      if (sel.dataset.r === b.dataset.r) { sel.classList.add('done'); b.classList.add('done'); done++; sel = null;
+        if (done === set.length) { var st = moves <= 7 ? 3 : moves <= 10 ? 2 : 1; S.saveStars('rw-' + U.n + '-m', st); pz.querySelector('.msg').innerHTML = S.bi('All matched! ', 'أحسنت! ') + S.stars(st) + ' <button class="tool" type="button" id="again">' + S.bi('Again', 'أعد') + '</button>'; document.getElementById('again').onclick = render; } }
+      else { sel.classList.remove('sel'); sel = null; pz.querySelector('.msg').textContent = S.t('Not a pair', 'ليستا متطابقتين'); }
+    };
+  }
+
+  function buildGame(U, pz, ws){
+    var i = 0, score = 0;
+    (function one(){
+      if (i >= ws.length) { finish(pz, U, score, ws.length, 'practice'); return; }
+      var w = ws[i], letters = Array.from(S.strip(w[1])), picked = [], tried = false, pool = S.shuffle(letters.map(function(c, k){ return { c: c, k: k }; }));
+      function draw(){
+        pz.innerHTML = '<div class="panel"><div class="prog"><span>' + (i + 1) + ' / ' + ws.length + '</span><span>✓ ' + score + '</span></div><div class="q"><div class="en">“' + S.esc(w[3]) + '”</div></div>' +
+          '<div class="slots">' + letters.map(function(_, k){ return '<span>' + (picked[k] ? picked[k].c : '') + '</span>'; }).join('') + '</div>' +
+          '<div class="tiles">' + pool.map(function(t, k){ return picked.indexOf(t) >= 0 ? '' : '<button type="button" data-k="' + k + '">' + t.c + '</button>'; }).join('') + '</div>' +
+          '<div class="btnrow"><button class="tool" type="button" id="undo">' + S.bi('Undo', 'تراجع') + '</button></div><div class="msg"></div></div>';
+        pz.querySelector('.tiles').onclick = function(e){ var b = e.target.closest('button'); if (!b) return; picked.push(pool[+b.dataset.k]);
+          if (picked.length === letters.length) {
+            if (picked.map(function(t){ return t.c; }).join('') === letters.join('')) { if (!tried) score++; draw(); pz.querySelector('.msg').innerHTML = '✓ ' + w[1]; setTimeout(function(){ i++; one(); }, 900); return; }
+            tried = true; picked = []; draw(); pz.querySelector('.msg').textContent = S.t('Not quite, try again', 'ليست صحيحة، حاول مرة أخرى'); return;
+          }
+          draw(); };
+        document.getElementById('undo').onclick = function(){ picked.pop(); draw(); };
+      }
+      draw();
+    })();
+  }
+
+  function read(U, box){
+    var txt = U.read.ar;
+    box.innerHTML = '<div class="panel read"><p>' + txt + '</p><div class="btnrow">' + S.audioBtn('r/u' + U.n + '/read', S.t('Listen', 'استمع')) +
+      '<button class="tool" type="button" id="tr">' + S.icon('translate') + S.bi('English translation', 'الترجمة الإنجليزية') + '</button></div><div class="tr" hidden>' + S.esc(U.read.en) + '</div></div>' +
+      '<div class="btnrow"><button class="btn" type="button" id="toT">' + S.bi('Test yourself', 'اختبر نفسك') + S.icon('next') + '</button></div>';
+    document.getElementById('tr').onclick = function(){ var t = box.querySelector('.tr'); t.hidden = !t.hidden; };
+    document.getElementById('toT').onclick = function(){ go({ s: 'test' }); };
+  }
+
+  function test(U, box){
+    var ws = S.shuffle(U.words.slice()), makers = [qMeaning, qWord, qGap];
+    ask(box, ws.slice(0, 12).map(function(w, k){ return makers[k % 3](U, w); }), function(s, n){ finish(box, U, s, n, 'test'); });
+  }
+
+  function render(){ var p = params(); if (!p.u) home(); else unit(p); }
+  render();
+})();
+</script>
+</body>
+</html>

@@ -26,6 +26,14 @@ window.audioItems = function () {
       out.push({ key: 't/' + t.id + '/d' + (i + 1), group: 'talk', set: t.id, setAr: t.ar, text: x.d, raw: null, en: 'Saudi dialect · ' + x.tr });
     });
   });
+  (window.RW_UNITS || []).forEach(function (u) {
+    var set = 'u' + u.n, nm = 'الكلمات الشائعة ' + u.n;
+    u.words.forEach(function (w) {
+      out.push({ key: 'r/' + set + '/w' + w[0], group: 'common', set: set, setAr: nm, text: w[1], raw: null, en: w[3] });
+      out.push({ key: 'r/' + set + '/e' + w[0], group: 'common', set: set, setAr: nm, text: w[4].replace(/[\[\]]/g, ''), raw: null, en: w[5] });
+    });
+    out.push({ key: 'r/' + set + '/read', group: 'common', set: set, setAr: nm, text: u.read.ar, raw: null, en: u.read.en });
+  });
   out.plain = plain;
   return out;
 };

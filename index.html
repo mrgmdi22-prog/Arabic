@@ -120,6 +120,11 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
       <b><span class="t-en">Harbour of Spelling</span><span class="t-ar">مرفأ الإملاء</span></b>
       <p><span class="t-en">Taa, hamza, final alif, sun and moon letters, tanween and sentences.</span><span class="t-ar">التاء، والهمزة، والألف اللينة، واللام الشمسية والقمرية، والتنوين، والجمل.</span></p>
     </a>
+    <a class="house" href="common/index.html" style="--c:#2C7A6E;--t:#E2F0EB">
+      <span class="niche"><i data-ic="cards"></i></span>
+      <b><span class="t-en">Common Words</span><span class="t-ar">ميدان الكلمات الشائعة</span></b>
+      <p><span class="t-en">The most frequent words of today’s Arabic (Riyadh List), in units: learn, practise, read and test.</span><span class="t-ar">أكثر كلمات العربية المعاصرة شيوعاً (قائمة الرياض) في وحدات: تعرّف وتدرّب واقرأ واختبر.</span></p>
+    </a>
     <a class="house" href="talk/index.html" style="--c:#2C7A6E;--t:#E2F0EB">
       <span class="niche"><i data-ic="dallah"></i></span>
       <b><span class="t-en">Traveller’s Talk</span><span class="t-ar">محادثات السائح</span></b>
@@ -166,6 +171,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
 <script src="assets/vocab.js"></script>
 <script src="assets/ports.js"></script>
 <script src="assets/poems.js"></script>
+<script src="assets/riyadh-words.js"></script>
 <script src="assets/land.js"></script>
 <script src="assets/seamap.js"></script>
 <script src="assets/journey.js"></script>
@@ -176,6 +182,7 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
   DICTATION.forEach(function(u){ ['choose', 'gap', 'look'].forEach(function(m){ stars += S.getStars('dict-' + u.id + '-' + m); }); });
   THEMES.forEach(function(t){ ['cards', 'choose', 'memory', 'letters'].forEach(function(g){ stars += S.getStars('voc-' + t.id + '-' + g); }); });
   POEMS.forEach(function(p){ stars += S.getStars('poem-' + p.id); });
+  RW_UNITS.forEach(function(u){ ['', '-p', '-m'].forEach(function(x){ stars += S.getStars('rw-' + u.n + x); }); });
   PORTS.forEach(function(p){ stars += S.getStars('port-' + p.id); try { if (localStorage.getItem('ar-port-' + p.id)) visited++; } catch(e) {} });
   document.getElementById('nPorts').textContent = visited; document.getElementById('tPorts').textContent = PORTS.length;
   document.getElementById('nRead').textContent = read; document.getElementById('nStars').textContent = stars;
