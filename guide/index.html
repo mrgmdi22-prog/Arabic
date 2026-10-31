@@ -53,6 +53,12 @@ html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
 .marks span{display:flex;flex-direction:column;align-items:center;background:#FBF6EE;border:1px solid var(--line);border-radius:6px;padding:4px 12px;min-width:84px}
 .marks b{font-family:var(--text-ar);font-size:2rem;line-height:1.6;color:var(--sea)}
 .marks small{direction:ltr;font-family:var(--ui-en);color:var(--muted)}
+.sitemap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+.sm{background:#FBF6EE;border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.sm > b{font-family:var(--kufi);color:var(--teal)}
+.sm ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px}
+.sm li a{font-family:var(--kufi);font-weight:600;color:var(--sea);text-decoration:none}
+.sm li small{display:block;color:var(--muted);font-size:.9rem}
 </style>
 </head>
 <body data-root="../">
@@ -65,6 +71,7 @@ html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
   </div>
   <nav class="toc">
     <a href="#start"><span class="t-en">Start here</span><span class="t-ar">ابدأ هنا</span></a>
+    <a href="#map"><span class="t-en">The site at a glance</span><span class="t-ar">الموقع في لمحة</span></a>
     <a href="#levels"><span class="t-en">Levels</span><span class="t-ar">المستويات</span></a>
     <a href="#skills"><span class="t-en">The four skills</span><span class="t-ar">المهارات الأربع</span></a>
     <a href="#dict"><span class="t-en">Using a dictionary</span><span class="t-ar">استعمال المعجم</span></a>
@@ -86,6 +93,17 @@ html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
     <p><span class="t-en">Where to begin: follow the learning voyage on the home page. Start with the Harbour of Words and the Common Words, then the Tales (tap a coloured word to see its meaning), then Understanding and Spelling. Use the button at the top to switch the site between English and Arabic: in English you will also see the meaning of grammar terms and a short reason after each answer.</span><span class="t-ar">من أين تبدأ؟ اتبع رحلة التعلّم في الصفحة الرئيسية: ابدأ بمرفأ المفردات والكلمات الشائعة، ثم الحكايات (المس الكلمة الملوّنة لترى معناها)، ثم الفهم والإملاء. وبالزر في أعلى الصفحة تبدّل لغة الموقع بين الإنجليزية والعربية.</span></p>
   </section>
 
+  <section class="ch" id="map" style="--c:var(--teal)">
+    <h2><i data-ic="anchor"></i><span class="t-en">The site at a glance</span><span class="t-ar">الموقع في لمحة</span></h2>
+    <p><span class="t-en">The site has four groups of harbours. Every page works in English or Arabic (the button at the top), and every exercise gives you stars that move your ship on the learning voyage.</span><span class="t-ar">في الموقع أربع مجموعات من المرافئ، وكل صفحة تعمل بالعربية أو الإنجليزية (الزر في الأعلى)، وكل تمرين يعطيك نجوماً تقرّب سفينتك في رحلة التعلّم.</span></p>
+    <div class="sitemap">
+      <div class="sm"><b><span class="t-en">Start here</span><span class="t-ar">ابدأ من هنا</span></b><ul><li><a href="../guide/index.html#start"><span class="t-en">Learner’s Guide</span><span class="t-ar">دليل المتعلّم</span></a><small><span class="t-en">levels, skills and how to begin</span><span class="t-ar">المستويات والمهارات ومن أين تبدأ</span></small></li><li><a href="../sounds/index.html"><span class="t-en">Arabic Sounds</span><span class="t-ar">مخارج الحروف</span></a><small><span class="t-en">sounds English does not have, with drawings</span><span class="t-ar">الأصوات التي لا توجد في الإنجليزية مع رسوم المخارج</span></small></li></ul></div>
+      <div class="sm"><b><span class="t-en">Words and speaking</span><span class="t-ar">الكلمات والمحادثة</span></b><ul><li><a href="../vocab/index.html"><span class="t-en">Harbour of Words</span><span class="t-ar">مرفأ المفردات</span></a><small><span class="t-en">words by theme, games and a dictionary</span><span class="t-ar">المفردات بالموضوعات مع الألعاب والمعجم</span></small></li><li><a href="../common/index.html"><span class="t-en">Common Words</span><span class="t-ar">الكلمات الشائعة</span></a><small><span class="t-en">the most frequent words, in units</span><span class="t-ar">أكثر الكلمات شيوعاً في وحدات</span></small></li><li><a href="../talk/index.html"><span class="t-en">Traveller’s Talk</span><span class="t-ar">محادثات السائح</span></a><small><span class="t-en">conversations in Fusha and Saudi dialect</span><span class="t-ar">محادثات بالفصحى واللهجة السعودية</span></small></li></ul></div>
+      <div class="sm"><b><span class="t-en">Reading</span><span class="t-ar">القراءة</span></b><ul><li><a href="../stories/index.html"><span class="t-en">Harbour of Tales</span><span class="t-ar">مرفأ الحكايات</span></a><small><span class="t-en">fables, the Nights, world stories, scholars</span><span class="t-ar">كليلة ودمنة وألف ليلة والأدب العالمي والأعلام</span></small></li><li><a href="../reading/index.html"><span class="t-en">Harbour of Understanding</span><span class="t-ar">مرفأ الفهم</span></a><small><span class="t-en">questions on each story</span><span class="t-ar">أسئلة على كل حكاية</span></small></li><li><a href="../ports/index.html"><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></a><small><span class="t-en">27 harbours, each a reading lesson</span><span class="t-ar">٢٧ مرفأً، لكل مرفأ درس قراءة</span></small></li><li><a href="../poetry/index.html"><span class="t-en">Harbour of Poetry</span><span class="t-ar">مرفأ الشعر</span></a><small><span class="t-en">famous lines, complete the verse</span><span class="t-ar">أبيات مشهورة وأكمل البيت</span></small></li></ul></div>
+      <div class="sm"><b><span class="t-en">Writing and grammar</span><span class="t-ar">الكتابة والقواعد</span></b><ul><li><a href="../dictation/index.html"><span class="t-en">Harbour of Spelling</span><span class="t-ar">مرفأ الإملاء</span></a><small><span class="t-en">taa, hamza, alif, tanween</span><span class="t-ar">التاء والهمزة والألف والتنوين</span></small></li><li><a href="../builder/index.html"><span class="t-en">Sentence Workshop</span><span class="t-ar">ورشة الجملة</span></a><small><span class="t-en">build sentences by dragging words</span><span class="t-ar">ركّب الجمل بسحب الكلمات</span></small></li><li><a href="../irab/index.html"><span class="t-en">I‘rab Lab</span><span class="t-ar">مختبر الإعراب</span></a><small><span class="t-en">parse sentences and see their tree</span><span class="t-ar">أعرب الجمل وانظر شجرتها</span></small></li></ul></div>
+    </div>
+  </section>
+
   <section class="ch" id="levels" style="--c:var(--rose)">
     <h2><i data-ic="anchor"></i><span class="t-en">1. Your path: four levels</span><span class="t-ar">١. طريقك: أربعة مستويات</span></h2>
     <p><span class="t-en">Language programmes usually move through an introductory stage, then beginner, intermediate and advanced levels, each split into shorter stages. Words grow from a few hundred at the start to about two thousand at the advanced level. Here is how this site follows the same road.</span><span class="t-ar">تسير برامج تعليم العربية عادةً من مرحلة تمهيدية، ثم مستوى مبتدئ فمتوسط فمتقدم، وكل مستوى مقسّم إلى مراحل أقصر. وتزداد الكلمات من بضع مئات في البداية إلى نحو ألفي كلمة في المستوى المتقدم. وهكذا يسير هذا الموقع على الطريق نفسه:</span></p>
@@ -93,19 +111,29 @@ html[data-lang="en"] .ch h2 .t-en{font-size:.8em}
       <div class="step"><b><span class="t-en">Introductory</span><span class="t-ar">التمهيدي</span></b><ul>
         <li><a href="../vocab/play.html?t=greet"><span class="t-en">Greetings</span><span class="t-ar">التحية والتعارف</span></a></li>
         <li><a href="../vocab/play.html?t=numbers"><span class="t-en">Numbers</span><span class="t-ar">الأعداد</span></a>، <a href="../vocab/play.html?t=colors"><span class="t-en">colours</span><span class="t-ar">الألوان</span></a></li>
-        <li><a href="../vocab/play.html?t=time"><span class="t-en">Days and time</span><span class="t-ar">الأيام والوقت</span></a></li></ul></div>
+        <li><a href="../vocab/play.html?t=time"><span class="t-en">Days and time</span><span class="t-ar">الأيام والوقت</span></a></li>
+        <li><a href="../sounds/index.html"><span class="t-en">Arabic sounds (throat and heavy letters)</span><span class="t-ar">مخارج الحروف</span></a></li>
+        <li><a href="../talk/index.html#greet"><span class="t-en">Traveller’s talk: greetings, airport, hotel</span><span class="t-ar">محادثات السائح: التحية والمطار والفندق</span></a></li></ul></div>
       <div class="step"><b><span class="t-en">Beginner</span><span class="t-ar">المبتدئ</span></b><ul>
         <li><a href="../vocab/index.html"><span class="t-en">Word themes and games</span><span class="t-ar">موضوعات المفردات وألعابها</span></a></li>
         <li><a href="../stories/index.html"><span class="t-en">Kalila wa Dimna, level 1</span><span class="t-ar">كليلة ودمنة (المستوى ١)</span></a></li>
-        <li><a href="../dictation/index.html#taa"><span class="t-en">Spelling: taa, final alif, al-</span><span class="t-ar">الإملاء: التاء والألف اللينة واللام</span></a></li></ul></div>
+        <li><a href="../dictation/index.html#taa"><span class="t-en">Spelling: taa, final alif, al-</span><span class="t-ar">الإملاء: التاء والألف اللينة واللام</span></a></li>
+        <li><a href="../common/index.html"><span class="t-en">Common words, units 1–10</span><span class="t-ar">الكلمات الشائعة: الوحدات ١–١٠</span></a></li>
+        <li><a href="../builder/index.html"><span class="t-en">Sentence Workshop: nominal and verbal sentences</span><span class="t-ar">ورشة الجملة: الاسمية والفعلية</span></a></li></ul></div>
       <div class="step"><b><span class="t-en">Intermediate</span><span class="t-ar">المتوسط</span></b><ul>
         <li><a href="../ports/index.html"><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></a></li>
         <li><a href="../stories/index.html"><span class="t-en">Thousand and One Nights; Kalila, level 2</span><span class="t-ar">ألف ليلة وليلة، وكليلة (المستوى ٢)</span></a></li>
-        <li><a href="../dictation/index.html#hamza"><span class="t-en">Spelling: hamza, tanween</span><span class="t-ar">الإملاء: الهمزة والتنوين</span></a></li></ul></div>
+        <li><a href="../dictation/index.html#hamza"><span class="t-en">Spelling: hamza, tanween</span><span class="t-ar">الإملاء: الهمزة والتنوين</span></a></li>
+        <li><a href="../common/index.html#u=11&s=learn"><span class="t-en">Common words, units 11–20</span><span class="t-ar">الكلمات الشائعة: الوحدات ١١–٢٠</span></a></li>
+        <li><a href="../builder/index.html#p=kana"><span class="t-en">Sentence Workshop: kāna and inna</span><span class="t-ar">ورشة الجملة: كان وإنّ</span></a></li>
+        <li><a href="../talk/index.html"><span class="t-en">Traveller’s talk in Saudi dialect</span><span class="t-ar">محادثات السائح باللهجة السعودية</span></a></li></ul></div>
       <div class="step"><b><span class="t-en">Advanced</span><span class="t-ar">المتقدم</span></b><ul>
         <li><a href="../stories/index.html"><span class="t-en">World stories (Maupassant)</span><span class="t-ar">قصص موباسان</span></a></li>
         <li><a href="../irab/index.html"><span class="t-en">The I‘rab Lab</span><span class="t-ar">مختبر الإعراب</span></a></li>
-        <li><a href="../dictation/practice.html?u=jumal"><span class="t-en">Writing whole sentences</span><span class="t-ar">كتابة الجمل</span></a></li></ul></div>
+        <li><a href="../dictation/practice.html?u=jumal"><span class="t-en">Writing whole sentences</span><span class="t-ar">كتابة الجمل</span></a></li>
+        <li><a href="../common/index.html#u=21&s=learn"><span class="t-en">Common words, units 21–30</span><span class="t-ar">الكلمات الشائعة: الوحدات ٢١–٣٠</span></a></li>
+        <li><a href="../poetry/index.html"><span class="t-en">The Harbour of Poetry</span><span class="t-ar">مرفأ الشعر</span></a></li>
+        <li><a href="../stories/index.html"><span class="t-en">Scholars who served Arabic</span><span class="t-ar">أعلام خدموا العربية</span></a></li></ul></div>
     </div>
   </section>
 

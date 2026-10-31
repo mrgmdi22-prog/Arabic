@@ -35,8 +35,11 @@ html[data-lang="en"] .route b .t-ar{display:block!important;font-family:var(--ku
 .route small{color:var(--muted);font-size:.88rem;line-height:1.4}
 @media (max-width:560px){.route{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 0}.route::before{display:none}}
 /* learning harbours: stone house fronts with a painted qatt lintel */
-.houses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-@media (max-width:640px){.houses{grid-template-columns:1fr}}
+.houses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.hgrp{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:22px 0 10px;font-size:1.2rem;color:var(--ink);direction:rtl}
+.hgrp .ic-svg{width:24px;height:24px;color:#B9822F}
+html[data-lang="en"] .hgrp .t-ar{display:inline!important;font-family:var(--kufi);font-size:.9em;color:var(--muted);margin-inline-start:.5em}
+@media (max-width:640px){.houses{grid-template-columns:1fr 1fr;gap:10px}.houses .house{grid-template-columns:1fr;justify-items:center;text-align:center;padding:16px 8px 12px}.houses .house p{display:none}.houses .house b{font-size:1.05rem}}
 .house{--c:var(--teal);--t:var(--teal-soft);position:relative;display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:center;text-decoration:none;
   background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:26px 18px 18px;overflow:hidden}
 .house::before{content:"";position:absolute;inset:0 0 auto 0;height:12px;background:var(--qatt)}
@@ -94,31 +97,25 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
   </div>
 
   <div class="harb-h"><h2><span class="t-en">Learning harbours</span><span class="t-ar">مرافئ التعلّم</span></h2><span class="sadu" aria-hidden="true"></span></div>
+  <h3 class="hgrp"><i data-ic="compass"></i><span class="t-en">Start here</span><span class="t-ar">ابدأ من هنا</span></h3>
   <div class="houses">
-    <a class="house voyage" href="ports/index.html" style="--c:#2D6F92;--t:#E1EFF5">
-      <span class="niche"><i data-ic="dhow"></i></span>
-      <b><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></b>
-      <p><span class="t-en">27 harbours from Alexandria to Serendib and Dina Arobi. Each one is a short reading lesson.</span><span class="t-ar">٢٧ مرفأً من الإسكندرية إلى سرنديب ودينا عروبي، وكل مرفأ درس قراءة قصير.</span></p>
+    <a class="house" href="guide/index.html" style="--c:#6B4E9B;--t:#F1EAF8">
+      <span class="niche"><i data-ic="compass"></i></span>
+      <b><span class="t-en">Learner’s Guide</span><span class="t-ar">دليل المتعلّم</span></b>
+      <p><span class="t-en">Levels, skills, using a dictionary, days and months, proverbs.</span><span class="t-ar">المستويات، والمهارات، واستعمال المعجم، والأيام والشهور، والأمثال.</span></p>
     </a>
+    <a class="house" href="sounds/index.html" style="--c:#A23E2E;--t:#F8E5DD">
+      <span class="niche"><i data-ic="ear"></i></span>
+      <b><span class="t-en">Arabic Sounds</span><span class="t-ar">مخارج الحروف</span></b>
+      <p><span class="t-en">The throat letters, qāf and the heavy letters ṣ ḍ ṭ ẓ: where each sound is made, with a drawing of the mouth and throat.</span><span class="t-ar">حروف الحلق والقاف والحروف المفخّمة: مخرج كل صوت مع رسم مقطعي للفم والحلق.</span></p>
+    </a>
+  </div>
+  <h3 class="hgrp"><i data-ic="cards"></i><span class="t-en">Words and speaking</span><span class="t-ar">الكلمات والمحادثة</span></h3>
+  <div class="houses">
     <a class="house" href="vocab/index.html" style="--c:#3B7A39;--t:#E7F3E3">
       <span class="niche"><i data-ic="cards"></i></span>
       <b><span class="t-en">Harbour of Words</span><span class="t-ar">مرفأ المفردات</span></b>
       <p><span class="t-en">Everyday words by theme, with flashcards, games and a dictionary.</span><span class="t-ar">كلمات الحياة اليومية بالموضوعات، مع البطاقات والألعاب والمعجم.</span></p>
-    </a>
-    <a class="house" href="stories/index.html" style="--c:#A26F1C;--t:#FBEFD8">
-      <span class="niche"><i data-ic="book"></i></span>
-      <b><span class="t-en">Harbour of Tales</span><span class="t-ar">مرفأ الحكايات</span></b>
-      <p><span class="t-en">Kalila wa Dimna, One Thousand and One Nights, and world stories, with word meanings and translation.</span><span class="t-ar">كليلة ودمنة، وألف ليلة وليلة، وقصص من الأدب العالمي، مع معاني الكلمات والترجمة.</span></p>
-    </a>
-    <a class="house" href="reading/index.html" style="--c:#2C7A6E;--t:#E2F0EB">
-      <span class="niche"><i data-ic="lamp"></i></span>
-      <b><span class="t-en">Harbour of Understanding</span><span class="t-ar">مرفأ الفهم</span></b>
-      <p><span class="t-en">Questions on each story, true or false, and putting events in order.</span><span class="t-ar">أسئلة على كل حكاية، وصواب وخطأ، وترتيب الأحداث.</span></p>
-    </a>
-    <a class="house" href="dictation/index.html" style="--c:#A23E2E;--t:#F8E5DD">
-      <span class="niche"><i data-ic="qalam"></i></span>
-      <b><span class="t-en">Harbour of Spelling</span><span class="t-ar">مرفأ الإملاء</span></b>
-      <p><span class="t-en">Taa, hamza, final alif, sun and moon letters, tanween and sentences.</span><span class="t-ar">التاء، والهمزة، والألف اللينة، واللام الشمسية والقمرية، والتنوين، والجمل.</span></p>
     </a>
     <a class="house" href="common/index.html" style="--c:#2C7A6E;--t:#E2F0EB">
       <span class="niche"><i data-ic="cards"></i></span>
@@ -130,15 +127,36 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
       <b><span class="t-en">Traveller’s Talk</span><span class="t-ar">محادثات السائح</span></b>
       <p><span class="t-en">Conversations for visiting Saudi Arabia in Fusha and in the Saudi dialect: airport, hotel, souq, AlUla, the majlis, umrah and Madinah.</span><span class="t-ar">محادثات لزائر السعودية بالفصحى وباللهجة السعودية: المطار والفندق والسوق والعلا والمجلس والعمرة والمدينة.</span></p>
     </a>
+  </div>
+  <h3 class="hgrp"><i data-ic="book"></i><span class="t-en">Reading</span><span class="t-ar">القراءة</span></h3>
+  <div class="houses">
+    <a class="house" href="stories/index.html" style="--c:#A26F1C;--t:#FBEFD8">
+      <span class="niche"><i data-ic="book"></i></span>
+      <b><span class="t-en">Harbour of Tales</span><span class="t-ar">مرفأ الحكايات</span></b>
+      <p><span class="t-en">Kalila wa Dimna, One Thousand and One Nights, and world stories, with word meanings and translation.</span><span class="t-ar">كليلة ودمنة، وألف ليلة وليلة، وقصص من الأدب العالمي، مع معاني الكلمات والترجمة.</span></p>
+    </a>
+    <a class="house" href="reading/index.html" style="--c:#2C7A6E;--t:#E2F0EB">
+      <span class="niche"><i data-ic="lamp"></i></span>
+      <b><span class="t-en">Harbour of Understanding</span><span class="t-ar">مرفأ الفهم</span></b>
+      <p><span class="t-en">Questions on each story, true or false, and putting events in order.</span><span class="t-ar">أسئلة على كل حكاية، وصواب وخطأ، وترتيب الأحداث.</span></p>
+    </a>
+    <a class="house" href="ports/index.html" style="--c:#2D6F92;--t:#E1EFF5">
+      <span class="niche"><i data-ic="dhow"></i></span>
+      <b><span class="t-en">The Harbours Voyage</span><span class="t-ar">رحلة المرافئ</span></b>
+      <p><span class="t-en">27 harbours from Alexandria to Serendib and Dina Arobi. Each one is a short reading lesson.</span><span class="t-ar">٢٧ مرفأً من الإسكندرية إلى سرنديب ودينا عروبي، وكل مرفأ درس قراءة قصير.</span></p>
+    </a>
     <a class="house" href="poetry/index.html" style="--c:#7A4A24;--t:#F5EBE0">
       <span class="niche"><i data-ic="scroll"></i></span>
       <b><span class="t-en">Harbour of Poetry</span><span class="t-ar">مرفأ الشعر</span></b>
       <p><span class="t-en">Famous lines of Arabic poetry at Adulis, the harbour Tarafa sang of: read, listen and complete the line.</span><span class="t-ar">أبيات مشهورة من الشعر العربي في عدولى التي ذكرها طرفة: اقرأ واستمع وأكمل البيت.</span></p>
     </a>
-    <a class="house" href="sounds/index.html" style="--c:#A23E2E;--t:#F8E5DD">
-      <span class="niche"><i data-ic="ear"></i></span>
-      <b><span class="t-en">Arabic Sounds</span><span class="t-ar">مخارج الحروف</span></b>
-      <p><span class="t-en">The throat letters, qāf and the heavy letters ṣ ḍ ṭ ẓ: where each sound is made, with a drawing of the mouth and throat.</span><span class="t-ar">حروف الحلق والقاف والحروف المفخّمة: مخرج كل صوت مع رسم مقطعي للفم والحلق.</span></p>
+  </div>
+  <h3 class="hgrp"><i data-ic="qalam"></i><span class="t-en">Writing and grammar</span><span class="t-ar">الكتابة والقواعد</span></h3>
+  <div class="houses">
+    <a class="house" href="dictation/index.html" style="--c:#A23E2E;--t:#F8E5DD">
+      <span class="niche"><i data-ic="qalam"></i></span>
+      <b><span class="t-en">Harbour of Spelling</span><span class="t-ar">مرفأ الإملاء</span></b>
+      <p><span class="t-en">Taa, hamza, final alif, sun and moon letters, tanween and sentences.</span><span class="t-ar">التاء، والهمزة، والألف اللينة، واللام الشمسية والقمرية، والتنوين، والجمل.</span></p>
     </a>
     <a class="house" href="builder/index.html" style="--c:#2D6F92;--t:#E1EFF5">
       <span class="niche"><i data-ic="puzzle"></i></span>
@@ -149,11 +167,6 @@ html[data-lang="en"] .house b{font-family:var(--en-serif)}
       <span class="niche"><i data-ic="branches"></i></span>
       <b><span class="t-en">I‘rab Lab</span><span class="t-ar">مختبر الإعراب</span></b>
       <p><span class="t-en">44 parsed sentences on 16 grammar topics, a grammar tree, and “parse it yourself”.</span><span class="t-ar">٤٤ جملة معرَبة في ١٦ باباً من أبواب النحو، مع شجرة الجملة و«أعرب بنفسك».</span></p>
-    </a>
-    <a class="house" href="guide/index.html" style="--c:#6B4E9B;--t:#F1EAF8">
-      <span class="niche"><i data-ic="compass"></i></span>
-      <b><span class="t-en">Learner’s Guide</span><span class="t-ar">دليل المتعلّم</span></b>
-      <p><span class="t-en">Levels, skills, using a dictionary, days and months, proverbs.</span><span class="t-ar">المستويات، والمهارات، واستعمال المعجم، والأيام والشهور، والأمثال.</span></p>
     </a>
   </div>
 
