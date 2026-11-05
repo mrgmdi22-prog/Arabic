@@ -10,6 +10,6 @@
 
 بيانات السواحل: Natural Earth (عبر datasets/geo-countries).
 
-الموقع: https://mrgmdi22-prog.github.io/Arabic/
+الموقع: https://arabic.ahmedchoices.com/
 
 إعداد: أ. أحمد آل سالم
