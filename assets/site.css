@@ -220,7 +220,8 @@ html[data-lang="en"] :is(div,p,li,small).t-en{direction:ltr}
 .maptabs button{display:flex;align-items:center;justify-content:center;gap:8px;border:none;background:none;padding:12px 8px;font-family:var(--kufi);font-weight:600;font-size:1.08rem;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent}
 .maptabs button .ic-svg{width:22px;height:22px}
 .maptabs button[aria-selected="true"]{color:var(--sea);background:var(--card);border-bottom-color:var(--sea)}
-html[data-lang="en"] .maptabs button{flex-wrap:wrap;row-gap:0}
+.maptabs button{flex-direction:column;justify-content:flex-start;gap:6px;padding:14px 6px 12px;line-height:1.3}
+.maptabs button>span{white-space:nowrap;font-size:clamp(.95rem,3.8vw,1.1rem)}
 .seamap.journey{min-width:0}
 .jwrap .mapscroll{direction:ltr}
 .journey .leg-base{fill:none;stroke:#fff;stroke-width:calc(var(--u)*9px);stroke-linecap:round;opacity:.75}
