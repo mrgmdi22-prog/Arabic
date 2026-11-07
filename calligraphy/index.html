@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="ar" data-lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{document.documentElement.setAttribute('data-lang',localStorage.getItem('ar-site-lang')==='ar'?'ar':'en');}catch(e){}</script>
+<title>ورشة الخط العربي · مرافئ العربية</title>
+<meta name="description" content="لوح وأقلام للتدريب على الخط العربي: القصب والفرشاة، وورقة بنقاط ونموذج للتتبّع.">
+<meta name="theme-color" content="#F6EDE1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Alegreya:ital,wght@0,400;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* Calligraphy board: a paper layer (guide lines, dots, model text) under an ink layer (strokes). */
+.cc{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:14px;margin-top:14px}
+.cc h2{font-size:1.25rem;margin:0 0 4px}
+.board{position:relative;width:100%;border-radius:8px;overflow:hidden;border:2.5px solid var(--stone);background:#FFFBF5;direction:ltr}
+.board canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#ink{touch-action:none;cursor:crosshair}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tb{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-direction:column;min-height:54px;padding:8px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--kufi);font-weight:600;font-size:1.02rem;cursor:pointer;line-height:1.3}
+.tb .ic{font-size:1.5rem;line-height:1}
+.tb.on{background:var(--sand-soft);border-color:var(--sand)}
+.tb:active{transform:scale(.97)}
+.pens .tb{flex:1 1 28%}
+.lbl{font-family:var(--kufi);font-weight:700;margin-top:14px}
+.sw{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.sw button{width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);cursor:pointer}
+.sw button.on{box-shadow:0 0 0 4px var(--sand)}
+.tip{background:var(--sea-soft);border:1.5px solid #BBD7E5;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:1rem;line-height:1.9}
+input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;border-radius:8px;border:1.5px solid var(--line);margin-top:8px;background:#fff;color:var(--ink)}
+.hint{color:var(--muted);font-size:.95rem;margin:8px 0 0}
+#qbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,251,245,.97);border-top:1.5px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;align-items:center;direction:ltr}
+#qbar .qr{display:flex;gap:6px;justify-content:center}
+#qbar button,.tb .ic{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+#qbar button{width:50px;height:50px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:1.5rem;cursor:pointer;padding:0}
+#qbar button.on{background:var(--sand-soft);border-color:var(--sand)}
+#qbar .qc button{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line)}
+#qbar .qc button.on{box-shadow:0 0 0 3px var(--sand)}
+.wrap{padding-bottom:160px}
+@media print{body{background:#fff}.wrap>*:not(.pr){display:none!important}.pr{border:0!important;padding:0!important;margin:0!important}.pr .row,.pr h2{display:none!important}#qbar,#topbar{display:none!important}}
+</style>
+</head>
+<body data-root="../">
+<header id="topbar"></header>
+<main class="wrap">
+  <div class="phead">
+    <i data-ic="qalam"></i>
+    <h1><span class="t-en">Calligraphy Workshop</span><span class="t-ar">ورشة الخط العربي</span></h1>
+    <p><span class="t-en">A board and pens to practise Arabic calligraphy: trace a model, copy it, or write freely.</span><span class="t-ar">لوح وأقلام للتدريب على الخط العربي: تتبّع النموذج، أو انسخه، أو اكتب بحرّية.</span></p>
+  </div>
+
+  <div class="cc pr">
+    <div class="board" id="board"><canvas id="paper"></canvas><canvas id="ink"></canvas></div>
+    <div class="row">
+      <button class="tb" id="undo">↶ <span class="t-en">Undo</span><span class="t-ar">تراجع</span></button>
+      <button class="tb" id="clear">🗑 <span class="t-en">Clear</span><span class="t-ar">مسح</span></button>
+      <button class="tb" id="save">💾 <span class="t-en">Save picture</span><span class="t-ar">حفظ صورة</span></button>
+      <button class="tb" id="print">🖨️ <span class="t-en">Print sheet</span><span class="t-ar">طباعة الورقة</span></button>
+    </div>
+  </div>
+
+  <div class="cc">
+    <h2><span class="t-en">Pens</span><span class="t-ar">الأقلام</span></h2>
+    <div class="row pens" id="pens">
+      <button class="tb" data-pen="reed"><span class="ic">🖊️</span><span class="t-en">Reed pen</span><span class="t-ar">قلم القصب</span></button>
+      <button class="tb" data-pen="pencil"><span class="ic">✏️</span><span class="t-en">Pencil</span><span class="t-ar">رصاص</span></button>
+      <button class="tb" data-pen="brush"><span class="ic">🖌️</span><span class="t-en">Brush</span><span class="t-ar">فرشاة</span></button>
+      <button class="tb" data-pen="marker"><span class="ic">🖍️</span><span class="t-en">Marker</span><span class="t-ar">ماركر</span></button>
+      <button class="tb" data-pen="eraser"><span class="ic">🧽</span><span class="t-en">Eraser</span><span class="t-ar">ممحاة</span></button>
+    </div>
+    <div class="tip" id="tip"></div>
+
+    <div class="lbl"><span class="t-en">Ink</span><span class="t-ar">اللون</span></div>
+    <div class="sw" id="colors"></div>
+
+    <div id="alifBox">
+      <div class="lbl"><span class="t-en">Alif height, in pen-widths (dots)</span><span class="t-ar">ارتفاع الألف بعدد نقاط القلم</span></div>
+      <div class="row" id="alifs">
+        <button class="tb" data-n="3"><b>٣</b><small><span class="t-en">Ruq‘ah</span><span class="t-ar">رقعة</span></small></button>
+        <button class="tb" data-n="5"><b>٥</b><small><span class="t-en">Naskh</span><span class="t-ar">نسخ</span></small></button>
+        <button class="tb" data-n="7"><b>٧</b><small><span class="t-en">Thuluth</span><span class="t-ar">ثلث</span></small></button>
+      </div>
+      <div class="lbl"><span class="t-en">Nib angle</span><span class="t-ar">زاوية القلم</span>: <span id="nibVal">70</span>°</div>
+      <input type="range" id="nib" min="0" max="90" value="70" style="width:100%;height:36px" aria-label="Nib angle">
+    </div>
+    <div id="szBox">
+      <div class="lbl"><span class="t-en">Pen size</span><span class="t-ar">سماكة القلم</span></div>
+      <div class="row" id="sizes">
+        <button class="tb" data-size="0.7"><span class="t-en">Thin</span><span class="t-ar">رفيع</span></button>
+        <button class="tb" data-size="1"><span class="t-en">Medium</span><span class="t-ar">وسط</span></button>
+        <button class="tb" data-size="1.4"><span class="t-en">Thick</span><span class="t-ar">سميك</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cc">
+    <h2><span class="t-en">Paper</span><span class="t-ar">الورقة</span></h2>
+    <div class="lbl"><span class="t-en">Guides</span><span class="t-ar">الخطوط الإرشادية</span></div>
+    <div class="row" id="guides">
+      <button class="tb" data-g="none"><span class="t-en">None</span><span class="t-ar">بدون</span></button>
+      <button class="tb" data-g="two"><span class="t-en">Baseline + alif line</span><span class="t-ar">خط الأساس وخط الألف</span></button>
+      <button class="tb" data-g="three"><span class="t-en">Three lines</span><span class="t-ar">ثلاثة أسطر</span></button>
+      <button class="tb" data-g="dots"><span class="t-en">Dot grid</span><span class="t-ar">شبكة نقاط</span></button>
+    </div>
+    <div class="lbl"><span class="t-en">Line size</span><span class="t-ar">حجم السطر</span></div>
+    <div class="row" id="lsz">
+      <button class="tb" data-u="34"><span class="t-en">Small</span><span class="t-ar">صغير</span></button>
+      <button class="tb" data-u="44"><span class="t-en">Medium</span><span class="t-ar">وسط</span></button>
+      <button class="tb" data-u="58"><span class="t-en">Large</span><span class="t-ar">كبير</span></button>
+    </div>
+  </div>
+
+  <div class="cc">
+    <h2><span class="t-en">Model text</span><span class="t-ar">النموذج</span></h2>
+    <div class="row" id="modes">
+      <button class="tb" data-m="trace"><span class="t-en">Trace over</span><span class="t-ar">تتبّع</span></button>
+      <button class="tb" data-m="copy"><span class="t-en">Copy below</span><span class="t-ar">انسخ تحته</span></button>
+      <button class="tb" data-m="free"><span class="t-en">Free writing</span><span class="t-ar">كتابة حرّة</span></button>
+    </div>
+    <div class="lbl"><span class="t-en">Script</span><span class="t-ar">الخط</span></div>
+    <div class="row" id="fonts">
+      <button class="tb" data-f="Amiri"><span class="t-en">Naskh</span><span class="t-ar">نسخ</span></button>
+      <button class="tb" data-f="Aref Ruqaa"><span class="t-en">Ruq‘ah</span><span class="t-ar">رقعة</span></button>
+      <button class="tb" data-f="Reem Kufi"><span class="t-en">Kufic</span><span class="t-ar">كوفي</span></button>
+      <button class="tb" data-f="Noto Sans Arabic"><span class="t-en">Plain</span><span class="t-ar">واضح</span></button>
+    </div>
+    <div class="lbl"><span class="t-en">Text</span><span class="t-ar">اختر نصاً</span></div>
+    <div class="row" id="presets"></div>
+    <input type="text" id="custom" dir="rtl" maxlength="40" placeholder="أو اكتب نصّك هنا (اسمك، كلمة…)" aria-label="Your own text" autocomplete="off" spellcheck="false">
+    <p class="hint"><span class="t-en">In “Copy below” the model sits on one line and the line under it stays empty for you.</span><span class="t-ar">في «انسخ تحته» يظهر النموذج في سطر ويبقى الذي تحته فارغاً لتكتب فيه بنفسك.</span></p>
+  </div>
+  <footer id="sitefoot"></footer>
+</main>
+
+<div id="qbar" aria-label="Quick tools"><div class="qr" id="qp"></div><div class="qr qc" id="qcol"></div></div>
+<script src="../assets/site.js"></script>
+<script>
+(function(){
+'use strict';
+var W = 1000;
+var $ = function(id){ return document.getElementById(id); };
+var board = $('board'), paper = $('paper'), ink = $('ink');
+var pc = paper.getContext('2d'), ic = ink.getContext('2d');
+var EN = function(){ return document.documentElement.getAttribute('data-lang') === 'en'; };
+
+var COLORS = ['#3B2B21','#1F3A5F','#2C7A6E','#A23E2E','#A26F1C','#34578A','#6B4E9B','#B8336A'];
+var PRESETS = [
+  { en: 'Warm-up', ar: 'تسخين', t: ['ااااااا', 'بببببب', 'سسسسسس', 'ممممممم'] },
+  { en: 'Letters 1', ar: 'الحروف ١', t: ['ا ب ت ث ج ح خ'] },
+  { en: 'Letters 2', ar: 'الحروف ٢', t: ['د ذ ر ز س ش ص'] },
+  { en: 'Letters 3', ar: 'الحروف ٣', t: ['ض ط ظ ع غ ف ق'] },
+  { en: 'Letters 4', ar: 'الحروف ٤', t: ['ك ل م ن ه و ي'] },
+  { en: 'Words', ar: 'كلمات', t: ['بسم الله', 'العلم نور', 'السلام عليكم', 'المملكة العربية السعودية', 'محمد'] },
+  { en: 'Sayings', ar: 'حِكَم', t: ['من جدّ وجد', 'العلم نور والجهل ظلام', 'خير الكلام ما قلّ ودلّ', 'الوقت كالسيف', 'اطلبوا العلم من المهد إلى اللحد'] }
+];
+var TIPS = {
+  reed: ['قلم القصب: السماكة تتغيّر حسب اتجاه الحركة. الخط الأفقي سميك والرأسي أرقّ. اختر ارتفاع الألف (٥ نقاط للنسخ، ٧ للثلث).',
+         'Reed pen: the thickness changes with the direction of the stroke: horizontals are thick, verticals thinner. Pick the alif height (5 dots for Naskh, 7 for Thuluth).'],
+  pencil: ['قلم رصاص: للتدريب الحرّ ولرسم الهيكل قبل الكتابة بالقصب.', 'Pencil: for free practice and for sketching the skeleton before the reed.'],
+  brush: ['الفرشاة: تحرّك ببطء ليصير الخط أسمك، وبسرعة ليصير أرقّ.', 'Brush: move slowly for a thicker line and quickly for a thinner one.'],
+  marker: ['الماركر: خط ثابت السماكة، مناسب للعناوين الكبيرة.', 'Marker: a constant thick line, good for big headings.'],
+  eraser: ['الممحاة تمسح ما كتبته فقط، ولا تمسح الخطوط الإرشادية ولا النموذج.', 'The eraser only removes your writing, not the guide lines or the model.']
+};
+
+var S = { pen: 'reed', color: COLORS[0], size: 1, guides: 'two', u: 58, mode: 'trace', font: 'Amiri', preset: 5, custom: '', nib: 70, n: 5 };
+try { var sv = JSON.parse(localStorage.getItem('cal-ar-set') || '{}'); Object.keys(sv).forEach(function(k){ if (k in S) S[k] = sv[k]; }); } catch (e) {}
+function save(){ try { localStorage.setItem('cal-ar-set', JSON.stringify(S)); } catch (e) {} }
+
+var strokes = [], cur = null, H = 700, K = 1, DPR = 1, rows = 3, TOP = 0, ROW = 0;
+
+function layout(){
+  var cw = board.clientWidth || 600; DPR = Math.min(window.devicePixelRatio || 1, 3);
+  var u = S.u; TOP = u * .45; ROW = u * 3.5;
+  var ratio = cw < 640 ? 1.25 : .75;
+  rows = Math.max(2, Math.floor((ratio * W - TOP) / ROW));
+  H = Math.round(TOP + rows * ROW);
+  board.style.aspectRatio = W + ' / ' + H;
+  var ch = Math.round(cw * H / W); K = cw / W;
+  [paper, ink].forEach(function(c){ c.width = Math.round(cw * DPR); c.height = Math.round(ch * DPR); });
+  drawPaper(); replay();
+}
+function setT(c){ c.setTransform(DPR * K, 0, 0, DPR * K, 0, 0); }
+
+function modelLines(){
+  if (S.custom.trim()) return [S.custom.trim()];
+  return (PRESETS[S.preset] || PRESETS[5]).t;
+}
+function drawPaper(){
+  setT(pc); pc.clearRect(0, 0, W, H);
+  var u = S.u, i, dot = 2 * u / S.n;
+  function line(y){ pc.beginPath(); pc.moveTo(14, y); pc.lineTo(W - 14, y); pc.stroke(); }
+  for (i = 0; i < rows; i++) {
+    var asc = TOP + i * ROW, base = asc + 2 * u, desc = base + u;
+    if (S.guides === 'two' || S.guides === 'three') {
+      pc.setLineDash([14, 10]); pc.lineWidth = 2; pc.strokeStyle = '#B9CFE0'; line(asc);
+      if (S.guides === 'three') { pc.strokeStyle = '#D9C7AE'; line(base - u); }
+      pc.setLineDash([]); pc.lineWidth = 3; pc.strokeStyle = '#E5A89B'; line(base);
+    } else if (S.guides === 'dots') {
+      pc.fillStyle = '#D9C7AE';
+      for (var y = asc; y <= desc + .1; y += dot) for (var x = 24; x < W - 10; x += dot * 1.5) { pc.beginPath(); pc.arc(x, y, 2.2, 0, 6.3); pc.fill(); }
+      pc.setLineDash([]); pc.lineWidth = 3; pc.strokeStyle = '#E5A89B'; line(base);
+    }
+  }
+  if (S.mode !== 'free') drawModel();
+}
+function drawModel(){
+  var L = modelLines(), u = S.u, fam = S.font, q = '"' + fam + '","Noto Naskh Arabic",serif';
+  pc.save(); pc.textBaseline = 'alphabetic'; pc.textAlign = 'right'; pc.direction = 'rtl'; pc.fillStyle = '#B7AA98';
+  pc.font = '100px ' + q;
+  var ah = pc.measureText('ا').actualBoundingBoxAscent || 70;   // scale so the model's alif reaches the alif line
+  var fs = Math.min(100 * (2 * u) / ah, u * 4);
+  for (var r = 0; r < rows; r++) {
+    var idx;
+    if (S.mode === 'trace') idx = r % L.length; else { if (r % 2) continue; idx = (r / 2) % L.length; }
+    var t = L[Math.floor(idx)]; if (!t) continue;
+    var size = fs; pc.font = size + 'px ' + q;
+    var w = pc.measureText(t).width, maxW = W - 80;
+    if (w > maxW) { size = size * maxW / w; pc.font = size + 'px ' + q; }
+    pc.fillText(t, W - 40, TOP + r * ROW + 2 * u);
+  }
+  pc.restore();
+}
+
+function unitW(pen, s){
+  var m = s.size;
+  switch (pen) {
+    case 'reed': return (2 * S.u / s.n) * m;
+    case 'pencil': return 3 * m;
+    case 'brush': return 17 * m;
+    case 'marker': return 20 * m;
+    case 'eraser': return 46 * m;
+  }
+  return 4;
+}
+function seg(c, s, a, b){
+  var dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || .001, st = s.st, w, p = (b.p > 0 && b.p !== .5) ? b.p : 0;
+  c.save(); c.lineCap = 'round'; c.lineJoin = 'round'; c.strokeStyle = s.color; c.fillStyle = s.color;
+  var base = s.w0 != null ? s.w0 * s.size : unitW(s.pen, s);
+  if (s.pen === 'pencil') { c.globalAlpha = .88; c.lineWidth = base; line(); }
+  else if (s.pen === 'reed') {
+    var th = s.nib * Math.PI / 180, nx = Math.cos(th) * base / 2, ny = -Math.sin(th) * base / 2;
+    c.beginPath(); c.moveTo(a.x - nx, a.y - ny); c.lineTo(a.x + nx, a.y + ny); c.lineTo(b.x + nx, b.y + ny); c.lineTo(b.x - nx, b.y - ny); c.closePath(); c.fill();
+    c.lineWidth = 1; c.stroke();
+  } else if (s.pen === 'brush') {
+    var dt = Math.max(4, (b.t || 0) - (a.t || 0) || 16), v = d / dt;
+    w = p ? base * (.3 + p * 1.1) : base * (1.25 - Math.min(1, v / 2.2) * .9);
+    st.w = st.w == null ? w : st.w * .7 + w * .3;
+    c.lineWidth = Math.max(1.5, st.w); line();
+  } else if (s.pen === 'marker') { c.lineWidth = base; line(); }
+  else if (s.pen === 'eraser') { c.globalCompositeOperation = 'destination-out'; c.lineWidth = base; line(); }
+  c.restore();
+  function line(){ c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(b.x, b.y); c.stroke(); }
+}
+function drawStroke(c, s){
+  s.st = {}; var P = s.pts;
+  if (P.length === 1) seg(c, s, P[0], { x: P[0].x + .01, y: P[0].y, p: P[0].p, t: P[0].t });
+  for (var i = 1; i < P.length; i++) seg(c, s, P[i - 1], P[i]);
+}
+function replay(){ setT(ic); ic.clearRect(0, 0, W, H); strokes.forEach(function(s){ drawStroke(ic, s); }); }
+
+function pt(e){
+  var r = ink.getBoundingClientRect();
+  return { x: (e.clientX - r.left) / K, y: (e.clientY - r.top) / K, p: e.pointerType === 'pen' ? e.pressure : 0, t: e.timeStamp };
+}
+ink.addEventListener('pointerdown', function(e){
+  if (e.button > 0) return;
+  e.preventDefault();
+  try { ink.setPointerCapture(e.pointerId); } catch (x) {}
+  var q = pt(e);
+  // the reed pen's width is fixed when the stroke starts (alif height / dots), so old strokes keep their look
+  cur = { pen: S.pen, color: S.color, size: S.size, nib: S.nib, n: S.n, pts: [q], st: {}, id: e.pointerId };
+  cur.w0 = unitW(S.pen, { size: 1, n: S.n }); cur.size = S.pen === 'reed' ? 1 : S.size;
+  setT(ic); seg(ic, cur, q, { x: q.x + .01, y: q.y, p: q.p, t: q.t });
+});
+ink.addEventListener('pointermove', function(e){
+  if (!cur || e.pointerId !== cur.id) return;
+  e.preventDefault();
+  var list = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+  if (!list.length) list = [e];
+  setT(ic);
+  list.forEach(function(ev){
+    var q = pt(ev), last = cur.pts[cur.pts.length - 1];
+    if (Math.hypot(q.x - last.x, q.y - last.y) < 1.2) return;
+    cur.pts.push(q); seg(ic, cur, last, q);
+  });
+});
+function end(e){ if (!cur || (e && e.pointerId !== cur.id)) return; var s = cur; cur = null; delete s.id; strokes.push(s); }
+ink.addEventListener('pointerup', end);
+ink.addEventListener('pointercancel', end);
+ink.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+
+function mark(box, attr, val){
+  Array.prototype.forEach.call(box.querySelectorAll('[data-' + attr + ']'), function(b){ b.classList.toggle('on', String(b.getAttribute('data-' + attr)) === String(val)); });
+}
+function ui(){
+  mark($('pens'), 'pen', S.pen); mark($('qp'), 'pen', S.pen); mark($('sizes'), 'size', S.size); mark($('guides'), 'g', S.guides);
+  mark($('lsz'), 'u', S.u); mark($('modes'), 'm', S.mode); mark($('fonts'), 'f', S.font); mark($('alifs'), 'n', S.n);
+  Array.prototype.forEach.call($('qcol').children, function(b){ b.classList.toggle('on', b.dataset.c === S.color); });
+  Array.prototype.forEach.call($('colors').children, function(b){ b.classList.toggle('on', b.dataset.c === S.color); });
+  Array.prototype.forEach.call($('presets').children, function(b){ b.classList.toggle('on', !S.custom.trim() && +b.dataset.p === S.preset); });
+  $('tip').textContent = TIPS[S.pen][EN() ? 1 : 0];
+  $('alifBox').style.display = S.pen === 'reed' ? '' : 'none';
+  $('szBox').style.display = S.pen === 'reed' ? 'none' : '';
+  $('nib').value = S.nib; $('nibVal').textContent = S.nib;
+}
+[['reed','🖊️'],['pencil','✏️'],['brush','🖌️'],['marker','🖍️'],['eraser','🧽']].forEach(function(a){
+  var b = document.createElement('button'); b.dataset.pen = a[0]; b.textContent = a[1]; b.setAttribute('aria-label', a[0]); $('qp').appendChild(b);
+});
+var ub = document.createElement('button'); ub.textContent = '↶'; ub.setAttribute('aria-label', 'Undo'); ub.addEventListener('click', function(){ strokes.pop(); replay(); }); $('qp').appendChild(ub);
+$('qp').addEventListener('click', function(e){ var b = e.target.closest('[data-pen]'); if (!b) return; S.pen = b.dataset.pen; ui(); save(); });
+COLORS.forEach(function(c){
+  var q = document.createElement('button'); q.style.background = c; q.dataset.c = c; q.setAttribute('aria-label', 'Ink'); $('qcol').appendChild(q);
+  var b = document.createElement('button'); b.style.background = c; b.dataset.c = c; b.setAttribute('aria-label', 'Ink'); $('colors').appendChild(b);
+});
+function pickColor(e){ var b = e.target.closest('[data-c]'); if (!b) return; S.color = b.dataset.c; if (S.pen === 'eraser') S.pen = 'reed'; ui(); save(); }
+$('qcol').addEventListener('click', pickColor); $('colors').addEventListener('click', pickColor);
+PRESETS.forEach(function(p, i){
+  var b = document.createElement('button'); b.className = 'tb'; b.dataset.p = i;
+  b.innerHTML = '<span class="t-en">' + p.en + '</span><span class="t-ar">' + p.ar + '</span>'; $('presets').appendChild(b);
+});
+function on(box, attr, fn){
+  $(box).addEventListener('click', function(e){
+    var b = e.target.closest('[data-' + attr + ']'); if (!b) return; fn(b.getAttribute('data-' + attr), b); ui(); save();
+  });
+}
+on('pens', 'pen', function(v){ S.pen = v; });
+on('sizes', 'size', function(v){ S.size = +v; });
+on('alifs', 'n', function(v){ S.n = +v; drawPaper(); });
+on('guides', 'g', function(v){ S.guides = v; drawPaper(); });
+on('lsz', 'u', function(v){ S.u = +v; layout(); });
+on('modes', 'm', function(v){ S.mode = v; drawPaper(); });
+on('fonts', 'f', function(v){ S.font = v; loadFont(); });
+on('presets', 'p', function(v){ S.preset = +v; S.custom = ''; $('custom').value = ''; drawPaper(); });
+$('nib').addEventListener('input', function(){ S.nib = +this.value; $('nibVal').textContent = S.nib; save(); });
+$('custom').addEventListener('input', function(){ S.custom = this.value; if (S.mode === 'free') S.mode = 'trace'; drawPaper(); ui(); });
+$('undo').addEventListener('click', function(){ strokes.pop(); replay(); });
+var clearT = 0;
+$('clear').addEventListener('click', function(){
+  var b = this, orig = b.innerHTML;
+  if (!b.classList.contains('on')) { b.classList.add('on'); b.setAttribute('data-orig', orig); b.innerHTML = '<span class="t-en">Tap again</span><span class="t-ar">اضغط مرة أخرى</span>'; clearT = setTimeout(reset, 2500); return; }
+  strokes = []; replay(); reset();
+  function reset(){ clearTimeout(clearT); b.classList.remove('on'); b.innerHTML = b.getAttribute('data-orig') || orig; }
+});
+$('save').addEventListener('click', function(){
+  var out = document.createElement('canvas'), sc = 2; out.width = W * sc; out.height = H * sc;
+  var o = out.getContext('2d'); o.fillStyle = '#FFFBF5'; o.fillRect(0, 0, out.width, out.height);
+  o.drawImage(paper, 0, 0, out.width, out.height); o.drawImage(ink, 0, 0, out.width, out.height);
+  out.toBlob(function(bl){
+    if (!bl) return;
+    var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = 'my-calligraphy.png';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000);
+  }, 'image/png');
+});
+$('print').addEventListener('click', function(){ window.print(); });
+
+function loadFont(){
+  drawPaper();
+  if (document.fonts && document.fonts.load) document.fonts.load('60px "' + S.font + '"', 'ابج').then(drawPaper, function(){});
+}
+if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', drawPaper);
+document.addEventListener('langchange', ui);
+var rt = 0; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(layout, 150); });
+ui(); layout(); loadFont();
+window.__cal = { strokes: function(){ return strokes; }, S: S };
+})();
+</script>
+</body>
+</html>
