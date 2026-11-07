@@ -30,7 +30,7 @@
 .tip{background:var(--sea-soft);border:1.5px solid #BBD7E5;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:1rem;line-height:1.9}
 input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;border-radius:8px;border:1.5px solid var(--line);margin-top:8px;background:#fff;color:var(--ink)}
 .hint{color:var(--muted);font-size:.95rem;margin:8px 0 0}
-#qbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,251,245,.97);border-top:1.5px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;align-items:center;direction:ltr}
+#qbar{position:fixed;left:0;right:0;bottom:0;z-index:2147483001;background:rgba(255,251,245,.97);border-top:1.5px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;align-items:center;direction:ltr}
 #qbar .qr{display:flex;gap:6px;justify-content:center}
 #qbar button,.tb .ic{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
 #qbar button{width:50px;height:50px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:1.5rem;cursor:pointer;padding:0}
@@ -39,6 +39,12 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
 #qbar .qc button.on{box-shadow:0 0 0 3px var(--sand)}
 .wrap{padding-bottom:160px}
 @media print{body{background:#fff}.wrap>*:not(.pr){display:none!important}.pr{border:0!important;padding:0!important;margin:0!important}.pr .row,.pr h2{display:none!important}#qbar,#topbar{display:none!important}}
+.nav{align-items:center;flex-wrap:nowrap;gap:6px;margin:0 0 8px}
+.nav .tb{flex:0 0 auto;flex-direction:row;min-height:50px;padding:6px 14px}
+.nav .wl{flex:1 1 60px;text-align:center;font-weight:800;font-size:1.3rem;font-family:var(--ui-en);direction:ltr}
+.pr.fsw{position:fixed;inset:0;z-index:2147483000;border-radius:0;margin:0;padding:6px 6px 140px;background:var(--paper);overflow:auto}
+.pr.fsw .row:not(.nav){display:none}
+@media (max-width:640px){.wrap{padding-left:8px;padding-right:8px}.cc{padding:8px}.pr .board{border-width:2px}}
 </style>
 </head>
 <body data-root="../">
@@ -51,6 +57,12 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
   </div>
 
   <div class="cc pr">
+    <div class="row nav">
+      <button class="tb" id="prev">▶ <span class="t-en">Prev</span><span class="t-ar">السابق</span></button>
+      <div class="wl" id="wlbl">1 / 9</div>
+      <button class="tb" id="next">◀ <span class="t-en">Next</span><span class="t-ar">التالي</span></button>
+      <button class="tb" id="fsb" aria-label="Full screen">⛶</button>
+    </div>
     <div class="board" id="board"><canvas id="paper"></canvas><canvas id="ink"></canvas></div>
     <div class="row">
       <button class="tb" id="undo">↶ <span class="t-en">Undo</span><span class="t-ar">تراجع</span></button>
@@ -103,19 +115,20 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
       <button class="tb" data-g="three"><span class="t-en">Three lines</span><span class="t-ar">ثلاثة أسطر</span></button>
       <button class="tb" data-g="dots"><span class="t-en">Dot grid</span><span class="t-ar">شبكة نقاط</span></button>
     </div>
-    <div class="lbl"><span class="t-en">Line size</span><span class="t-ar">حجم السطر</span></div>
+    <div id="lszBox"><div class="lbl"><span class="t-en">Line size (free writing)</span><span class="t-ar">حجم السطر (للكتابة الحرّة)</span></div>
     <div class="row" id="lsz">
       <button class="tb" data-u="34"><span class="t-en">Small</span><span class="t-ar">صغير</span></button>
       <button class="tb" data-u="44"><span class="t-en">Medium</span><span class="t-ar">وسط</span></button>
       <button class="tb" data-u="58"><span class="t-en">Large</span><span class="t-ar">كبير</span></button>
-    </div>
+    </div></div>
   </div>
 
   <div class="cc">
     <h2><span class="t-en">Model text</span><span class="t-ar">النموذج</span></h2>
     <div class="row" id="modes">
-      <button class="tb" data-m="trace"><span class="t-en">Trace over</span><span class="t-ar">تتبّع</span></button>
-      <button class="tb" data-m="copy"><span class="t-en">Copy below</span><span class="t-ar">انسخ تحته</span></button>
+      <button class="tb" data-m="steps"><span class="t-en">Step by step</span><span class="t-ar">تدرّج</span></button>
+      <button class="tb" data-m="trace"><span class="t-en">Trace all lines</span><span class="t-ar">تتبّع كل الأسطر</span></button>
+      <button class="tb" data-m="copy"><span class="t-en">Copy</span><span class="t-ar">انسخ</span></button>
       <button class="tb" data-m="free"><span class="t-en">Free writing</span><span class="t-ar">كتابة حرّة</span></button>
     </div>
     <div class="lbl"><span class="t-en">Script</span><span class="t-ar">الخط</span></div>
@@ -128,7 +141,7 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
     <div class="lbl"><span class="t-en">Text</span><span class="t-ar">اختر نصاً</span></div>
     <div class="row" id="presets"></div>
     <input type="text" id="custom" dir="rtl" maxlength="40" placeholder="أو اكتب نصّك هنا (اسمك، كلمة…)" aria-label="Your own text" autocomplete="off" spellcheck="false">
-    <p class="hint"><span class="t-en">In “Copy below” the model sits on one line and the line under it stays empty for you.</span><span class="t-ar">في «انسخ تحته» يظهر النموذج في سطر ويبقى الذي تحته فارغاً لتكتب فيه بنفسك.</span></p>
+    <p class="hint"><span class="t-en">One word per page. “Step by step”: a clear model line, then a faint one, then empty lines for you. Use Prev / Next to move between words.</span><span class="t-ar">كلمة واحدة في كل صفحة. «تدرّج»: سطر نموذج واضح، ثم سطر باهت، ثم أسطر فارغة لتكتب فيها بنفسك. استعمل «السابق» و«التالي» للانتقال بين الكلمات.</span></p>
   </div>
   <footer id="sitefoot"></footer>
 </main>
@@ -145,13 +158,11 @@ var pc = paper.getContext('2d'), ic = ink.getContext('2d');
 var EN = function(){ return document.documentElement.getAttribute('data-lang') === 'en'; };
 
 var COLORS = ['#3B2B21','#1F3A5F','#2C7A6E','#A23E2E','#A26F1C','#34578A','#6B4E9B','#B8336A'];
+var LET = 'ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي'.split(' ');
 var PRESETS = [
-  { en: 'Warm-up', ar: 'تسخين', t: ['ااااااا', 'بببببب', 'سسسسسس', 'ممممممم'] },
-  { en: 'Letters 1', ar: 'الحروف ١', t: ['ا ب ت ث ج ح خ'] },
-  { en: 'Letters 2', ar: 'الحروف ٢', t: ['د ذ ر ز س ش ص'] },
-  { en: 'Letters 3', ar: 'الحروف ٣', t: ['ض ط ظ ع غ ف ق'] },
-  { en: 'Letters 4', ar: 'الحروف ٤', t: ['ك ل م ن ه و ي'] },
-  { en: 'Words', ar: 'كلمات', t: ['بسم الله', 'العلم نور', 'السلام عليكم', 'المملكة العربية السعودية', 'محمد'] },
+  { en: 'Warm-up', ar: 'تسخين', t: ['ا', 'ببب', 'سسس', 'ممم', 'ــــ'] },
+  { en: 'Letters', ar: 'الحروف', t: LET },
+  { en: 'Words', ar: 'كلمات', t: ['بسم الله', 'العلم نور', 'السلام عليكم', 'محمد', 'مدرسة', 'معلم', 'كتاب', 'وطن', 'المملكة العربية السعودية'] },
   { en: 'Sayings', ar: 'حِكَم', t: ['من جدّ وجد', 'العلم نور والجهل ظلام', 'خير الكلام ما قلّ ودلّ', 'الوقت كالسيف', 'اطلبوا العلم من المهد إلى اللحد'] }
 ];
 var TIPS = {
@@ -163,18 +174,36 @@ var TIPS = {
   eraser: ['الممحاة تمسح ما كتبته فقط، ولا تمسح الخطوط الإرشادية ولا النموذج.', 'The eraser only removes your writing, not the guide lines or the model.']
 };
 
-var S = { pen: 'reed', color: COLORS[0], size: 1, guides: 'two', u: 58, mode: 'trace', font: 'Amiri', preset: 5, custom: '', nib: 70, n: 5 };
+var S = { pen: 'reed', color: COLORS[0], size: 1, guides: 'two', u: 58, mode: 'steps', font: 'Amiri', preset: 2, custom: '', nib: 70, n: 5 };
 try { var sv = JSON.parse(localStorage.getItem('cal-ar-set') || '{}'); Object.keys(sv).forEach(function(k){ if (k in S) S[k] = sv[k]; }); } catch (e) {}
 function save(){ try { localStorage.setItem('cal-ar-set', JSON.stringify(S)); } catch (e) {} }
 
+var U = 58, idx = 0, mem = {}, fsOn = false;
 var strokes = [], cur = null, H = 700, K = 1, DPR = 1, rows = 3, TOP = 0, ROW = 0;
 
+function items(){
+  if (S.custom.trim()) return [S.custom.trim()];
+  return (PRESETS[S.preset] || PRESETS[2]).t;
+}
+function itemKey(){ return (S.custom.trim() ? 'c:' + S.custom.trim() : S.preset) + ':' + idx + ':' + S.font; }
+function curItem(){ var L = items(); if (idx >= L.length) idx = 0; return L[idx]; }
+/* In word mode the word is scaled to fill the board's width: big letters, easy for a finger. */
+function autoU(){
+  if (S.mode === 'free') return S.u;
+  var t = curItem(), c = pc, q = '"' + S.font + '","Noto Naskh Arabic",serif';
+  c.save(); c.direction = 'rtl'; c.font = '100px ' + q;
+  var ah = c.measureText('ا').actualBoundingBoxAscent || 70, w = c.measureText(t).width || 1; c.restore();
+  var fs = (W - 90) * 100 / w, u = ah * fs / 200;   // alif height = 2u
+  return Math.max(34, Math.min(80, u));
+}
 function layout(){
   var cw = board.clientWidth || 600; DPR = Math.min(window.devicePixelRatio || 1, 3);
-  var u = S.u; TOP = u * .45; ROW = u * 3.5;
-  var ratio = cw < 640 ? 1.25 : .75;
-  rows = Math.max(2, Math.floor((ratio * W - TOP) / ROW));
-  H = Math.round(TOP + rows * ROW);
+  U = autoU(); var u = U; TOP = u * .45; ROW = u * 3.5;
+  var ratio = cw < 640 ? 1.5 : .75;
+  if (fsOn) ratio = Math.max(.6, (window.innerHeight - 215) / Math.max(200, window.innerWidth - 12));
+  rows = Math.max(2, Math.min(7, Math.floor((ratio * W - TOP) / ROW)));
+  if (S.mode !== 'free') rows = Math.max(3, rows);
+  H = Math.round(Math.max(TOP + rows * ROW, ratio * W));
   board.style.aspectRatio = W + ' / ' + H;
   var ch = Math.round(cw * H / W); K = cw / W;
   [paper, ink].forEach(function(c){ c.width = Math.round(cw * DPR); c.height = Math.round(ch * DPR); });
@@ -182,13 +211,9 @@ function layout(){
 }
 function setT(c){ c.setTransform(DPR * K, 0, 0, DPR * K, 0, 0); }
 
-function modelLines(){
-  if (S.custom.trim()) return [S.custom.trim()];
-  return (PRESETS[S.preset] || PRESETS[5]).t;
-}
 function drawPaper(){
   setT(pc); pc.clearRect(0, 0, W, H);
-  var u = S.u, i, dot = 2 * u / S.n;
+  var u = U, i, dot = 2 * u / S.n;
   function line(y){ pc.beginPath(); pc.moveTo(14, y); pc.lineTo(W - 14, y); pc.stroke(); }
   for (i = 0; i < rows; i++) {
     var asc = TOP + i * ROW, base = asc + 2 * u, desc = base + u;
@@ -205,31 +230,31 @@ function drawPaper(){
   if (S.mode !== 'free') drawModel();
 }
 function drawModel(){
-  var L = modelLines(), u = S.u, fam = S.font, q = '"' + fam + '","Noto Naskh Arabic",serif';
-  pc.save(); pc.textBaseline = 'alphabetic'; pc.textAlign = 'right'; pc.direction = 'rtl'; pc.fillStyle = '#B7AA98';
+  var t = curItem(), u = U, fam = S.font, q = '"' + fam + '","Noto Naskh Arabic",serif';
+  pc.save(); pc.textBaseline = 'alphabetic'; pc.textAlign = 'center'; pc.direction = 'rtl'; pc.fillStyle = '#B7AA98';
   pc.font = '100px ' + q;
   var ah = pc.measureText('ا').actualBoundingBoxAscent || 70;   // scale so the model's alif reaches the alif line
   var fs = Math.min(100 * (2 * u) / ah, u * 4);
+  var size = fs; pc.font = size + 'px ' + q;
+  var w = pc.measureText(t).width, maxW = W - 80;
+  if (w > maxW) { size = size * maxW / w; pc.font = size + 'px ' + q; }
   for (var r = 0; r < rows; r++) {
-    var idx;
-    if (S.mode === 'trace') idx = r % L.length; else { if (r % 2) continue; idx = (r / 2) % L.length; }
-    var t = L[Math.floor(idx)]; if (!t) continue;
-    var size = fs; pc.font = size + 'px ' + q;
-    var w = pc.measureText(t).width, maxW = W - 80;
-    if (w > maxW) { size = size * maxW / w; pc.font = size + 'px ' + q; }
-    pc.fillText(t, W - 40, TOP + r * ROW + 2 * u);
+    // steps: first line strong, second faint, the rest empty · trace: every line · copy: first line only
+    var a = S.mode === 'trace' ? 1 : S.mode === 'copy' ? (r === 0 ? 1 : 0) : (r === 0 ? 1 : r === 1 ? .4 : 0);
+    if (!a) continue;
+    pc.globalAlpha = a; pc.fillText(t, W / 2, TOP + r * ROW + 2 * u);
   }
   pc.restore();
 }
 
 function unitW(pen, s){
-  var m = s.size;
+  var m = s.size, F = Math.max(.8, U / 58);
   switch (pen) {
-    case 'reed': return (2 * S.u / s.n) * m;
-    case 'pencil': return 3 * m;
-    case 'brush': return 17 * m;
-    case 'marker': return 20 * m;
-    case 'eraser': return 46 * m;
+    case 'reed': return (2 * U / s.n) * m;
+    case 'pencil': return 3 * m * F;
+    case 'brush': return 17 * m * F;
+    case 'marker': return 20 * m * F;
+    case 'eraser': return 46 * m * F;
   }
   return 4;
 }
@@ -302,6 +327,9 @@ function ui(){
   $('tip').textContent = TIPS[S.pen][EN() ? 1 : 0];
   $('alifBox').style.display = S.pen === 'reed' ? '' : 'none';
   $('szBox').style.display = S.pen === 'reed' ? 'none' : '';
+  var wm = S.mode !== 'free'; $('prev').style.visibility = $('next').style.visibility = wm ? '' : 'hidden';
+  $('wlbl').textContent = wm ? (idx + 1) + ' / ' + items().length : '✍️';
+  $('lszBox').style.display = wm ? 'none' : '';
   $('nib').value = S.nib; $('nibVal').textContent = S.nib;
 }
 [['reed','🖊️'],['pencil','✏️'],['brush','🖌️'],['marker','🖍️'],['eraser','🧽']].forEach(function(a){
@@ -329,11 +357,11 @@ on('sizes', 'size', function(v){ S.size = +v; });
 on('alifs', 'n', function(v){ S.n = +v; drawPaper(); });
 on('guides', 'g', function(v){ S.guides = v; drawPaper(); });
 on('lsz', 'u', function(v){ S.u = +v; layout(); });
-on('modes', 'm', function(v){ S.mode = v; drawPaper(); });
+on('modes', 'm', function(v){ S.mode = v; layout(); });
 on('fonts', 'f', function(v){ S.font = v; loadFont(); });
-on('presets', 'p', function(v){ S.preset = +v; S.custom = ''; $('custom').value = ''; drawPaper(); });
+on('presets', 'p', function(v){ remember(); S.preset = +v; S.custom = ''; $('custom').value = ''; idx = 0; recall(); layout(); });
 $('nib').addEventListener('input', function(){ S.nib = +this.value; $('nibVal').textContent = S.nib; save(); });
-$('custom').addEventListener('input', function(){ S.custom = this.value; if (S.mode === 'free') S.mode = 'trace'; drawPaper(); ui(); });
+$('custom').addEventListener('input', function(){ remember(); S.custom = this.value; idx = 0; if (S.mode === 'free') S.mode = 'steps'; recall(); layout(); ui(); });
 $('undo').addEventListener('click', function(){ strokes.pop(); replay(); });
 var clearT = 0;
 $('clear').addEventListener('click', function(){
@@ -354,11 +382,21 @@ $('save').addEventListener('click', function(){
 });
 $('print').addEventListener('click', function(){ window.print(); });
 
+function remember(){ mem[itemKey()] = strokes; }
+function recall(){ strokes = mem[itemKey()] || []; }
+function go(d){ remember(); var n = items().length; idx = (idx + d + n) % n; recall(); layout(); ui(); }
+$('prev').addEventListener('click', function(){ go(-1); });
+$('next').addEventListener('click', function(){ go(1); });
+$('fsb').addEventListener('click', function(){
+  fsOn = !fsOn; document.querySelector('.pr').classList.toggle('fsw', fsOn);
+  $('fsb').innerHTML = fsOn ? '✕' : '⛶';
+  window.scrollTo(0, 0); layout();
+});
 function loadFont(){
-  drawPaper();
-  if (document.fonts && document.fonts.load) document.fonts.load('60px "' + S.font + '"', 'ابج').then(drawPaper, function(){});
+  layout();
+  if (document.fonts && document.fonts.load) document.fonts.load('60px "' + S.font + '"', 'ابج').then(layout, function(){});
 }
-if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', drawPaper);
+if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', layout);
 document.addEventListener('langchange', ui);
 var rt = 0; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(layout, 150); });
 ui(); layout(); loadFont();
