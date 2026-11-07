@@ -30,16 +30,16 @@
 .tip{background:var(--sea-soft);border:1.5px solid #BBD7E5;border-radius:6px;padding:10px 14px;margin-top:10px;font-size:1rem;line-height:1.9}
 input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;border-radius:8px;border:1.5px solid var(--line);margin-top:8px;background:#fff;color:var(--ink)}
 .hint{color:var(--muted);font-size:.95rem;margin:8px 0 0}
-#inkwell{display:none;margin-top:12px;background:#fffaf0;border:1.5px solid #ead7ad;border-radius:10px;padding:12px}
-#inkwell .top{display:flex;align-items:center;gap:14px}
-#dip{flex:0 0 auto;min-width:150px;font-size:1.15rem}
-#inkwell .gw{flex:1 1 auto;min-width:0}
-.gauge{height:20px;border-radius:10px;background:#f4ead2;border:1.5px solid #ead7ad;overflow:hidden;margin-top:6px}
-.gauge i{display:block;height:100%;width:0;background:#9a7b3f;transition:width .25s}
-#inkMsg{font-size:1.1rem;line-height:1.9;margin-top:8px}
-#qbar .qg{width:10px;height:50px;border-radius:5px;background:#f4ead2;border:1.5px solid #ead7ad;overflow:hidden;display:none;align-self:center;position:relative}
-#qbar .qg i{position:absolute;left:0;right:0;bottom:0;height:0;background:#9a7b3f;transition:height .25s}
-#qbar button.low,#dip.low{animation:inkpulse 1.1s infinite;border-color:#d9a63a}
+#well{position:absolute;left:10px;bottom:10px;z-index:5;display:none;width:132px;padding:6px 6px 8px;border-radius:14px;background:rgba(255,248,230,.94);border:2px solid #ead7ad;text-align:center;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none;font-family:var(--kufi);direction:rtl}
+#well svg{width:58px;height:58px;display:block;margin:0 auto}
+#well .wl{font-weight:700;font-size:1.2rem;line-height:1.3}
+#well .wg{height:14px;border-radius:7px;background:#f4ead2;border:1.5px solid #ead7ad;overflow:hidden;margin:6px 4px 0}
+#well .wg i{display:block;height:100%;width:0;background:#9a7b3f;transition:width .25s}
+#well .wm{font-size:1.05rem;line-height:1.45;margin-top:6px}
+#well .wm:empty{display:none}
+@media(max-width:520px){#well{width:116px}}
+#well.low{animation:inkpulse 1.1s infinite;border-color:#d9a63a}
+@media print{#well{display:none!important}}
 @keyframes inkpulse{0%,100%{box-shadow:0 0 0 0 rgba(217,166,58,0)}50%{box-shadow:0 0 0 7px rgba(217,166,58,.5)}}
 @keyframes inkdip{0%{transform:translateY(0)}45%{transform:translateY(10px)}100%{transform:translateY(0)}}
 .dipping .pen{animation:inkdip .7s}
@@ -76,7 +76,7 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
       <button class="tb" id="next">◀ <span class="t-en">Next</span><span class="t-ar">التالي</span></button>
       <button class="tb" id="fsb" aria-label="Full screen">⛶</button>
     </div>
-    <div class="board" id="board"><canvas id="paper"></canvas><canvas id="ink"></canvas></div>
+    <div class="board" id="board"><canvas id="paper"></canvas><canvas id="ink"></canvas><div id="well" role="button" tabindex="0" aria-label="Inkwell: touch to dip the pen"><svg viewBox="0 0 48 48" aria-hidden="true"><g class="pen"><path d="M31 4 L25 22" stroke="#a9884c" stroke-width="3.2" stroke-linecap="round"/><path d="M25 22 L23.6 26" stroke="#2a241e" stroke-width="3.2" stroke-linecap="round"/></g><path d="M15 19h18v3c5 2 7 6 7 11 0 6-5 11-16 11S8 39 8 33c0-5 2-9 7-11z" fill="#f6e2b3" stroke="#a9884c" stroke-width="2"/><rect x="16" y="13" width="16" height="7" rx="2.5" fill="#efd79b" stroke="#a9884c" stroke-width="2"/><ellipse cx="24" cy="20.5" rx="6.6" ry="2" fill="#2a241e"/></svg><div class="wl"><span class="t-en">Inkwell</span><span class="t-ar">الدواة</span></div><div class="wg"><i id="wfill"></i></div><div class="wm" id="wmsg"></div></div></div>
     <div class="row">
       <button class="tb" id="undo">↶ <span class="t-en">Undo</span><span class="t-ar">تراجع</span></button>
       <button class="tb" id="clear">🗑 <span class="t-en">Clear</span><span class="t-ar">مسح</span></button>
@@ -96,13 +96,6 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
       <button class="tb" data-pen="eraser"><span class="ic">🧽</span><span class="t-en">Eraser</span><span class="t-ar">ممحاة</span></button>
     </div>
     <div class="tip" id="tip"></div>
-    <div id="inkwell">
-      <div class="top">
-        <button class="tb" id="dip" type="button"><svg viewBox="0 0 48 48" width="52" height="52" aria-hidden="true"><g class="pen"><path d="M31 4 L25 22" stroke="#a9884c" stroke-width="3.2" stroke-linecap="round"/><path d="M25 22 L23.6 26" stroke="#2a241e" stroke-width="3.2" stroke-linecap="round"/></g><path d="M15 19h18v3c5 2 7 6 7 11 0 6-5 11-16 11S8 39 8 33c0-5 2-9 7-11z" fill="#f6e2b3" stroke="#a9884c" stroke-width="2"/><rect x="16" y="13" width="16" height="7" rx="2.5" fill="#efd79b" stroke="#a9884c" stroke-width="2"/><ellipse cx="24" cy="20.5" rx="6.6" ry="2" fill="#2a241e"/></svg><span class="t-en">Dip the pen</span><span class="t-ar">اغمس القلم في الدواة</span></button>
-        <div class="gw"><b><span class="t-en">Ink in the pen</span><span class="t-ar">الحبر في القلم</span></b><div class="gauge"><i id="gfill"></i></div></div>
-      </div>
-      <div id="inkMsg"></div>
-    </div>
 
     <div class="lbl" id="inkLbl"><span class="t-en">Ink</span><span class="t-ar">اللون</span></div>
     <div class="sw" id="colors"></div>
@@ -311,18 +304,17 @@ function hull2(P){   // convex hull (monotone chain)
 var INK = '#15120f', INKCAP = 36, inkLevel = 0;   // the pen's own ink: it empties as you write and is refilled from the inkwell (الدواة)
 function updInk(){
   var on = S.pen === 'reedink', lv = Math.round(inkLevel * 100), low = on && inkLevel < .25;
-  var g = $('gfill'); if (g) g.style.width = lv + '%';
-  var q = document.querySelector('#qbar .qg i'); if (q) q.style.height = lv + '%';
-  ['dip', 'qdip'].forEach(function(id){ var b = $(id); if (b) b.classList.toggle('low', low); });
-  var m = $('inkMsg');
-  if (m) m.textContent = inkLevel >= .25 ? (EN() ? 'The pen has enough ink.' : 'في القلم حبر يكفي.')
-    : inkLevel > .04 ? (EN() ? 'Ink is running low: dip the pen in the inkwell.' : 'الحبر يقلّ: اغمس القلم في الدواة.')
-    : (EN() ? 'The pen is empty: dip it in the inkwell before writing.' : 'نفد الحبر: اغمس القلم في الدواة قبل أن تكتب.');
+  var g = $('wfill'); if (g) g.style.width = lv + '%';
+  var w = $('well'); if (w) w.classList.toggle('low', low);
+  var m = $('wmsg');
+  if (m) m.textContent = inkLevel >= .25 ? ''
+    : inkLevel > .04 ? (EN() ? 'Ink is low: touch the inkwell' : 'الحبر يقلّ: المس الدواة')
+    : (EN() ? 'Pen is empty: touch the inkwell' : 'نفد الحبر: المس الدواة');
 }
 function setInk(v){ inkLevel = Math.max(0, Math.min(1, v)); updInk(); }
 function dip(){
   setInk(1);
-  ['dip', 'qdip'].forEach(function(id){ var b = $(id); if (!b) return; b.classList.remove('dipping'); void b.offsetWidth; b.classList.add('dipping'); });
+  var b = $('well'); if (!b) return; b.classList.remove('dipping'); void b.offsetWidth; b.classList.add('dipping');
 }
 function hsh(n){ n = Math.sin(n * 127.1 + 311.7) * 43758.5453; return n - Math.floor(n); }
 function vn(seed, x){ var i = Math.floor(x), f = x - i; f = f * f * (3 - 2 * f); return hsh(seed * 97 + i) * (1 - f) + hsh(seed * 97 + i + 1) * f; }
@@ -439,9 +431,7 @@ function ui(){
   $('szBox').style.display = rd ? 'none' : '';
   var ci = S.pen === 'reedink' ? 'none' : '';   // Chinese ink is always black
   $('inkLbl').style.display = $('colors').style.display = $('qcol').style.display = ci;
-  $('inkwell').style.display = S.pen === 'reedink' ? 'block' : 'none';
-  var qd = $('qdip'); if (qd) qd.style.display = S.pen === 'reedink' ? '' : 'none';
-  var qgg = document.querySelector('#qbar .qg'); if (qgg) qgg.style.display = S.pen === 'reedink' ? 'block' : 'none';
+  $('well').style.display = S.pen === 'reedink' ? 'block' : 'none';
   updInk();
   var wm = S.mode !== 'free'; $('prev').style.visibility = $('next').style.visibility = wm ? '' : 'hidden';
   $('wlbl').textContent = wm ? (idx + 1) + ' / ' + items().length : '✍️';
@@ -452,10 +442,8 @@ function ui(){
   var b = document.createElement('button'); b.dataset.pen = a[0]; b.textContent = a[1]; b.setAttribute('aria-label', a[0]); $('qp').appendChild(b);
 });
 var ub = document.createElement('button'); ub.textContent = '↶'; ub.setAttribute('aria-label', 'Undo'); ub.addEventListener('click', function(){ strokes.pop(); replay(); }); $('qp').appendChild(ub);
-var qd = document.createElement('button'); qd.id = 'qdip'; qd.type = 'button'; qd.setAttribute('aria-label', 'Dip the pen in the inkwell'); qd.innerHTML = '<svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><g class="pen"><path d="M31 4 L25 22" stroke="#a9884c" stroke-width="3.2" stroke-linecap="round"/><path d="M25 22 L23.6 26" stroke="#2a241e" stroke-width="3.2" stroke-linecap="round"/></g><path d="M15 19h18v3c5 2 7 6 7 11 0 6-5 11-16 11S8 39 8 33c0-5 2-9 7-11z" fill="#f6e2b3" stroke="#a9884c" stroke-width="2"/><rect x="16" y="13" width="16" height="7" rx="2.5" fill="#efd79b" stroke="#a9884c" stroke-width="2"/><ellipse cx="24" cy="20.5" rx="6.6" ry="2" fill="#2a241e"/></svg>';
-qd.addEventListener('click', dip); $('qp').appendChild(qd);
-var qg = document.createElement('div'); qg.className = 'qg'; qg.innerHTML = '<i></i>'; $('qp').appendChild(qg);
-$('dip').addEventListener('click', dip);
+$('well').addEventListener('pointerdown', function(e){ e.preventDefault(); e.stopPropagation(); dip(); });
+$('well').addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dip(); } });
 $('qp').addEventListener('click', function(e){ var b = e.target.closest('[data-pen]'); if (!b) return; S.pen = b.dataset.pen; ui(); save(); });
 COLORS.forEach(function(c){
   var q = document.createElement('button'); q.style.background = c; q.dataset.c = c; q.setAttribute('aria-label', 'Ink'); $('qcol').appendChild(q);
