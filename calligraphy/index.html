@@ -95,6 +95,7 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
       </div>
       <div class="lbl"><span class="t-en">Nib angle</span><span class="t-ar">زاوية القلم</span>: <span id="nibVal">70</span>°</div>
       <input type="range" id="nib" min="0" max="90" value="70" style="width:100%;height:36px" aria-label="Nib angle">
+      <svg id="nibPrev" viewBox="0 0 260 110" style="width:100%;max-width:340px;display:block;margin:6px auto 0;background:#fffaf0;border-radius:12px" aria-label="Nib cut preview"></svg>
     </div>
     <div id="szBox">
       <div class="lbl"><span class="t-en">Pen size</span><span class="t-ar">سماكة القلم</span></div>
@@ -258,14 +259,43 @@ function unitW(pen, s){
   }
   return 4;
 }
+var CUT_DEG = 40, WALL = .2;   // slant of the cut from the pen's axis; wall thickness relative to nib width
+function nibCorners(nibDeg, base){
+  var th = nibDeg * Math.PI / 180, ux = Math.cos(th), uy = -Math.sin(th);   // edge direction, right end higher
+  var vx = -uy, vy = ux, cc = CUT_DEG * Math.PI / 180, t = base * WALL;
+  // wall vector leans toward the right head so that it extends beyond the left one
+  var dx = t * (vx * Math.cos(cc) + ux * Math.sin(cc)), dy = t * (vy * Math.cos(cc) + uy * Math.sin(cc));
+  var ex = ux * base / 2, ey = uy * base / 2;
+  return [{ x: -ex - dx / 2, y: -ey - dy / 2 }, { x: ex - dx / 2, y: ey - dy / 2 }, { x: ex + dx / 2, y: ey + dy / 2 }, { x: -ex + dx / 2, y: -ey + dy / 2 }];
+}
+function drawNibPrev(){
+  var el = $('nibPrev'); if (!el) return;
+  var q = nibCorners(S.nib, 120).map(function(p){ return (130 + p.x).toFixed(1) + ',' + (60 + p.y).toFixed(1); }).join(' ');
+  var q0 = nibCorners(S.nib, 120), r = q0[1], l = q0[0];
+  el.innerHTML = '<polygon points="' + q + '" fill="#f3d9a4" stroke="#8a6d3b" stroke-width="2"/>' +
+    '<text x="' + Math.min(245, 130 + r.x + 8) + '" y="' + Math.max(20, 60 + r.y - 8) + '" font-size="18" fill="#5b4a2a" font-family="Amiri,serif">الوحشي</text>' +
+    '<text x="' + Math.max(4, 130 + l.x - 62) + '" y="' + Math.min(100, 60 + l.y + 24) + '" font-size="18" fill="#5b4a2a" font-family="Amiri,serif">الإنسي</text>';
+}
+function hull2(P){   // convex hull (monotone chain)
+  P = P.slice().sort(function(p, q){ return p.x - q.x || p.y - q.y; });
+  function cr(o, p, q){ return (p.x - o.x) * (q.y - o.y) - (p.y - o.y) * (q.x - o.x); }
+  var lo = [], up = [], i;
+  for (i = 0; i < P.length; i++) { while (lo.length > 1 && cr(lo[lo.length - 2], lo[lo.length - 1], P[i]) <= 0) lo.pop(); lo.push(P[i]); }
+  for (i = P.length - 1; i >= 0; i--) { while (up.length > 1 && cr(up[up.length - 2], up[up.length - 1], P[i]) <= 0) up.pop(); up.push(P[i]); }
+  lo.pop(); up.pop(); return lo.concat(up);
+}
 function seg(c, s, a, b){
   var dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || .001, st = s.st, w, p = (b.p > 0 && b.p !== .5) ? b.p : 0;
   c.save(); c.lineCap = 'round'; c.lineJoin = 'round'; c.strokeStyle = s.color; c.fillStyle = s.color;
   var base = s.w0 != null ? s.w0 * s.size : unitW(s.pen, s);
   if (s.pen === 'pencil') { c.globalAlpha = .88; c.lineWidth = base; line(); }
   else if (s.pen === 'reed') {
-    var th = s.nib * Math.PI / 180, nx = Math.cos(th) * base / 2, ny = -Math.sin(th) * base / 2;
-    c.beginPath(); c.moveTo(a.x - nx, a.y - ny); c.lineTo(a.x + nx, a.y + ny); c.lineTo(b.x + nx, b.y + ny); c.lineTo(b.x - nx, b.y - ny); c.closePath(); c.fill();
+    // oblique cut (الشطفة المائلة): the nib is a slanted parallelogram, not a bare line;
+    // the right head (الوحشي) is longer and higher than the left (الإنسي)
+    var cs = nibCorners(s.nib, base), ca = [], cb = [];
+    for (var k = 0; k < 4; k++) { ca.push({ x: a.x + cs[k].x, y: a.y + cs[k].y }); cb.push({ x: b.x + cs[k].x, y: b.y + cs[k].y }); }
+    var hull = hull2(ca.concat(cb));
+    c.beginPath(); hull.forEach(function(h, i){ if (i) c.lineTo(h.x, h.y); else c.moveTo(h.x, h.y); }); c.closePath(); c.fill();
     c.lineWidth = 1; c.stroke();
   } else if (s.pen === 'brush') {
     var dt = Math.max(4, (b.t || 0) - (a.t || 0) || 16), v = d / dt;
@@ -330,7 +360,7 @@ function ui(){
   var wm = S.mode !== 'free'; $('prev').style.visibility = $('next').style.visibility = wm ? '' : 'hidden';
   $('wlbl').textContent = wm ? (idx + 1) + ' / ' + items().length : '✍️';
   $('lszBox').style.display = wm ? 'none' : '';
-  $('nib').value = S.nib; $('nibVal').textContent = S.nib;
+  $('nib').value = S.nib; $('nibVal').textContent = S.nib; drawNibPrev();
 }
 [['reed','🖊️'],['pencil','✏️'],['brush','🖌️'],['marker','🖍️'],['eraser','🧽']].forEach(function(a){
   var b = document.createElement('button'); b.dataset.pen = a[0]; b.textContent = a[1]; b.setAttribute('aria-label', a[0]); $('qp').appendChild(b);
@@ -360,7 +390,7 @@ on('lsz', 'u', function(v){ S.u = +v; layout(); });
 on('modes', 'm', function(v){ S.mode = v; layout(); });
 on('fonts', 'f', function(v){ S.font = v; loadFont(); });
 on('presets', 'p', function(v){ remember(); S.preset = +v; S.custom = ''; $('custom').value = ''; idx = 0; recall(); layout(); });
-$('nib').addEventListener('input', function(){ S.nib = +this.value; $('nibVal').textContent = S.nib; save(); });
+$('nib').addEventListener('input', function(){ S.nib = +this.value; $('nibVal').textContent = S.nib; drawNibPrev(); save(); });
 $('custom').addEventListener('input', function(){ remember(); S.custom = this.value; idx = 0; if (S.mode === 'free') S.mode = 'steps'; recall(); layout(); ui(); });
 $('undo').addEventListener('click', function(){ strokes.pop(); replay(); });
 var clearT = 0;
