@@ -43,21 +43,35 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
 @keyframes inkpulse{0%,100%{box-shadow:0 0 0 0 rgba(217,166,58,0)}50%{box-shadow:0 0 0 7px rgba(217,166,58,.5)}}
 @keyframes inkdip{0%{transform:translateY(0)}45%{transform:translateY(10px)}100%{transform:translateY(0)}}
 .dipping .pen{animation:inkdip .7s}
-#qbar{position:fixed;left:0;right:0;bottom:0;z-index:2147483001;background:rgba(255,251,245,.97);border-top:1.5px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;align-items:center;direction:ltr}
-#qbar .qr{display:flex;gap:6px;justify-content:center}
+#qbar{position:fixed;left:0;right:0;bottom:0;z-index:2147483001;background:rgba(255,251,245,.97);border-top:1.5px solid var(--line);box-shadow:0 -4px 14px rgba(120,90,50,.08);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:6px;direction:ltr}
+/* one sliding row: pens, then ink colours; undo stays fixed beside it */
+#qbar .qs{position:relative;flex:1 1 auto;min-width:0}
+#qbar .qsc{display:flex;align-items:center;gap:8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scroll-padding:0 28px;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 2px;overscroll-behavior-x:contain}
+#qbar .qsc::-webkit-scrollbar{display:none}
+#qbar .qr{display:flex;gap:8px;flex:0 0 auto;align-items:center}
+#qbar .qsep{flex:0 0 auto;width:1.5px;height:34px;background:var(--line);border-radius:1px}
 #qbar button,.tb .ic{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
-#qbar button{width:50px;height:50px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:1.5rem;cursor:pointer;padding:0}
-#qbar button.on{background:var(--sand-soft);border-color:var(--sand)}
-#qbar .qc button{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line)}
-#qbar .qc button.on{box-shadow:0 0 0 3px var(--sand)}
-.wrap{padding-bottom:160px}
+#qbar button{flex:0 0 auto;scroll-snap-align:start;width:52px;height:52px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-size:1.55rem;cursor:pointer;padding:0;touch-action:manipulation}
+#qbar button.on{background:var(--sand-soft);border-color:var(--sand);box-shadow:0 0 0 2px var(--sand)}
+#qbar .qc button{width:38px;height:38px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line)}
+#qbar .qc button.on{box-shadow:0 0 0 4px var(--sand)}
+#qbar #qundo{width:56px;height:56px;font-family:var(--kufi);font-size:1.7rem;font-weight:700;color:var(--ink);background:var(--sand-soft);border-color:var(--sand)}
+/* soft fades + arrows show there is more to slide to */
+#qbar .qa{position:absolute;top:0;bottom:0;width:30px;display:flex;align-items:center;font-size:1.3rem;font-weight:700;color:#9a7b3f;pointer-events:none;opacity:0;transition:opacity .2s}
+#qbar .qa.l{left:0;justify-content:flex-start;padding-left:2px;background:linear-gradient(to right,rgba(255,251,245,1) 35%,rgba(255,251,245,0))}
+#qbar .qa.r{right:0;justify-content:flex-end;padding-right:2px;background:linear-gradient(to left,rgba(255,251,245,1) 35%,rgba(255,251,245,0))}
+#qbar .qs.ml .qa.l,#qbar .qs.mr .qa.r{opacity:1}
+.wrap{padding-bottom:110px}
 @media print{body{background:#fff}.wrap>*:not(.pr){display:none!important}.pr{border:0!important;padding:0!important;margin:0!important}.pr .row,.pr h2{display:none!important}#qbar,#topbar{display:none!important}}
 .nav{align-items:center;flex-wrap:nowrap;gap:6px;margin:0 0 8px}
 .nav .tb{flex:0 0 auto;flex-direction:row;min-height:50px;padding:6px 14px}
 .nav .wl{flex:1 1 60px;text-align:center;font-weight:800;font-size:1.3rem;font-family:var(--ui-en);direction:ltr}
-.pr.fsw{position:fixed;inset:0;z-index:2147483000;border-radius:0;margin:0;padding:6px 6px 140px;background:var(--paper);overflow:auto}
+.pr.fsw{position:fixed;inset:0;z-index:2147483000;border-radius:0;margin:0;padding:6px 6px 96px;background:var(--paper);overflow:auto}
 .pr.fsw .row:not(.nav){display:none}
-@media (max-width:640px){.wrap{padding-left:8px;padding-right:8px}.cc{padding:8px}.pr .board{border-width:2px}}
+@media (max-width:640px){.wrap{padding-left:8px;padding-right:8px}.cc{padding:8px;margin-top:8px}.pr .board{border-width:2px}
+  /* compact heading on phones so the board sits higher */
+  .phead{padding:10px 6px 2px}.phead .ic-svg{display:none}.phead h1{font-size:1.7rem;margin:0 0 2px}.phead p{font-size:1rem;line-height:1.6}
+  .nav .tb{min-height:46px;padding:4px 12px}}
 </style>
 </head>
 <body data-root="../">
@@ -164,7 +178,7 @@ input[type=text]{width:100%;font:500 1.3rem var(--text-ar);padding:10px 14px;bor
   <footer id="sitefoot"></footer>
 </main>
 
-<div id="qbar" aria-label="Quick tools"><div class="qr" id="qp"></div><div class="qr qc" id="qcol"></div></div>
+<div id="qbar" aria-label="Quick tools"><div class="qs" id="qs"><div class="qsc" id="qsc"><div class="qr" id="qp"></div><span class="qsep" id="qsep"></span><div class="qr qc" id="qcol"></div></div><span class="qa l" aria-hidden="true">‹</span><span class="qa r" aria-hidden="true">›</span></div><button id="qundo" aria-label="Undo">↶</button></div>
 <script src="../assets/site.js"></script>
 <script>
 (function(){
@@ -325,8 +339,8 @@ function autoU(){
 function layout(){
   var cw = board.clientWidth || 600; DPR = Math.min(window.devicePixelRatio || 1, 3);
   U = autoU(); var u = U; TOP = u * .45; ROW = u * 3.5;
-  var ratio = cw < 640 ? 1.5 : .75;
-  if (fsOn) ratio = Math.max(.6, (window.innerHeight - 215) / Math.max(200, window.innerWidth - 12));
+  var ratio = cw < 640 ? Math.max(.95, Math.min(1.5, (window.innerHeight - 200) / cw)) : .75;
+  if (fsOn) ratio = Math.max(.6, (window.innerHeight - 160) / Math.max(200, window.innerWidth - 12));
   rows = Math.max(2, Math.min(7, Math.floor((ratio * W - TOP) / ROW)));
   if (S.mode !== 'free') rows = Math.max(3, rows);
   H = Math.round(Math.max(TOP + rows * ROW, ratio * W));
@@ -539,18 +553,28 @@ function ui(){
   $('alifBox').style.display = rd ? '' : 'none';
   $('szBox').style.display = rd ? 'none' : '';
   var ci = S.pen === 'reedink' ? 'none' : '';   // Chinese ink is always black
-  $('inkLbl').style.display = $('colors').style.display = $('qcol').style.display = ci;
+  $('inkLbl').style.display = $('colors').style.display = $('qcol').style.display = $('qsep').style.display = ci;
   $('well').style.display = S.pen === 'reedink' ? 'block' : 'none';
   updInk();
   var wm = S.mode !== 'free'; $('prev').style.visibility = $('next').style.visibility = wm ? '' : 'hidden';
   $('wlbl').textContent = wm ? (idx + 1) + ' / ' + items().length : '✍️';
   $('lszBox').style.display = wm ? 'none' : '';
   $('nib').value = S.nib; $('nibVal').textContent = S.nib; drawNibPrev();
+  if ($('qsc')) qReveal();
 }
 [['reed','🖊️'],['reedink','🖋️'],['pencil','✏️'],['brush','🖌️'],['marker','🖍️'],['eraser','🧽']].forEach(function(a){
   var b = document.createElement('button'); b.dataset.pen = a[0]; b.textContent = a[1]; b.setAttribute('aria-label', a[0]); $('qp').appendChild(b);
 });
-var ub = document.createElement('button'); ub.textContent = '↶'; ub.setAttribute('aria-label', 'Undo'); ub.addEventListener('click', function(){ strokes.pop(); replay(); }); $('qp').appendChild(ub);
+$('qundo').addEventListener('click', function(){ strokes.pop(); replay(); });
+/* sliding strip: show fades/arrows only where more tools are hidden, and keep the chosen pen fully in view */
+function qEdges(){ var c = $('qsc'), m = c.scrollWidth - c.clientWidth;
+  $('qs').classList.toggle('ml', c.scrollLeft > 4); $('qs').classList.toggle('mr', c.scrollLeft < m - 4); }
+function qReveal(){ var c = $('qsc'), b = $('qp').querySelector('.on'); if (!b) return qEdges();
+  var cr = c.getBoundingClientRect(), br = b.getBoundingClientRect(), pad = 30;
+  if (br.left < cr.left + pad) c.scrollBy({left: br.left - cr.left - pad, behavior: 'smooth'});
+  else if (br.right > cr.right - pad) c.scrollBy({left: br.right - cr.right + pad, behavior: 'smooth'});
+  setTimeout(qEdges, 350); }
+$('qsc').addEventListener('scroll', qEdges, {passive: true}); window.addEventListener('resize', qEdges);
 $('well').addEventListener('pointerdown', function(e){ e.preventDefault(); e.stopPropagation(); dip(); });
 $('well').addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dip(); } });
 $('qp').addEventListener('click', function(e){ var b = e.target.closest('[data-pen]'); if (!b) return; S.pen = b.dataset.pen; ui(); save(); });
